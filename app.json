@@ -49,6 +49,16 @@
     "name": "Abe Haverkamp",
     "email": "abe.haverkamp@gmail.com"
   },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Nathan Spencer (pylitterbot)",
+        "url": "https://github.com/natekspencer"
+      }
+    ]
+  },
+  "source": "https://github.com/Doekse/whisker-homey",
+  "support": "mailto:abe.haverkamp@homey.app",
   "flow": {
     "triggers": [
       {
