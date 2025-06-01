@@ -85,7 +85,7 @@ You can try the app in two ways:
 
 👉 [Install the latest test version via Homey](https://homey.app/a/com.whisker/test/)
 
-> Note: You’ll need a Homey (Pro or Bridge) linked to your account.
+> Note: You’ll need a Homey Pro, support for Homey Cloud is planned.
 
 ---
 
