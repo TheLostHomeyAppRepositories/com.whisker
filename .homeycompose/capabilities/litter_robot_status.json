@@ -1,0 +1,11 @@
+
+
+{
+  "type": "string",
+  "title": {
+    "en": "Litter-Robot status"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor"
+}

@@ -1,0 +1,11 @@
+
+
+{
+  "title": {
+    "en": "Sleep mode end time"
+  },
+  "type": "string",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor"
+}

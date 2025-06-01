@@ -1,0 +1,20 @@
+{
+  "name": "com.whisker",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts --ignore-path .gitignore ."
+  },
+  "devDependencies": {
+    "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.12",
+    "eslint": "^7.32.0",
+    "eslint-config-athom": "^3.1.5"
+  },
+  "dependencies": {
+    "amazon-cognito-identity-js": "^6.3.15",
+    "graphql-ws": "^5.16.2",
+    "jsonwebtoken": "^9.0.2",
+    "node-fetch": "^2.6.7",
+    "ws": "^8.18.2"
+  }
+}

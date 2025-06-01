@@ -1,0 +1,56 @@
+{
+  "id": "com.whisker",
+  "version": "0.1.1",
+  "compatibility": ">=12.2.0",
+  "sdk": 3,
+  "platforms": ["local"],
+  "brandColor": "#faa321",
+  "name": {
+    "en": "Whisker"
+  },
+  "description": {
+    "en": "Life with your pet, endlessly better.",
+    "nl": "Het leven met je huisdier, eindeloos beter.",
+    "de": "Ein besseres Leben mit deinem Haustier – für immer.",
+    "fr": "La vie avec votre animal de compagnie, infiniment meilleure.",
+    "it": "La vita con il tuo animale domestico, infinitamente migliore.",
+    "sv": "Livet med ditt husdjur, oändligt mycket bättre.",
+    "no": "Livet med kjæledyret ditt, uendelig mye bedre.",
+    "es": "La vida con tu mascota, infinitamente mejor.",
+    "da": "Livet med dit kæledyr, uendeligt bedre.",
+    "ru": "Жизнь с вашим питомцем становится бесконечно лучше.",
+    "pl": "Życie z twoim pupilem – nieskończenie lepsze.",
+    "ko": "반려동물과 함께하는 삶, 끝없이 더 나아집니다."
+  },
+  "category": [
+    "appliances"
+  ],
+  "tags": {
+    "en": [
+      "pet",
+      "cat",
+      "litter box",
+      "litter-robot",
+      "feeder-robot",
+      "robotics",
+      "whisker"
+    ]
+  },
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Abe Haverkamp",
+    "email": "abe.haverkamp@gmail.com"
+  },
+    "contributors": {
+    "developers": [
+      {
+        "name": "Nathan Spencer (pylitterbot)"
+      }
+    ]
+  }
+}

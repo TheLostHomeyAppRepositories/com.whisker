@@ -1,0 +1,11 @@
+
+
+{
+  "title": {
+    "en": "Start clean cycle"
+  },
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button"
+}

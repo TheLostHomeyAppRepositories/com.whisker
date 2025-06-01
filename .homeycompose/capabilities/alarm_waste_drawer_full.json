@@ -1,0 +1,10 @@
+
+
+{
+  "type": "boolean",
+  "title": {
+    "en": "Waste drawer Full"
+  },
+  "getable": true,
+  "uiComponent": "sensor"
+}

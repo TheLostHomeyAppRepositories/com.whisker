@@ -1,0 +1,2319 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.whisker",
+  "version": "0.1.1",
+  "compatibility": ">=12.2.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "brandColor": "#faa321",
+  "name": {
+    "en": "Whisker"
+  },
+  "description": {
+    "en": "Life with your pet, endlessly better.",
+    "nl": "Het leven met je huisdier, eindeloos beter.",
+    "de": "Ein besseres Leben mit deinem Haustier – für immer.",
+    "fr": "La vie avec votre animal de compagnie, infiniment meilleure.",
+    "it": "La vita con il tuo animale domestico, infinitamente migliore.",
+    "sv": "Livet med ditt husdjur, oändligt mycket bättre.",
+    "no": "Livet med kjæledyret ditt, uendelig mye bedre.",
+    "es": "La vida con tu mascota, infinitamente mejor.",
+    "da": "Livet med dit kæledyr, uendeligt bedre.",
+    "ru": "Жизнь с вашим питомцем становится бесконечно лучше.",
+    "pl": "Życie z twoim pupilem – nieskończenie lepsze.",
+    "ko": "반려동물과 함께하는 삶, 끝없이 더 나아집니다."
+  },
+  "category": [
+    "appliances"
+  ],
+  "tags": {
+    "en": [
+      "pet",
+      "cat",
+      "litter box",
+      "litter-robot",
+      "feeder-robot",
+      "robotics",
+      "whisker"
+    ]
+  },
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Abe Haverkamp",
+    "email": "abe.haverkamp@gmail.com"
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "litter_level_above_threshold",
+        "title": {
+          "en": "Litter level rises above",
+          "nl": "Vulniveau stijgt boven",
+          "de": "Streupegel steigt über",
+          "fr": "Le niveau de litière dépasse",
+          "it": "Il livello della lettiera supera",
+          "sv": "Strönivån överskrider",
+          "no": "Strønivået overstiger",
+          "es": "El nivel de arena supera",
+          "da": "Strøelsesniveau overstiger",
+          "ru": "Уровень наполнителя превышает",
+          "pl": "Poziom żwirku przekracza",
+          "ko": "모래 수준이 초과함"
+        },
+        "titleFormatted": {
+          "en": "The litter level rises above [[threshold]] %",
+          "nl": "Het vulniveau stijgt boven de [[threshold]] %",
+          "de": "Der Streupegel steigt über [[threshold]] %",
+          "fr": "Le niveau de litière dépasse [[threshold]] %",
+          "it": "Il livello della lettiera supera [[threshold]] %",
+          "sv": "Strönivån överskrider [[threshold]] %",
+          "no": "Strønivået overstiger [[threshold]] %",
+          "es": "El nivel de arena supera [[threshold]] %",
+          "da": "Strøelsesniveau overstiger [[threshold]] %",
+          "ru": "Уровень наполнителя превышает [[threshold]] %",
+          "pl": "Poziom żwirku przekracza [[threshold]] %",
+          "ko": "모래 수준이 [[threshold]] %를 초과함"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          },
+          {
+            "name": "threshold",
+            "type": "number",
+            "min": 1,
+            "max": 100,
+            "title": {
+              "en": "Threshold",
+              "nl": "Drempelwaarde",
+              "de": "Schwellenwert",
+              "fr": "Seuil",
+              "it": "Soglia",
+              "sv": "Tröskelvärde",
+              "no": "Terskelverdi",
+              "es": "Umbral",
+              "da": "Tærskelværdi",
+              "ru": "Порог",
+              "pl": "Próg",
+              "ko": "임계값"
+            }
+          }
+        ]
+      },
+      {
+        "id": "sleep_mode_starts_in",
+        "title": {
+          "en": "Sleep mode starts in",
+          "nl": "Slaapmodus begint over",
+          "de": "Schlafmodus beginnt in",
+          "fr": "Le mode veille commence dans",
+          "it": "La modalità sleep inizia tra",
+          "sv": "Sömnläge startar om",
+          "no": "Dvalemodus starter om",
+          "es": "El modo de suspensión comienza en",
+          "da": "Dvaletilstand starter om",
+          "ru": "Режим сна начнётся через",
+          "pl": "Tryb uśpienia zaczyna się za",
+          "ko": "절전 모드가 시작됩니다"
+        },
+        "titleFormatted": {
+          "en": "Sleep mode starts in [[amount]] [[unit]]",
+          "nl": "Slaapmodus begint over [[amount]] [[unit]]",
+          "de": "Schlafmodus beginnt in [[amount]] [[unit]]",
+          "fr": "Le mode veille commence dans [[amount]] [[unit]]",
+          "it": "La modalità sleep inizia tra [[amount]] [[unit]]",
+          "sv": "Sömnläge startar om [[amount]] [[unit]]",
+          "no": "Dvalemodus starter om [[amount]] [[unit]]",
+          "es": "El modo de suspensión comienza en [[amount]] [[unit]]",
+          "da": "Dvaletilstand starter om [[amount]] [[unit]]",
+          "ru": "Режим сна начнётся через [[amount]] [[unit]]",
+          "pl": "Tryb uśpienia zaczyna się za [[amount]] [[unit]]",
+          "ko": "절전 모드는 [[amount]] [[unit]] 후에 시작됩니다"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          },
+          {
+            "name": "amount",
+            "type": "number",
+            "title": {
+              "en": "Amount",
+              "nl": "Aantal",
+              "de": "Menge",
+              "fr": "Montant",
+              "it": "Quantità",
+              "sv": "Mängd",
+              "no": "Mengde",
+              "es": "Cantidad",
+              "da": "Mængde",
+              "ru": "Количество",
+              "pl": "Ilość",
+              "ko": "수량"
+            }
+          },
+          {
+            "name": "unit",
+            "type": "dropdown",
+            "title": {
+              "en": "Time unit",
+              "nl": "Tijdseenheid",
+              "de": "Zeiteinheit",
+              "fr": "Unité de temps",
+              "it": "Unità di tempo",
+              "sv": "Tidsenhet",
+              "no": "Tidsenhet",
+              "es": "Unidad de tiempo",
+              "da": "Tidsenhed",
+              "ru": "Единица времени",
+              "pl": "Jednostka czasu",
+              "ko": "시간 단위"
+            },
+            "values": [
+              {
+                "id": "seconds",
+                "label": {
+                  "en": "seconds",
+                  "nl": "seconden",
+                  "de": "sekunden",
+                  "fr": "secondes",
+                  "it": "secondi",
+                  "sv": "sekunder",
+                  "no": "sekunder",
+                  "es": "segundos",
+                  "da": "sekunder",
+                  "ru": "секунд",
+                  "pl": "sekund",
+                  "ko": "초"
+                }
+              },
+              {
+                "id": "minutes",
+                "label": {
+                  "en": "minutes",
+                  "nl": "minuten",
+                  "de": "minuten",
+                  "fr": "minutes",
+                  "it": "minuti",
+                  "sv": "minuter",
+                  "no": "minutter",
+                  "es": "minutos",
+                  "da": "minutter",
+                  "ru": "минут",
+                  "pl": "minut",
+                  "ko": "분"
+                }
+              },
+              {
+                "id": "hours",
+                "label": {
+                  "en": "hours",
+                  "nl": "uren",
+                  "de": "stunden",
+                  "fr": "heures",
+                  "it": "ore",
+                  "sv": "timmar",
+                  "no": "timer",
+                  "es": "horas",
+                  "da": "timer",
+                  "ru": "часов",
+                  "pl": "godzin",
+                  "ko": "시간"
+                }
+              }
+            ]
+          }
+        ],
+        "hint": {
+          "en": "Triggers when sleep mode will start in the specified time.",
+          "nl": "Wordt geactiveerd wanneer de slaapmodus over de opgegeven tijd begint.",
+          "de": "Wird ausgelöst, wenn der Schlafmodus in der angegebenen Zeit startet.",
+          "fr": "Déclenché lorsque le mode veille commence dans le délai spécifié.",
+          "it": "Si attiva quando la modalità sleep inizia entro il tempo specificato.",
+          "sv": "Utlöses när sömnläge startar inom angiven tid.",
+          "no": "Utøses når dvalemodus starter innen angitt tid.",
+          "es": "Se activa cuando el modo de suspensión comienza en el tiempo especificado.",
+          "da": "Udløses, når dvaletilstand starter inden for den angivne tid.",
+          "ru": "Срабатывает, когда режим сна начнётся в указанное время.",
+          "pl": "Uruchamia się, gdy tryb uśpienia zaczyna się w określonym czasie.",
+          "ko": "수면 모드가 지정된 시간 내에 시작될 때 트리거됩니다."
+        }
+      },
+      {
+        "id": "sleep_mode_ends_in",
+        "title": {
+          "en": "Sleep mode ends in",
+          "nl": "Slaapmodus eindigt over",
+          "de": "Schlafmodus endet in",
+          "fr": "Le mode veille se termine dans",
+          "it": "La modalità sleep termina tra",
+          "sv": "Sömnläge slutar om",
+          "no": "Dvalemodus avsluttes om",
+          "es": "El modo de suspensión termina en",
+          "da": "Dvaletilstand slutter om",
+          "ru": "Режим сна завершится через",
+          "pl": "Tryb uśpienia kończy się za",
+          "ko": "절전 모드가 종료됩니다"
+        },
+        "titleFormatted": {
+          "en": "Sleep mode ends in [[amount]] [[unit]]",
+          "nl": "Slaapmodus eindigt over [[amount]] [[unit]]",
+          "de": "Schlafmodus endet in [[amount]] [[unit]]",
+          "fr": "Le mode veille se termine dans [[amount]] [[unit]]",
+          "it": "La modalità sleep termina tra [[amount]] [[unit]]",
+          "sv": "Sömnläge slutar om [[amount]] [[unit]]",
+          "no": "Dvalemodus avsluttes om [[amount]] [[unit]]",
+          "es": "El modo de suspensión termina en [[amount]] [[unit]]",
+          "da": "Dvaletilstand slutter om [[amount]] [[unit]]",
+          "ru": "Режим сна завершится через [[amount]] [[unit]]",
+          "pl": "Tryb uśpienia kończy się za [[amount]] [[unit]]",
+          "ko": "절전 모드는 [[amount]] [[unit]] 후에 종료됩니다"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          },
+          {
+            "name": "amount",
+            "type": "number",
+            "title": {
+              "en": "Amount",
+              "nl": "Aantal",
+              "de": "Menge",
+              "fr": "Montant",
+              "it": "Quantità",
+              "sv": "Mängd",
+              "no": "Mengde",
+              "es": "Cantidad",
+              "da": "Mængde",
+              "ru": "Количество",
+              "pl": "Ilość",
+              "ko": "수량"
+            }
+          },
+          {
+            "name": "unit",
+            "type": "dropdown",
+            "title": {
+              "en": "Time unit",
+              "nl": "Tijdseenheid",
+              "de": "Zeiteinheit",
+              "fr": "Unité de temps",
+              "it": "Unità di tempo",
+              "sv": "Tidsenhet",
+              "no": "Tidsenhet",
+              "es": "Unidad de tiempo",
+              "da": "Tidsenhed",
+              "ru": "Единица времени",
+              "pl": "Jednostka czasu",
+              "ko": "시간 단위"
+            },
+            "values": [
+              {
+                "id": "seconds",
+                "label": {
+                  "en": "seconds",
+                  "nl": "seconden",
+                  "de": "sekunden",
+                  "fr": "secondes",
+                  "it": "secondi",
+                  "sv": "sekunder",
+                  "no": "sekunder",
+                  "es": "segundos",
+                  "da": "sekunder",
+                  "ru": "секунд",
+                  "pl": "sekund",
+                  "ko": "초"
+                }
+              },
+              {
+                "id": "minutes",
+                "label": {
+                  "en": "minutes",
+                  "nl": "minuten",
+                  "de": "minuten",
+                  "fr": "minutes",
+                  "it": "minuti",
+                  "sv": "minuter",
+                  "no": "minutter",
+                  "es": "minutos",
+                  "da": "minutter",
+                  "ru": "минут",
+                  "pl": "minut",
+                  "ko": "분"
+                }
+              },
+              {
+                "id": "hours",
+                "label": {
+                  "en": "hours",
+                  "nl": "uren",
+                  "de": "stunden",
+                  "fr": "heures",
+                  "it": "ore",
+                  "sv": "timmar",
+                  "no": "timer",
+                  "es": "horas",
+                  "da": "timer",
+                  "ru": "часов",
+                  "pl": "godzin",
+                  "ko": "시간"
+                }
+              }
+            ]
+          }
+        ],
+        "hint": {
+          "en": "Triggers when sleep mode will end in the specified time.",
+          "nl": "Wordt geactiveerd wanneer de slaapmodus over de opgegeven tijd eindigt.",
+          "de": "Wird ausgelöst, wenn der Schlafmodus in der angegebenen Zeit endet.",
+          "fr": "Déclenché lorsque le mode veille se termine dans le délai spécifié.",
+          "it": "Si attiva quando la modalità sleep termina entro il tempo specificato.",
+          "sv": "Utlöses när sömnläge avslutas inom angiven tid.",
+          "no": "Utøses når dvalemodus avsluttes innen angitt tid.",
+          "es": "Se activa cuando el modo de suspensión termina en el tiempo especificado.",
+          "da": "Udløses, når dvaletilstand slutter inden for den angivne tid.",
+          "ru": "Срабатывает, когда режим сна завершится в указанное время.",
+          "pl": "Uruchamia się, gdy tryb uśpienia kończy się w określonym czasie.",
+          "ko": "수면 모드가 지정된 시간 내에 종료될 때 트리거됩니다."
+        }
+      },
+      {
+        "id": "litter_level_below_threshold",
+        "title": {
+          "en": "Litter level drops below",
+          "nl": "Vulniveau daalt onder",
+          "de": "Streu-Niveau fällt unter",
+          "fr": "Le niveau de litière passe en dessous de",
+          "it": "Il livello della lettiera scende sotto",
+          "sv": "Strönivån sjunker under",
+          "no": "Strønivået faller under",
+          "es": "El nivel de arena cae por debajo de",
+          "da": "Strøniveau falder under",
+          "ru": "Уровень наполнителя ниже",
+          "pl": "Poziom żwirku spada poniżej",
+          "ko": "모래 수준이 아래로 떨어짐"
+        },
+        "titleFormatted": {
+          "en": "The litter level drops below [[threshold]] %",
+          "nl": "Het vulniveau daalt onder [[threshold]] %",
+          "de": "Der Streuniveau fällt unter [[threshold]] %",
+          "fr": "Le niveau de litière descend en dessous de [[threshold]] %",
+          "it": "Il livello della lettiera scende sotto [[threshold]] %",
+          "sv": "Strö nivån sjunker under [[threshold]] %",
+          "no": "Strø nivået faller under [[threshold]] %",
+          "es": "El nivel de arena baja por debajo del [[threshold]] %",
+          "da": "Katteniveauet falder under [[threshold]] %",
+          "ru": "Уровень наполнителя опускается ниже [[threshold]] %",
+          "pl": "Poziom żwirku spada poniżej [[threshold]] %",
+          "ko": "모래 수준이 [[threshold]] % 이하로 떨어졌습니다"
+        },
+        "hint": {
+          "en": "Triggers when the litter level drops below the set percentage.",
+          "nl": "Wordt geactiveerd wanneer het vulniveau onder het ingestelde percentage daalt.",
+          "de": "Wird ausgelöst, wenn der Streu-Niveau unter den eingestellten Prozentsatz fällt.",
+          "fr": "Déclenchement lorsque le niveau de litière passe en dessous du pourcentage défini.",
+          "it": "Si attiva quando il livello della lettiera scende sotto la percentuale impostata.",
+          "sv": "Utlöses när strönivån faller under den inställda procenten.",
+          "no": "Utøses når strønivået faller under den angitte prosenten.",
+          "es": "Se activa cuando el nivel de arena cae por debajo del porcentaje establecido.",
+          "da": "Udløses når strøniveauet falder under den angivne procentdel.",
+          "ru": "Срабатывает, когда уровень наполнителя падает ниже заданного значения.",
+          "pl": "Wyzwala się, gdy poziom żwirku spada poniżej ustawionego procentu.",
+          "ko": "설정된 백분율 아래로 모래 수준이 떨어질 때 트리거됩니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          },
+          {
+            "name": "threshold",
+            "type": "number",
+            "min": 1,
+            "max": 100,
+            "title": {
+              "en": "Threshold",
+              "nl": "Drempelwaarde",
+              "de": "Schwellenwert",
+              "fr": "Seuil",
+              "it": "Soglia",
+              "sv": "Tröskelvärde",
+              "no": "Terskelverdi",
+              "es": "Umbral",
+              "da": "Tærskelværdi",
+              "ru": "Порог",
+              "pl": "Próg",
+              "ko": "임계값"
+            }
+          }
+        ]
+      },
+      {
+        "id": "waste_drawer_level_below_threshold",
+        "title": {
+          "en": "The waste drawer level drops below [[threshold]] %",
+          "nl": "Het niveau van de afvalbak daalt onder [[threshold]] %",
+          "de": "Der Abfallbehälterstand fällt unter [[threshold]] %",
+          "fr": "Le niveau du bac à déchets descend en dessous de [[threshold]] %",
+          "it": "Il livello del cassetto dei rifiuti scende sotto [[threshold]] %",
+          "sv": "Avfallslådans nivå sjunker under [[threshold]] %",
+          "no": "Avfallsnivået faller under [[threshold]] %",
+          "es": "El nivel del cajón de desechos cae por debajo del [[threshold]] %",
+          "da": "Affaldsskuffens niveau falder under [[threshold]] %",
+          "ru": "Уровень мусора опускается ниже [[threshold]] %",
+          "pl": "Poziom szuflady na odpady spada poniżej [[threshold]] %",
+          "ko": "폐기물 서랍 수치가 [[threshold]]% 아래로 떨어짐"
+        },
+        "titleFormatted": {
+          "en": "The waste drawer level drops below [[threshold]] %",
+          "nl": "Het niveau van de afvalbak daalt onder [[threshold]] %",
+          "de": "Der Füllstand der Abfall-Schublade fällt unter [[threshold]] %",
+          "fr": "Le niveau du bac à déchets passe sous [[threshold]] %",
+          "it": "Il livello del cassetto dei rifiuti scende sotto [[threshold]] %",
+          "sv": "Avfallsnivån sjunker under [[threshold]] %",
+          "no": "Avfallsnivåen faller under [[threshold]] %",
+          "es": "El nivel del cajón de residuos baja de [[threshold]] %",
+          "da": "Affaldsskuffens niveau falder under [[threshold]] %",
+          "ru": "Уровень отходов опускается ниже [[threshold]] %",
+          "pl": "Poziom szuflady na odpady spada poniżej [[threshold]] %",
+          "ko": "폐기물 서랍 수위가 [[threshold]]% 이하로 떨어졌습니다"
+        },
+        "hint": {
+          "en": "Triggers when the waste drawer level drops below the given threshold.",
+          "nl": "Wordt geactiveerd wanneer het afvalniveau onder de drempel komt.",
+          "de": "Wird ausgelöst, wenn der Abfallstand unter den Schwellenwert fällt.",
+          "fr": "Déclenchement lorsque le niveau de la poubelle passe en dessous du seuil.",
+          "it": "Si attiva quando il livello del cassetto dei rifiuti scende sotto la soglia.",
+          "sv": "Utlöses när avfallsnivån sjunker under tröskelvärdet.",
+          "no": "Utøses når avfallsnivået faller under terskelen.",
+          "es": "Se activa cuando el nivel del cajón de residuos cae por debajo del umbral.",
+          "da": "Udløses, når affaldsniveauet falder under tærsklen.",
+          "ru": "Срабатывает, когда уровень отходов падает ниже заданного порога.",
+          "pl": "Uruchamiane, gdy poziom odpadów spadnie poniżej progu.",
+          "ko": "폐기물 수준이 임계값 이하로 떨어질 때 트리거됩니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          },
+          {
+            "name": "threshold",
+            "type": "number",
+            "min": 1,
+            "max": 100,
+            "title": {
+              "en": "Threshold",
+              "nl": "Drempelwaarde",
+              "de": "Schwellenwert",
+              "fr": "Seuil",
+              "it": "Soglia",
+              "sv": "Tröskelvärde",
+              "no": "Terskelverdi",
+              "es": "Umbral",
+              "da": "Tærskelværdi",
+              "ru": "Пороговое значение",
+              "pl": "Próg",
+              "ko": "임계값"
+            }
+          }
+        ]
+      },
+      {
+        "id": "waste_drawer_level_above_threshold",
+        "title": {
+          "en": "The waste drawer level rises above [[threshold]] %",
+          "nl": "Het niveau van de afvalbak stijgt boven [[threshold]] %",
+          "de": "Der Abfallbehälterstand steigt über [[threshold]] %",
+          "fr": "Le niveau du bac à déchets dépasse [[threshold]] %",
+          "it": "Il livello del cassetto dei rifiuti supera [[threshold]] %",
+          "sv": "Avfallslådans nivå stiger över [[threshold]] %",
+          "no": "Avfallsnivået stiger over [[threshold]] %",
+          "es": "El nivel del cajón de desechos supera [[threshold]] %",
+          "da": "Affaldsskuffens niveau stiger over [[threshold]] %",
+          "ru": "Уровень мусора превышает [[threshold]] %",
+          "pl": "Poziom szuflady na odpady przekracza [[threshold]] %",
+          "ko": "폐기물 서랍 수치가 [[threshold]]% 이상으로 상승"
+        },
+        "titleFormatted": {
+          "en": "The waste drawer level rises above [[threshold]] %",
+          "nl": "Het niveau van de afvalbak stijgt boven [[threshold]] %",
+          "de": "Der Füllstand der Abfall-Schublade steigt über [[threshold]] %",
+          "fr": "Le niveau du bac à déchets passe au-dessus de [[threshold]] %",
+          "it": "Il livello del cassetto dei rifiuti supera [[threshold]] %",
+          "sv": "Avfallsnivån stiger över [[threshold]] %",
+          "no": "Avfallsnivåen stiger over [[threshold]] %",
+          "es": "El nivel del cajón de residuos sube de [[threshold]] %",
+          "da": "Affaldsskuffens niveau stiger over [[threshold]] %",
+          "ru": "Уровень отходов поднимается выше [[threshold]] %",
+          "pl": "Poziom szuflady na odpady przekracza [[threshold]] %",
+          "ko": "폐기물 서랍 수위가 [[threshold]]% 이상으로 올랐습니다"
+        },
+        "hint": {
+          "en": "Triggers when the waste drawer level rises above the given threshold.",
+          "nl": "Wordt geactiveerd wanneer het afvalniveau boven de drempel komt.",
+          "de": "Wird ausgelöst, wenn der Abfallstand über den Schwellenwert steigt.",
+          "fr": "Déclenchement lorsque le niveau de la poubelle dépasse le seuil.",
+          "it": "Si attiva quando il livello del cassetto dei rifiuti supera la soglia.",
+          "sv": "Utlöses när avfallsnivån stiger över tröskelvärdet.",
+          "no": "Utøses når avfallsnivået overstiger terskelen.",
+          "es": "Se activa cuando el nivel del cajón de residuos supera el umbral.",
+          "da": "Udløses, når affaldsniveauet stiger over tærsklen.",
+          "ru": "Срабатывает, когда уровень отходов превышает заданный порог.",
+          "pl": "Uruchamiane, gdy poziom odpadów przekroczy próg.",
+          "ko": "폐기물 수준이 임계값을 초과할 때 트리거됩니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          },
+          {
+            "name": "threshold",
+            "type": "number",
+            "min": 1,
+            "max": 100,
+            "title": {
+              "en": "Threshold",
+              "nl": "Drempelwaarde",
+              "de": "Schwellenwert",
+              "fr": "Seuil",
+              "it": "Soglia",
+              "sv": "Tröskelvärde",
+              "no": "Terskelverdi",
+              "es": "Umbral",
+              "da": "Tærskelværdi",
+              "ru": "Пороговое значение",
+              "pl": "Próg",
+              "ko": "임계값"
+            }
+          }
+        ]
+      },
+      {
+        "id": "cat_detected",
+        "title": {
+          "en": "A cat is detected",
+          "nl": "Er is een kat gedetecteerd",
+          "de": "Eine Katze wurde erkannt",
+          "fr": "Un chat est détecté",
+          "it": "Un gatto è stato rilevato",
+          "sv": "En katt har upptäckts",
+          "no": "En katt er oppdaget",
+          "es": "Se ha detectado un gato",
+          "da": "En kat er blevet registreret",
+          "ru": "Обнаружена кошка",
+          "pl": "Wykryto kota",
+          "ko": "고양이가 감지되었습니다"
+        },
+        "hint": {
+          "en": "Triggers when a cat is detected in the Litter-Robot.",
+          "nl": "Wordt geactiveerd wanneer een kat wordt gedetecteerd in de Litter-Robot.",
+          "de": "Wird ausgelöst, wenn eine Katze in der Litter-Robot erkannt wird.",
+          "fr": "Se déclenche lorsqu'un chat est détecté dans le Litter-Robot.",
+          "it": "Si attiva quando un gatto viene rilevato nel Litter-Robot.",
+          "sv": "Utlöses när en katt upptäcks i Litter-Robot.",
+          "no": "Utøses når en katt oppdages i Litter-Robot.",
+          "es": "Se activa cuando se detecta un gato en el Litter-Robot.",
+          "da": "Udløses, når en kat registreres i Litter-Robot.",
+          "ru": "Срабатывает при обнаружении кошки в Litter-Robot.",
+          "pl": "Wyzwalane po wykryciu kota w Litter-Robot.",
+          "ko": "Litter-Robot에서 고양이를 감지하면 트리거됩니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "cat_not_detected",
+        "title": {
+          "en": "A cat is no longer detected",
+          "nl": "Er is geen kat meer gedetecteerd",
+          "de": "Keine Katze mehr erkannt",
+          "fr": "Aucun chat n'est plus détecté",
+          "it": "Non viene più rilevato alcun gatto",
+          "sv": "Ingen katt detekteras längre",
+          "no": "Ingen katt oppdages lenger",
+          "es": "Ya no se detecta un gato",
+          "da": "Der er ikke længere registreret en kat",
+          "ru": "Кошка больше не обнаруживается",
+          "pl": "Nie wykryto już kota",
+          "ko": "더 이상 고양이가 감지되지 않습니다"
+        },
+        "hint": {
+          "en": "Triggers when a cat that was previously detected is no longer detected in the Litter-Robot.",
+          "nl": "Wordt geactiveerd wanneer een eerder gedetecteerde kat niet langer wordt gedetecteerd in de Litter-Robot.",
+          "de": "Wird ausgelöst, wenn eine zuvor erkannte Katze nicht mehr im Litter-Robot erkannt wird.",
+          "fr": "Se déclenche lorsqu'un chat précédemment détecté n'est plus détecté dans le Litter-Robot.",
+          "it": "Si attiva quando un gatto precedentemente rilevato non viene più rilevato nel Litter-Robot.",
+          "sv": "Utlöses när en tidigare upptäckt katt inte längre upptäcks i Litter-Robot.",
+          "no": "Utøses når en tidligere oppdaget katt ikke lenger oppdages i Litter-Robot.",
+          "es": "Se activa cuando un gato detectado anteriormente ya no se detecta en el Litter-Robot.",
+          "da": "Udløses, når en tidligere registreret kat ikke længere registreres i Litter-Robot.",
+          "ru": "Срабатывает, когда ранее обнаруженная кошка больше не обнаруживается в Litter-Robot.",
+          "pl": "Uruchamia się, gdy wcześniej wykryty kot nie jest już wykrywany w Litter-Robot.",
+          "ko": "이전에 감지된 고양이가 더 이상 Litter-Robot에서 감지되지 않을 때 트리거됩니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "waste_drawer_not_full",
+        "title": {
+          "en": "The waste drawer is no longer full",
+          "nl": "De afvalbak is niet langer vol",
+          "de": "Der Abfallbehälter ist nicht mehr voll",
+          "fr": "Le bac à déchets n'est plus plein",
+          "it": "Il cassetto dei rifiuti non è più pieno",
+          "sv": "Avfallsbehållaren är inte längre full",
+          "no": "Avfallsbeholderen er ikke lenger full",
+          "es": "El contenedor de residuos ya no está lleno",
+          "da": "Affaldsskuffen er ikke længere fuld",
+          "ru": "Контейнер для отходов больше не полон",
+          "pl": "Szuflada na odpady nie jest już pełna",
+          "ko": "폐기물 서랍이 더 이상 가득 차지 않았습니다"
+        },
+        "hint": {
+          "en": "Triggers when the Litter-Robot's waste drawer has been emptied.",
+          "nl": "Wordt geactiveerd wanneer de afvalbak van de Litter-Robot is geleegd.",
+          "de": "Wird ausgelöst, wenn der Abfallbehälter des Litter-Robots geleert wurde.",
+          "fr": "Déclenché lorsque le bac à déchets du Litter-Robot a été vidé.",
+          "it": "Si attiva quando il cassetto dei rifiuti del Litter-Robot è stato svuotato.",
+          "sv": "Utlöses när Litter-Robots avfallsbehållare har tömts.",
+          "no": "Utøses når Litter-Robots avfallsbeholder er tømt.",
+          "es": "Se activa cuando el contenedor de residuos del Litter-Robot ha sido vaciado.",
+          "da": "Udløses, når Litter-Robots affaldsbeholder er blevet tømt.",
+          "ru": "Срабатывает, когда контейнер для отходов Litter-Robot опустошен.",
+          "pl": "Uruchamia się, gdy pojemnik na odpady Litter-Robota został opróżniony.",
+          "ko": "Litter-Robot의 폐기물 통이 비워졌을 때 트리거됩니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "clean_cycle_multiple",
+        "title": {
+          "en": "Litter-Robot completed multiple clean cycles",
+          "nl": "Litter-Robot heeft meerdere schoonmaakcycli voltooid",
+          "de": "Litter-Robot hat mehrere Reinigungszyklen abgeschlossen",
+          "fr": "Le Litter-Robot a terminé plusieurs cycles de nettoyage",
+          "it": "Il Litter-Robot ha completato più cicli di pulizia",
+          "sv": "Litter-Robot har slutfört flera rengöringscykler",
+          "no": "Litter-Robot har fullført flere rengjøringssykluser",
+          "es": "El Litter-Robot ha completado varios ciclos de limpieza",
+          "da": "Litter-Robot har afsluttet flere rengøringscyklusser",
+          "ru": "Litter-Robot завершил несколько циклов очистки",
+          "pl": "Litter-Robot ukończył wiele cykli czyszczenia",
+          "ko": "Litter-Robot가 여러 청소 사이클을 완료했습니다"
+        },
+        "hint": {
+          "en": "Triggers when the Litter-Robot completes a specified number of clean cycles."
+        },
+        "titleFormatted": {
+          "en": "When the Litter-Robot completed [[count]] clean cycles",
+          "nl": "Wanneer de Litter-Robot [[count]] schoonmaakcycli heeft voltooid",
+          "de": "Wenn der Litter-Robot [[count]] Reinigungszyklen abgeschlossen hat",
+          "fr": "Lorsque le Litter-Robot a terminé [[count]] cycles de nettoyage",
+          "it": "Quando il Litter-Robot ha completato [[count]] cicli di pulizia",
+          "sv": "När Litter-Robot har slutfört [[count]] rengöringscykler",
+          "no": "Når Litter-Robot har fullført [[count]] rengjøringssykluser",
+          "es": "Cuando el Litter-Robot haya completado [[count]] ciclos de limpieza",
+          "da": "Når Litter-Robot har afsluttet [[count]] rengøringscyklusser",
+          "ru": "Когда Litter-Robot завершит [[count]] циклов очистки",
+          "pl": "Gdy Litter-Robot ukończy [[count]] cykli czyszczenia",
+          "ko": "Litter-Robot가 [[count]]번의 청소 사이클을 완료했을 때"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          },
+          {
+            "name": "count",
+            "type": "number",
+            "title": {
+              "en": "Number of clean cycles",
+              "nl": "Aantal schoonmaakcycli",
+              "de": "Anzahl der Reinigungszyklen",
+              "fr": "Nombre de cycles de nettoyage",
+              "it": "Numero di cicli di pulizia",
+              "sv": "Antal rengöringscykler",
+              "no": "Antall rengjøringssykluser",
+              "es": "Número de ciclos de limpieza",
+              "da": "Antal rengøringscyklusser",
+              "ru": "Количество циклов очистки",
+              "pl": "Liczba cykli czyszczenia",
+              "ko": "청소 사이클 수"
+            }
+          }
+        ],
+        "tokens": [
+          {
+            "name": "total_cycles",
+            "type": "number",
+            "title": {
+              "en": "Total completed clean cycles",
+              "nl": "Totaal voltooide schoonmaakcycli",
+              "de": "Insgesamt abgeschlossene Reinigungszyklen",
+              "fr": "Total des cycles de nettoyage terminés",
+              "it": "Totale cicli di pulizia completati",
+              "sv": "Totalt slutförda rengöringscykler",
+              "no": "Totalt fullførte rengjøringssykluser",
+              "es": "Ciclos de limpieza completados",
+              "da": "Samlet antal afsluttede rengøringscyklusser",
+              "ru": "Всего завершено циклов очистки",
+              "pl": "Łączna liczba zakończonych cykli czyszczenia",
+              "ko": "완료된 총 청소 사이클 수"
+            }
+          }
+        ]
+      },
+      {
+        "id": "problem_details_provided",
+        "title": {
+          "en": "A problem is detected and details are provided",
+          "nl": "Een probleem wordt gedetecteerd en details worden verstrekt",
+          "de": "Ein Problem erkannt und Details bereitgestellt werden",
+          "fr": "Lorsqu'un problème est détecté et des détails sont fournis",
+          "it": "Quando viene rilevato un problema e vengono forniti i dettagli",
+          "sv": "När ett problem upptäcks och detaljer tillhandahålls",
+          "no": "Når et problem oppdages og detaljer er gitt",
+          "es": "Cuando se detecta un problema y se proporcionan detalles",
+          "da": "Når et problem opdages, og detaljer gives",
+          "ru": "Когда обнаружена проблема и предоставлены детали",
+          "pl": "Gdy zostanie wykryty problem i podane zostaną szczegóły",
+          "ko": "문제가 감지되고 세부 정보가 제공될 때"
+        },
+        "hint": {
+          "en": "Triggers when a hardware issue is detected in the Litter-Robot and provides details about the problem(s).",
+          "nl": "Wordt geactiveerd wanneer een hardwareprobleem wordt gedetecteerd in de Litter-Robot en details over het probleem worden verstrekt.",
+          "de": "Wird ausgelöst, wenn ein Hardwareproblem im Litter-Robot erkannt wird und Details zum Problem bereitgestellt werden.",
+          "fr": "Déclenchement lorsqu'un problème matériel est détecté dans le Litter-Robot et que des détails sont fournis.",
+          "it": "Si attiva quando viene rilevato un problema hardware nel Litter-Robot e vengono forniti dettagli.",
+          "sv": "Utlöses när ett maskinvaruproblem upptäcks i Litter-Robot och detaljer tillhandahålls.",
+          "no": "Utøses når et maskinvareproblem oppdages i Litter-Robot, og detaljer gis.",
+          "es": "Se activa cuando se detecta un problema de hardware en el Litter-Robot y se proporcionan detalles.",
+          "da": "Udløses, når et hardwareproblem registreres i Litter-Robot, og detaljer gives.",
+          "ru": "Срабатывает при обнаружении аппаратной проблемы в Litter-Robot и предоставляет подробности.",
+          "pl": "Uruchamia się po wykryciu problemu sprzętowego w Litter-Robot i dostarcza szczegóły.",
+          "ko": "Litter-Robot에서 하드웨어 문제가 감지되면 트리거되며 세부 정보가 제공됩니다."
+        },
+        "tokens": [
+          {
+            "type": "string",
+            "name": "problem_description",
+            "title": {
+              "en": "Problem description",
+              "nl": "Probleembeschrijving",
+              "de": "Problembeschreibung",
+              "fr": "Description du problème",
+              "it": "Descrizione del problema",
+              "sv": "Problembeskrivning",
+              "no": "Problembeskrivelse",
+              "es": "Descripción del problema",
+              "da": "Problembeskrivelse",
+              "ru": "Описание проблемы",
+              "pl": "Opis problemu",
+              "ko": "문제 설명"
+            }
+          },
+          {
+            "type": "string",
+            "name": "problem_codes",
+            "title": {
+              "en": "Problem codes",
+              "nl": "Probleemcodes",
+              "de": "Problem-Codes",
+              "fr": "Codes d’erreur",
+              "it": "Codici problema",
+              "sv": "Problemkoder",
+              "no": "Problemkoder",
+              "es": "Códigos de problema",
+              "da": "Problemkoder",
+              "ru": "Коды проблем",
+              "pl": "Kody problemów",
+              "ko": "문제 코드"
+            }
+          },
+          {
+            "type": "number",
+            "name": "problem_count",
+            "title": {
+              "en": "Problem count",
+              "nl": "Aantal problemen",
+              "de": "Anzahl der Probleme",
+              "fr": "Nombre de problèmes",
+              "it": "Numero di problemi",
+              "sv": "Antal problem",
+              "no": "Antall problemer",
+              "es": "Cantidad de problemas",
+              "da": "Antal problemer",
+              "ru": "Количество проблем",
+              "pl": "Liczba problemów",
+              "ko": "문제 수"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "waste_drawer_full",
+        "title": {
+          "en": "The waste drawer is full",
+          "nl": "De afvalbak is vol",
+          "de": "Der Abfallbehälter ist voll",
+          "fr": "Le bac à déchets est plein",
+          "it": "Il cassetto dei rifiuti è pieno",
+          "sv": "Avfallsbehållaren är full",
+          "no": "Avfallsbeholderen er full",
+          "es": "El cajón de residuos está lleno",
+          "da": "Affaldsskuffen er fuld",
+          "ru": "Контейнер для отходов полон",
+          "pl": "Szuflada na odpady jest pełna",
+          "ko": "폐기물 서랍이 가득 찼습니다"
+        },
+        "hint": {
+          "en": "Triggers when the Litter-Robot detects a full waste drawer.",
+          "nl": "Wordt geactiveerd wanneer de Litter-Robot een volle afvalbak detecteert.",
+          "de": "Wird ausgelöst, wenn der Litter-Robot einen vollen Abfallbehälter erkennt.",
+          "fr": "Déclenchement lorsque le Litter-Robot détecte un bac à déchets plein.",
+          "it": "Si attiva quando il Litter-Robot rileva un cassetto dei rifiuti pieno.",
+          "sv": "Utlöses när Litter-Robot upptäcker att avfallsbehållaren är full.",
+          "no": "Utøses når Litter-Robot oppdager at avfallsbeholderen er full.",
+          "es": "Se activa cuando el Litter-Robot detecta que el cajón de residuos está lleno.",
+          "da": "Udløses, når Litter-Robot registrerer, at affaldsskuffen er fuld.",
+          "ru": "Срабатывает, когда Litter-Robot обнаруживает полный контейнер для отходов.",
+          "pl": "Uruchamia się, gdy Litter-Robot wykryje pełną szufladę na odpady.",
+          "ko": "Litter-Robot가 폐기물 서랍이 가득 찼음을 감지하면 트리거됩니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "sleep_mode_activated",
+        "title": {
+          "en": "Sleep mode is activated",
+          "nl": "Slaapstand is geactiveerd",
+          "de": "Schlafmodus ist aktiviert",
+          "fr": "Le mode veille est activé",
+          "it": "La modalità sospensione è attivata",
+          "sv": "Viloläge är aktiverat",
+          "no": "Dvalemodus er aktivert",
+          "es": "El modo de reposo está activado",
+          "da": "Dvaletilstand er aktiveret",
+          "ru": "Режим сна активирован",
+          "pl": "Tryb uśpienia jest aktywowany",
+          "ko": "수면 모드가 활성화되었습니다"
+        },
+        "hint": {
+          "en": "Triggers when the Litter-Robot enters sleep mode.",
+          "nl": "Wordt geactiveerd wanneer de Litter-Robot in de slaapstand gaat.",
+          "de": "Wird ausgelöst, wenn der Litter-Robot in den Schlafmodus wechselt.",
+          "fr": "Déclenché lorsque le Litter-Robot passe en mode veille.",
+          "it": "Si attiva quando il Litter-Robot entra in modalità sospensione.",
+          "sv": "Utlöses när Litter-Robot går in i viloläge.",
+          "no": "Utøses når Litter-Robot går inn i dvalemodus.",
+          "es": "Se activa cuando el Litter-Robot entra en modo de reposo.",
+          "da": "Udløses når Litter-Robot går i dvaletilstand.",
+          "ru": "Срабатывает, когда Litter-Robot переходит в режим сна.",
+          "pl": "Uruchamiany, gdy Litter-Robot przechodzi w tryb uśpienia.",
+          "ko": "리터로봇이 수면 모드로 전환되면 트리거됩니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "sleep_mode_deactivated",
+        "title": {
+          "en": "Sleep mode is deactivated",
+          "nl": "Slaapstand is gedeactiveerd",
+          "de": "Schlafmodus ist deaktiviert",
+          "fr": "Le mode sommeil est désactivé",
+          "it": "La modalità sleep è disattivata",
+          "sv": "Viloläge har avaktiverats",
+          "no": "Søvnmodus er deaktivert",
+          "es": "El modo de suspensión está desactivado",
+          "da": "Dvaletilstand er deaktiveret",
+          "ru": "Режим сна отключен",
+          "pl": "Tryb uśpienia jest wyłączony",
+          "ko": "수면 모드가 비활성화됨"
+        },
+        "hint": {
+          "en": "Triggers when the Litter-Robot exits sleep mode.",
+          "nl": "Wordt geactiveerd wanneer de Litter-Robot de slaapstand verlaat.",
+          "de": "Wird ausgelöst, wenn der Litter-Robot den Schlafmodus verlässt.",
+          "fr": "Déclenché lorsque le Litter-Robot quitte le mode sommeil.",
+          "it": "Si attiva quando il Litter-Robot esce dalla modalità sleep.",
+          "sv": "Utlöses när Litter-Robot lämnar viloläget.",
+          "no": "Utøses når Litter-Robot avslutter søvnmodus.",
+          "es": "Se activa cuando el Litter-Robot sale del modo de suspensión.",
+          "da": "Udløses, når Litter-Robot forlader dvaletilstanden.",
+          "ru": "Срабатывает, когда Litter-Robot выходит из режима сна.",
+          "pl": "Uruchamia się, gdy Litter-Robot wychodzi z trybu uśpienia.",
+          "ko": "Litter-Robot이 수면 모드에서 해제될 때 트리거됩니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "is_cat_detected",
+        "title": {
+          "en": "A cat is detected",
+          "nl": "Een kat wordt gedetecteerd",
+          "de": "Eine Katze wird erkannt",
+          "fr": "Un chat est détecté",
+          "it": "Un gatto è rilevato",
+          "sv": "En katt upptäcks",
+          "no": "En katt oppdages",
+          "es": "Se detecta un gato",
+          "da": "En kat registreres",
+          "ru": "Обнаружена кошка",
+          "pl": "Wykryto kota",
+          "ko": "고양이가 감지됨"
+        },
+        "hint": {
+          "en": "Returns true when a cat is currently detected.",
+          "nl": "Geeft true terug wanneer een kat momenteel wordt gedetecteerd.",
+          "de": "Gibt true zurück, wenn eine Katze erkannt wird.",
+          "fr": "Renvoie vrai lorsqu'un chat est détecté.",
+          "it": "Restituisce vero quando un gatto è rilevato.",
+          "sv": "Returnerar sant när en katt upptäcks.",
+          "no": "Returnerer true når en katt oppdages.",
+          "es": "Devuelve verdadero cuando se detecta un gato.",
+          "da": "Returnerer sandt, når en kat registreres.",
+          "ru": "Возвращает true, когда обнаружена кошка.",
+          "pl": "Zwraca true, gdy wykryto kota.",
+          "ko": "고양이가 감지되면 true를 반환합니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "is_sleep_mode_active",
+        "title": {
+          "en": "Sleep mode is currently active",
+          "nl": "De slaapstand is momenteel actief",
+          "de": "Der Schlafmodus ist derzeit aktiv",
+          "fr": "Le mode veille est actuellement actif",
+          "it": "La modalità sleep è attiva",
+          "sv": "Viloläget är aktivt",
+          "no": "Søvnmodus er aktiv",
+          "es": "El modo de suspensión está activo",
+          "da": "Dvaletilstand er aktiv",
+          "ru": "Режим сна активен",
+          "pl": "Tryb uśpienia jest aktywny",
+          "ko": "수면 모드가 활성화됨"
+        },
+        "hint": {
+          "en": "Returns true when the Litter-Robot is currently sleeping.",
+          "nl": "Geeft true terug wanneer de Litter-Robot momenteel slaapt.",
+          "de": "Gibt true zurück, wenn der Litter-Robot schläft.",
+          "fr": "Renvoie vrai lorsque le Litter-Robot dort.",
+          "it": "Restituisce vero quando il Litter-Robot è in modalità sonno.",
+          "sv": "Returnerar sant när Litter-Robot sover.",
+          "no": "Returnerer true når Litter-Robot sover.",
+          "es": "Devuelve verdadero cuando el Litter-Robot está durmiendo.",
+          "da": "Returnerer sandt, når Litter-Robot sover.",
+          "ru": "Возвращает true, когда Litter-Robot спит.",
+          "pl": "Zwraca true, gdy Litter-Robot śpi.",
+          "ko": "Litter-Robot가 수면 모드일 때 true를 반환합니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "is_sleep_mode_scheduled",
+        "title": {
+          "en": "Sleep mode is scheduled for today",
+          "nl": "Slaapstand is gepland voor vandaag",
+          "de": "Schlafmodus ist für heute geplant",
+          "fr": "Le mode veille est programmé pour aujourd'hui",
+          "it": "La modalità sleep è programmata per oggi",
+          "sv": "Viloläge är schemalagt för idag",
+          "no": "Hvilemodus er planlagt for i dag",
+          "es": "El modo de suspensión está programado para hoy",
+          "da": "Dvaletilstand er planlagt for i dag",
+          "ru": "Режим сна запланирован на сегодня",
+          "pl": "Tryb uśpienia jest zaplanowany na dzisiaj",
+          "ko": "수면 모드는 오늘로 예약되어 있습니다"
+        },
+        "hint": {
+          "en": "Returns true when sleep mode is scheduled for today.",
+          "nl": "Geeft true terug wanneer slaapstand vandaag is ingepland.",
+          "de": "Gibt true zurück, wenn der Schlafmodus für heute geplant ist.",
+          "fr": "Renvoie true lorsque le mode veille est programmé pour aujourd'hui.",
+          "it": "Restituisce true quando la modalità sleep è programmata per oggi.",
+          "sv": "Returnerar true när viloläge är schemalagt för idag.",
+          "no": "Returnerer true når hvilemodus er planlagt for i dag.",
+          "es": "Devuelve true cuando el modo de suspensión está programado para hoy.",
+          "da": "Returnerer true, når dvaletilstand er planlagt for i dag.",
+          "ru": "Возвращает true, если режим сна запланирован на сегодня.",
+          "pl": "Zwraca true, gdy tryb uśpienia jest zaplanowany na dzisiaj.",
+          "ko": "수면 모드가 오늘로 예약되어 있으면 true를 반환합니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "is_waste_drawer_full",
+        "title": {
+          "en": "The waste drawer is full",
+          "nl": "De afvalbak vol is",
+          "de": "Der Abfallbehälter voll ist",
+          "fr": "Le bac à déchets est plein",
+          "it": "Il cassetto dei rifiuti è pieno",
+          "sv": "Avfallsbehållaren är full",
+          "no": "Avfallsbeholderen er full",
+          "es": "El contenedor de residuos está lleno",
+          "da": "Affaldsbeholderen er fuld",
+          "ru": "Контейнер для отходов заполнен",
+          "pl": "Pojemnik na odpady jest pełny",
+          "ko": "폐기물 서랍이 가득 찼습니다"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ],
+        "hint": {
+          "en": "Returns true when the waste drawer is currently full.",
+          "nl": "Geeft waar terug wanneer de afvalbak momenteel vol is.",
+          "de": "Gibt wahr zurück, wenn die Abfallbox derzeit voll ist.",
+          "fr": "Retourne vrai lorsque le bac à déchets est plein.",
+          "it": "Restituisce vero quando il cassetto dei rifiuti è pieno.",
+          "sv": "Returnerar sant när avfallslådan är full.",
+          "no": "Returnerer sann når avfallsbeholderen er full.",
+          "es": "Devuelve verdadero cuando el contenedor de desechos está lleno.",
+          "da": "Returnerer sand, når affaldsskuffen er fuld.",
+          "ru": "Возвращает истину, когда мусорный контейнер заполнен.",
+          "pl": "Zwraca prawdę, gdy pojemnik na odpady jest pełny.",
+          "ko": "폐기물 서랍이 가득 찼을 때 true를 반환합니다."
+        }
+      },
+      {
+        "id": "is_cleaning_status",
+        "title": {
+          "en": "The cleaning status is",
+          "nl": "De schoonmaakstatus is",
+          "de": "Der Reinigungsstatus ist",
+          "fr": "Le statut de nettoyage est",
+          "it": "Lo stato della pulizia è",
+          "sv": "Stästatusen är",
+          "no": "Rengjøringsstatusen er",
+          "es": "El estado de limpieza es",
+          "da": "Rengøringsstatussen er",
+          "ru": "Статус очистки",
+          "pl": "Status czyszczenia to",
+          "ko": "청소 상태가"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          },
+          {
+            "name": "status",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "Idle",
+                "title": {
+                  "en": "Idle"
+                }
+              },
+              {
+                "id": "Waiting to start",
+                "title": {
+                  "en": "Waiting to start"
+                }
+              },
+              {
+                "id": "Scooping",
+                "title": {
+                  "en": "Scooping"
+                }
+              },
+              {
+                "id": "Dumping",
+                "title": {
+                  "en": "Dumping"
+                }
+              },
+              {
+                "id": "Leveling",
+                "title": {
+                  "en": "Leveling"
+                }
+              },
+              {
+                "id": "Completed",
+                "title": {
+                  "en": "Completed"
+                }
+              }
+            ]
+          }
+        ],
+        "hint": {
+          "en": "Returns true if the current cleaning status matches the selected value.",
+          "nl": "Geeft true terug wanneer de huidige schoonmaakstatus overeenkomt met de geselecteerde waarde.",
+          "de": "Gibt true zurück, wenn der aktuelle Reinigungsstatus mit dem ausgewählten Wert übereinstimmt.",
+          "fr": "Renvoie vrai si le statut de nettoyage actuel correspond à la valeur sélectionnée.",
+          "it": "Restituisce true se lo stato di pulizia corrente corrisponde al valore selezionato.",
+          "sv": "Returnerar sant om det aktuella rengöringsstatusen matchar det valda värdet.",
+          "no": "Returnerer true hvis den nåværende rengjøringsstatusen samsvarer med den valgte verdien.",
+          "es": "Devuelve verdadero si el estado de limpieza actual coincide con el valor seleccionado.",
+          "da": "Returnerer sandt, hvis den aktuelle rengøringsstatus svarer til den valgte værdi.",
+          "ru": "Возвращает true, если текущий статус очистки соответствует выбранному значению.",
+          "pl": "Zwraca true, jeśli bieżący status czyszczenia odpowiada wybranej wartości.",
+          "ko": "현재 청소 상태가 선택한 값과 일치하면 true를 반환합니다."
+        },
+        "titleFormatted": {
+          "en": "The cleaning status is [[status]]",
+          "nl": "De schoonmaakstatus is [[status]]",
+          "de": "Der Reinigungsstatus ist [[status]]",
+          "fr": "Le statut de nettoyage est [[status]]",
+          "it": "Lo stato della pulizia è [[status]]",
+          "sv": "Stästatusen är [[status]]",
+          "no": "Rengjøringsstatusen er [[status]]",
+          "es": "El estado de limpieza es [[status]]",
+          "da": "Rengøringsstatussen er [[status]]",
+          "ru": "Статус очистки [[status]]",
+          "pl": "Status czyszczenia to [[status]]",
+          "ko": "청소 상태가 [[status]]"
+        }
+      }
+    ],
+    "actions": [
+      {
+        "id": "lock_keypad",
+        "title": {
+          "en": "Lock the keypad",
+          "nl": "Vergrendel het toetsenpaneel",
+          "de": "Tastatur sperren",
+          "fr": "Verrouiller le clavier",
+          "it": "Blocca la tastiera",
+          "sv": "Lås knappsatsen",
+          "no": "Lås tastaturet",
+          "es": "Bloquear el teclado",
+          "da": "Lås tastaturet",
+          "ru": "Заблокировать клавиатуру",
+          "pl": "Zablokuj klawiaturę",
+          "ko": "키패드 잠금"
+        },
+        "hint": {
+          "en": "Locks the keypad to prevent accidental presses.",
+          "nl": "Vergrendelt het toetsenpaneel om onbedoelde aanrakingen te voorkomen.",
+          "de": "Sperrt die Tastatur, um versehentliche Tastenbetätigungen zu vermeiden.",
+          "fr": "Verrouille le clavier pour éviter les pressions accidentelles.",
+          "it": "Blocca la tastiera per evitare pressioni accidentali.",
+          "sv": "Låser knappsatsen för att förhindra oavsiktliga tryck.",
+          "no": "Låser tastaturet for å forhindre utilsiktede trykk.",
+          "es": "Bloquea el teclado para evitar pulsaciones accidentales.",
+          "da": "Låser tastaturet for at forhindre utilsigtede tryk.",
+          "ru": "Блокирует клавиатуру, чтобы избежать случайных нажатий.",
+          "pl": "Blokuje klawiaturę, aby zapobiec przypadkowym naciśnięciom.",
+          "ko": "실수로 누르는 것을 방지하기 위해 키패드를 잠급니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "unlock_keypad",
+        "title": {
+          "en": "Unlock the keypad",
+          "nl": "Ontgrendel het toetsenpaneel",
+          "de": "Tastatur entsperren",
+          "fr": "Déverrouiller le clavier",
+          "it": "Sblocca la tastiera",
+          "sv": "Lås upp knappsatsen",
+          "no": "Lås opp tastaturet",
+          "es": "Desbloquear el teclado",
+          "da": "Lås op tastaturet",
+          "ru": "Разблокировать клавиатуру",
+          "pl": "Odblokuj klawiaturę",
+          "ko": "키패드 잠금 해제"
+        },
+        "hint": {
+          "en": "Unlocks the keypad so the buttons can be used again.",
+          "nl": "Ontgrendelt het toetsenpaneel zodat de knoppen weer gebruikt kunnen worden.",
+          "de": "Entsperrt die Tastatur, damit die Tasten wieder verwendet werden können.",
+          "fr": "Déverrouille le clavier pour que les boutons puissent être utilisés à nouveau.",
+          "it": "Sblocca la tastiera in modo che i pulsanti possano essere utilizzati di nuovo.",
+          "sv": "Låser upp knappsatsen så att knapparna kan användas igen.",
+          "no": "Låser opp tastaturet slik at knappene kan brukes igjen.",
+          "es": "Desbloquea el teclado para que los botones se puedan usar nuevamente.",
+          "da": "Låser tastaturet op, så knapperne kan bruges igen.",
+          "ru": "Разблокирует клавиатуру, чтобы кнопки снова могли использоваться.",
+          "pl": "Odblokowuje klawiaturę, aby przyciski mogły być ponownie używane.",
+          "ko": "버튼을 다시 사용할 수 있도록 키패드 잠금을 해제합니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "set_night_light_mode",
+        "title": {
+          "en": "Set night light mode to",
+          "nl": "Stel nachtlampmodus in op",
+          "de": "Stelle Nachtlichtmodus ein",
+          "fr": "Définir le mode veilleuse",
+          "it": "Imposta la modalità luce notturna",
+          "sv": "Ställ in nattljusläge",
+          "no": "Sett nattlysmodus",
+          "es": "Establecer modo de luz nocturna",
+          "da": "Indstil natlystilstand",
+          "ru": "Установить режим ночного освещения",
+          "pl": "Ustaw tryb nocnego oświetlenia",
+          "ko": "야간등 모드 설정"
+        },
+        "titleFormatted": {
+          "en": "Set night light mode to [[mode]]",
+          "nl": "Stel nachtlampmodus in op [[mode]]",
+          "de": "Stelle Nachtlichtmodus ein auf [[mode]]",
+          "fr": "Définir le mode veilleuse sur [[mode]]",
+          "it": "Imposta la modalità luce notturna su [[mode]]",
+          "sv": "Ställ in nattljusläge på [[mode]]",
+          "no": "Sett nattlysmodus til [[mode]]",
+          "es": "Establecer modo de luz nocturna en [[mode]]",
+          "da": "Indstil natlystilstand til [[mode]]",
+          "ru": "Установить режим ночного освещения на [[mode]]",
+          "pl": "Ustaw tryb nocnego oświetlenia na [[mode]]",
+          "ko": "야간등 모드를 [[mode]]로 설정"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "title": {
+              "en": "Mode",
+              "nl": "Modus",
+              "de": "Modus",
+              "fr": "Mode",
+              "it": "Modalità",
+              "sv": "Läge",
+              "no": "Modus",
+              "es": "Modo",
+              "da": "Tilstand",
+              "ru": "Режим",
+              "pl": "Tryb",
+              "ko": "모드"
+            },
+            "values": [
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off",
+                  "nl": "Uit",
+                  "de": "Aus",
+                  "fr": "Désactivé",
+                  "it": "Spento",
+                  "sv": "Av",
+                  "no": "Av",
+                  "es": "Desactivado",
+                  "da": "Fra",
+                  "ru": "Выкл",
+                  "pl": "Wyłączony",
+                  "ko": "끔"
+                }
+              },
+              {
+                "id": "on",
+                "title": {
+                  "en": "On",
+                  "nl": "Aan",
+                  "de": "An",
+                  "fr": "Activé",
+                  "it": "Acceso",
+                  "sv": "PÅ",
+                  "no": "På",
+                  "es": "Activado",
+                  "da": "Til",
+                  "ru": "Вкл",
+                  "pl": "Włączony",
+                  "ko": "켬"
+                }
+              },
+              {
+                "id": "auto",
+                "title": {
+                  "en": "Auto",
+                  "nl": "Auto",
+                  "de": "Auto",
+                  "fr": "Auto",
+                  "it": "Auto",
+                  "sv": "Auto",
+                  "no": "Auto",
+                  "es": "Auto",
+                  "da": "Auto",
+                  "ru": "Авто",
+                  "pl": "Auto",
+                  "ko": "자동"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "start_clean_cycle",
+        "title": {
+          "en": "Start cleaning cycle",
+          "nl": "Start schoonmaakcyclus",
+          "de": "Reinigungszyklus starten",
+          "fr": "Démarrer le cycle de nettoyage",
+          "it": "Avvia ciclo di pulizia",
+          "sv": "Starta rengöringscykel",
+          "no": "Start rengjøringssyklus",
+          "es": "Iniciar ciclo de limpieza",
+          "da": "Start rengøringscyklus",
+          "ru": "Запустить цикл очистки",
+          "pl": "Rozpocznij cykl czyszczenia",
+          "ko": "청소 사이클 시작"
+        },
+        "hint": {
+          "en": "Starts a cleaning cycle for the Litter-Robot.",
+          "nl": "Start een schoonmaakcyclus voor de Litter-Robot.",
+          "de": "Startet einen Reinigungszyklus für den Litter-Robot.",
+          "fr": "Démarre un cycle de nettoyage pour le Litter-Robot.",
+          "it": "Avvia un ciclo di pulizia per il Litter-Robot.",
+          "sv": "Startar en rengöringscykel för Litter-Robot.",
+          "no": "Starter en rengjøringssyklus for Litter-Robot.",
+          "es": "Inicia un ciclo de limpieza para el Litter-Robot.",
+          "da": "Starter en rengøringscyklus for Litter-Robot.",
+          "ru": "Запускает цикл очистки для Litter-Robot.",
+          "pl": "Rozpoczyna cykl czyszczenia dla Litter-Robot.",
+          "ko": "Litter-Robot의 청소 사이클을 시작합니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "short_reset_press",
+        "title": {
+          "en": "Reset Litter-Robot",
+          "nl": "Reset Litter-Robot",
+          "de": "Litter-Robot zurücksetzen",
+          "fr": "Réinitialiser le Litter-Robot",
+          "it": "Reimposta Litter-Robot",
+          "sv": "Återställ Litter-Robot",
+          "no": "Tilbakestill Litter-Robot",
+          "es": "Restablecer Litter-Robot",
+          "da": "Nulstil Litter-Robot",
+          "ru": "Сбросить Litter-Robot",
+          "pl": "Zresetuj Litter-Robot",
+          "ko": "Litter-Robot 재설정"
+        },
+        "hint": {
+          "en": "Resets the Litter-Robot to its idle state. This is equivalent to a short press of the reset button on the device.",
+          "nl": "Reset de Litter-Robot naar de idle-stand. Dit is gelijk aan een korte druk op de resetknop van het apparaat.",
+          "de": "Setzt den Litter-Robot in den Leerlaufzustand zurück. Entspricht einem kurzen Druck auf die Reset-Taste am Gerät.",
+          "fr": "Réinitialise le Litter-Robot à son état d'inactivité. Équivalent à une courte pression sur le bouton de réinitialisation de l'appareil.",
+          "it": "Reimposta il Litter-Robot allo stato inattivo. Equivale a una breve pressione del pulsante di reset sul dispositivo.",
+          "sv": "Återställer Litter-Robot till viloläge. Motsvarar en kort tryckning på återställningsknappen på enheten.",
+          "no": "Tilbakestiller Litter-Robot til hvilemodus. Tilsvarer et kort trykk på tilbakestillingsknappen på enheten.",
+          "es": "Restablece el Litter-Robot a su estado inactivo. Equivale a una pulsación corta del botón de reinicio en el dispositivo.",
+          "da": "Nulstiller Litter-Robot til tomgangstilstand. Svarer til et kort tryk på nulstillingsknappen på enheden.",
+          "ru": "Сбрасывает Litter-Robot в режим ожидания. Аналогично короткому нажатию кнопки сброса на устройстве.",
+          "pl": "Resetuje Litter-Robot do trybu bezczynności. Odpowiada krótkim naciśnięciu przycisku reset na urządzeniu.",
+          "ko": "Litter-Robot를 대기 상태로 재설정합니다. 이는 기기의 리셋 버튼을 짧게 누르는 것과 동일합니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "start_empty_cycle",
+        "title": {
+          "en": "Start empty cycle",
+          "nl": "Start leegmaakcyclus",
+          "de": "Leerungszyklus starten",
+          "fr": "Démarrer le cycle de vidage",
+          "it": "Avvia ciclo di svuotamento",
+          "sv": "Starta tömningscykel",
+          "no": "Start tømmesyklus",
+          "es": "Iniciar ciclo de vaciado",
+          "da": "Start tømningscyklus",
+          "ru": "Запустить цикл опорожнения",
+          "pl": "Rozpocznij cykl opróżniania",
+          "ko": "비우기 사이클 시작"
+        },
+        "hint": {
+          "en": "Starts an emptying cycle for the Litter-Robot.",
+          "nl": "Start een leegmaakcyclus voor de Litter-Robot.",
+          "de": "Startet einen Leerungszyklus für den Litter-Robot.",
+          "fr": "Démarre un cycle de vidage pour le Litter-Robot.",
+          "it": "Avvia un ciclo di svuotamento per il Litter-Robot.",
+          "sv": "Startar en tömningscykel för Litter-Robot.",
+          "no": "Starter en tømmesyklus for Litter-Robot.",
+          "es": "Inicia un ciclo de vaciado para el Litter-Robot.",
+          "da": "Starter en tømningscyklus for Litter-Robot.",
+          "ru": "Запускает цикл опорожнения для Litter-Robot.",
+          "pl": "Rozpoczyna cykl opróżniania dla Litter-Robot.",
+          "ko": "Litter-Robot의 비우기 사이클을 시작합니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          }
+        ]
+      },
+      {
+        "id": "set_clean_cycle_wait_time",
+        "title": {
+          "en": "Set clean cycle wait time to",
+          "nl": "Stel wachttijd schoonmaakcyclus in op",
+          "de": "Reinigungszyklus-Wartezeit einstellen",
+          "fr": "Définir le temps d’attente du cycle de nettoyage",
+          "it": "Imposta tempo di attesa ciclo di pulizia",
+          "sv": "Ställ in väntetid för rengöringscykel",
+          "no": "Sett ventetid for rengjøringssyklus",
+          "es": "Establecer tiempo de espera del ciclo de limpieza",
+          "da": "Indstil ventetid for rengøringscyklus",
+          "ru": "Установить время ожидания цикла очистки",
+          "pl": "Ustaw czas oczekiwania na cykl czyszczenia",
+          "ko": "청소 사이클 대기 시간 설정"
+        },
+        "titleFormatted": {
+          "en": "Set the clean cycle wait time to [[wait_time]]",
+          "nl": "Stel de wachttijd van de schoonmaakcyclus in op [[wait_time]]",
+          "de": "Setze die Reinigungszyklus-Wartezeit auf [[wait_time]]",
+          "fr": "Définir le temps d’attente du cycle de nettoyage à [[wait_time]]",
+          "it": "Imposta il tempo di attesa del ciclo di pulizia su [[wait_time]]",
+          "sv": "Ställ in väntetiden för rengöringscykeln till [[wait_time]]",
+          "no": "Sett ventetiden for rengjøringssyklus til [[wait_time]]",
+          "es": "Establecer el tiempo de espera del ciclo de limpieza en [[wait_time]]",
+          "da": "Indstil ventetiden for rengøringscyklus til [[wait_time]]",
+          "ru": "Установить время ожидания цикла очистки на [[wait_time]]",
+          "pl": "Ustaw czas oczekiwania na cykl czyszczenia na [[wait_time]]",
+          "ko": "청소 사이클 대기 시간을 [[wait_time]]로 설정"
+        },
+        "hint": {
+          "en": "Adjust the time the Litter-Robot takes for the litter to clump and start a cleaning cycle.",
+          "nl": "Pas de tijd aan die de Litter-Robot wacht voordat de schoonmaakcyclus start.",
+          "de": "Stelle die Zeit ein, die der Litter-Robot wartet, bevor der Reinigungszyklus startet.",
+          "fr": "Ajustez le temps que le Litter-Robot attend avant de démarrer le cycle de nettoyage.",
+          "it": "Regola il tempo che il Litter-Robot attende prima di avviare il ciclo di pulizia.",
+          "sv": "Justera tiden Litter-Robot väntar innan rengöringscykeln startar.",
+          "no": "Juster tiden Litter-Robot venter før rengjøringssyklusen starter.",
+          "es": "Ajusta el tiempo que el Litter-Robot espera antes de iniciar el ciclo de limpieza.",
+          "da": "Juster tiden, Litter-Robot venter, før rengøringscyklussen starter.",
+          "ru": "Настройте время, которое Litter-Robot ждет перед запуском цикла очистки.",
+          "pl": "Dostosuj czas, jaki Litter-Robot czeka przed rozpoczęciem cyklu czyszczenia.",
+          "ko": "Litter-Robot가 청소 사이클을 시작하기 전에 기다리는 시간을 조정합니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          },
+          {
+            "name": "wait_time",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "3",
+                "label": {
+                  "en": "3 minutes",
+                  "nl": "3 minuten",
+                  "de": "3 Minuten",
+                  "fr": "3 minutes",
+                  "it": "3 minuti",
+                  "sv": "3 minuter",
+                  "no": "3 minutter",
+                  "es": "3 minutos",
+                  "da": "3 minutter",
+                  "ru": "3 минуты",
+                  "pl": "3 minuty",
+                  "ko": "3분"
+                }
+              },
+              {
+                "id": "7",
+                "label": {
+                  "en": "7 minutes",
+                  "nl": "7 minuten",
+                  "de": "7 Minuten",
+                  "fr": "7 minutes",
+                  "it": "7 minuti",
+                  "sv": "7 minuter",
+                  "no": "7 minutter",
+                  "es": "7 minutos",
+                  "da": "7 minutter",
+                  "ru": "7 минут",
+                  "pl": "7 minut",
+                  "ko": "7분"
+                }
+              },
+              {
+                "id": "15",
+                "label": {
+                  "en": "15 minutes",
+                  "nl": "15 minuten",
+                  "de": "15 Minuten",
+                  "fr": "15 minutes",
+                  "it": "15 minuti",
+                  "sv": "15 minuter",
+                  "no": "15 minutter",
+                  "es": "15 minutos",
+                  "da": "15 minutter",
+                  "ru": "15 минут",
+                  "pl": "15 minut",
+                  "ko": "15분"
+                }
+              },
+              {
+                "id": "25",
+                "label": {
+                  "en": "25 minutes",
+                  "nl": "25 minuten",
+                  "de": "25 Minuten",
+                  "fr": "25 minutes",
+                  "it": "25 minuti",
+                  "sv": "25 minuter",
+                  "no": "25 minutter",
+                  "es": "25 minutos",
+                  "da": "25 minutter",
+                  "ru": "25 минут",
+                  "pl": "25 minut",
+                  "ko": "25분"
+                }
+              },
+              {
+                "id": "30",
+                "label": {
+                  "en": "30 minutes",
+                  "nl": "30 minuten",
+                  "de": "30 Minuten",
+                  "fr": "30 minutes",
+                  "it": "30 minuti",
+                  "sv": "30 minuter",
+                  "no": "30 minutter",
+                  "es": "30 minutos",
+                  "da": "30 minutter",
+                  "ru": "30 минут",
+                  "pl": "30 minut",
+                  "ko": "30분"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "set_panel_brightness",
+        "title": {
+          "en": "Set panel brightness to",
+          "nl": "Stel paneelhelderheid in op",
+          "de": "Stelle Panelhelligkeit ein",
+          "fr": "Définir la luminosité du panneau",
+          "it": "Imposta luminosità pannello",
+          "sv": "Ställ in panelens ljusstyrka",
+          "no": "Sett panellysstyrke",
+          "es": "Establecer brillo del panel",
+          "da": "Indstil panellysstyrke",
+          "ru": "Установить яркость панели",
+          "pl": "Ustaw jasność panelu",
+          "ko": "패널 밝기 설정"
+        },
+        "hint": {
+          "en": "Adjust the brightness of the Litter-Robot control panel.",
+          "nl": "Pas de helderheid van het Litter-Robot bedieningspaneel aan.",
+          "de": "Stelle die Helligkeit des Litter-Robot Bedienfelds ein.",
+          "fr": "Ajustez la luminosité du panneau de contrôle du Litter-Robot.",
+          "it": "Regola la luminosità del pannello di controllo del Litter-Robot.",
+          "sv": "Justera ljusstyrkan på Litter-Robot kontrollpanelen.",
+          "no": "Juster lysstyrken på Litter-Robot kontrollpanelet.",
+          "es": "Ajusta el brillo del panel de control del Litter-Robot.",
+          "da": "Juster lysstyrken på Litter-Robot kontrolpanelet.",
+          "ru": "Отрегулируйте яркость панели управления Litter-Robot.",
+          "pl": "Dostosuj jasność panelu sterowania Litter-Robot.",
+          "ko": "Litter-Robot 제어 패널의 밝기를 조정합니다."
+        },
+        "titleFormatted": {
+          "en": "Set panel brightness to [[brightness]]",
+          "nl": "Stel paneelhelderheid in op [[brightness]]",
+          "de": "Stelle Panelhelligkeit ein auf [[brightness]]",
+          "fr": "Définir la luminosité du panneau sur [[brightness]]",
+          "it": "Imposta luminosità pannello su [[brightness]]",
+          "sv": "Ställ in panelens ljusstyrka till [[brightness]]",
+          "no": "Sett panellysstyrke til [[brightness]]",
+          "es": "Establecer brillo del panel en [[brightness]]",
+          "da": "Indstil panellysstyrke til [[brightness]]",
+          "ru": "Установить яркость панели на [[brightness]]",
+          "pl": "Ustaw jasność panelu na [[brightness]]",
+          "ko": "패널 밝기를 [[brightness]]로 설정"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot"
+          },
+          {
+            "name": "brightness",
+            "type": "dropdown",
+            "title": {
+              "en": "Brightness",
+              "nl": "Helderheid",
+              "de": "Helligkeit",
+              "fr": "Luminosité",
+              "it": "Luminosità",
+              "sv": "Ljusstyrka",
+              "no": "Lysstyrke",
+              "es": "Brillo",
+              "da": "Lysstyrke",
+              "ru": "Яркость",
+              "pl": "Jasność",
+              "ko": "밝기"
+            },
+            "values": [
+              {
+                "id": "low",
+                "title": {
+                  "en": "Low",
+                  "nl": "Laag",
+                  "de": "Niedrig",
+                  "fr": "Faible",
+                  "it": "Basso",
+                  "sv": "Låg",
+                  "no": "Lav",
+                  "es": "Bajo",
+                  "da": "Lav",
+                  "ru": "Низкая",
+                  "pl": "Niska",
+                  "ko": "낮음"
+                }
+              },
+              {
+                "id": "medium",
+                "title": {
+                  "en": "Medium",
+                  "nl": "Middel",
+                  "de": "Mittel",
+                  "fr": "Moyenne",
+                  "it": "Media",
+                  "sv": "Medel",
+                  "no": "Middels",
+                  "es": "Media",
+                  "da": "Mellem",
+                  "ru": "Средняя",
+                  "pl": "Średnia",
+                  "ko": "중간"
+                }
+              },
+              {
+                "id": "high",
+                "title": {
+                  "en": "High",
+                  "nl": "Hoog",
+                  "de": "Hoch",
+                  "fr": "Élevée",
+                  "it": "Alto",
+                  "sv": "Hög",
+                  "no": "Høy",
+                  "es": "Alto",
+                  "da": "Høj",
+                  "ru": "Высокая",
+                  "pl": "Wysoka",
+                  "ko": "높음"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Litter-Robot 4"
+      },
+      "icon": [
+        "/drivers/litter-robot/assets/icon.svg"
+      ],
+      "images": {
+        "xlarge": "/drivers/litter-robot/assets/images/xlarge.png",
+        "large": "/drivers/litter-robot/assets/images/large.png",
+        "small": "/drivers/litter-robot/assets/images/small.png"
+      },
+      "class": "other",
+      "capabilities": [
+        "clean_cycle_status",
+        "litter_robot_status",
+        "alarm_cat_detected",
+        "alarm_waste_drawer_full",
+        "measure_litter_level_percentage",
+        "measure_waste_drawer_level_percentage",
+        "measure_odometer_clean_cycles",
+        "measure_scoops_saved_count",
+        "alarm_sleep_mode_active",
+        "alarm_sleep_mode_scheduled",
+        "sleep_mode_start_time",
+        "sleep_mode_end_time",
+        "measure_weight",
+        "alarm_problem",
+        "clean_cycle_wait_time",
+        "panel_brightness",
+        "key_pad_lock_out",
+        "start_clean_cycle",
+        "start_empty_cycle",
+        "short_reset_press",
+        "night_light_mode"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "platforms": [
+        "local"
+      ],
+      "pair": [
+        {
+          "id": "login",
+          "template": "login_credentials",
+          "options": {
+            "logo": "whisker-logo.png",
+            "usernameLabel": {
+              "en": "E-mail address",
+              "nl": "E-mailadres",
+              "da": "E-mail-adresse",
+              "de": "E-Mail Adresse",
+              "es": "Dirección de correo electrónico",
+              "fr": "Adresse e-mail",
+              "it": "Indirizzo e-mail",
+              "no": "E-postadresse",
+              "sv": "E-postadress",
+              "pl": "Adres e-mail",
+              "ru": "Электронная почта",
+              "ko": "이메일 주소"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com",
+              "da": "john@doe.com",
+              "de": "john@doe.com",
+              "es": "john@doe.com",
+              "fr": "john@doe.com",
+              "it": "john@doe.com",
+              "no": "john@doe.com",
+              "sv": "john@doe.com",
+              "pl": "john@doe.com",
+              "ru": "john@doe.com",
+              "ko": "john@doe.com"
+            }
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "login",
+          "template": "login_credentials",
+          "options": {
+            "logo": "whisker-logo.png",
+            "usernameLabel": {
+              "en": "E-mail address",
+              "nl": "E-mailadres",
+              "da": "E-mail-adresse",
+              "de": "E-Mail Adresse",
+              "es": "Dirección de correo electrónico",
+              "fr": "Adresse e-mail",
+              "it": "Indirizzo e-mail",
+              "no": "E-postadresse",
+              "sv": "E-postadress",
+              "pl": "Adres e-mail",
+              "ru": "Электронная почта",
+              "ko": "이메일 주소"
+            },
+            "usernamePlaceholder": {
+              "en": "john@doe.com",
+              "da": "john@doe.com",
+              "de": "john@doe.com",
+              "es": "john@doe.com",
+              "fr": "john@doe.com",
+              "it": "john@doe.com",
+              "no": "john@doe.com",
+              "sv": "john@doe.com",
+              "pl": "john@doe.com",
+              "ru": "john@doe.com",
+              "ko": "john@doe.com"
+            }
+          }
+        }
+      ],
+      "id": "litter-robot",
+      "settings": [
+        {
+          "id": "waste_drawer_threshold",
+          "type": "number",
+          "label": {
+            "en": "Waste drawer full threshold (%)",
+            "nl": "Drempel afvalbak (%)",
+            "de": "Füllstandsschwelle für Abfallbehälter (%)",
+            "fr": "Seuil de remplissage du bac à déchets (%)",
+            "it": "Soglia piena del cassetto dei rifiuti (%)",
+            "sv": "Tröskelvärde för full avfallsbehållare (%)",
+            "no": "Terskel for full avfallsbeholder (%)",
+            "es": "Umbral del cajón de desechos lleno (%)",
+            "da": "Tærskel for fuld affaldsskuffe (%)",
+            "ru": "Порог заполнения мусорного ящика (%)",
+            "pl": "Próg pełności pojemnika na odpady (%)",
+            "ko": "폐기물 서랍 가득 참 임계값 (%)"
+          },
+          "hint": {
+            "en": "Adjust this percentage to determine when the Waste Drawer Full alarm should trigger, the default is 90%",
+            "nl": "Pas dit percentage aan om te bepalen wanneer de afvalbak als vol wordt gemeld. Standaard is dit 90%.",
+            "de": "Passen Sie diesen Prozentsatz an, um festzulegen, wann die Meldung „Abfallbehälter voll“ ausgelöst wird. Standard ist 90%.",
+            "fr": "Ajustez ce pourcentage pour déterminer quand l'alerte bac à déchets plein doit se déclencher. Par défaut : 90%.",
+            "it": "Modifica questa percentuale per decidere quando attivare l'allarme del cassetto pieno. Predefinito: 90%.",
+            "sv": "Justera denna procentsats för att avgöra när larmet för full avfallsbehållare ska utlösas. Standard är 90%.",
+            "no": "Juster denne prosenten for å angi når varsel om full avfallsbeholder skal utløses. Standard er 90%.",
+            "es": "Ajusta este porcentaje para determinar cuándo se debe activar la alarma de cajón de desechos lleno. Por defecto: 90%.",
+            "da": "Juster denne procentdel for at bestemme, hvornår alarmen for fuld affaldsskuffe skal udløses. Standard er 90%.",
+            "ru": "Настройте этот процент, чтобы определить, когда включать сигнал переполненного мусорного ящика. По умолчанию: 90%.",
+            "pl": "Dostosuj ten procent, aby określić, kiedy ma się włączyć alarm pełnego pojemnika. Domyślnie: 90%.",
+            "ko": "이 비율을 조정하여 폐기물 서랍이 가득 찼을 때 경고가 표시되도록 설정합니다. 기본값은 90%입니다."
+          },
+          "value": 90,
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "required": true
+        },
+        {
+          "id": "use_12h_format",
+          "type": "checkbox",
+          "label": {
+            "en": "Use 12H time format",
+            "nl": "Gebruik 12-uurs tijdnotatie",
+            "de": "12-Stunden-Zeitformat verwenden",
+            "fr": "Utiliser le format horaire 12h",
+            "it": "Usa il formato orario 12H",
+            "sv": "Använd 12-timmarsformat",
+            "no": "Bruk 12-timers tidsformat",
+            "es": "Usar formato de hora de 12 horas",
+            "da": "Brug 12-timers tidsformat",
+            "ru": "Использовать 12-часовой формат времени",
+            "pl": "Użyj 12-godzinnego formatu czasu",
+            "ko": "12시간제 시간 형식 사용"
+          },
+          "hint": {
+            "en": "If checked, times will display in 12H format. Otherwise 24H is used.",
+            "nl": "Indien aangevinkt, worden tijden weergegeven in 12-uurs formaat. Anders wordt 24-uurs gebruikt.",
+            "de": "Wenn aktiviert, werden Zeiten im 12-Stunden-Format angezeigt. Andernfalls wird das 24-Stunden-Format verwendet.",
+            "fr": "Si coché, les heures seront affichées au format 12h. Sinon, le format 24h sera utilisé.",
+            "it": "Se selezionato, gli orari saranno visualizzati nel formato 12H. Altrimenti verrà usato il formato 24H.",
+            "sv": "Om markerat visas tider i 12-timmarsformat. Annars används 24-timmarsformat.",
+            "no": "Hvis valgt, vises tider i 12-timersformat. Ellers brukes 24-timersformat.",
+            "es": "Si está marcado, las horas se mostrarán en formato de 12 horas. De lo contrario, se usará el formato de 24 horas.",
+            "da": "Hvis markeret vises tider i 12-timers format. Ellers bruges 24-timers format.",
+            "ru": "Если отмечено, время будет отображаться в 12-часовом формате. В противном случае используется 24-часовой формат.",
+            "pl": "Jeśli zaznaczone, godziny będą wyświetlane w formacie 12-godzinnym. W przeciwnym razie używany jest format 24-godzinny.",
+            "ko": "선택하면 시간이 12시간제로 표시됩니다. 그렇지 않으면 24시간제가 사용됩니다."
+          },
+          "value": false
+        },
+        {
+          "id": "use_us_date_format",
+          "type": "checkbox",
+          "label": {
+            "en": "Use US date format (MM-DD-YYYY)",
+            "nl": "Gebruik VS-datumformaat (MM-DD-JJJJ)",
+            "de": "US-Datumsformat verwenden (MM-TT-JJJJ)",
+            "fr": "Utiliser le format de date US (MM-JJ-AAAA)",
+            "it": "Usa formato data USA (MM-GG-AAAA)",
+            "sv": "Använd amerikanskt datumformat (MM-DD-ÅÅÅÅ)",
+            "no": "Bruk amerikansk datoformat (MM-DD-ÅÅÅÅ)",
+            "es": "Usar formato de fecha estadounidense (MM-DD-AAAA)",
+            "da": "Brug amerikansk datoformat (MM-DD-ÅÅÅÅ)",
+            "ru": "Использовать американский формат даты (MM-ДД-ГГГГ)",
+            "pl": "Użyj amerykańskiego formatu daty (MM-DD-RRRR)",
+            "ko": "미국식 날짜 형식 사용 (MM-DD-YYYY)"
+          },
+          "hint": {
+            "en": "If checked, dates will display as MM-DD-YYYY. Otherwise YYYY-MM-DD is used.",
+            "nl": "Indien aangevinkt, worden datums weergegeven als MM-DD-JJJJ. Anders wordt JJJJ-MM-DD gebruikt.",
+            "de": "Wenn aktiviert, werden Daten als MM-TT-JJJJ angezeigt. Andernfalls wird JJJJ-MM-TT verwendet.",
+            "fr": "Si coché, les dates seront affichées au format MM-JJ-AAAA. Sinon, AAAA-MM-JJ sera utilisé.",
+            "it": "Se selezionato, le date saranno visualizzate come MM-GG-AAAA. Altrimenti verrà usato AAAA-MM-GG.",
+            "sv": "Om markerat visas datum som MM-DD-ÅÅÅÅ. Annars används ÅÅÅÅ-MM-DD.",
+            "no": "Hvis valgt, vises datoer som MM-DD-ÅÅÅÅ. Ellers brukes ÅÅÅÅ-MM-DD.",
+            "es": "Si está marcado, las fechas se mostrarán como MM-DD-AAAA. De lo contrario, se usará AAAA-MM-DD.",
+            "da": "Hvis markeret vises datoer som MM-DD-ÅÅÅÅ. Ellers bruges ÅÅÅÅ-MM-DD.",
+            "ru": "Если отмечено, даты будут отображаться как MM-ДД-ГГГГ. В противном случае используется ГГГГ-MM-ДД.",
+            "pl": "Jeśli zaznaczone, daty będą wyświetlane jako MM-DD-RRRR. W przeciwnym razie używany jest format RRRR-MM-DD.",
+            "ko": "선택하면 날짜가 MM-DD-YYYY 형식으로 표시됩니다. 그렇지 않으면 YYYY-MM-DD 형식이 사용됩니다."
+          },
+          "value": false
+        }
+      ]
+    }
+  ],
+  "capabilities": {
+    "alarm_cat_detected": {
+      "type": "boolean",
+      "title": {
+        "en": "Cat detected"
+      },
+      "getable": true,
+      "uiComponent": "sensor"
+    },
+    "alarm_sleep_mode_active": {
+      "type": "boolean",
+      "title": {
+        "en": "Sleep mode active"
+      },
+      "getable": true,
+      "uiComponent": "sensor"
+    },
+    "alarm_sleep_mode_scheduled": {
+      "type": "boolean",
+      "title": {
+        "en": "Sleep mode scheduled"
+      },
+      "getable": true,
+      "uiComponent": "sensor"
+    },
+    "alarm_waste_drawer_full": {
+      "type": "boolean",
+      "title": {
+        "en": "Waste drawer Full"
+      },
+      "getable": true,
+      "uiComponent": "sensor"
+    },
+    "clean_cycle_status": {
+      "type": "string",
+      "title": {
+        "en": "Cleaning status"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
+    },
+    "clean_cycle_wait_time": {
+      "title": {
+        "en": "Clean cycle wait time"
+      },
+      "type": "enum",
+      "uiComponent": "picker",
+      "getable": true,
+      "setable": true,
+      "values": [
+        {
+          "id": "3",
+          "title": {
+            "en": "3 minutes"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "7 minutes"
+          }
+        },
+        {
+          "id": "15",
+          "title": {
+            "en": "15 minutes"
+          }
+        },
+        {
+          "id": "25",
+          "title": {
+            "en": "25 minutes"
+          }
+        },
+        {
+          "id": "30",
+          "title": {
+            "en": "30 minutes"
+          }
+        }
+      ]
+    },
+    "key_pad_lock_out": {
+      "title": {
+        "en": "Keypad lock"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "button"
+    },
+    "litter_robot_status": {
+      "type": "string",
+      "title": {
+        "en": "Litter-Robot status"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
+    },
+    "measure_litter_level_percentage": {
+      "title": {
+        "en": "Litter level"
+      },
+      "type": "number",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "%"
+      },
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "measure_odometer_clean_cycles": {
+      "title": {
+        "en": "Completed clean cycles"
+      },
+      "type": "number",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "cycles"
+      },
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "measure_scoops_saved_count": {
+      "title": {
+        "en": "Total scoops saved"
+      },
+      "type": "number",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "scoops"
+      },
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "measure_waste_drawer_level_percentage": {
+      "title": {
+        "en": "Waste drawer level"
+      },
+      "type": "number",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "%"
+      },
+      "uiComponent": "sensor",
+      "insights": true
+    },
+    "night_light_mode": {
+      "title": {
+        "en": "Night light mode"
+      },
+      "type": "enum",
+      "uiComponent": "picker",
+      "getable": true,
+      "setable": true,
+      "values": [
+        {
+          "id": "off",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "on",
+          "title": {
+            "en": "On"
+          }
+        },
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto"
+          }
+        }
+      ]
+    },
+    "panel_brightness": {
+      "title": {
+        "en": "Panel brightness"
+      },
+      "type": "enum",
+      "uiComponent": "picker",
+      "getable": true,
+      "setable": true,
+      "values": [
+        {
+          "id": "low",
+          "title": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "medium",
+          "title": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "high",
+          "title": {
+            "en": "High"
+          }
+        }
+      ]
+    },
+    "short_reset_press": {
+      "title": {
+        "en": "Reset"
+      },
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button"
+    },
+    "sleep_mode_end_time": {
+      "title": {
+        "en": "Sleep mode end time"
+      },
+      "type": "string",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
+    },
+    "sleep_mode_start_time": {
+      "title": {
+        "en": "Sleep mode start time"
+      },
+      "type": "string",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
+    },
+    "start_clean_cycle": {
+      "title": {
+        "en": "Start clean cycle"
+      },
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button"
+    },
+    "start_empty_cycle": {
+      "title": {
+        "en": "Start empty cycle"
+      },
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button"
+    }
+  }
+}

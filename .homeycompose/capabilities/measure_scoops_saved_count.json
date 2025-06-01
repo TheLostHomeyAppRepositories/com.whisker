@@ -1,0 +1,13 @@
+{
+  "title": {
+    "en": "Total scoops saved"
+  },
+  "type": "number",
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "scoops"
+  },
+  "uiComponent": "sensor",
+  "insights": true
+}

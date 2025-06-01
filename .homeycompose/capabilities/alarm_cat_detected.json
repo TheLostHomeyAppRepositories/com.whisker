@@ -1,0 +1,10 @@
+
+
+{
+  "type": "boolean",
+  "title": {
+    "en": "Cat detected"
+  },
+  "getable": true,
+  "uiComponent": "sensor"
+}

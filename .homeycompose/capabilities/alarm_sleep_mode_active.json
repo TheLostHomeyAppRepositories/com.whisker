@@ -1,0 +1,10 @@
+
+
+{
+  "type": "boolean",
+  "title": {
+    "en": "Sleep mode active"
+  },
+  "getable": true,
+  "uiComponent": "sensor"
+}

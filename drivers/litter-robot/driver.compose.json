@@ -1,0 +1,128 @@
+
+
+{
+  "name": {
+    "en": "Litter-Robot 4"
+  },
+  "icon": [
+    "/drivers/litter-robot/assets/icon.svg"
+  ], 
+  "images": {
+    "xlarge": "/drivers/litter-robot/assets/images/xlarge.png",
+    "large": "/drivers/litter-robot/assets/images/large.png",
+    "small": "/drivers/litter-robot/assets/images/small.png"
+  },
+  "class": "other",
+  "capabilities": [
+    "clean_cycle_status",
+    "litter_robot_status",
+    "alarm_cat_detected",
+    "alarm_waste_drawer_full",
+    "measure_litter_level_percentage",
+    "measure_waste_drawer_level_percentage",
+    "measure_odometer_clean_cycles",
+    "measure_scoops_saved_count",
+    "alarm_sleep_mode_active",
+    "alarm_sleep_mode_scheduled",
+    "sleep_mode_start_time",
+    "sleep_mode_end_time",
+    "measure_weight",
+    "alarm_problem",
+    "clean_cycle_wait_time",
+    "panel_brightness",
+    "key_pad_lock_out",
+    "start_clean_cycle",
+    "start_empty_cycle",
+    "short_reset_press",
+    "night_light_mode"
+  ],
+  "connectivity": [
+    "cloud"
+  ],
+  "platforms": [
+    "local"
+  ],
+  "pair": [
+    {
+      "id": "login",
+      "template": "login_credentials",
+      "options": {
+        "logo": "whisker-logo.png",
+        "usernameLabel": {
+          "en": "E-mail address",
+          "nl": "E-mailadres",
+          "da": "E-mail-adresse",
+          "de": "E-Mail Adresse",
+          "es": "Dirección de correo electrónico",
+          "fr": "Adresse e-mail",
+          "it": "Indirizzo e-mail",
+          "no": "E-postadresse",
+          "sv": "E-postadress",
+          "pl": "Adres e-mail",
+          "ru": "Электронная почта",
+          "ko": "이메일 주소"
+        },
+        "usernamePlaceholder": {
+          "en": "john@doe.com",
+          "da": "john@doe.com",
+          "de": "john@doe.com",
+          "es": "john@doe.com",
+          "fr": "john@doe.com",
+          "it": "john@doe.com",
+          "no": "john@doe.com",
+          "sv": "john@doe.com",
+          "pl": "john@doe.com",
+          "ru": "john@doe.com",
+          "ko": "john@doe.com"
+        }
+      }
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "repair": [
+    {
+      "id": "login",
+      "template": "login_credentials",
+      "options": {
+        "logo": "whisker-logo.png",
+        "usernameLabel": {
+          "en": "E-mail address",
+          "nl": "E-mailadres",
+          "da": "E-mail-adresse",
+          "de": "E-Mail Adresse",
+          "es": "Dirección de correo electrónico",
+          "fr": "Adresse e-mail",
+          "it": "Indirizzo e-mail",
+          "no": "E-postadresse",
+          "sv": "E-postadress",
+          "pl": "Adres e-mail",
+          "ru": "Электронная почта",
+          "ko": "이메일 주소"
+        },
+        "usernamePlaceholder": {
+          "en": "john@doe.com",
+          "da": "john@doe.com",
+          "de": "john@doe.com",
+          "es": "john@doe.com",
+          "fr": "john@doe.com",
+          "it": "john@doe.com",
+          "no": "john@doe.com",
+          "sv": "john@doe.com",
+          "pl": "john@doe.com",
+          "ru": "john@doe.com",
+          "ko": "john@doe.com"
+        }
+      }
+    }
+  ]
+}

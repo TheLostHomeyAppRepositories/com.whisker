@@ -1,0 +1,107 @@
+
+
+[
+  {
+    "id": "waste_drawer_threshold",
+    "type": "number",
+    "label": {
+      "en": "Waste drawer full threshold (%)",
+      "nl": "Drempel afvalbak (%)",
+      "de": "Füllstandsschwelle für Abfallbehälter (%)",
+      "fr": "Seuil de remplissage du bac à déchets (%)",
+      "it": "Soglia piena del cassetto dei rifiuti (%)",
+      "sv": "Tröskelvärde för full avfallsbehållare (%)",
+      "no": "Terskel for full avfallsbeholder (%)",
+      "es": "Umbral del cajón de desechos lleno (%)",
+      "da": "Tærskel for fuld affaldsskuffe (%)",
+      "ru": "Порог заполнения мусорного ящика (%)",
+      "pl": "Próg pełności pojemnika na odpady (%)",
+      "ko": "폐기물 서랍 가득 참 임계값 (%)"
+    },
+    "hint": {
+      "en": "Adjust this percentage to determine when the Waste Drawer Full alarm should trigger, the default is 90%",
+      "nl": "Pas dit percentage aan om te bepalen wanneer de afvalbak als vol wordt gemeld. Standaard is dit 90%.",
+      "de": "Passen Sie diesen Prozentsatz an, um festzulegen, wann die Meldung „Abfallbehälter voll“ ausgelöst wird. Standard ist 90%.",
+      "fr": "Ajustez ce pourcentage pour déterminer quand l'alerte bac à déchets plein doit se déclencher. Par défaut : 90%.",
+      "it": "Modifica questa percentuale per decidere quando attivare l'allarme del cassetto pieno. Predefinito: 90%.",
+      "sv": "Justera denna procentsats för att avgöra när larmet för full avfallsbehållare ska utlösas. Standard är 90%.",
+      "no": "Juster denne prosenten for å angi når varsel om full avfallsbeholder skal utløses. Standard er 90%.",
+      "es": "Ajusta este porcentaje para determinar cuándo se debe activar la alarma de cajón de desechos lleno. Por defecto: 90%.",
+      "da": "Juster denne procentdel for at bestemme, hvornår alarmen for fuld affaldsskuffe skal udløses. Standard er 90%.",
+      "ru": "Настройте этот процент, чтобы определить, когда включать сигнал переполненного мусорного ящика. По умолчанию: 90%.",
+      "pl": "Dostosuj ten procent, aby określić, kiedy ma się włączyć alarm pełnego pojemnika. Domyślnie: 90%.",
+      "ko": "이 비율을 조정하여 폐기물 서랍이 가득 찼을 때 경고가 표시되도록 설정합니다. 기본값은 90%입니다."
+    },
+    "value": 90,
+    "min": 1,
+    "max": 100,
+    "step": 1,
+    "required": true
+  },
+  {
+    "id": "use_12h_format",
+    "type": "checkbox",
+    "label": {
+      "en": "Use 12H time format",
+      "nl": "Gebruik 12-uurs tijdnotatie",
+      "de": "12-Stunden-Zeitformat verwenden",
+      "fr": "Utiliser le format horaire 12h",
+      "it": "Usa il formato orario 12H",
+      "sv": "Använd 12-timmarsformat",
+      "no": "Bruk 12-timers tidsformat",
+      "es": "Usar formato de hora de 12 horas",
+      "da": "Brug 12-timers tidsformat",
+      "ru": "Использовать 12-часовой формат времени",
+      "pl": "Użyj 12-godzinnego formatu czasu",
+      "ko": "12시간제 시간 형식 사용"
+    },
+    "hint": {
+      "en": "If checked, times will display in 12H format. Otherwise 24H is used.",
+      "nl": "Indien aangevinkt, worden tijden weergegeven in 12-uurs formaat. Anders wordt 24-uurs gebruikt.",
+      "de": "Wenn aktiviert, werden Zeiten im 12-Stunden-Format angezeigt. Andernfalls wird das 24-Stunden-Format verwendet.",
+      "fr": "Si coché, les heures seront affichées au format 12h. Sinon, le format 24h sera utilisé.",
+      "it": "Se selezionato, gli orari saranno visualizzati nel formato 12H. Altrimenti verrà usato il formato 24H.",
+      "sv": "Om markerat visas tider i 12-timmarsformat. Annars används 24-timmarsformat.",
+      "no": "Hvis valgt, vises tider i 12-timersformat. Ellers brukes 24-timersformat.",
+      "es": "Si está marcado, las horas se mostrarán en formato de 12 horas. De lo contrario, se usará el formato de 24 horas.",
+      "da": "Hvis markeret vises tider i 12-timers format. Ellers bruges 24-timers format.",
+      "ru": "Если отмечено, время будет отображаться в 12-часовом формате. В противном случае используется 24-часовой формат.",
+      "pl": "Jeśli zaznaczone, godziny będą wyświetlane w formacie 12-godzinnym. W przeciwnym razie używany jest format 24-godzinny.",
+      "ko": "선택하면 시간이 12시간제로 표시됩니다. 그렇지 않으면 24시간제가 사용됩니다."
+    },
+    "value": false
+  },
+  {
+    "id": "use_us_date_format",
+    "type": "checkbox",
+    "label": {
+      "en": "Use US date format (MM-DD-YYYY)",
+      "nl": "Gebruik VS-datumformaat (MM-DD-JJJJ)",
+      "de": "US-Datumsformat verwenden (MM-TT-JJJJ)",
+      "fr": "Utiliser le format de date US (MM-JJ-AAAA)",
+      "it": "Usa formato data USA (MM-GG-AAAA)",
+      "sv": "Använd amerikanskt datumformat (MM-DD-ÅÅÅÅ)",
+      "no": "Bruk amerikansk datoformat (MM-DD-ÅÅÅÅ)",
+      "es": "Usar formato de fecha estadounidense (MM-DD-AAAA)",
+      "da": "Brug amerikansk datoformat (MM-DD-ÅÅÅÅ)",
+      "ru": "Использовать американский формат даты (MM-ДД-ГГГГ)",
+      "pl": "Użyj amerykańskiego formatu daty (MM-DD-RRRR)",
+      "ko": "미국식 날짜 형식 사용 (MM-DD-YYYY)"
+    },
+    "hint": {
+      "en": "If checked, dates will display as MM-DD-YYYY. Otherwise YYYY-MM-DD is used.",
+      "nl": "Indien aangevinkt, worden datums weergegeven als MM-DD-JJJJ. Anders wordt JJJJ-MM-DD gebruikt.",
+      "de": "Wenn aktiviert, werden Daten als MM-TT-JJJJ angezeigt. Andernfalls wird JJJJ-MM-TT verwendet.",
+      "fr": "Si coché, les dates seront affichées au format MM-JJ-AAAA. Sinon, AAAA-MM-JJ sera utilisé.",
+      "it": "Se selezionato, le date saranno visualizzate come MM-GG-AAAA. Altrimenti verrà usato AAAA-MM-GG.",
+      "sv": "Om markerat visas datum som MM-DD-ÅÅÅÅ. Annars används ÅÅÅÅ-MM-DD.",
+      "no": "Hvis valgt, vises datoer som MM-DD-ÅÅÅÅ. Ellers brukes ÅÅÅÅ-MM-DD.",
+      "es": "Si está marcado, las fechas se mostrarán como MM-DD-AAAA. De lo contrario, se usará AAAA-MM-DD.",
+      "da": "Hvis markeret vises datoer som MM-DD-ÅÅÅÅ. Ellers bruges ÅÅÅÅ-MM-DD.",
+      "ru": "Если отмечено, даты будут отображаться как MM-ДД-ГГГГ. В противном случае используется ГГГГ-MM-ДД.",
+      "pl": "Jeśli zaznaczone, daty będą wyświetlane jako MM-DD-RRRR. W przeciwnym razie używany jest format RRRR-MM-DD.",
+      "ko": "선택하면 날짜가 MM-DD-YYYY 형식으로 표시됩니다. 그렇지 않으면 YYYY-MM-DD 형식이 사용됩니다."
+    },
+    "value": false
+  }
+]

@@ -1,0 +1,43 @@
+
+
+{
+  "title": {
+    "en": "Clean cycle wait time"
+  },
+  "type": "enum",
+  "uiComponent": "picker",
+  "getable": true,
+  "setable": true,
+  "values": [
+    {
+      "id": "3",
+      "title": {
+        "en": "3 minutes"
+      }
+    },
+    {
+      "id": "7",
+      "title": {
+        "en": "7 minutes"
+      }
+    },
+    {
+      "id": "15",
+      "title": {
+        "en": "15 minutes"
+      }
+    },
+    {
+      "id": "25",
+      "title": {
+        "en": "25 minutes"
+      }
+    },
+    {
+      "id": "30",
+      "title": {
+        "en": "30 minutes"
+      }
+    }
+  ]
+}

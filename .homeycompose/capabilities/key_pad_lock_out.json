@@ -1,0 +1,11 @@
+
+
+{
+  "title": {
+    "en": "Keypad lock"
+  },
+  "type": "boolean",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "button"
+}

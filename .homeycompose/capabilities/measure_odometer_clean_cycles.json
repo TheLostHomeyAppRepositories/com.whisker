@@ -1,0 +1,13 @@
+{
+  "title": {
+    "en": "Completed clean cycles"
+  },
+  "type": "number",
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "cycles"
+  },
+  "uiComponent": "sensor",
+  "insights": true
+}

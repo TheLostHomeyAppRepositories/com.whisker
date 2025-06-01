@@ -1,0 +1,3 @@
+Whisker, is the maker of Litter-Robot, Feeder-Robot, and Litterbox.com. At Whisker, we believe pet parenthood can always get better.  
+
+As the leading innovator in pet tech and refined pet accessories, we work tirelessly to solve problems and deliver smarter insights for pet parents while enriching the lives of pets. Whether it’s a self-cleaning litter box that automates scooping, an automatic feeder that helps pets develop healthier eating habits, or a modern cat tree that delights both humans and felines, we strive to deliver better solutions for consumers, transforming pet care along the way. And we don’t rest once we’ve created the best—we exist to make life for pets and pet parents endlessly better.
