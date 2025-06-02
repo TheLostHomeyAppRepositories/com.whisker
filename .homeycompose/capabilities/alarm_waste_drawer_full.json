@@ -6,5 +6,6 @@
     "en": "Waste drawer Full"
   },
   "getable": true,
-  "uiComponent": "sensor"
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm_waste_drawer_full.svg"
 }

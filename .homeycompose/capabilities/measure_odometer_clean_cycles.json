@@ -5,6 +5,7 @@
   "type": "number",
   "getable": true,
   "setable": false,
+  "icon": "/assets/capabilities/measure_odometer_clean_cycles.svg",
   "units": {
     "en": "cycles"
   },

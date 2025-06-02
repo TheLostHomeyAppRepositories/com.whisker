@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.whisker",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -52,8 +52,10 @@
   "contributors": {
     "developers": [
       {
-        "name": "Nathan Spencer (pylitterbot)",
-        "url": "https://github.com/natekspencer"
+        "name": "Nathan Spencer (pylitterbot)"
+      },
+      {
+        "name": "Bas van der Ploeg (icons)"
       }
     ]
   },
@@ -2077,7 +2079,8 @@
         "en": "Cat detected"
       },
       "getable": true,
-      "uiComponent": "sensor"
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm_cat_detected.svg"
     },
     "alarm_sleep_mode_active": {
       "type": "boolean",
@@ -2085,7 +2088,8 @@
         "en": "Sleep mode active"
       },
       "getable": true,
-      "uiComponent": "sensor"
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm_sleep_mode_active.svg"
     },
     "alarm_sleep_mode_scheduled": {
       "type": "boolean",
@@ -2093,7 +2097,8 @@
         "en": "Sleep mode scheduled"
       },
       "getable": true,
-      "uiComponent": "sensor"
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm_sleep_mode_scheduled.svg"
     },
     "alarm_waste_drawer_full": {
       "type": "boolean",
@@ -2101,7 +2106,8 @@
         "en": "Waste drawer Full"
       },
       "getable": true,
-      "uiComponent": "sensor"
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm_waste_drawer_full.svg"
     },
     "clean_cycle_status": {
       "type": "string",
@@ -2110,7 +2116,8 @@
       },
       "getable": true,
       "setable": false,
-      "uiComponent": "sensor"
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/clean_cycle_status.svg"
     },
     "clean_cycle_wait_time": {
       "title": {
@@ -2160,7 +2167,8 @@
       "type": "boolean",
       "getable": true,
       "setable": true,
-      "uiComponent": "button"
+      "uiComponent": "button",
+      "icon": "/assets/capabilities/key_pad_lock_out_closed.svg"
     },
     "litter_robot_status": {
       "type": "string",
@@ -2169,7 +2177,8 @@
       },
       "getable": true,
       "setable": false,
-      "uiComponent": "sensor"
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/litter_robot_status.svg"
     },
     "measure_litter_level_percentage": {
       "title": {
@@ -2178,6 +2187,7 @@
       "type": "number",
       "getable": true,
       "setable": false,
+      "icon": "/assets/capabilities/measure_litter_level_percentage.svg",
       "units": {
         "en": "%"
       },
@@ -2191,6 +2201,7 @@
       "type": "number",
       "getable": true,
       "setable": false,
+      "icon": "/assets/capabilities/measure_odometer_clean_cycles.svg",
       "units": {
         "en": "cycles"
       },
@@ -2204,6 +2215,7 @@
       "type": "number",
       "getable": true,
       "setable": false,
+      "icon": "/assets/capabilities/measure_scoops_saved_count.svg",
       "units": {
         "en": "scoops"
       },
@@ -2217,6 +2229,7 @@
       "type": "number",
       "getable": true,
       "setable": false,
+      "icon": "/assets/capabilities/measure_waste_drawer_level_percentage.svg",
       "units": {
         "en": "%"
       },
@@ -2288,7 +2301,8 @@
       "type": "boolean",
       "getable": false,
       "setable": true,
-      "uiComponent": "button"
+      "uiComponent": "button",
+      "icon": "/assets/capabilities/short_reset_press.svg"
     },
     "sleep_mode_end_time": {
       "title": {
@@ -2297,7 +2311,8 @@
       "type": "string",
       "getable": true,
       "setable": false,
-      "uiComponent": "sensor"
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/sleep_mode_end_time.svg"
     },
     "sleep_mode_start_time": {
       "title": {
@@ -2306,7 +2321,8 @@
       "type": "string",
       "getable": true,
       "setable": false,
-      "uiComponent": "sensor"
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/sleep_mode_start_time.svg"
     },
     "start_clean_cycle": {
       "title": {
@@ -2315,7 +2331,8 @@
       "type": "boolean",
       "getable": false,
       "setable": true,
-      "uiComponent": "button"
+      "uiComponent": "button",
+      "icon": "/assets/capabilities/start_clean_cycle.svg"
     },
     "start_empty_cycle": {
       "title": {
@@ -2324,7 +2341,8 @@
       "type": "boolean",
       "getable": false,
       "setable": true,
-      "uiComponent": "button"
+      "uiComponent": "button",
+      "icon": "/assets/capabilities/start_empty_cycle.svg"
     }
   }
 }

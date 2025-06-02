@@ -5,6 +5,7 @@
   "type": "number",
   "getable": true,
   "setable": false,
+  "icon": "/assets/capabilities/measure_scoops_saved_count.svg",
   "units": {
     "en": "scoops"
   },

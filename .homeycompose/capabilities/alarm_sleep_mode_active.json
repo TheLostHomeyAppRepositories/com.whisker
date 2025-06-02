@@ -6,5 +6,6 @@
     "en": "Sleep mode active"
   },
   "getable": true,
-  "uiComponent": "sensor"
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm_sleep_mode_active.svg"
 }

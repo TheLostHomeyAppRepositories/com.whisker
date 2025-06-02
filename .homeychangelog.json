@@ -13,5 +13,8 @@
   },  
   "0.1.4": {
     "en": "Added translations for the readme to support all languages"
-  }            
+  },
+  "0.1.5": {
+    "en": "Added all icons for the custom capabilities, thanks to @basvanderploeg"
+  }              
 }

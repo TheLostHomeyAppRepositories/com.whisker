@@ -7,5 +7,6 @@
   "type": "boolean",
   "getable": false,
   "setable": true,
-  "uiComponent": "button"
+  "uiComponent": "button",
+  "icon": "/assets/capabilities/start_empty_cycle.svg"
 }

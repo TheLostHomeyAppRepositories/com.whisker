@@ -5,6 +5,7 @@
   "type": "number",
   "getable": true,
   "setable": false,
+  "icon": "/assets/capabilities/measure_litter_level_percentage.svg",
   "units": {
     "en": "%"
   },

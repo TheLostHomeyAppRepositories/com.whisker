@@ -1,6 +1,6 @@
 {
   "id": "com.whisker",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -51,8 +51,10 @@
   "contributors": {
     "developers": [
       {
-        "name": "Nathan Spencer (pylitterbot)",
-        "url": "https://github.com/natekspencer"
+        "name": "Nathan Spencer (pylitterbot)"
+      },
+      {
+        "name": "Bas van der Ploeg (icons)"
       }
     ]
   },
