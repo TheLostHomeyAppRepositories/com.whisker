@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * LitterRobotDriver integrates Homey.Driver for Litter-Robot pairing and repair flows.
+ * LitterRobotDriver integrates Homey.Driver for Litter-Robot 4 pairing and repair flows.
  * @class
  */
 
@@ -16,7 +16,7 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
    * @returns {void}
    */
   onInit() {
-    this.log('Litter-Robot driver initialized');
+    this.log('Litter-Robot 4 driver initialized');
   }
 
   /**

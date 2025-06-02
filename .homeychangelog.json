@@ -16,5 +16,8 @@
   },
   "0.1.5": {
     "en": "Added all icons for the custom capabilities, thanks to @basvanderploeg"
-  }              
+  },
+  "0.2.0": {
+    "en": "Changed the driver name to 'litter-robot4' to keep naming consistent"
+  }               
 }

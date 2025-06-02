@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.whisker",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -98,7 +98,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           },
           {
             "name": "threshold",
@@ -156,7 +156,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           },
           {
             "name": "amount",
@@ -297,7 +297,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           },
           {
             "name": "amount",
@@ -452,7 +452,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           },
           {
             "name": "threshold",
@@ -524,7 +524,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           },
           {
             "name": "threshold",
@@ -596,7 +596,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           },
           {
             "name": "threshold",
@@ -654,7 +654,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -692,7 +692,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -730,7 +730,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -771,7 +771,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           },
           {
             "name": "count",
@@ -903,7 +903,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -941,7 +941,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -979,7 +979,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -1017,7 +1017,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       }
@@ -1057,7 +1057,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -1095,7 +1095,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -1133,7 +1133,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -1157,7 +1157,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ],
         "hint": {
@@ -1195,7 +1195,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           },
           {
             "name": "status",
@@ -1305,7 +1305,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -1343,7 +1343,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -1381,7 +1381,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           },
           {
             "name": "mode",
@@ -1490,7 +1490,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -1528,7 +1528,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -1566,7 +1566,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           }
         ]
       },
@@ -1618,7 +1618,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           },
           {
             "name": "wait_time",
@@ -1761,7 +1761,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=litter-robot"
+            "filter": "driver_id=litter-robot4"
           },
           {
             "name": "brightness",
@@ -1844,12 +1844,12 @@
         "en": "Litter-Robot 4"
       },
       "icon": [
-        "/drivers/litter-robot/assets/icon.svg"
+        "/drivers/litter-robot4/assets/icon.svg"
       ],
       "images": {
-        "xlarge": "/drivers/litter-robot/assets/images/xlarge.png",
-        "large": "/drivers/litter-robot/assets/images/large.png",
-        "small": "/drivers/litter-robot/assets/images/small.png"
+        "xlarge": "/drivers/litter-robot4/assets/images/xlarge.png",
+        "large": "/drivers/litter-robot4/assets/images/large.png",
+        "small": "/drivers/litter-robot4/assets/images/small.png"
       },
       "class": "other",
       "capabilities": [
@@ -1964,7 +1964,7 @@
           }
         }
       ],
-      "id": "litter-robot",
+      "id": "litter-robot4",
       "settings": [
         {
           "id": "waste_drawer_threshold",

@@ -5,12 +5,12 @@
     "en": "Litter-Robot 4"
   },
   "icon": [
-    "/drivers/litter-robot/assets/icon.svg"
+    "/drivers/litter-robot4/assets/icon.svg"
   ], 
   "images": {
-    "xlarge": "/drivers/litter-robot/assets/images/xlarge.png",
-    "large": "/drivers/litter-robot/assets/images/large.png",
-    "small": "/drivers/litter-robot/assets/images/small.png"
+    "xlarge": "/drivers/litter-robot4/assets/images/xlarge.png",
+    "large": "/drivers/litter-robot4/assets/images/large.png",
+    "small": "/drivers/litter-robot4/assets/images/small.png"
   },
   "class": "other",
   "capabilities": [
