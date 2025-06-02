@@ -1,0 +1,3 @@
+Whisker to producent Litter-Robot, Feeder-Robot i Litterbox.com. W Whisker wierzymy, że opieka nad zwierzętami zawsze może być lepsza.
+
+Jako lider innowacji w technologii dla zwierząt i eleganckich akcesoriów, nieustannie pracujemy nad rozwiązywaniem problemów i dostarczaniem mądrzejszych rozwiązań dla opiekunów, jednocześnie poprawiając życie zwierząt. Niezależnie czy chodzi o samooczyszczającą kuwetę, automatyczny podajnik karmy czy nowoczesne drzewko dla kota — dążymy do ulepszania produktów i zmieniania podejścia do opieki nad zwierzętami. I nie przestajemy, gdy coś działa dobrze — istniejemy po to, by nieustannie poprawiać życie pupili i ich właścicieli.

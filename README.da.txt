@@ -1,0 +1,3 @@
+Whisker er producenten af Litter-Robot, Feeder-Robot og Litterbox.com. Hos Whisker mener vi, at kæledyrspleje altid kan blive bedre.
+
+Som førende inden for kæledyrsteknologi og eksklusive tilbehør arbejder vi hårdt på at løse problemer og give smartere indsigter til kæledyrsejere, mens vi forbedrer livet for deres dyr. Uanset om det er en selvrensende kattebakke, en automatisk fodermaskine eller et moderne klatremiljø til katte, stræber vi efter at levere bedre løsninger og samtidig forny måden, vi tager os af vores dyr på. Og vi stopper ikke, når noget er godt – vi er her for at gøre livet bedre for både kæledyr og deres ejere.

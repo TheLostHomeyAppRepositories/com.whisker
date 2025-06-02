@@ -1,0 +1,3 @@
+Whisker es el creador de Litter-Robot, Feeder-Robot y Litterbox.com. En Whisker, creemos que la vida con mascotas siempre puede mejorar.
+
+Como innovador líder en tecnología para mascotas y accesorios refinados, trabajamos sin descanso para resolver problemas y ofrecer información útil a los dueños, mejorando al mismo tiempo la vida de sus animales. Ya sea una caja de arena autolimpiante que automatiza el proceso, un comedero automático que fomenta hábitos alimenticios más saludables, o un árbol para gatos moderno que encanta a humanos y felinos por igual, buscamos ofrecer mejores soluciones que transformen el cuidado de las mascotas. Y no nos detenemos cuando algo funciona — existimos para hacer la vida de las mascotas y sus dueños infinitamente mejor.

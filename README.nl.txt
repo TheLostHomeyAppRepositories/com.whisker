@@ -1,0 +1,3 @@
+Whisker is de maker van de Litter-Robot, Feeder-Robot en Litterbox.com. Bij Whisker geloven we dat huisdierverzorging altijd beter kan.
+
+Als toonaangevende innovator in huisdiertechnologie en stijlvolle accessoires werken we hard om problemen op te lossen en slimmere inzichten te bieden aan huisdiereigenaren, terwijl we het leven van huisdieren verrijken. Of het nu gaat om een zelfreinigende kattenbak die het scheppen automatiseert, een automatische voerbak die bijdraagt aan een gezonder eetpatroon of een moderne kattentoren die zowel mens als kat blij maakt – wij streven ernaar om betere oplossingen te bieden en zo de huisdierverzorging te vernieuwen. En we stoppen niet zodra iets goed is – we bestaan om het leven voor huisdieren en hun baasjes continu te verbeteren.
