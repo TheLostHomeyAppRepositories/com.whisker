@@ -327,65 +327,10 @@ module.exports = class LitterRobotDevice extends Device {
     if (typeof data.litterLevelPercentage === 'number') {
       const percentage = Math.round(data.litterLevelPercentage * 100);
       _setCapabilityIfChanged('measure_litter_level_percentage', percentage);
-
-      // Cache settings for thresholds
-      const belowThreshold = this.getSetting('litter_level_below_threshold');
-      const aboveThreshold = this.getSetting('litter_level_above_threshold');
-
-      // Litter level below threshold trigger
-      if (
-        typeof this._previousLitterLevel === 'number' &&
-        typeof belowThreshold === 'number' &&
-        this._previousLitterLevel >= belowThreshold &&
-        percentage < belowThreshold
-      ) {
-        this.triggerFlowCard('litter_level_below_threshold', { threshold: belowThreshold }).catch(this.error);
-      }
-
-      // Litter level above threshold trigger
-      if (
-        typeof this._previousLitterLevel === 'number' &&
-        typeof aboveThreshold === 'number' &&
-        this._previousLitterLevel <= aboveThreshold &&
-        percentage > aboveThreshold
-      ) {
-        this.triggerFlowCard('litter_level_above_threshold', { threshold: aboveThreshold }).catch(this.error);
-      }
-
-      // Store current value for next update
-      this._previousLitterLevel = percentage;
     }
     // Map measure_waste_drawer_level_percentage capability from data if present
     if (typeof data.DFILevelPercent === 'number') {
       _setCapabilityIfChanged('measure_waste_drawer_level_percentage', data.DFILevelPercent);
-      // Cache settings for thresholds for efficiency
-      const belowThreshold = this.getSetting('waste_drawer_level_below_threshold');
-      const aboveThreshold = this.getSetting('waste_drawer_level_above_threshold');
-      // Waste drawer threshold-based Flow triggers
-      // Below threshold
-      if (
-        typeof this.previousDrawerLevel === 'number' &&
-        typeof data.DFILevelPercent === 'number' &&
-        this.previousDrawerLevel >= belowThreshold &&
-        data.DFILevelPercent < belowThreshold
-      ) {
-        this.triggerFlowCard('waste_drawer_level_below_threshold', {
-          threshold: belowThreshold,
-        }).catch(this.error);
-      }
-      // Above threshold
-      if (
-        typeof this.previousDrawerLevel === 'number' &&
-        typeof data.DFILevelPercent === 'number' &&
-        this.previousDrawerLevel <= aboveThreshold &&
-        data.DFILevelPercent > aboveThreshold
-      ) {
-        this.triggerFlowCard('waste_drawer_level_above_threshold', {
-          threshold: aboveThreshold,
-        }).catch(this.error);
-      }
-      // Store previous drawer level for next update
-      this.previousDrawerLevel = data.DFILevelPercent;
     }
     // Add clean_cycle_wait_time capability update based on WebSocket data
     if (typeof data.cleanCycleWaitTime === 'number') {
