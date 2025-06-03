@@ -23,7 +23,7 @@
   "0.2.1": {
     "en": "Updated logic for the litter level above/below threshold Flow cards"
   },
-  "0.3": {
+  "0.3.0": {
     "en": "Removed redundant Flow cards for litter level and waste drawer level capabilities"
   }                         
 }
