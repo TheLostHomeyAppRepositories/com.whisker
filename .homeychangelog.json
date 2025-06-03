@@ -19,5 +19,8 @@
   },
   "0.2.0": {
     "en": "Changed the driver name to 'litter-robot4' to keep naming consistent"
-  }               
+  },
+  "0.2.1": {
+    "en": "Updated logic for the litter level above/below threshold Flow cards"
+  }                    
 }

@@ -327,17 +327,32 @@ module.exports = class LitterRobotDevice extends Device {
     if (typeof data.litterLevelPercentage === 'number') {
       const percentage = Math.round(data.litterLevelPercentage * 100);
       _setCapabilityIfChanged('measure_litter_level_percentage', percentage);
-      // Trigger litter_level_below_threshold flow card if the level drops below the previous value
+
+      // Cache settings for thresholds
+      const belowThreshold = this.getSetting('litter_level_below_threshold');
+      const aboveThreshold = this.getSetting('litter_level_above_threshold');
+
+      // Litter level below threshold trigger
       if (
         typeof this._previousLitterLevel === 'number' &&
-        percentage < this._previousLitterLevel
+        typeof belowThreshold === 'number' &&
+        this._previousLitterLevel >= belowThreshold &&
+        percentage < belowThreshold
       ) {
-        this.homey.flow
-          .getDeviceTriggerCard('litter_level_below_threshold')
-          .then(card => {
-            card.trigger(this, { threshold: percentage }).catch(this.error);
-          });
+        this.triggerFlowCard('litter_level_below_threshold', { threshold: belowThreshold }).catch(this.error);
       }
+
+      // Litter level above threshold trigger
+      if (
+        typeof this._previousLitterLevel === 'number' &&
+        typeof aboveThreshold === 'number' &&
+        this._previousLitterLevel <= aboveThreshold &&
+        percentage > aboveThreshold
+      ) {
+        this.triggerFlowCard('litter_level_above_threshold', { threshold: aboveThreshold }).catch(this.error);
+      }
+
+      // Store current value for next update
       this._previousLitterLevel = percentage;
     }
     // Map measure_waste_drawer_level_percentage capability from data if present
