@@ -788,10 +788,21 @@
         "ko": "Litter-Robot가 여러 청소 사이클을 완료했습니다"
       },
       "hint": {
-        "en": "Triggers when the Litter-Robot completes a specified number of clean cycles."
+        "en": "Triggers when the Litter-Robot completes a specified number of clean cycles.",
+        "nl": "Wordt geactiveerd wanneer de Litter-Robot een bepaald aantal schoonmaakcycli heeft voltooid.",
+        "de": "Löst aus, wenn der Litter-Robot eine festgelegte Anzahl von Reinigungszyklen abgeschlossen hat.",
+        "fr": "Déclenche lorsque le Litter-Robot a terminé un nombre spécifié de cycles de nettoyage.",
+        "it": "Si attiva quando il Litter-Robot ha completato un numero specificato di cicli di pulizia.",
+        "sv": "Utlöses när Litter-Robot har slutfört ett angivet antal rengöringscykler.",
+        "no": "Utløses når Litter-Robot har fullført et angitt antall rengjøringssykluser.",
+        "es": "Se activa cuando el Litter-Robot completa un número especificado de ciclos de limpieza.",
+        "da": "Udløses, når Litter-Robot har gennemført et bestemt antal rengøringscyklusser.",
+        "ru": "Срабатывает, когда Litter-Robot завершает заданное количество циклов очистки.",
+        "pl": "Wyzwalane, gdy Litter-Robot zakończy określoną liczbę cykli czyszczenia.",
+        "ko": "Litter-Robot이 지정된 수의 청소 사이클을 완료하면 트리거됩니다."
       },
       "titleFormatted": {
-        "en": "When the Litter-Robot completed [[count]] clean cycles",
+        "en": "When the Litter-Robot completes [[count]] clean cycles",
         "nl": "Wanneer de Litter-Robot [[count]] schoonmaakcycli heeft voltooid",
         "de": "Wenn der Litter-Robot [[count]] Reinigungszyklen abgeschlossen hat",
         "fr": "Lorsque le Litter-Robot a terminé [[count]] cycles de nettoyage",

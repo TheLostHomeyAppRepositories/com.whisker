@@ -240,6 +240,20 @@ module.exports = class LitterRobotDevice extends Device {
         return true;
       });
     }
+    // Trigger flow card for multiple clean cycles
+    const cleanCycleMultipleCard = getCardSafe('trigger', 'clean_cycle_multiple');
+    if (cleanCycleMultipleCard) {
+      cleanCycleMultipleCard.registerRunListener((args, state) => {
+        const total = this.getCapabilityValue('measure_odometer_clean_cycles');
+        this.log(`Flow check [clean_cycle_multiple]: total=${total}, requested count=${args.count}, remainder=${total % args.count}`);
+        // Trigger only on exact multiples of the user-defined count
+        const shouldTrigger = args.count > 0 && total % args.count === 0;
+        this.log(`Flow decision [clean_cycle_multiple]: will trigger? ${shouldTrigger}`);
+        return shouldTrigger;
+      });
+      // Store reference for use in updateCapabilities
+      this._cleanCycleMultipleCard = cleanCycleMultipleCard;
+    }
     // Register condition cards with error handling
     const condCards = [
       ['is_cat_detected', () => this.getCapabilityValue('alarm_cat_detected') === true],
@@ -315,9 +329,20 @@ module.exports = class LitterRobotDevice extends Device {
       }
     };
 
-    // Map measure_odometer_clean_cycles capability from data if present
+    // Map measure_odometer_clean_cycles capability from data if present, and trigger "clean_cycle_multiple" when count increases
     if (typeof data.odometerCleanCycles === 'number') {
-      _setCapabilityIfChanged('measure_odometer_clean_cycles', data.odometerCleanCycles);
+      const prevCount = this.getPreviousCleanCycleCount();
+      const newCount = data.odometerCleanCycles;
+      _setCapabilityIfChanged('measure_odometer_clean_cycles', newCount);
+      if (newCount > prevCount && this._cleanCycleMultipleCard) {
+        this.log(`Invoking clean_cycle_multiple trigger: previous=${prevCount}, new=${newCount}`);
+        this._cleanCycleMultipleCard.trigger(this, { total_cycles: newCount })
+          .then(() => {
+            this.log(`Successfully triggered clean_cycle_multiple with total_cycles=${newCount}`);
+          })
+          .catch(err => this.error('Failed to trigger clean_cycle_multiple:', err));
+      }
+      this.setPreviousCleanCycleCount(newCount);
     }
     // Map measure_scoops_saved_count capability from data if present
     if (typeof data.scoopsSavedCount === 'number') {

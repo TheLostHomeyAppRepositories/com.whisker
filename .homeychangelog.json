@@ -25,5 +25,8 @@
   },
   "0.3.0": {
     "en": "Removed redundant Flow cards for litter level and waste drawer level capabilities"
-  }                         
+  },
+  "0.3.1": {
+    "en": "Fixed logic for the multiple cleaning cycles Flow card"
+  }                              
 }
