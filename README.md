@@ -34,10 +34,6 @@ Bring automation and insights to your Litter-Robot 4 with Homey Flows and device
 
 ### 🔁 Flow Triggers (When...)
 
-- Litter level above threshold
-- Litter level below threshold
-- Waste drawer level above threshold
-- Waste drawer level below threshold
 - Waste drawer becomes full
 - Waste drawer is no longer full
 - Cat detected
