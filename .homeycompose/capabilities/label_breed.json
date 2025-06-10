@@ -1,0 +1,23 @@
+
+
+{
+  "type": "string",
+  "title": {
+    "en": "Breed(s)",
+    "nl": "Ras(sen)",
+    "de": "Rasse(n)",
+    "fr": "Race(s)",
+    "it": "Razza/e",
+    "sv": "Ras(er)",
+    "no": "Rase(r)",
+    "es": "Raza(s)",
+    "da": "Race(r)",
+    "ru": "Порода(ы)",
+    "pl": "Rasa(y)",
+    "ko": "품종"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/label_breed.svg"
+}

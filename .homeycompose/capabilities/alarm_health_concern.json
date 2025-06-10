@@ -1,0 +1,22 @@
+
+
+{
+  "type": "boolean",
+  "title": {
+    "en": "Health concern detected",
+    "nl": "Gezondheidsprobleem gedetecteerd",
+    "de": "Gesundheitsproblem erkannt",
+    "fr": "Problème de santé détecté",
+    "it": "Problema di salute rilevato",
+    "sv": "Hälsoproblem upptäckt",
+    "no": "Helseproblem oppdaget",
+    "es": "Problema de salud detectado",
+    "da": "Sundhedsproblem registreret",
+    "ru": "Обнаружена проблема со здоровьем",
+    "pl": "Wykryto problem zdrowotny",
+    "ko": "건강 문제 감지"
+  },
+  "getable": true,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm_health_concern.svg"
+}

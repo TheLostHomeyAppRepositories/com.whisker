@@ -1,0 +1,23 @@
+
+
+{
+  "type": "string",
+  "title": {
+    "en": "Gender",
+    "nl": "Geslacht",
+    "de": "Geschlecht",
+    "fr": "Sexe",
+    "it": "Genere",
+    "sv": "Kön",
+    "no": "Kjønn",
+    "es": "Género",
+    "da": "Køn",
+    "ru": "Пол",
+    "pl": "Płeć",
+    "ko": "성별"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/label_gender.svg"
+}

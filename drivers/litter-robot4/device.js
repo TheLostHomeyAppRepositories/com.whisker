@@ -1,13 +1,13 @@
 'use strict';
 
 /**
- * LitterRobotDevice integrates with WhiskerApi to manage robot state and real-time updates.
+ * LitterRobotDevice integrates with LR4Api to manage robot state and real-time updates.
  * @extends Device
  */
 
 const { Device } = require('homey');
-const WhiskerApi = require('../../lib/WhiskerApi');
-const WhiskerRobot = require('../../lib/WhiskerRobot'); // Import WhiskerRobot for mappings
+const LR4Api = require('../../lib/LR4Api');
+const LR4Data = require('../../lib/LR4Data'); // Import LR4Data for mappings
 
 module.exports = class LitterRobotDevice extends Device {
 
@@ -29,7 +29,7 @@ module.exports = class LitterRobotDevice extends Device {
 
     this.log('Loaded tokens from settings'); // token values are not logged for security
 
-    this.api = new WhiskerApi({ tokens: { ...tokens } });
+    this.api = new LR4Api({ tokens: { ...tokens } });
 
     const data = this.getData();
     if (!data || typeof data !== 'object') {
@@ -390,18 +390,18 @@ module.exports = class LitterRobotDevice extends Device {
     } else if (data.robotCycleStatus === 'CYCLE_IDLE') {
       cleanStatus = 'Idle';
     } else {
-      cleanStatus = WhiskerRobot.RobotStatusDescriptions[data.robotStatus] || 'Unknown Status';
+      cleanStatus = LR4Data.RobotStatusDescriptions[data.robotStatus] || 'Unknown Status';
     }
     this.log('Mapped clean_cycle_status from robotCycleStatus/robotStatus:', data.robotCycleStatus, data.robotStatus, '=>', cleanStatus);
     _setCapabilityIfChanged('clean_cycle_status', cleanStatus);
 
     // Map litter_robot_status capability using aggregated statusCode and statusDescription
-    // Inline comment: Use WhiskerRobot class to derive status description for display
+    // Inline comment: Use LR4Data class to derive status description for display
     if (typeof data === 'object') {
       try {
-        const whiskerRobot = new WhiskerRobot({ robot: data, api: this.api });
-        const statusCode = whiskerRobot.statusCode;
-        const statusDescription = whiskerRobot.statusDescription;
+        const lr4Data = new LR4Data({ robot: data, api: this.api });
+        const statusCode = lr4Data.statusCode;
+        const statusDescription = lr4Data.statusDescription;
         this.log('Mapped litter_robot_status:', statusCode, '=>', statusDescription);
         _setCapabilityIfChanged('litter_robot_status', statusDescription);
       } catch (err) {
@@ -588,10 +588,10 @@ module.exports = class LitterRobotDevice extends Device {
     // Map alarm_cat_detected capability from status conditions
     // Inline comment: Use robot status and display code to determine if a cat is detected
     try {
-      const whiskerRobot = new WhiskerRobot({ robot: data, api: this.api });
+      const lr4Data = new LR4Data({ robot: data, api: this.api });
       const isCatDetected = data.catDetect === "CAT_DETECT"
         || data.displayCode === "DC_CAT_DETECT"
-        || whiskerRobot.statusCode === "CD";
+        || lr4Data.statusCode === "CD";
       this.log('Mapped alarm_cat_detected:', isCatDetected);
       _setCapabilityIfChanged('alarm_cat_detected', isCatDetected);
       // Retrieve previous cat detected state
@@ -645,7 +645,7 @@ module.exports = class LitterRobotDevice extends Device {
     // Map alarm_problem capability based on error-related status codes
     // Inline comment: Set alarm if robot status code indicates a problem
     try {
-      const whiskerRobot = new WhiskerRobot({ robot: data, api: this.api });
+      const lr4Data = new LR4Data({ robot: data, api: this.api });
       const problemDescriptions = {
         'PF': 'Pinch detect fault',
         'PFR': 'Pinch detect fault during retract',
@@ -658,10 +658,10 @@ module.exports = class LitterRobotDevice extends Device {
         'USB': 'USB fault',
       };
       // Support for multiple problems at once (extensible)
-      // For now, only whiskerRobot.statusCode is available; adapt if multiple codes are present in future
-      const activeProblemCodes = Object.keys(problemDescriptions).filter(code => code === whiskerRobot.statusCode);
+      // For now, only lr4Data.statusCode is available; adapt if multiple codes are present in future
+      const activeProblemCodes = Object.keys(problemDescriptions).filter(code => code === lr4Data.statusCode);
       const hasProblem = activeProblemCodes.length > 0;
-      this.log('Mapped alarm_problem:', hasProblem, `(Status Code: ${whiskerRobot.statusCode})`);
+      this.log('Mapped alarm_problem:', hasProblem, `(Status Code: ${lr4Data.statusCode})`);
       _setCapabilityIfChanged('alarm_problem', hasProblem);
       if (hasProblem) {
         const problem_description = problemDescriptions[activeProblemCodes[0]];

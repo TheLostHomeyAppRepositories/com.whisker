@@ -1,0 +1,181 @@
+{
+  "conditions": [
+    {
+    "id": "birthday_today",
+    "title": {
+      "en": "It's the pet's birthday",
+      "nl": "Het is de verjaardag van het huisdier",
+      "de": "Es ist der Geburtstag des Haustiers",
+      "fr": "C'est l'anniversaire de l'animal",
+      "it": "È il compleanno dell'animale domestico",
+      "sv": "Det är husdjurets födelsedag",
+      "no": "Det er kjæledyrets bursdag",
+      "es": "Es el cumpleaños de la mascota",
+      "da": "Det er kæledyrets fødselsdag",
+      "ru": "Сегодня день рождения питомца",
+      "pl": "To urodziny zwierzaka",
+      "ko": "반려동물의 생일입니다"
+    },
+    "titleFormatted": {
+      "en": "It's the pet's birthday",
+      "nl": "Het is de verjaardag van het huisdier",
+      "de": "Es ist der Geburtstag des Haustiers",
+      "fr": "C'est l'anniversaire de l'animal",
+      "it": "È il compleanno dell'animale domestico",
+      "sv": "Det är husdjurets födelsedag",
+      "no": "Det er kjæledyrets bursdag",
+      "es": "Es el cumpleaños de la mascota",
+      "da": "Det er kæledyrets fødselsdag",
+      "ru": "Сегодня день рождения питомца",
+      "pl": "To urodziny zwierzaka",
+      "ko": "반려동물의 생일입니다"
+    },
+    "hint": {
+      "en": "Condition is true when today is the pet's birthday",
+      "nl": "Voorwaarde is waar wanneer het vandaag de verjaardag van het huisdier is",
+      "de": "Bedingung ist erfüllt, wenn heute der Geburtstag des Haustiers ist",
+      "fr": "La condition est vraie si c'est l'anniversaire de l'animal aujourd'hui",
+      "it": "La condizione è vera quando oggi è il compleanno dell'animale",
+      "sv": "Villkoret är uppfyllt när det är husdjurets födelsedag idag",
+      "no": "Betingelsen er sann når det er kjæledyrets bursdag i dag",
+      "es": "La condición se cumple cuando hoy es el cumpleaños de la mascota",
+      "da": "Betingelsen er sand, når det er kæledyrets fødselsdag i dag",
+      "ru": "Условие выполняется, если сегодня день рождения питомца",
+      "pl": "Warunek jest spełniony, gdy dziś są urodziny zwierzaka",
+      "ko": "오늘이 반려동물의 생일이면 조건이 참입니다"
+    }
+    },
+    {
+  "id": "days_until_birthday",
+  "title": {
+    "en": "It's {{ days }} days until the pet's birthday",
+    "nl": "Het is over {{ days }} dagen de verjaardag van het huisdier",
+    "de": "Es sind noch {{ days }} Tage bis zum Geburtstag des Haustiers",
+    "fr": "Il reste {{ days }} jours avant l'anniversaire de l'animal",
+    "it": "Mancano {{ days }} giorni al compleanno dell'animale",
+    "sv": "Det är {{ days }} dagar kvar till husdjurets födelsedag",
+    "no": "Det er {{ days }} dager igjen til kjæledyrets bursdag",
+    "es": "Faltan {{ days }} días para el cumpleaños de la mascota",
+    "da": "Der er {{ days }} dage til kæledyrets fødselsdag",
+    "ru": "До дня рождения питомца осталось {{ days }} дней",
+    "pl": "Do urodzin zwierzaka pozostało {{ days }} dni",
+    "ko": "반려동물의 생일까지 {{ days }}일 남았습니다"
+  },
+  "titleFormatted": {
+    "en": "It's [[days]] days until the pet's birthday",
+    "nl": "Het är [[days]] dagar kvar till husdjurets födelsedag",
+    "de": "Es sind noch [[days]] Tage bis zum Geburtstag des Haustiers",
+    "fr": "Il reste [[days]] jours avant l'anniversaire de l'animal",
+    "it": "Mancano [[days]] giorni al compleanno dell'animale",
+    "sv": "Det är [[days]] dagar kvar till husdjurets födelsedag",
+    "no": "Det er [[days]] dager igjen til kjæledyrets bursdag",
+    "es": "Faltan [[days]] días para el cumpleaños de la mascota",
+    "da": "Der er [[days]] dage til kæledyrets fødselsdag",
+    "ru": "До дня рождения питомца осталось [[days]] дней",
+    "pl": "Do urodzin zwierzaka pozostało [[days]] dni",
+    "ko": "반려동물의 생일까지 [[days]]일 남았습니다"
+  },
+  "hint": {
+    "en": "Condition is true when today is exactly the set number of days before the pet's birthday",
+    "nl": "Voorwaarde is waar wanneer vandaag exact het ingestelde aantal dagen voor de verjaardag van het huisdier is",
+    "de": "Bedingung ist erfüllt, wenn heute exakt die festgelegte Anzahl an Tagen vor dem Geburtstag des Haustiers ist",
+    "fr": "La condition est vraie lorsque nous sommes exactement à X jours de l'anniversaire de l'animal",
+    "it": "La condizione è vera quando mancano esattamente X giorni al compleanno dell'animale",
+    "sv": "Villkoret är uppfyllt när det är exakt X dagar kvar till husdjurets födelsedag",
+    "no": "Betingelsen er sann når det er nøyaktig X dager igjen til kjæledyrets bursdag",
+    "es": "La condición es verdadera cuando faltan exactamente X días para el cumpleaños de la mascota",
+    "da": "Betingelsen er sand, når der præcis er X dage til kæledyrets fødselsdag",
+    "ru": "Условие выполняется, когда до дня рождения питомца осталось ровно X дней",
+    "pl": "Warunek jest spełniony, gdy do urodzin zwierzaka pozostało dokładnie X dni",
+    "ko": "반려동물의 생일까지 정확히 X일 남았을 때 조건이 참입니다"
+  },
+  "args": [
+    {
+      "name": "days",
+      "type": "number",
+      "title": {
+        "en": "Amount",
+        "nl": "Aantal",
+        "de": "Anzahl",
+        "fr": "Quantité",
+        "it": "Quantità",
+        "sv": "Antal",
+        "no": "Antall",
+        "es": "Cantidad",
+        "da": "Antal",
+        "ru": "Количество",
+        "pl": "Ilość",
+        "ko": "수량"
+      }
+    }
+  ]
+}
+  ],
+  "triggers": [
+    {
+      "id": "health_concern_detected",
+      "title": {
+        "en": "A health concern has been detected",
+        "nl": "Er is een gezondheidsprobleem gedetecteerd",
+        "de": "Ein Gesundheitsproblem wurde erkannt",
+        "fr": "Un problème de santé a été détecté",
+        "it": "È stato rilevato un problema di salute",
+        "sv": "Ett hälsoproblem har upptäckts",
+        "no": "Et helseproblem har blitt oppdaget",
+        "es": "Se ha detectado un problema de salud",
+        "da": "Et sundhedsproblem er blevet opdaget",
+        "ru": "Обнаружена проблема со здоровьем",
+        "pl": "Wykryto problem zdrowotny",
+        "ko": "건강 문제가 감지되었습니다"
+      },
+      "titleFormatted": {
+        "en": "A health concern has been detected",
+        "nl": "Er is een gezondheidsprobleem gedetecteerd",
+        "de": "Ein Gesundheitsproblem wurde erkannt",
+        "fr": "Un problème de santé a été détecté",
+        "it": "È stato rilevato un problema di salute",
+        "sv": "Ett hälsoproblem har upptäckts",
+        "no": "Et helseproblem har blitt oppdaget",
+        "es": "Se ha detectado un problema de salud",
+        "da": "Et sundhedsproblem er blevet opdaget",
+        "ru": "Обнаружена проблема со здоровьем",
+        "pl": "Wykryto problem zdrowotny",
+        "ko": "건강 문제가 감지되었습니다"
+      },
+      "hint": {
+        "en": "Triggers when a health concern is detected for this pet",
+        "nl": "Trigger wanneer er een gezondheidsprobleem wordt gedetecteerd voor dit huisdier",
+        "de": "Wird ausgelöst, wenn ein Gesundheitsproblem bei diesem Haustier erkannt wird",
+        "fr": "Déclenché lorsqu’un problème de santé est détecté pour cet animal",
+        "it": "Viene attivato quando viene rilevato un problema di salute per questo animale",
+        "sv": "Utlöses när ett hälsoproblem upptäcks för detta husdjur",
+        "no": "Utøses når et helseproblem oppdages for dette kjæledyret",
+        "es": "Se activa cuando se detecta un problema de salud para esta mascota",
+        "da": "Udløses når et sundhedsproblem opdages for dette kæledyr",
+        "ru": "Срабатывает при обнаружении проблемы со здоровьем у этого питомца",
+        "pl": "Uruchamiane, gdy wykryto problem zdrowotny tego zwierzaka",
+        "ko": "이 반려동물에 대한 건강 문제가 감지되면 트리거됩니다"
+      },
+      "tokens": [
+        {
+          "name": "concerns",
+          "type": "string",
+          "title": {
+            "en": "Health concerns",
+            "nl": "Gezondheidsproblemen",
+            "de": "Gesundheitsprobleme",
+            "fr": "Problèmes de santé",
+            "it": "Problemi di salute",
+            "sv": "Hälsoproblem",
+            "no": "Helseproblemer",
+            "es": "Problemas de salud",
+            "da": "Sundhedsproblemer",
+            "ru": "Проблемы со здоровьем",
+            "pl": "Problemy zdrowotne",
+            "ko": "건강 문제"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+
+
+{
+  "type": "string",
+  "title": {
+    "en": "Age",
+    "nl": "Leeftijd",
+    "de": "Alter",
+    "fr": "Âge",
+    "it": "Età",
+    "sv": "Ålder",
+    "no": "Alder",
+    "es": "Edad",
+    "da": "Alder",
+    "ru": "Возраст",
+    "pl": "Wiek",
+    "ko": "나이"
+  },
+  "getable": true,
+  "setable": false,
+  "uicomponent": "sensor",
+  "icon": "/assets/capabilities/label_age.svg"
+}

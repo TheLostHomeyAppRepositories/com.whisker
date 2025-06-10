@@ -1,0 +1,39 @@
+[
+  {
+    "id": "pollInterval",
+    "type": "number",
+    "label": {
+      "en": "Poll interval",
+      "nl": "Poll-interval",
+      "de": "Abfrageintervall",
+      "fr": "Intervalle de sondage",
+      "it": "Intervallo di polling",
+      "sv": "Pollintervall",
+      "no": "Oppdateringsintervall",
+      "es": "Intervalo de sondeo",
+      "da": "Poll-interval",
+      "ru": "Интервал опроса",
+      "pl": "Interwał odpytywania",
+      "ko": "폴링 간격"
+    },
+    "hint": {
+      "en": "How often your pet's data is refreshed, in seconds",
+      "nl": "Hoe vaak de gegevens van je huisdier worden vernieuwd, in seconden",
+      "de": "Wie oft die Daten Ihres Haustiers in Sekunden aktualisiert werden",
+      "fr": "Fréquence de mise à jour des données de votre animal (en secondes)",
+      "it": "Frequenza di aggiornamento dei dati dell'animale in secondi",
+      "sv": "Hur ofta ditt husdjurs data uppdateras, i sekunder",
+      "no": "Hvor ofte kjæledyrets data skal oppdateres, i sekunder",
+      "es": "Frecuencia con la que se actualizan los datos de tu mascota, en segundos",
+      "da": "Hvor ofte dit kæledyrs data opdateres, i sekunder",
+      "ru": "Как часто обновляются данные питомца (в секундах)",
+      "pl": "Jak często odświeżać dane zwierzaka, w sekundach",
+      "ko": "반려동물의 데이터가 얼마나 자주 갱신될지 (초 단위)"
+    },
+    "value": 120,
+    "min": 30,
+    "max": 3600,
+    "step": 1,
+    "required": true
+  }
+]

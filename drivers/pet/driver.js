@@ -1,78 +1,79 @@
 'use strict';
 
 /**
- * LitterRobotDriver integrates Homey.Driver for Litter-Robot 4 pairing and repair flows.
+ * PetDriver integrates Homey.Driver for cat info pairing and repair flows.
  * @class
  */
 
 const Homey = require('homey');
-const LR4Api = require('../../lib/LR4Api');
-const LR4Data = require('../../lib/LR4Data');
-const { loginAndGetTokens } = require('../../lib/CognitoSession');
+const PetApi = require('../../lib/PetApi');
 
-module.exports = class LitterRobotDriver extends Homey.Driver {
+module.exports = class PetDriver extends Homey.Driver {
 
   /**
    * Log driver initialization.
    * @returns {void}
    */
   onInit() {
-    this.log('Litter-Robot 4 driver initialized');
+    this.log('Pet Information driver initialized');
   }
 
   /**
-   * Handle device pairing: authenticate user and list available robots.
+   * Handle device pairing: authenticate user and list available pets.
    * @param {object} session Homey pairing session
    * @returns {Promise<void>}
    */
   async onPair(session) {
-    // Pairing: handle user login and fetch available robots
     let tokens = null;
     let api;
-    let robots = [];
+    let pets = [];
 
     session.setHandler('login', async ({ username, password }) => {
       if (!username || !password) {
         throw new Error('Username and password are required for pairing');
       }
       this.log('Attempting login for user:', username);
+      this.log('Calling loginAndGetTokens...');
       try {
+        // Reuse loginAndGetTokens just to get tokens, PetApi requires valid tokens
+        const { loginAndGetTokens } = require('../../lib/CognitoSession');
         tokens = await loginAndGetTokens(username, password);
-        const authApi = new LR4Api({ tokens });
-        this.log(`Login successful, fetched tokens`);
-        robots = await authApi.getRobots();
-        this.log(`Found ${robots.length} robot(s) for account`);
-        api = authApi;
+        this.log('Tokens obtained:', tokens);
+        api = new PetApi({ tokens, log: this.log, error: this.error });
+        this.log('PetApi instantiated, calling getPets...');
+        pets = await api.getPets();
+        this.log(`Fetched pets array:`, pets);
+        this.log(`Found ${pets.length} pet(s) for account`);
       } catch (err) {
-        this.error('Login or fetching robots failed:', err);
+        this.error('Login or fetching pets failed:', err);
         throw new Error('Login failed: ' + err.message);
       }
       return true;
     });
 
     session.setHandler('list_devices', async () => {
-      if (!robots.length) {
-        throw new Error('No Litter-Robot devices found for this account');
+      this.log('list_devices called, pets:', pets);
+      if (!pets.length) {
+        throw new Error('No pets found for this account');
       }
-      return robots.map(robotData => {
-        const robotInstance = new LR4Data({ robot: robotData, api });
-        const serialOrId = robotInstance.serial || robotData.id;
+      return pets.map(pet => {
         return {
-          name: robotInstance.nickname || `Litter-Robot ${serialOrId}`,
-          data: { id: String(serialOrId) },
+          name: pet.name || `Cat ${pet.petId}`,
+          data: { id: String(pet.petId) },
           settings: { tokens },
         };
       });
     });
-    // Allow adding multiple robots in one pairing session
+    // Allow adding multiple pets in one pairing session
     session.setHandler('add_devices', async (selectedDevices) => {
-      // Homey will pass an array of { name, data, settings } for each checked robot
+      this.log('add_devices called, selectedDevices:', selectedDevices);
+      // Homey will pass an array of { name, data, settings } for each checked pet
       return selectedDevices;
     });
   }
 
   /**
-   * Handle device repair: refresh authentication and validate robot connectivity.
+   * Handle device repair: refresh authentication and validate pet connectivity.
    * @param {object} session Homey pairing session
    * @param {object} device Homey device instance
    * @returns {Promise<void>}
@@ -82,23 +83,18 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
     const { tokens } = device.getSettings();
     this.log('Repairing device with ID:', id);
 
-    // Option 1: Try silent token refresh if valid tokens exist
     if (tokens?.refresh_token) {
       session.setHandler('login', async () => {
         this.log('Attempting silent session refresh for device ID:', id);
-        let authApi;
         try {
-          authApi = new LR4Api({ tokens });
+          const { default: LR4Api } = await import('../../lib/LR4Api.js');
+          const authApi = new LR4Api({ tokens });
           await authApi.cognitoSession.refreshSession();
           const refreshedTokens = authApi.getTokens();
           if (refreshedTokens) {
-            this.log('Tokens returned by getTokens():', refreshedTokens);
             await device.setSettings({ tokens: refreshedTokens });
             this.log('Token refresh successful');
           }
-          const robot = await authApi.getRobot(String(id));
-          device.robot = robot;
-          this.log('Fetched robot data for repair');
         } catch (err) {
           this.error('Silent repair failed:', err);
           throw new Error('Silent repair failed: ' + err.message);
@@ -106,23 +102,18 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         return true;
       });
     } else {
-      // Option 2: Prompt user to log in again
       session.setHandler('login', async ({ username, password }) => {
         if (!username || !password) {
           throw new Error('Username and password are required for repair');
         }
         this.log('Repair login with username:', username);
         try {
+          const { loginAndGetTokens } = require('../../lib/CognitoSession');
           const refreshedTokens = await loginAndGetTokens(username, password);
-          const authApi = new LR4Api({ tokens: refreshedTokens });
           if (refreshedTokens) {
-            this.log('Tokens returned by getTokens():', refreshedTokens);
             await device.setSettings({ tokens: refreshedTokens });
             this.log('Re-authentication successful, tokens saved');
           }
-          const robot = await authApi.getRobot(String(id));
-          device.robot = robot;
-          this.log('Fetched robot data after login');
         } catch (err) {
           this.error('Repair login failed:', err);
           throw new Error('Repair login failed: ' + err.message);

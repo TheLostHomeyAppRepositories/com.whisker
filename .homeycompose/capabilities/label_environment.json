@@ -1,0 +1,23 @@
+
+
+{
+  "type": "string",  
+  "title": {
+    "en": "Environment",
+    "nl": "Omgeving",
+    "de": "Umgebung",
+    "fr": "Environnement",
+    "it": "Ambiente",
+    "sv": "Miljö",
+    "no": "Miljø",
+    "es": "Entorno",
+    "da": "Miljø",
+    "ru": "Окружающая среда",
+    "pl": "Środowisko",
+    "ko": "환경"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/label_environment.svg"
+}

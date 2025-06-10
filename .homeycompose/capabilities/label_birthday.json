@@ -1,0 +1,23 @@
+
+
+{
+  "type": "string",
+  "title": {
+    "en": "Birthday",
+    "nl": "Verjaardag",
+    "de": "Geburtstag",
+    "fr": "Anniversaire",
+    "it": "Compleanno",
+    "sv": "Födelsedag",
+    "no": "Bursdag",
+    "es": "Cumpleaños",
+    "da": "Fødselsdag",
+    "ru": "День рождения",
+    "pl": "Urodziny",
+    "ko": "생일"
+  },
+  "getable": true,
+  "setable": false,
+  "uicomponent": "sensor",
+  "icon": "/assets/capabilities/label_birthday.svg"
+}

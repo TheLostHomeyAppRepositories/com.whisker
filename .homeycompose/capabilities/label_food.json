@@ -1,0 +1,23 @@
+
+
+{
+  "type": "string",
+  "title": {
+    "en": "Diet",
+    "nl": "Dieet",
+    "de": "Ernährung",
+    "fr": "Régime alimentaire",
+    "it": "Dieta",
+    "sv": "Kost",
+    "no": "Kosthold",
+    "es": "Dieta",
+    "da": "Kost",
+    "ru": "Диета",
+    "pl": "Dieta",
+    "ko": "식단"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/label_food.svg"
+}

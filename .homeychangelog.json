@@ -28,5 +28,8 @@
   },
   "0.3.1": {
     "en": "Fixed logic for the multiple cleaning cycles Flow card"
-  }                              
+  },
+    "0.4.0": {
+    "en": "Added driver to get pet information, refactored code for better maintainability and future updates"
+  }                                  
 }
