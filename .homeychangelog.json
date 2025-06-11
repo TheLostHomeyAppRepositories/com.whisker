@@ -31,5 +31,8 @@
   },
     "0.4.0": {
     "en": "Added driver to get pet information, refactored code for better maintainability and future updates"
-  }                                  
+  },
+    "0.5.0": {
+    "en": "Added new Flow cards for the Pet Information driver"
+  }                                       
 }

@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.whisker",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -819,6 +819,222 @@
               "ru": "Проблемы со здоровьем",
               "pl": "Problemy zdrowotne",
               "ko": "건강 문제"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=pet"
+          }
+        ]
+      },
+      {
+        "id": "age_changed",
+        "title": {
+          "en": "The age changed",
+          "nl": "De leeftijd is veranderd",
+          "de": "Das Alter hat sich geändert",
+          "fr": "L'âge a changé",
+          "it": "L'età è cambiata",
+          "sv": "Åldern har ändrats",
+          "no": "Alder har endret seg",
+          "es": "La edad ha cambiado",
+          "da": "Alder er ændret",
+          "ru": "Возраст изменился",
+          "pl": "Wiek się zmienił",
+          "ko": "나이가 변경되었습니다"
+        },
+        "titleFormatted": {
+          "en": "The age changed",
+          "nl": "De leeftijd is veranderd",
+          "de": "Das Alter hat sich geändert",
+          "fr": "L'âge a changé",
+          "it": "L'età è cambiata",
+          "sv": "Åldern har ändrats",
+          "no": "Alder har endret seg",
+          "es": "La edad ha cambiado",
+          "da": "Alder er ændret",
+          "ru": "Возраст изменился",
+          "pl": "Wiek się zmienił",
+          "ko": "나이가 변경되었습니다"
+        },
+        "hint": {
+          "en": "Triggers when the pet's age changes",
+          "nl": "Wordt geactiveerd wanneer de leeftijd van het huisdier verandert",
+          "de": "Wird ausgelöst, wenn sich das Alter des Haustiers ändert",
+          "fr": "Déclenché lorsque l'âge de l'animal change",
+          "it": "Viene attivato quando cambia l'età dell'animale",
+          "sv": "Utlöses när husdjurets ålder ändras",
+          "no": "Utøses når kjæledyrets alder endres",
+          "es": "Se activa cuando cambia la edad de la mascota",
+          "da": "Udløses når kæledyrets alder ændres",
+          "ru": "Срабатывает при изменении возраста питомца",
+          "pl": "Uruchamiane, gdy zmieni się wiek zwierzaka",
+          "ko": "반려동물의 나이가 변경되면 트리거됩니다"
+        },
+        "tokens": [
+          {
+            "name": "age",
+            "type": "string",
+            "title": {
+              "en": "Age",
+              "nl": "Leeftijd",
+              "de": "Alter",
+              "fr": "Âge",
+              "it": "Età",
+              "sv": "Ålder",
+              "no": "Alder",
+              "es": "Edad",
+              "da": "Alder",
+              "ru": "Возраст",
+              "pl": "Wiek",
+              "ko": "나이"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=pet"
+          }
+        ]
+      },
+      {
+        "id": "environment_changed",
+        "title": {
+          "en": "The environment changed",
+          "nl": "De omgeving is veranderd",
+          "de": "Die Umgebung hat sich geändert",
+          "fr": "L'environnement a changé",
+          "it": "L'ambiente è cambiato",
+          "sv": "Miljön har ändrats",
+          "no": "Miljøet har endret seg",
+          "es": "El entorno ha cambiado",
+          "da": "Miljøet er ændret",
+          "ru": "Среда обитания изменилась",
+          "pl": "Środowisko zostało zmienione",
+          "ko": "환경이 변경되었습니다"
+        },
+        "titleFormatted": {
+          "en": "The environment changed",
+          "nl": "De omgeving is veranderd",
+          "de": "Die Umgebung hat sich geändert",
+          "fr": "L'environnement a changé",
+          "it": "L'ambiente è cambiato",
+          "sv": "Miljön har ändrats",
+          "no": "Miljøet har endret seg",
+          "es": "El entorno ha cambiado",
+          "da": "Miljøet er ændret",
+          "ru": "Среда обитания изменилась",
+          "pl": "Środowisko zostało zmienione",
+          "ko": "환경이 변경되었습니다"
+        },
+        "hint": {
+          "en": "Triggers when the pet's environment changes",
+          "nl": "Wordt geactiveerd wanneer de omgeving van het huisdier verandert",
+          "de": "Wird ausgelöst, wenn sich die Umgebung des Haustiers ändert",
+          "fr": "Déclenché lorsque l'environnement de l'animal change",
+          "it": "Viene attivato quando cambia l'ambiente dell'animale",
+          "sv": "Utlöses när husdjurets miljö ändras",
+          "no": "Utøses når kjæledyrets miljø endres",
+          "es": "Se activa cuando cambia el entorno de la mascota",
+          "da": "Udløses når kæledyrets miljø ændres",
+          "ru": "Срабатывает при изменении среды обитания питомца",
+          "pl": "Uruchamiane, gdy zmieni się środowisko zwierzaka",
+          "ko": "반려동물의 환경이 변경되면 트리거됩니다"
+        },
+        "tokens": [
+          {
+            "name": "environment",
+            "type": "string",
+            "title": {
+              "en": "Environment",
+              "nl": "Omgeving",
+              "de": "Umgebung",
+              "fr": "Environnement",
+              "it": "Ambiente",
+              "sv": "Miljö",
+              "no": "Miljø",
+              "es": "Entorno",
+              "da": "Miljø",
+              "ru": "Среда",
+              "pl": "Środowisko",
+              "ko": "환경"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=pet"
+          }
+        ]
+      },
+      {
+        "id": "diet_changed",
+        "title": {
+          "en": "The diet changed",
+          "nl": "Het dieet is veranderd",
+          "de": "Die Diät hat sich geändert",
+          "fr": "Le régime a changé",
+          "it": "La dieta è cambiata",
+          "sv": "Kosten har ändrats",
+          "no": "Kostholdet har endret seg",
+          "es": "La dieta ha cambiado",
+          "da": "Kosten er ændret",
+          "ru": "Диета изменилась",
+          "pl": "Dieta została zmieniona",
+          "ko": "식단이 변경되었습니다"
+        },
+        "titleFormatted": {
+          "en": "The diet changed",
+          "nl": "Het dieet is veranderd",
+          "de": "Die Diät hat sich geändert",
+          "fr": "Le régime a changé",
+          "it": "La dieta è cambiata",
+          "sv": "Kosten har ändrats",
+          "no": "Kostholdet har endret seg",
+          "es": "La dieta ha cambiado",
+          "da": "Kosten er ændret",
+          "ru": "Диета изменилась",
+          "pl": "Dieta została zmieniona",
+          "ko": "식단이 변경되었습니다"
+        },
+        "hint": {
+          "en": "Triggers when the pet's diet changes",
+          "nl": "Wordt geactiveerd wanneer het dieet van het huisdier verandert",
+          "de": "Wird ausgelöst, wenn sich die Diät des Haustiers ändert",
+          "fr": "Déclenché lorsque le régime alimentaire de l'animal change",
+          "it": "Viene attivato quando cambia la dieta dell'animale",
+          "sv": "Utlöses när husdjurets kost ändras",
+          "no": "Utøses når kjæledyrets kosthold endres",
+          "es": "Se activa cuando cambia la dieta de la mascota",
+          "da": "Udløses når kæledyrets kost ændres",
+          "ru": "Срабатывает при изменении диеты питомца",
+          "pl": "Uruchamiane, gdy zmienia się dieta zwierzaka",
+          "ko": "반려동물의 식단이 변경되면 트리거됩니다"
+        },
+        "tokens": [
+          {
+            "name": "diet",
+            "type": "string",
+            "title": {
+              "en": "Diet",
+              "nl": "Dieet",
+              "de": "Diät",
+              "fr": "Régime",
+              "it": "Dieta",
+              "sv": "Kost",
+              "no": "Kosthold",
+              "es": "Dieta",
+              "da": "Kost",
+              "ru": "Диета",
+              "pl": "Dieta",
+              "ko": "식단"
             }
           }
         ],

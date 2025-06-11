@@ -80,6 +80,9 @@ module.exports = class PetDevice extends Homey.Device {
     if (petData.dietLabel !== oldDiet) {
       this.log(`Diet changed: ${oldDiet} → ${petData.dietLabel}`);
       await this.setCapabilityValue('label_food', petData.dietLabel);
+      if (this._dietChangedTrigger && petData.dietLabel !== oldDiet) {
+        this._dietChangedTrigger.trigger(this, { diet: petData.dietLabel });
+      }
     }
 
     // Update environment label capability
@@ -87,6 +90,9 @@ module.exports = class PetDevice extends Homey.Device {
     if (petData.environmentLabel !== oldEnvironment) {
       this.log(`Environment changed: ${oldEnvironment} → ${petData.environmentLabel}`);
       await this.setCapabilityValue('label_environment', petData.environmentLabel);
+    }
+    if (this._environmentChangedTrigger && petData.environmentLabel !== oldEnvironment) {
+      this._environmentChangedTrigger.trigger(this, { environment: petData.environmentLabel });
     }
 
     // Update birthday label capability
@@ -109,6 +115,9 @@ module.exports = class PetDevice extends Homey.Device {
     if (newAge !== oldAge) {
       this.log(`Age changed: ${oldAge} → ${newAge}`);
       await this.setCapabilityValue('label_age', newAge);
+      if (this._ageChangedTrigger && newAge !== oldAge) {
+        this._ageChangedTrigger.trigger(this, { age: newAge });
+      }
     }
 
     // Update health alarm capability (true if any healthConcerns present)
@@ -143,6 +152,9 @@ module.exports = class PetDevice extends Homey.Device {
     // Register Flow trigger for health concern detected
     this._healthConcernTrigger = this.homey.flow.getTriggerCard('health_concern_detected');
 
+    // Register Flow trigger for age changed
+    this._ageChangedTrigger = this.homey.flow.getTriggerCard('age_changed');
+
     // Register Flow condition for days until birthday
     this.homey.flow.getConditionCard('days_until_birthday')
       .registerRunListener(async ({ device, days }) => {
@@ -155,6 +167,9 @@ module.exports = class PetDevice extends Homey.Device {
         );
         return result;
       });
+
+    this._environmentChangedTrigger = this.homey.flow.getTriggerCard('environment_changed');
+    this._dietChangedTrigger = this.homey.flow.getTriggerCard('diet_changed');
   }
 
   onDeleted() {
