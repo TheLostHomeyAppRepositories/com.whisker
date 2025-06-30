@@ -1,6 +1,6 @@
 {
   "name": "com.whisker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "app.js",
   "scripts": {
     "lint": "eslint --ext .js,.ts --ignore-path .gitignore ."
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "amazon-cognito-identity-js": "^6.3.15",
+    "cron": "^4.3.1",
     "graphql-ws": "^5.16.2",
     "jsonwebtoken": "^9.0.2",
     "node-fetch": "^2.6.7",

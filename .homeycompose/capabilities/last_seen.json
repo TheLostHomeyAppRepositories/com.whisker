@@ -1,0 +1,23 @@
+
+
+{
+  "title": {
+    "en": "Last seen",
+    "nl": "Laatst gezien",
+    "da": "Sidst set",
+    "de": "Zuletzt gesehen",
+    "fr": "Dernière vue",
+    "it": "Ultimo avvistamento",
+    "sv": "Senast sedd",
+    "no": "Sist sett",
+    "es": "Última vez visto",
+    "ru": "Последний раз видели",
+    "pl": "Ostatnio widziany",
+    "ko": "마지막으로 본 시간"
+  },
+  "type": "string",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/last_seen.svg"
+}

@@ -1,9 +1,18 @@
-
-
 {
   "type": "string",
   "title": {
-    "en": "Cleaning status"
+    "en": "Cleaning status",
+    "nl": "Reinigingsstatus",
+    "de": "Reinigungsstatus",
+    "fr": "Statut de nettoyage",
+    "it": "Stato di pulizia",
+    "sv": "Rengöringsstatus",
+    "no": "Rengjøringsstatus",
+    "es": "Estado de limpieza",
+    "da": "Rengøringsstatus",
+    "ru": "Статус очистки",
+    "pl": "Status czyszczenia",
+    "ko": "청소 상태"
   },
   "getable": true,
   "setable": false,

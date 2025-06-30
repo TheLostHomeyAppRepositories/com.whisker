@@ -1,183 +1,237 @@
 'use strict';
 
 const Homey = require('homey');
-const PetApi = require('../../lib/PetApi');
-const PetData = require('../../lib/PetData');
+const PetData = require('../../lib/petdata');
 
 module.exports = class PetDevice extends Homey.Device {
 
-  onInit() {
+  /**
+   * Device initialization - sets up capabilities and fetches pet data
+   */
+  async onInit() {
     this.log('Pet device initialized');
 
-    // Retrieve the petId and tokens from paired device data/settings
-    this.petId = this.getData().id;
-    const { tokens } = this.getSettings();
-    if (!tokens) {
-      this.error('No tokens found in device settings; cannot initialize PetApi');
-      return;
+    try {
+      // Get pet ID from device data
+      const data = this.getData();
+      this.petId = data.id;
+
+      if (!this.petId) {
+        throw new Error('Invalid device data. Missing pet ID.');
+      }
+
+      // Initialize capabilities with loading states
+      await this._initializeCapabilities();
+
+      // Fetch pet data using centralized session
+      await this._fetchPetData();
+
+      this.log('Pet device initialization completed successfully');
+    } catch (err) {
+      this.error('Failed to initialize pet device:', err);
+      throw err;
     }
-
-    // Instantiate the PetApi with Cognito tokens
-    this.api = new PetApi({ tokens, log: this.log, error: this.error });
-
-    // Initialize the measure_weight capability to null so Homey UI starts empty
-    this.setCapabilityValue('measure_weight', null).catch(() => {});
-
-    // Retrieve poll interval from settings
-    const pollIntervalSec = this.getSettings().pollInterval;
-    this.log(`Scheduling pet data polling every ${pollIntervalSec} seconds`);
-    this._pollInterval = setInterval(this._updatePetData.bind(this), pollIntervalSec * 1000);
-
-    // Perform an immediate first fetch, then poll every pollIntervalSec seconds
-    this._updatePetData();
-    this._registerFlowCards();
   }
 
-  async _updatePetData() {
-    this.log('Polling for pet data, petId=', this.petId);
-    try {
-      // Fetch all pets for the authenticated user
-      const allPets = await this.api.getPets();
+  /**
+   * Initialize all device capabilities with loading states
+   * @private
+   */
+  async _initializeCapabilities() {
+    const initialCapabilities = {
+      // Measurement capabilities
+      measure_weight: null,
+      
+      // Label capabilities
+      label_gender: 'Loading...',
+      label_food: 'Loading...',
+      label_environment: 'Loading...',
+      label_birthday: 'Loading...',
+      label_breed: 'Loading...',
+      label_age: 'Loading...',
+      
+      // Alarm capabilities
+      alarm_health_concern: false
+    };
 
-      // Find the data for our specific pet
-      const pet = allPets.find(p => String(p.petId) === this.petId);
-      if (!pet) {
-        this.error('Pet not found in fetched data');
-        return;
+    // Set all initial values
+    for (const [capability, value] of Object.entries(initialCapabilities)) {
+      try {
+        await this.setCapabilityValue(capability, value);
+      } catch (err) {
+        this.error(`Failed to initialize capability ${capability}:`, err);
       }
-      this.log('Received pet update:', pet);
+    }
 
-      const petData = new PetData(pet);
-      this.petData = petData;
+    this.log('Pet capabilities initialized');
+  }
 
-      await this._updateCapabilities(petData);
+  /**
+   * Fetch pet data using centralized session
+   * @private
+   */
+  async _fetchPetData() {
+    try {
+      const apiSession = this.homey.app.apiSession;
+      if (!apiSession) {
+        throw new Error('No API session available. Please repair device.');
+      }
+
+      const response = await apiSession.petGraphql(`
+        query GetPetsByUser($userId: String!) {
+          getPetsByUser(userId: $userId) {
+            petId
+            userId
+            name
+            type
+            gender
+            weight
+            weightLastUpdated
+            lastWeightReading
+            breeds
+            age
+            birthday
+            adoptionDate
+            s3ImageURL
+            diet
+            isFixed
+            environmentType
+            healthConcerns
+            isActive
+            whiskerProducts
+            petTagId
+            weightIdFeatureEnabled
+          }
+        }
+      `, { userId: apiSession.getUserId() });
+
+      const pet = response.data?.getPetsByUser?.find(p => String(p.petId) === String(this.petId));
+      if (!pet) {
+        throw new Error(`Pet with ID ${this.petId} not found`);
+      }
+
+      this.petData = new PetData({ pet });
+      this.log('Connected to pet:', this.petData.name);
+
+      // Update capabilities with initial data
+      this._updateCapabilities(this.petData);
 
     } catch (err) {
-      this.error('Failed to update pet data:', err);
+      this.error('Failed to fetch pet data:', err);
+      throw err;
     }
   }
 
-  async _updateCapabilities(petData) {
-    // Update measure_weight capability
-    if (petData.weight != null) {
-      const weightGrams = petData.weightGrams;
-      const oldWeight = this.getCapabilityValue('measure_weight');
-      if (weightGrams !== oldWeight) {
-        this.log(`Weight changed: ${oldWeight} → ${weightGrams} g`);
-        await this.setCapabilityValue('measure_weight', weightGrams);
+  /**
+   * Update device capabilities based on pet data
+   * @param {PetData} petData - Processed pet data
+   * @private
+   */
+  _updateCapabilities(petData) {
+    if (!petData) return;
+
+    // Define capability updates
+    const updates = [
+      ['measure_weight', petData.weightInGrams],
+      ['label_gender', petData.genderLabel],
+      ['label_food', petData.dietLabel],
+      ['label_environment', petData.environmentLabel],
+      ['label_birthday', petData.birthdayFormatted],
+      ['label_breed', petData.breedLabel],
+      ['label_age', petData.ageLabel],
+      ['alarm_health_concern', petData.hasHealthConcerns]
+    ];
+
+    // Track changes for Flow card triggering
+    const changes = new Set();
+
+    // Update capabilities
+    for (const [capability, newValue] of updates) {
+      if (newValue === undefined || newValue === null) continue;
+
+      const oldValue = this.getCapabilityValue(capability);
+      
+      // Handle initialization from loading state
+      if (oldValue === 'Loading...') {
+        this.setCapabilityValue(capability, newValue).catch(err => {
+          this.error(`Failed to initialize capability ${capability}:`, err);
+        });
+        continue;
+      }
+
+      // Only update if value actually changed
+      if (newValue !== oldValue) {
+        this.log(`${capability} changed: ${oldValue} → ${newValue}`);
+        this.setCapabilityValue(capability, newValue).catch(err => {
+          this.error(`Failed to update capability ${capability}:`, err);
+        });
+        changes.add(capability);
       }
     }
 
-    // Update gender label capability
-    const oldGender = this.getCapabilityValue('label_gender');
-    if (petData.genderLabel !== oldGender) {
-      this.log(`Gender changed: ${oldGender} → ${petData.genderLabel}`);
-      await this.setCapabilityValue('label_gender', petData.genderLabel);
+    // Trigger Flow cards for detected changes
+    if (changes.size > 0) {
+      this._triggerFlowCards(changes, petData);
+    }
+  }
+
+  /**
+   * Trigger Flow cards based on capability changes
+   * @param {Set<string>} changes - Set of changed capabilities
+   * @param {PetData} petData - Current pet data
+   * @private
+   */
+  _triggerFlowCards(changes, petData) {
+    // Diet changed trigger
+    if (changes.has('label_food')) {
+      this.homey.flow.getDeviceTriggerCard('diet_changed')
+        .trigger(this, { diet: petData.dietLabel })
+        .catch(err => this.error('Failed to trigger diet_changed:', err));
     }
 
-    // Update food label capability
-    const oldDiet = this.getCapabilityValue('label_food');
-    if (petData.dietLabel !== oldDiet) {
-      this.log(`Diet changed: ${oldDiet} → ${petData.dietLabel}`);
-      await this.setCapabilityValue('label_food', petData.dietLabel);
-      if (this._dietChangedTrigger && petData.dietLabel !== oldDiet) {
-        this._dietChangedTrigger.trigger(this, { diet: petData.dietLabel });
-      }
+    // Environment changed trigger
+    if (changes.has('label_environment')) {
+      this.homey.flow.getDeviceTriggerCard('environment_changed')
+        .trigger(this, { environment: petData.environmentLabel })
+        .catch(err => this.error('Failed to trigger environment_changed:', err));
     }
 
-    // Update environment label capability
-    const oldEnvironment = this.getCapabilityValue('label_environment');
-    if (petData.environmentLabel !== oldEnvironment) {
-      this.log(`Environment changed: ${oldEnvironment} → ${petData.environmentLabel}`);
-      await this.setCapabilityValue('label_environment', petData.environmentLabel);
-    }
-    if (this._environmentChangedTrigger && petData.environmentLabel !== oldEnvironment) {
-      this._environmentChangedTrigger.trigger(this, { environment: petData.environmentLabel });
+    // Age changed trigger
+    if (changes.has('label_age')) {
+      this.homey.flow.getDeviceTriggerCard('age_changed')
+        .trigger(this, { age: petData.ageLabel })
+        .catch(err => this.error('Failed to trigger age_changed:', err));
     }
 
-    // Update birthday label capability
-    const oldBirthday = this.getCapabilityValue('label_birthday');
-    if (petData.birthdayFormatted !== oldBirthday) {
-      this.log(`Birthday changed: ${oldBirthday} → ${petData.birthdayFormatted}`);
-      await this.setCapabilityValue('label_birthday', petData.birthdayFormatted);
-    }
-
-    // Update breed label capability
-    const oldBreeds = this.getCapabilityValue('label_breed');
-    if (petData.breedLabel !== oldBreeds) {
-      this.log(`Breeds changed: ${oldBreeds} → ${petData.breedLabel}`);
-      await this.setCapabilityValue('label_breed', petData.breedLabel);
-    }
-
-    // Update age label capability
-    const oldAge = this.getCapabilityValue('label_age');
-    const newAge = petData.ageLabel;
-    if (newAge !== oldAge) {
-      this.log(`Age changed: ${oldAge} → ${newAge}`);
-      await this.setCapabilityValue('label_age', newAge);
-      if (this._ageChangedTrigger && newAge !== oldAge) {
-        this._ageChangedTrigger.trigger(this, { age: newAge });
-      }
-    }
-
-    // Update health alarm capability (true if any healthConcerns present)
-    const oldHealthAlarm = this.getCapabilityValue('alarm_health_concern');
-    if (petData.hasHealthConcerns !== oldHealthAlarm) {
-      this.log(`Health alarm changed: ${oldHealthAlarm} → ${petData.hasHealthConcerns}`);
-      await this.setCapabilityValue('alarm_health_concern', petData.hasHealthConcerns);
-
-      // Trigger flow card when a new health concern appears
-      if (petData.hasHealthConcerns && !oldHealthAlarm) {
-        const concerns = petData.healthConcernsList.join(', ');
-        this.log(`Triggering health concern detected with concerns: ${concerns}`);
-        this._healthConcernTrigger.trigger(this, { concerns });
+    // Health concern detected trigger
+    if (changes.has('alarm_health_concern') && petData.hasHealthConcerns) {
+      const concerns = petData.healthConcernsList?.join(', ');
+      if (concerns) {
+        this.homey.flow.getDeviceTriggerCard('health_concern_detected')
+          .trigger(this, { concerns })
+          .catch(err => this.error('Failed to trigger health_concern_detected:', err));
       }
     }
   }
 
-  _registerFlowCards() {
-    // Register Flow condition for birthday
-    this.homey.flow.getConditionCard('birthday_today')
-      .registerRunListener(async ({ device }) => {
-        const petData = device.petData;
-        const result = petData ? petData.isBirthdayToday : false;
-        this.log(
-          `birthday_today check for ${petData?.name}: ` +
-          `today=${new Date().toISOString()}, ` +
-          `birthday="${petData?.birthday}", result=${result}`
-        );
-        return result;
-      });
-
-    // Register Flow trigger for health concern detected
-    this._healthConcernTrigger = this.homey.flow.getTriggerCard('health_concern_detected');
-
-    // Register Flow trigger for age changed
-    this._ageChangedTrigger = this.homey.flow.getTriggerCard('age_changed');
-
-    // Register Flow condition for days until birthday
-    this.homey.flow.getConditionCard('days_until_birthday')
-      .registerRunListener(async ({ device, days }) => {
-        const threshold = parseInt(days, 10);
-        const petData = device.petData;
-        const result = petData.isDaysUntilBirthday(threshold);
-        this.log(
-          `days_until_birthday check for ${petData.name}: ` +
-          `remaining=${petData.daysUntilBirthday}, threshold=${threshold}, result=${result}`
-        );
-        return result;
-      });
-
-    this._environmentChangedTrigger = this.homey.flow.getTriggerCard('environment_changed');
-    this._dietChangedTrigger = this.homey.flow.getTriggerCard('diet_changed');
+  /**
+   * Refresh pet data (called by centralized DataManager when weight updates occur)
+   * @public
+   */
+  async refreshPetData() {
+    try {
+      this.log('Refreshing pet data...');
+      await this._fetchPetData();
+      this.log('Pet data refreshed successfully');
+    } catch (err) {
+      this.error('Failed to refresh pet data:', err);
+    }
   }
 
+  /**
+   * Device cleanup when deleted
+   */
   onDeleted() {
-    // Clear the polling interval when the device is removed
-    if (this._pollInterval) {
-      clearInterval(this._pollInterval);
-      this._pollInterval = null;
-    }
+    this.log('Pet device deleted, cleaning up...');
   }
-
-};
+}

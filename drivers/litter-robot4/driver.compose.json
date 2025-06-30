@@ -1,5 +1,3 @@
-
-
 {
   "name": {
     "en": "Litter-Robot 4"
@@ -34,7 +32,9 @@
     "start_clean_cycle",
     "start_empty_cycle",
     "short_reset_press",
-    "night_light_mode"
+    "night_light_mode",
+    "alarm_connectivity",
+    "last_seen"
   ],
   "connectivity": [
     "cloud"

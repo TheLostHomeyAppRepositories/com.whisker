@@ -265,7 +265,7 @@
         "en": "Set clean cycle wait time to",
         "nl": "Stel wachttijd schoonmaakcyclus in op",
         "de": "Reinigungszyklus-Wartezeit einstellen",
-        "fr": "Définir le temps d’attente du cycle de nettoyage",
+        "fr": "Définir le temps d'attente du cycle de nettoyage",
         "it": "Imposta tempo di attesa ciclo di pulizia",
         "sv": "Ställ in väntetid för rengöringscykel",
         "no": "Sett ventetid for rengjøringssyklus",
@@ -279,7 +279,7 @@
         "en": "Set the clean cycle wait time to [[wait_time]]",
         "nl": "Stel de wachttijd van de schoonmaakcyclus in op [[wait_time]]",
         "de": "Setze die Reinigungszyklus-Wartezeit auf [[wait_time]]",
-        "fr": "Définir le temps d’attente du cycle de nettoyage à [[wait_time]]",
+        "fr": "Définir le temps d'attente du cycle de nettoyage à [[wait_time]]",
         "it": "Imposta il tempo di attesa del ciclo di pulizia su [[wait_time]]",
         "sv": "Ställ in väntetiden för rengöringscykeln till [[wait_time]]",
         "no": "Sett ventetiden for rengjøringssyklus til [[wait_time]]",
@@ -503,183 +503,8 @@
   ],
   "triggers": [
     {
-      "id": "sleep_mode_starts_in",
-      "title": {
-        "en": "Sleep mode starts in",
-        "nl": "Slaapmodus begint over",
-        "de": "Schlafmodus beginnt in",
-        "fr": "Le mode veille commence dans",
-        "it": "La modalità sleep inizia tra",
-        "sv": "Sömnläge startar om",
-        "no": "Dvalemodus starter om",
-        "es": "El modo de suspensión comienza en",
-        "da": "Dvaletilstand starter om",
-        "ru": "Режим сна начнётся через",
-        "pl": "Tryb uśpienia zaczyna się za",
-        "ko": "절전 모드가 시작됩니다"
-      },
-      "titleFormatted": {
-        "en": "Sleep mode starts in [[amount]] [[unit]]",
-        "nl": "Slaapmodus begint over [[amount]] [[unit]]",
-        "de": "Schlafmodus beginnt in [[amount]] [[unit]]",
-        "fr": "Le mode veille commence dans [[amount]] [[unit]]",
-        "it": "La modalità sleep inizia tra [[amount]] [[unit]]",
-        "sv": "Sömnläge startar om [[amount]] [[unit]]",
-        "no": "Dvalemodus starter om [[amount]] [[unit]]",
-        "es": "El modo de suspensión comienza en [[amount]] [[unit]]",
-        "da": "Dvaletilstand starter om [[amount]] [[unit]]",
-        "ru": "Режим сна начнётся через [[amount]] [[unit]]",
-        "pl": "Tryb uśpienia zaczyna się za [[amount]] [[unit]]",
-        "ko": "절전 모드는 [[amount]] [[unit]] 후에 시작됩니다"
-      },
-      "args": [
-        {
-          "name": "amount",
-          "type": "number",
-          "title": {
-            "en": "Amount",
-            "nl": "Aantal",
-            "de": "Menge",
-            "fr": "Montant",
-            "it": "Quantità",
-            "sv": "Mängd",
-            "no": "Mengde",
-            "es": "Cantidad",
-            "da": "Mængde",
-            "ru": "Количество",
-            "pl": "Ilość",
-            "ko": "수량"
-          }
-        },
-        {
-          "name": "unit",
-          "type": "dropdown",
-          "title": {
-            "en": "Time unit",
-            "nl": "Tijdseenheid",
-            "de": "Zeiteinheit",
-            "fr": "Unité de temps",
-            "it": "Unità di tempo",
-            "sv": "Tidsenhet",
-            "no": "Tidsenhet",
-            "es": "Unidad de tiempo",
-            "da": "Tidsenhed",
-            "ru": "Единица времени",
-            "pl": "Jednostka czasu",
-            "ko": "시간 단위"
-          },
-          "values": [
-            { "id": "seconds", "label": { "en": "seconds", "nl": "seconden", "de": "sekunden", "fr": "secondes", "it": "secondi", "sv": "sekunder", "no": "sekunder", "es": "segundos", "da": "sekunder", "ru": "секунд", "pl": "sekund", "ko": "초" } },
-            { "id": "minutes", "label": { "en": "minutes", "nl": "minuten", "de": "minuten", "fr": "minutes", "it": "minuti", "sv": "minuter", "no": "minutter", "es": "minutos", "da": "minutter", "ru": "минут", "pl": "minut", "ko": "분" } },
-            { "id": "hours", "label": { "en": "hours", "nl": "uren", "de": "stunden", "fr": "heures", "it": "ore", "sv": "timmar", "no": "timer", "es": "horas", "da": "timer", "ru": "часов", "pl": "godzin", "ko": "시간" } }
-          ]
-        }
-      ],
-      "hint": {
-        "en": "Triggers when sleep mode will start in the specified time.",
-        "nl": "Wordt geactiveerd wanneer de slaapmodus over de opgegeven tijd begint.",
-        "de": "Wird ausgelöst, wenn der Schlafmodus in der angegebenen Zeit startet.",
-        "fr": "Déclenché lorsque le mode veille commence dans le délai spécifié.",
-        "it": "Si attiva quando la modalità sleep inizia entro il tempo specificato.",
-        "sv": "Utlöses när sömnläge startar inom angiven tid.",
-        "no": "Utøses når dvalemodus starter innen angitt tid.",
-        "es": "Se activa cuando el modo de suspensión comienza en el tiempo especificado.",
-        "da": "Udløses, når dvaletilstand starter inden for den angivne tid.",
-        "ru": "Срабатывает, когда режим сна начнётся в указанное время.",
-        "pl": "Uruchamia się, gdy tryb uśpienia zaczyna się w określonym czasie.",
-        "ko": "수면 모드가 지정된 시간 내에 시작될 때 트리거됩니다."
-      }
-    },
-    {
-      "id": "sleep_mode_ends_in",
-      "title": {
-        "en": "Sleep mode ends in",
-        "nl": "Slaapmodus eindigt over",
-        "de": "Schlafmodus endet in",
-        "fr": "Le mode veille se termine dans",
-        "it": "La modalità sleep termina tra",
-        "sv": "Sömnläge slutar om",
-        "no": "Dvalemodus avsluttes om",
-        "es": "El modo de suspensión termina en",
-        "da": "Dvaletilstand slutter om",
-        "ru": "Режим сна завершится через",
-        "pl": "Tryb uśpienia kończy się za",
-        "ko": "절전 모드가 종료됩니다"
-      },
-      "titleFormatted": {
-        "en": "Sleep mode ends in [[amount]] [[unit]]",
-        "nl": "Slaapmodus eindigt over [[amount]] [[unit]]",
-        "de": "Schlafmodus endet in [[amount]] [[unit]]",
-        "fr": "Le mode veille se termine dans [[amount]] [[unit]]",
-        "it": "La modalità sleep termina tra [[amount]] [[unit]]",
-        "sv": "Sömnläge slutar om [[amount]] [[unit]]",
-        "no": "Dvalemodus avsluttes om [[amount]] [[unit]]",
-        "es": "El modo de suspensión termina en [[amount]] [[unit]]",
-        "da": "Dvaletilstand slutter om [[amount]] [[unit]]",
-        "ru": "Режим сна завершится через [[amount]] [[unit]]",
-        "pl": "Tryb uśpienia kończy się za [[amount]] [[unit]]",
-        "ko": "절전 모드는 [[amount]] [[unit]] 후에 종료됩니다"
-      },
-      "args": [
-        {
-          "name": "amount",
-          "type": "number",
-          "title": {
-            "en": "Amount",
-            "nl": "Aantal",
-            "de": "Menge",
-            "fr": "Montant",
-            "it": "Quantità",
-            "sv": "Mängd",
-            "no": "Mengde",
-            "es": "Cantidad",
-            "da": "Mængde",
-            "ru": "Количество",
-            "pl": "Ilość",
-            "ko": "수량"
-          }
-        },
-        {
-          "name": "unit",
-          "type": "dropdown",
-          "title": {
-            "en": "Time unit",
-            "nl": "Tijdseenheid",
-            "de": "Zeiteinheit",
-            "fr": "Unité de temps",
-            "it": "Unità di tempo",
-            "sv": "Tidsenhet",
-            "no": "Tidsenhet",
-            "es": "Unidad de tiempo",
-            "da": "Tidsenhed",
-            "ru": "Единица времени",
-            "pl": "Jednostka czasu",
-            "ko": "시간 단위"
-          },
-          "values": [
-            { "id": "seconds", "label": { "en": "seconds", "nl": "seconden", "de": "sekunden", "fr": "secondes", "it": "secondi", "sv": "sekunder", "no": "sekunder", "es": "segundos", "da": "sekunder", "ru": "секунд", "pl": "sekund", "ko": "초" } },
-            { "id": "minutes", "label": { "en": "minutes", "nl": "minuten", "de": "minuten", "fr": "minutes", "it": "minuti", "sv": "minuter", "no": "minutter", "es": "minutos", "da": "minutter", "ru": "минут", "pl": "minut", "ko": "분" } },
-            { "id": "hours", "label": { "en": "hours", "nl": "uren", "de": "stunden", "fr": "heures", "it": "ore", "sv": "timmar", "no": "timer", "es": "horas", "da": "timer", "ru": "часов", "pl": "godzin", "ko": "시간" } }
-          ]
-        }
-      ],
-      "hint": {
-        "en": "Triggers when sleep mode will end in the specified time.",
-        "nl": "Wordt geactiveerd wanneer de slaapmodus over de opgegeven tijd eindigt.",
-        "de": "Wird ausgelöst, wenn der Schlafmodus in der angegebenen Zeit endet.",
-        "fr": "Déclenché lorsque le mode veille se termine dans le délai spécifié.",
-        "it": "Si attiva quando la modalità sleep termina entro il tempo specificato.",
-        "sv": "Utlöses när sömnläge avslutas inom angiven tid.",
-        "no": "Utøses når dvalemodus avsluttes innen angitt tid.",
-        "es": "Se activa cuando el modo de suspensión termina en el tiempo especificado.",
-        "da": "Udløses, når dvaletilstand slutter inden for den angivne tid.",
-        "ru": "Срабатывает, когда режим сна завершится в указанное время.",
-        "pl": "Uruchamia się, gdy tryb uśpienia kończy się w określonym czasie.",
-        "ko": "수면 모드가 지정된 시간 내에 종료될 때 트리거됩니다."
-      }
-    },
-    {
       "id": "cat_detected",
+      "highlight": true,
       "title": {
         "en": "A cat is detected",
         "nl": "Er is een kat gedetecteerd",
@@ -769,10 +594,31 @@
         "ru": "Срабатывает, когда контейнер для отходов Litter-Robot опустошен.",
         "pl": "Uruchamia się, gdy pojemnik na odpady Litter-Robota został opróżniony.",
         "ko": "Litter-Robot의 폐기물 통이 비워졌을 때 트리거됩니다."
-      }
+      },
+      "tokens": [
+        {
+          "name": "waste_level",
+          "type": "number",
+          "title": {
+            "en": "Waste drawer level",
+            "nl": "Afvalbak niveau",
+            "de": "Abfallbehälter-Füllstand",
+            "fr": "Niveau du bac à déchets",
+            "it": "Livello cassetto rifiuti",
+            "sv": "Avfallsbehållarens nivå",
+            "no": "Avfallsbeholderens nivå",
+            "es": "Nivel del contenedor de residuos",
+            "da": "Affaldsbeholderens niveau",
+            "ru": "Уровень заполнения контейнера",
+            "pl": "Poziom szuflady na odpady",
+            "ko": "폐기물 서랍 레벨"
+          }
+        }
+      ]
     },
     {
       "id": "clean_cycle_multiple",
+      "highlight": true,
       "title": {
         "en": "Litter-Robot completed multiple clean cycles",
         "nl": "Litter-Robot heeft meerdere schoonmaakcycli voltooid",
@@ -912,7 +758,7 @@
             "en": "Problem codes",
             "nl": "Probleemcodes",
             "de": "Problem-Codes",
-            "fr": "Codes d’erreur",
+            "fr": "Codes d'erreur",
             "it": "Codici problema",
             "sv": "Problemkoder",
             "no": "Problemkoder",
@@ -945,6 +791,7 @@
     },
     {
       "id": "waste_drawer_full",
+      "highlight": true,
       "title": {
         "en": "The waste drawer is full",
         "nl": "De afvalbak is vol",
@@ -955,15 +802,15 @@
         "no": "Avfallsbeholderen er full",
         "es": "El cajón de residuos está lleno",
         "da": "Affaldsskuffen er fuld",
-        "ru": "Контейнер для отходов полон",
-        "pl": "Szuflada na odpady jest pełna",
+        "ru": "Контейнер для отходов заполнен",
+        "pl": "Pojemnik na odpady jest pełny",
         "ko": "폐기물 서랍이 가득 찼습니다"
       },
       "hint": {
         "en": "Triggers when the Litter-Robot detects a full waste drawer.",
         "nl": "Wordt geactiveerd wanneer de Litter-Robot een volle afvalbak detecteert.",
         "de": "Wird ausgelöst, wenn der Litter-Robot einen vollen Abfallbehälter erkennt.",
-        "fr": "Déclenchement lorsque le Litter-Robot détecte un bac à déchets plein.",
+        "fr": "Déclenché lorsque le Litter-Robot détecte un bac à déchets plein.",
         "it": "Si attiva quando il Litter-Robot rileva un cassetto dei rifiuti pieno.",
         "sv": "Utlöses när Litter-Robot upptäcker att avfallsbehållaren är full.",
         "no": "Utøses når Litter-Robot oppdager at avfallsbeholderen er full.",
@@ -972,7 +819,27 @@
         "ru": "Срабатывает, когда Litter-Robot обнаруживает полный контейнер для отходов.",
         "pl": "Uruchamia się, gdy Litter-Robot wykryje pełną szufladę na odpady.",
         "ko": "Litter-Robot가 폐기물 서랍이 가득 찼음을 감지하면 트리거됩니다."
-      }
+      },
+      "tokens": [
+        {
+          "name": "waste_level",
+          "type": "number",
+          "title": {
+            "en": "Waste drawer level",
+            "nl": "Afvalbak niveau",
+            "de": "Abfallbehälter-Füllstand",
+            "fr": "Niveau du bac à déchets",
+            "it": "Livello cassetto rifiuti",
+            "sv": "Avfallsbehållarens nivå",
+            "no": "Avfallsbeholderens nivå",
+            "es": "Nivel del contenedor de residuos",
+            "da": "Affaldsbeholderens niveau",
+            "ru": "Уровень заполнения контейнера",
+            "pl": "Poziom szuflady na odpady",
+            "ko": "폐기물 서랍 레벨"
+          }
+        }
+      ]
     },
     {
       "id": "sleep_mode_activated",
@@ -1042,18 +909,18 @@
     {
       "id": "is_cat_detected",
       "title": {
-        "en": "A cat is detected",
-        "nl": "Een kat wordt gedetecteerd",
-        "de": "Eine Katze wird erkannt",
-        "fr": "Un chat est détecté",
-        "it": "Un gatto è rilevato",
-        "sv": "En katt upptäcks",
-        "no": "En katt oppdages",
-        "es": "Se detecta un gato",
-        "da": "En kat registreres",
-        "ru": "Обнаружена кошка",
-        "pl": "Wykryto kota",
-        "ko": "고양이가 감지됨"
+        "en": "A cat !{{is|is not}} detected",
+        "nl": "Een kat !{{wordt|wordt niet}} gedetecteerd",
+        "de": "Eine Katze !{{wird|wird nicht}} erkannt",
+        "fr": "Un chat !{{est|n'est pas}} détecté",
+        "it": "Un gatto !{{è|non è}} rilevato",
+        "sv": "En katt !{{upptäcks|upptäcks inte}}",
+        "no": "En katt !{{oppdages|oppdages ikke}}",
+        "es": "Se !{{detecta|no detecta}} un gato",
+        "da": "En kat !{{registreres|registreres ikke}}",
+        "ru": "Кошка !{{обнаружена|не обнаружена}}",
+        "pl": "Kot !{{jest|nie jest}} wykryty",
+        "ko": "고양이가 !{{감지됨|감지되지 않음}}"
       },
       "hint": {
         "en": "Returns true when a cat is currently detected.",
@@ -1074,18 +941,18 @@
     {
       "id": "is_sleep_mode_active",
       "title": {
-        "en": "Sleep mode is currently active",
-        "nl": "De slaapstand is momenteel actief",
-        "de": "Der Schlafmodus ist derzeit aktiv",
-        "fr": "Le mode veille est actuellement actif",
-        "it": "La modalità sleep è attiva",
-        "sv": "Viloläget är aktivt",
-        "no": "Søvnmodus er aktiv",
-        "es": "El modo de suspensión está activo",
-        "da": "Dvaletilstand er aktiv",
-        "ru": "Режим сна активен",
-        "pl": "Tryb uśpienia jest aktywny",
-        "ko": "수면 모드가 활성화됨"
+        "en": "Sleep mode !{{is|is not}} currently active",
+        "nl": "De slaapstand !{{is|is niet}} momenteel actief",
+        "de": "Der Schlafmodus !{{ist|ist nicht}} derzeit aktiv",
+        "fr": "Le mode veille !{{est|n'est pas}} actuellement actif",
+        "it": "La modalità sleep !{{è|non è}} attiva",
+        "sv": "Viloläget !{{är|är inte}} aktivt",
+        "no": "Søvnmodus !{{er|er ikke}} aktiv",
+        "es": "El modo de suspensión !{{está|no está}} activo",
+        "da": "Dvaletilstand !{{er|er ikke}} aktiv",
+        "ru": "Режим сна !{{активен|не активен}}",
+        "pl": "Tryb uśpienia !{{jest|nie jest}} aktywny",
+        "ko": "수면 모드가 !{{활성화됨|비활성화됨}}"
       },
       "hint": {
         "en": "Returns true when the Litter-Robot is currently sleeping.",
@@ -1106,18 +973,18 @@
     {
       "id": "is_sleep_mode_scheduled",
       "title": {
-         "en": "Sleep mode is scheduled for today",
-         "nl": "Slaapstand is gepland voor vandaag",
-         "de": "Schlafmodus ist für heute geplant",
-         "fr": "Le mode veille est programmé pour aujourd'hui",
-         "it": "La modalità sleep è programmata per oggi",
-         "sv": "Viloläge är schemalagt för idag",
-         "no": "Hvilemodus er planlagt for i dag",
-         "es": "El modo de suspensión está programado para hoy",
-         "da": "Dvaletilstand er planlagt for i dag",
-         "ru": "Режим сна запланирован на сегодня",
-         "pl": "Tryb uśpienia jest zaplanowany na dzisiaj",
-         "ko": "수면 모드는 오늘로 예약되어 있습니다"
+         "en": "Sleep mode !{{is|is not}} scheduled for today",
+         "nl": "Slaapstand !{{is|is niet}} gepland voor vandaag",
+         "de": "Schlafmodus !{{ist|ist nicht}} für heute geplant",
+         "fr": "Le mode veille !{{est|n'est pas}} programmé pour aujourd'hui",
+         "it": "La modalità sleep !{{è|non è}} programmata per oggi",
+         "sv": "Viloläge !{{är|är inte}} schemalagt för idag",
+         "no": "Hvilemodus !{{er|er ikke}} planlagt for i dag",
+         "es": "El modo de suspensión !{{está|no está}} programado para hoy",
+         "da": "Dvaletilstand !{{er|er ikke}} planlagt for i dag",
+         "ru": "Режим сна !{{запланирован|не запланирован}} на сегодня",
+         "pl": "Tryb uśpienia !{{jest|nie jest}} zaplanowany na dzisiaj",
+         "ko": "수면 모드가 !{{오늘로 예약됨|오늘로 예약되지 않음}}"
       },
       "hint": {
         "en": "Returns true when sleep mode is scheduled for today.",
@@ -1138,18 +1005,18 @@
     {
       "id": "is_waste_drawer_full",
       "title": {
-        "en": "The waste drawer is full",
-        "nl": "De afvalbak vol is",
-        "de": "Der Abfallbehälter voll ist",
-        "fr": "Le bac à déchets est plein",
-        "it": "Il cassetto dei rifiuti è pieno",
-        "sv": "Avfallsbehållaren är full",
-        "no": "Avfallsbeholderen er full",
-        "es": "El contenedor de residuos está lleno",
-        "da": "Affaldsbeholderen er fuld",
-        "ru": "Контейнер для отходов заполнен",
-        "pl": "Pojemnik na odpady jest pełny",
-        "ko": "폐기물 서랍이 가득 찼습니다"
+        "en": "The waste drawer !{{is|is not}} full",
+        "nl": "De afvalbak !{{is|is niet}} vol",
+        "de": "Der Abfallbehälter !{{ist|ist nicht}} voll",
+        "fr": "Le bac à déchets !{{est|n'est pas}} plein",
+        "it": "Il cassetto dei rifiuti !{{è|non è}} pieno",
+        "sv": "Avfallsbehållaren !{{är|är inte}} full",
+        "no": "Avfallsbeholderen !{{er|er ikke}} full",
+        "es": "El contenedor de residuos !{{está|no está}} lleno",
+        "da": "Affaldsskuffen !{{er|er ikke}} fuld",
+        "ru": "Контейнер для отходов !{{заполнен|не заполнен}}",
+        "pl": "Pojemnik na odpady !{{jest|nie jest}} pełny",
+        "ko": "폐기물 서랍이 !{{가득 찼습니다|가득 차지 않았습니다}}"
       },
       "args": [],
       "hint": {

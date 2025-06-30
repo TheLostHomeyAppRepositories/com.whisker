@@ -1,8 +1,17 @@
-
-
 {
   "title": {
-    "en": "Start empty cycle"
+    "en": "Start empty cycle",
+    "nl": "Start leegmaak cyclus",
+    "de": "Entleerungszyklus starten",
+    "fr": "Démarrer le cycle de vidage",
+    "it": "Avvia ciclo di svuotamento",
+    "sv": "Starta tömningscykel",
+    "no": "Start tømmecyklus",
+    "es": "Iniciar ciclo de vaciado",
+    "da": "Start tømmecyklus",
+    "ru": "Запустить цикл опорожнения",
+    "pl": "Uruchom cykl opróżniania",
+    "ko": "비우기 주기 시작"
   },
   "type": "boolean",
   "getable": false,

@@ -1,9 +1,18 @@
-
-
 {
   "type": "boolean",
   "title": {
-    "en": "Sleep mode scheduled"
+    "en": "Sleep mode scheduled",
+    "nl": "Slaapmodus gepland",
+    "de": "Schlafmodus geplant",
+    "fr": "Mode veille programmé",
+    "it": "Modalità sonno programmata",
+    "sv": "Viloläge schemalagt",
+    "no": "Søvnmodus planlagt",
+    "es": "Modo sueño programado",
+    "da": "Søvn tilstand planlagt",
+    "ru": "Режим сна запланирован",
+    "pl": "Tryb snu zaplanowany",
+    "ko": "수면 모드 예약됨"
   },
   "getable": true,
   "uiComponent": "sensor",

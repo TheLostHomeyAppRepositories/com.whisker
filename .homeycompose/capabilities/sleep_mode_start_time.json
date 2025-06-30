@@ -1,12 +1,21 @@
-
-
 {
   "title": {
-    "en": "Sleep mode start time"
+    "en": "Sleep mode start time",
+    "nl": "Slaapmodus starttijd",
+    "de": "Schlafmodus Startzeit",
+    "fr": "Heure de début du mode veille",
+    "it": "Ora di inizio modalità sonno",
+    "sv": "Viloläge starttid",
+    "no": "Søvnmodus starttid",
+    "es": "Hora de inicio del modo sueño",
+    "da": "Søvn tilstand starttid",
+    "ru": "Время начала режима сна",
+    "pl": "Czas rozpoczęcia trybu snu",
+    "ko": "수면 모드 시작 시간"
   },
   "type": "string",
   "getable": true,
-  "setable": false,
+  "setable": true,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/sleep_mode_start_time.svg"
 }

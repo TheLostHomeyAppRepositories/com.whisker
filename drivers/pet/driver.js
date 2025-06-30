@@ -1,31 +1,72 @@
 'use strict';
 
 /**
- * PetDriver integrates Homey.Driver for cat info pairing and repair flows.
+ * PetDriver integrates Homey.Driver for pet information pairing and repair flows.
+ * Updated to use the new centralized session and data management architecture.
  * @class
  */
 
 const Homey = require('homey');
-const PetApi = require('../../lib/PetApi');
+const PetData = require('../../lib/petdata');
 
 module.exports = class PetDriver extends Homey.Driver {
 
   /**
-   * Log driver initialization.
+   * Log driver initialization and register all Flow cards.
    * @returns {void}
    */
-  onInit() {
-    this.log('Pet Information driver initialized');
+  async onInit() {
+    this.log('PetDriver has been initialized');
+
+    // Register condition cards
+    this.homey.flow.getConditionCard('birthday_today')
+      .registerRunListener(async (args, state) => {
+        const device = args.device;
+        if (!device || !device.petData) {
+          this.error('Device or pet data not available for birthday check');
+          return false;
+        }
+        const result = device.petData.isBirthdayToday;
+        this.log(`Birthday check for ${device.petData.name}: result=${result}`);
+        return result;
+      });
+
+    this.homey.flow.getConditionCard('days_until_birthday')
+      .registerRunListener(async (args, state) => {
+        const device = args.device;
+        const days = args.days;
+        
+        if (!device || !device.petData) {
+          this.error('Device or pet data not available for days until birthday check');
+          return false;
+        }
+        
+        const threshold = parseInt(days, 10);
+        if (isNaN(threshold)) {
+          this.error('Invalid days threshold provided:', days);
+          return false;
+        }
+        
+        const result = device.petData.isDaysUntilBirthday(threshold);
+        this.log(`Days until birthday check for ${device.petData.name}: remaining=${device.petData.daysUntilBirthday}, threshold=${threshold}, result=${result}`);
+        return result;
+      });
+
+    // Register trigger cards (devices will trigger these directly)
+    this.homey.flow.getDeviceTriggerCard('health_concern_detected');
+    this.homey.flow.getDeviceTriggerCard('age_changed');
+    this.homey.flow.getDeviceTriggerCard('environment_changed');
+    this.homey.flow.getDeviceTriggerCard('diet_changed');
   }
 
   /**
    * Handle device pairing: authenticate user and list available pets.
+   * Updated to use centralized session management.
    * @param {object} session Homey pairing session
    * @returns {Promise<void>}
    */
   async onPair(session) {
-    let tokens = null;
-    let api;
+    // Pairing: handle user login and fetch available pets
     let pets = [];
 
     session.setHandler('login', async ({ username, password }) => {
@@ -33,16 +74,40 @@ module.exports = class PetDriver extends Homey.Driver {
         throw new Error('Username and password are required for pairing');
       }
       this.log('Attempting login for user:', username);
-      this.log('Calling loginAndGetTokens...');
       try {
-        // Reuse loginAndGetTokens just to get tokens, PetApi requires valid tokens
-        const { loginAndGetTokens } = require('../../lib/CognitoSession');
-        tokens = await loginAndGetTokens(username, password);
-        this.log('Tokens obtained:', tokens);
-        api = new PetApi({ tokens, log: this.log, error: this.error });
-        this.log('PetApi instantiated, calling getPets...');
-        pets = await api.getPets();
-        this.log(`Fetched pets array:`, pets);
+        // Use centralized app session management
+        const apiSession = await this.homey.app.initializeSession(username, password);
+        
+        // Get pets using the correct GraphQL query structure
+        const petsResponse = await apiSession.petGraphql(`
+          query GetPetsByUser($userId: String!) {
+            getPetsByUser(userId: $userId) {
+              petId
+              userId
+              name
+              type
+              gender
+              weight
+              weightLastUpdated
+              lastWeightReading
+              breeds
+              age
+              birthday
+              adoptionDate
+              s3ImageURL
+              diet
+              isFixed
+              environmentType
+              healthConcerns
+              isActive
+              whiskerProducts
+              petTagId
+              weightIdFeatureEnabled
+            }
+          }
+        `, { userId: apiSession.getUserId() });
+        
+        pets = petsResponse.data?.getPetsByUser || [];
         this.log(`Found ${pets.length} pet(s) for account`);
       } catch (err) {
         this.error('Login or fetching pets failed:', err);
@@ -52,21 +117,21 @@ module.exports = class PetDriver extends Homey.Driver {
     });
 
     session.setHandler('list_devices', async () => {
-      this.log('list_devices called, pets:', pets);
       if (!pets.length) {
         throw new Error('No pets found for this account');
       }
-      return pets.map(pet => {
+      return pets.map(petData => {
+        const petInstance = new PetData({ pet: petData });
         return {
-          name: pet.name || `Cat ${pet.petId}`,
-          data: { id: String(pet.petId) },
-          settings: { tokens },
+          name: petInstance.name || `Pet ${petData.petId}`,
+          data: { id: String(petData.petId) },
+          // No need to store tokens in device settings - they're managed centrally
         };
       });
     });
+    
     // Allow adding multiple pets in one pairing session
     session.setHandler('add_devices', async (selectedDevices) => {
-      this.log('add_devices called, selectedDevices:', selectedDevices);
       // Homey will pass an array of { name, data, settings } for each checked pet
       return selectedDevices;
     });
@@ -74,46 +139,109 @@ module.exports = class PetDriver extends Homey.Driver {
 
   /**
    * Handle device repair: refresh authentication and validate pet connectivity.
+   * Updated to use centralized session management.
    * @param {object} session Homey pairing session
    * @param {object} device Homey device instance
    * @returns {Promise<void>}
    */
   async onRepair(session, device) {
     const { id } = device.getData();
-    const { tokens } = device.getSettings();
     this.log('Repairing device with ID:', id);
 
-    if (tokens?.refresh_token) {
+    // Check if app already has a valid session
+    if (this.homey.app.isAuthenticated()) {
       session.setHandler('login', async () => {
-        this.log('Attempting silent session refresh for device ID:', id);
+        this.log('Using existing authenticated session for device ID:', id);
         try {
-          const { default: LR4Api } = await import('../../lib/LR4Api.js');
-          const authApi = new LR4Api({ tokens });
-          await authApi.cognitoSession.refreshSession();
-          const refreshedTokens = authApi.getTokens();
-          if (refreshedTokens) {
-            await device.setSettings({ tokens: refreshedTokens });
-            this.log('Token refresh successful');
+          // Verify pet exists with current session using correct query
+          const petResponse = await this.homey.app.apiSession.petGraphql(`
+            query GetPetsByUser($userId: String!) {
+              getPetsByUser(userId: $userId) {
+                petId
+                userId
+                name
+                type
+                gender
+                weight
+                weightLastUpdated
+                lastWeightReading
+                breeds
+                age
+                birthday
+                adoptionDate
+                s3ImageURL
+                diet
+                isFixed
+                environmentType
+                healthConcerns
+                isActive
+                whiskerProducts
+                petTagId
+                weightIdFeatureEnabled
+              }
+            }
+          `, { userId: this.homey.app.apiSession.getUserId() });
+          
+          const pet = petResponse.data?.getPetsByUser?.find(p => String(p.petId) === String(id));
+          if (!pet) {
+            throw new Error(`Pet with ID ${id} not found`);
           }
+          
+          device.petData = new PetData({ pet });
+          this.log('Pet verification successful with existing session');
         } catch (err) {
-          this.error('Silent repair failed:', err);
-          throw new Error('Silent repair failed: ' + err.message);
+          this.error('Pet verification failed:', err);
+          throw new Error('Pet verification failed: ' + err.message);
         }
         return true;
       });
     } else {
+      // Prompt user to log in again
       session.setHandler('login', async ({ username, password }) => {
         if (!username || !password) {
           throw new Error('Username and password are required for repair');
         }
         this.log('Repair login with username:', username);
         try {
-          const { loginAndGetTokens } = require('../../lib/CognitoSession');
-          const refreshedTokens = await loginAndGetTokens(username, password);
-          if (refreshedTokens) {
-            await device.setSettings({ tokens: refreshedTokens });
-            this.log('Re-authentication successful, tokens saved');
+          // Initialize new session
+          const apiSession = await this.homey.app.initializeSession(username, password);
+          
+          // Verify pet exists using correct query
+          const petResponse = await apiSession.petGraphql(`
+            query GetPetsByUser($userId: String!) {
+              getPetsByUser(userId: $userId) {
+                petId
+                userId
+                name
+                type
+                gender
+                weight
+                weightLastUpdated
+                lastWeightReading
+                breeds
+                age
+                birthday
+                adoptionDate
+                s3ImageURL
+                diet
+                isFixed
+                environmentType
+                healthConcerns
+                isActive
+                whiskerProducts
+                petTagId
+                weightIdFeatureEnabled
+              }
+            }
+          `, { userId: apiSession.getUserId() });
+          
+          const pet = petResponse.data?.getPetsByUser?.find(p => String(p.petId) === String(id));
+          if (!pet) {
+            throw new Error(`Pet with ID ${id} not found`);
           }
+          
+          device.petData = new PetData({ pet });
+          this.log('Re-authentication successful');
         } catch (err) {
           this.error('Repair login failed:', err);
           throw new Error('Repair login failed: ' + err.message);
@@ -122,5 +250,4 @@ module.exports = class PetDriver extends Homey.Driver {
       });
     }
   }
-
-};
+}

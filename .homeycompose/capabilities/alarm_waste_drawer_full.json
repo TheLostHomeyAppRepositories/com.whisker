@@ -1,9 +1,18 @@
-
-
 {
   "type": "boolean",
   "title": {
-    "en": "Waste drawer Full"
+    "en": "Waste drawer Full",
+    "nl": "Afvalbak vol",
+    "de": "Abfallbehälter voll",
+    "fr": "Bac à déchets plein",
+    "it": "Cassetto rifiuti pieno",
+    "sv": "Sopkorg full",
+    "no": "Avfallsskuffe full",
+    "es": "Cajón de residuos lleno",
+    "da": "Affaldsskuffe fuld",
+    "ru": "Контейнер для отходов полный",
+    "pl": "Pojemnik na odpady pełny",
+    "ko": "쓰레기통 가득참"
   },
   "getable": true,
   "uiComponent": "sensor",

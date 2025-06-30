@@ -1,8 +1,17 @@
-
-
 {
   "name": {
-    "en": "Pet Information"
+    "en": "Pet Information",
+    "nl": "Huisdier Informatie",
+    "de": "Haustier-Informationen",
+    "fr": "Informations sur l'animal",
+    "it": "Informazioni sull'animale",
+    "sv": "Husdjursinformation",
+    "no": "Kjæledyr informasjon",
+    "es": "Información de mascota",
+    "da": "Kæledyr information",
+    "ru": "Информация о питомце",
+    "pl": "Informacje o zwierzęciu",
+    "ko": "반려동물 정보"
   },
   "icon": [
     "/drivers/pet/assets/icon.svg"

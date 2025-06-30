@@ -1,9 +1,18 @@
-
-
 {
   "type": "boolean",
   "title": {
-    "en": "Sleep mode active"
+    "en": "Sleep mode active",
+    "nl": "Slaapmodus actief",
+    "de": "Schlafmodus aktiv",
+    "fr": "Mode veille actif",
+    "it": "Modalità sonno attiva",
+    "sv": "Viloläge aktivt",
+    "no": "Søvnmodus aktiv",
+    "es": "Modo sueño activo",
+    "da": "Søvn tilstand aktiv",
+    "ru": "Режим сна активен",
+    "pl": "Tryb snu aktywny",
+    "ko": "수면 모드 활성"
   },
   "getable": true,
   "uiComponent": "sensor",

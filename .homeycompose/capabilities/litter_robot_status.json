@@ -1,9 +1,18 @@
-
-
 {
   "type": "string",
   "title": {
-    "en": "Litter-Robot status"
+    "en": "Litter-Robot status",
+    "nl": "Litter-Robot status",
+    "de": "Litter-Robot Status",
+    "fr": "Statut Litter-Robot",
+    "it": "Stato Litter-Robot",
+    "sv": "Litter-Robot status",
+    "no": "Litter-Robot status",
+    "es": "Estado Litter-Robot",
+    "da": "Litter-Robot status",
+    "ru": "Статус Litter-Robot",
+    "pl": "Status Litter-Robot",
+    "ko": "리터 로봇 상태"
   },
   "getable": true,
   "setable": false,

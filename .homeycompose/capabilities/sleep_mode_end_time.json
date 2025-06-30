@@ -1,12 +1,21 @@
-
-
 {
   "title": {
-    "en": "Sleep mode end time"
+    "en": "Sleep mode end time",
+    "nl": "Slaapmodus eindtijd",
+    "de": "Schlafmodus Endzeit",
+    "fr": "Heure de fin du mode veille",
+    "it": "Ora di fine modalità sonno",
+    "sv": "Viloläge sluttid",
+    "no": "Søvnmodus sluttid",
+    "es": "Hora de fin del modo sueño",
+    "da": "Søvn tilstand sluttid",
+    "ru": "Время окончания режима сна",
+    "pl": "Czas zakończenia trybu snu",
+    "ko": "수면 모드 종료 시간"
   },
   "type": "string",
   "getable": true,
-  "setable": false,
+  "setable": true,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/sleep_mode_end_time.svg"
 }

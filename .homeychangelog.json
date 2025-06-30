@@ -40,5 +40,8 @@
   },
     "1.0.0": {
     "en": "Initial stable release"
-  }                                            
+  },
+  "1.1.0": {
+    "en": "Major refactor for better performance and stability. Added connectivity alarm and last seen capability to Litter-Robot driver. Improved connection management and reduced memory usage. Enhanced date/time formatting in device settings."
+  }                                        
 }

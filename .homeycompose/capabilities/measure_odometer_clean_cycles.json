@@ -1,6 +1,17 @@
 {
   "title": {
-    "en": "Completed clean cycles"
+    "en": "Clean cycles count",
+    "nl": "Reinigingscycli teller",
+    "de": "Reinigungszyklen Zähler",
+    "fr": "Compteur de cycles de nettoyage",
+    "it": "Contatore cicli di pulizia",
+    "sv": "Rengöringscykler räknare",
+    "no": "Rengjøringscykler teller",
+    "es": "Contador de ciclos de limpieza",
+    "da": "Rengøringscykler tæller",
+    "ru": "Счетчик циклов очистки",
+    "pl": "Licznik cykli czyszczenia",
+    "ko": "청소 주기 카운트"
   },
   "type": "number",
   "getable": true,

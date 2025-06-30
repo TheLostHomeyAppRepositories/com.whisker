@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.whisker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -65,289 +65,8 @@
   "flow": {
     "triggers": [
       {
-        "id": "sleep_mode_starts_in",
-        "title": {
-          "en": "Sleep mode starts in",
-          "nl": "Slaapmodus begint over",
-          "de": "Schlafmodus beginnt in",
-          "fr": "Le mode veille commence dans",
-          "it": "La modalità sleep inizia tra",
-          "sv": "Sömnläge startar om",
-          "no": "Dvalemodus starter om",
-          "es": "El modo de suspensión comienza en",
-          "da": "Dvaletilstand starter om",
-          "ru": "Режим сна начнётся через",
-          "pl": "Tryb uśpienia zaczyna się za",
-          "ko": "절전 모드가 시작됩니다"
-        },
-        "titleFormatted": {
-          "en": "Sleep mode starts in [[amount]] [[unit]]",
-          "nl": "Slaapmodus begint over [[amount]] [[unit]]",
-          "de": "Schlafmodus beginnt in [[amount]] [[unit]]",
-          "fr": "Le mode veille commence dans [[amount]] [[unit]]",
-          "it": "La modalità sleep inizia tra [[amount]] [[unit]]",
-          "sv": "Sömnläge startar om [[amount]] [[unit]]",
-          "no": "Dvalemodus starter om [[amount]] [[unit]]",
-          "es": "El modo de suspensión comienza en [[amount]] [[unit]]",
-          "da": "Dvaletilstand starter om [[amount]] [[unit]]",
-          "ru": "Режим сна начнётся через [[amount]] [[unit]]",
-          "pl": "Tryb uśpienia zaczyna się za [[amount]] [[unit]]",
-          "ko": "절전 모드는 [[amount]] [[unit]] 후에 시작됩니다"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=litter-robot4"
-          },
-          {
-            "name": "amount",
-            "type": "number",
-            "title": {
-              "en": "Amount",
-              "nl": "Aantal",
-              "de": "Menge",
-              "fr": "Montant",
-              "it": "Quantità",
-              "sv": "Mängd",
-              "no": "Mengde",
-              "es": "Cantidad",
-              "da": "Mængde",
-              "ru": "Количество",
-              "pl": "Ilość",
-              "ko": "수량"
-            }
-          },
-          {
-            "name": "unit",
-            "type": "dropdown",
-            "title": {
-              "en": "Time unit",
-              "nl": "Tijdseenheid",
-              "de": "Zeiteinheit",
-              "fr": "Unité de temps",
-              "it": "Unità di tempo",
-              "sv": "Tidsenhet",
-              "no": "Tidsenhet",
-              "es": "Unidad de tiempo",
-              "da": "Tidsenhed",
-              "ru": "Единица времени",
-              "pl": "Jednostka czasu",
-              "ko": "시간 단위"
-            },
-            "values": [
-              {
-                "id": "seconds",
-                "label": {
-                  "en": "seconds",
-                  "nl": "seconden",
-                  "de": "sekunden",
-                  "fr": "secondes",
-                  "it": "secondi",
-                  "sv": "sekunder",
-                  "no": "sekunder",
-                  "es": "segundos",
-                  "da": "sekunder",
-                  "ru": "секунд",
-                  "pl": "sekund",
-                  "ko": "초"
-                }
-              },
-              {
-                "id": "minutes",
-                "label": {
-                  "en": "minutes",
-                  "nl": "minuten",
-                  "de": "minuten",
-                  "fr": "minutes",
-                  "it": "minuti",
-                  "sv": "minuter",
-                  "no": "minutter",
-                  "es": "minutos",
-                  "da": "minutter",
-                  "ru": "минут",
-                  "pl": "minut",
-                  "ko": "분"
-                }
-              },
-              {
-                "id": "hours",
-                "label": {
-                  "en": "hours",
-                  "nl": "uren",
-                  "de": "stunden",
-                  "fr": "heures",
-                  "it": "ore",
-                  "sv": "timmar",
-                  "no": "timer",
-                  "es": "horas",
-                  "da": "timer",
-                  "ru": "часов",
-                  "pl": "godzin",
-                  "ko": "시간"
-                }
-              }
-            ]
-          }
-        ],
-        "hint": {
-          "en": "Triggers when sleep mode will start in the specified time.",
-          "nl": "Wordt geactiveerd wanneer de slaapmodus over de opgegeven tijd begint.",
-          "de": "Wird ausgelöst, wenn der Schlafmodus in der angegebenen Zeit startet.",
-          "fr": "Déclenché lorsque le mode veille commence dans le délai spécifié.",
-          "it": "Si attiva quando la modalità sleep inizia entro il tempo specificato.",
-          "sv": "Utlöses när sömnläge startar inom angiven tid.",
-          "no": "Utøses når dvalemodus starter innen angitt tid.",
-          "es": "Se activa cuando el modo de suspensión comienza en el tiempo especificado.",
-          "da": "Udløses, når dvaletilstand starter inden for den angivne tid.",
-          "ru": "Срабатывает, когда режим сна начнётся в указанное время.",
-          "pl": "Uruchamia się, gdy tryb uśpienia zaczyna się w określonym czasie.",
-          "ko": "수면 모드가 지정된 시간 내에 시작될 때 트리거됩니다."
-        }
-      },
-      {
-        "id": "sleep_mode_ends_in",
-        "title": {
-          "en": "Sleep mode ends in",
-          "nl": "Slaapmodus eindigt over",
-          "de": "Schlafmodus endet in",
-          "fr": "Le mode veille se termine dans",
-          "it": "La modalità sleep termina tra",
-          "sv": "Sömnläge slutar om",
-          "no": "Dvalemodus avsluttes om",
-          "es": "El modo de suspensión termina en",
-          "da": "Dvaletilstand slutter om",
-          "ru": "Режим сна завершится через",
-          "pl": "Tryb uśpienia kończy się za",
-          "ko": "절전 모드가 종료됩니다"
-        },
-        "titleFormatted": {
-          "en": "Sleep mode ends in [[amount]] [[unit]]",
-          "nl": "Slaapmodus eindigt over [[amount]] [[unit]]",
-          "de": "Schlafmodus endet in [[amount]] [[unit]]",
-          "fr": "Le mode veille se termine dans [[amount]] [[unit]]",
-          "it": "La modalità sleep termina tra [[amount]] [[unit]]",
-          "sv": "Sömnläge slutar om [[amount]] [[unit]]",
-          "no": "Dvalemodus avsluttes om [[amount]] [[unit]]",
-          "es": "El modo de suspensión termina en [[amount]] [[unit]]",
-          "da": "Dvaletilstand slutter om [[amount]] [[unit]]",
-          "ru": "Режим сна завершится через [[amount]] [[unit]]",
-          "pl": "Tryb uśpienia kończy się za [[amount]] [[unit]]",
-          "ko": "절전 모드는 [[amount]] [[unit]] 후에 종료됩니다"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=litter-robot4"
-          },
-          {
-            "name": "amount",
-            "type": "number",
-            "title": {
-              "en": "Amount",
-              "nl": "Aantal",
-              "de": "Menge",
-              "fr": "Montant",
-              "it": "Quantità",
-              "sv": "Mängd",
-              "no": "Mengde",
-              "es": "Cantidad",
-              "da": "Mængde",
-              "ru": "Количество",
-              "pl": "Ilość",
-              "ko": "수량"
-            }
-          },
-          {
-            "name": "unit",
-            "type": "dropdown",
-            "title": {
-              "en": "Time unit",
-              "nl": "Tijdseenheid",
-              "de": "Zeiteinheit",
-              "fr": "Unité de temps",
-              "it": "Unità di tempo",
-              "sv": "Tidsenhet",
-              "no": "Tidsenhet",
-              "es": "Unidad de tiempo",
-              "da": "Tidsenhed",
-              "ru": "Единица времени",
-              "pl": "Jednostka czasu",
-              "ko": "시간 단위"
-            },
-            "values": [
-              {
-                "id": "seconds",
-                "label": {
-                  "en": "seconds",
-                  "nl": "seconden",
-                  "de": "sekunden",
-                  "fr": "secondes",
-                  "it": "secondi",
-                  "sv": "sekunder",
-                  "no": "sekunder",
-                  "es": "segundos",
-                  "da": "sekunder",
-                  "ru": "секунд",
-                  "pl": "sekund",
-                  "ko": "초"
-                }
-              },
-              {
-                "id": "minutes",
-                "label": {
-                  "en": "minutes",
-                  "nl": "minuten",
-                  "de": "minuten",
-                  "fr": "minutes",
-                  "it": "minuti",
-                  "sv": "minuter",
-                  "no": "minutter",
-                  "es": "minutos",
-                  "da": "minutter",
-                  "ru": "минут",
-                  "pl": "minut",
-                  "ko": "분"
-                }
-              },
-              {
-                "id": "hours",
-                "label": {
-                  "en": "hours",
-                  "nl": "uren",
-                  "de": "stunden",
-                  "fr": "heures",
-                  "it": "ore",
-                  "sv": "timmar",
-                  "no": "timer",
-                  "es": "horas",
-                  "da": "timer",
-                  "ru": "часов",
-                  "pl": "godzin",
-                  "ko": "시간"
-                }
-              }
-            ]
-          }
-        ],
-        "hint": {
-          "en": "Triggers when sleep mode will end in the specified time.",
-          "nl": "Wordt geactiveerd wanneer de slaapmodus over de opgegeven tijd eindigt.",
-          "de": "Wird ausgelöst, wenn der Schlafmodus in der angegebenen Zeit endet.",
-          "fr": "Déclenché lorsque le mode veille se termine dans le délai spécifié.",
-          "it": "Si attiva quando la modalità sleep termina entro il tempo specificato.",
-          "sv": "Utlöses när sömnläge avslutas inom angiven tid.",
-          "no": "Utøses når dvalemodus avsluttes innen angitt tid.",
-          "es": "Se activa cuando el modo de suspensión termina en el tiempo especificado.",
-          "da": "Udløses, når dvaletilstand slutter inden for den angivne tid.",
-          "ru": "Срабатывает, когда режим сна завершится в указанное время.",
-          "pl": "Uruchamia się, gdy tryb uśpienia kończy się w określonym czasie.",
-          "ko": "수면 모드가 지정된 시간 내에 종료될 때 트리거됩니다."
-        }
-      },
-      {
         "id": "cat_detected",
+        "highlight": true,
         "title": {
           "en": "A cat is detected",
           "nl": "Er is een kat gedetecteerd",
@@ -452,6 +171,26 @@
           "pl": "Uruchamia się, gdy pojemnik na odpady Litter-Robota został opróżniony.",
           "ko": "Litter-Robot의 폐기물 통이 비워졌을 때 트리거됩니다."
         },
+        "tokens": [
+          {
+            "name": "waste_level",
+            "type": "number",
+            "title": {
+              "en": "Waste drawer level",
+              "nl": "Afvalbak niveau",
+              "de": "Abfallbehälter-Füllstand",
+              "fr": "Niveau du bac à déchets",
+              "it": "Livello cassetto rifiuti",
+              "sv": "Avfallsbehållarens nivå",
+              "no": "Avfallsbeholderens nivå",
+              "es": "Nivel del contenedor de residuos",
+              "da": "Affaldsbeholderens niveau",
+              "ru": "Уровень заполнения контейнера",
+              "pl": "Poziom szuflady na odpady",
+              "ko": "폐기물 서랍 레벨"
+            }
+          }
+        ],
         "args": [
           {
             "type": "device",
@@ -462,6 +201,7 @@
       },
       {
         "id": "clean_cycle_multiple",
+        "highlight": true,
         "title": {
           "en": "Litter-Robot completed multiple clean cycles",
           "nl": "Litter-Robot heeft meerdere schoonmaakcycli voltooid",
@@ -606,7 +346,7 @@
               "en": "Problem codes",
               "nl": "Probleemcodes",
               "de": "Problem-Codes",
-              "fr": "Codes d’erreur",
+              "fr": "Codes d'erreur",
               "it": "Codici problema",
               "sv": "Problemkoder",
               "no": "Problemkoder",
@@ -646,6 +386,7 @@
       },
       {
         "id": "waste_drawer_full",
+        "highlight": true,
         "title": {
           "en": "The waste drawer is full",
           "nl": "De afvalbak is vol",
@@ -656,15 +397,15 @@
           "no": "Avfallsbeholderen er full",
           "es": "El cajón de residuos está lleno",
           "da": "Affaldsskuffen er fuld",
-          "ru": "Контейнер для отходов полон",
-          "pl": "Szuflada na odpady jest pełna",
+          "ru": "Контейнер для отходов заполнен",
+          "pl": "Pojemnik na odpady jest pełny",
           "ko": "폐기물 서랍이 가득 찼습니다"
         },
         "hint": {
           "en": "Triggers when the Litter-Robot detects a full waste drawer.",
           "nl": "Wordt geactiveerd wanneer de Litter-Robot een volle afvalbak detecteert.",
           "de": "Wird ausgelöst, wenn der Litter-Robot einen vollen Abfallbehälter erkennt.",
-          "fr": "Déclenchement lorsque le Litter-Robot détecte un bac à déchets plein.",
+          "fr": "Déclenché lorsque le Litter-Robot détecte un bac à déchets plein.",
           "it": "Si attiva quando il Litter-Robot rileva un cassetto dei rifiuti pieno.",
           "sv": "Utlöses när Litter-Robot upptäcker att avfallsbehållaren är full.",
           "no": "Utøses når Litter-Robot oppdager at avfallsbeholderen er full.",
@@ -674,6 +415,26 @@
           "pl": "Uruchamia się, gdy Litter-Robot wykryje pełną szufladę na odpady.",
           "ko": "Litter-Robot가 폐기물 서랍이 가득 찼음을 감지하면 트리거됩니다."
         },
+        "tokens": [
+          {
+            "name": "waste_level",
+            "type": "number",
+            "title": {
+              "en": "Waste drawer level",
+              "nl": "Afvalbak niveau",
+              "de": "Abfallbehälter-Füllstand",
+              "fr": "Niveau du bac à déchets",
+              "it": "Livello cassetto rifiuti",
+              "sv": "Avfallsbehållarens nivå",
+              "no": "Avfallsbeholderens nivå",
+              "es": "Nivel del contenedor de residuos",
+              "da": "Affaldsbeholderens niveau",
+              "ru": "Уровень заполнения контейнера",
+              "pl": "Poziom szuflady na odpady",
+              "ko": "폐기물 서랍 레벨"
+            }
+          }
+        ],
         "args": [
           {
             "type": "device",
@@ -1051,18 +812,18 @@
       {
         "id": "is_cat_detected",
         "title": {
-          "en": "A cat is detected",
-          "nl": "Een kat wordt gedetecteerd",
-          "de": "Eine Katze wird erkannt",
-          "fr": "Un chat est détecté",
-          "it": "Un gatto è rilevato",
-          "sv": "En katt upptäcks",
-          "no": "En katt oppdages",
-          "es": "Se detecta un gato",
-          "da": "En kat registreres",
-          "ru": "Обнаружена кошка",
-          "pl": "Wykryto kota",
-          "ko": "고양이가 감지됨"
+          "en": "A cat !{{is|is not}} detected",
+          "nl": "Een kat !{{wordt|wordt niet}} gedetecteerd",
+          "de": "Eine Katze !{{wird|wird nicht}} erkannt",
+          "fr": "Un chat !{{est|n'est pas}} détecté",
+          "it": "Un gatto !{{è|non è}} rilevato",
+          "sv": "En katt !{{upptäcks|upptäcks inte}}",
+          "no": "En katt !{{oppdages|oppdages ikke}}",
+          "es": "Se !{{detecta|no detecta}} un gato",
+          "da": "En kat !{{registreres|registreres ikke}}",
+          "ru": "Кошка !{{обнаружена|не обнаружена}}",
+          "pl": "Kot !{{jest|nie jest}} wykryty",
+          "ko": "고양이가 !{{감지됨|감지되지 않음}}"
         },
         "hint": {
           "en": "Returns true when a cat is currently detected.",
@@ -1089,18 +850,18 @@
       {
         "id": "is_sleep_mode_active",
         "title": {
-          "en": "Sleep mode is currently active",
-          "nl": "De slaapstand is momenteel actief",
-          "de": "Der Schlafmodus ist derzeit aktiv",
-          "fr": "Le mode veille est actuellement actif",
-          "it": "La modalità sleep è attiva",
-          "sv": "Viloläget är aktivt",
-          "no": "Søvnmodus er aktiv",
-          "es": "El modo de suspensión está activo",
-          "da": "Dvaletilstand er aktiv",
-          "ru": "Режим сна активен",
-          "pl": "Tryb uśpienia jest aktywny",
-          "ko": "수면 모드가 활성화됨"
+          "en": "Sleep mode !{{is|is not}} currently active",
+          "nl": "De slaapstand !{{is|is niet}} momenteel actief",
+          "de": "Der Schlafmodus !{{ist|ist nicht}} derzeit aktiv",
+          "fr": "Le mode veille !{{est|n'est pas}} actuellement actif",
+          "it": "La modalità sleep !{{è|non è}} attiva",
+          "sv": "Viloläget !{{är|är inte}} aktivt",
+          "no": "Søvnmodus !{{er|er ikke}} aktiv",
+          "es": "El modo de suspensión !{{está|no está}} activo",
+          "da": "Dvaletilstand !{{er|er ikke}} aktiv",
+          "ru": "Режим сна !{{активен|не активен}}",
+          "pl": "Tryb uśpienia !{{jest|nie jest}} aktywny",
+          "ko": "수면 모드가 !{{활성화됨|비활성화됨}}"
         },
         "hint": {
           "en": "Returns true when the Litter-Robot is currently sleeping.",
@@ -1127,18 +888,18 @@
       {
         "id": "is_sleep_mode_scheduled",
         "title": {
-          "en": "Sleep mode is scheduled for today",
-          "nl": "Slaapstand is gepland voor vandaag",
-          "de": "Schlafmodus ist für heute geplant",
-          "fr": "Le mode veille est programmé pour aujourd'hui",
-          "it": "La modalità sleep è programmata per oggi",
-          "sv": "Viloläge är schemalagt för idag",
-          "no": "Hvilemodus er planlagt for i dag",
-          "es": "El modo de suspensión está programado para hoy",
-          "da": "Dvaletilstand er planlagt for i dag",
-          "ru": "Режим сна запланирован на сегодня",
-          "pl": "Tryb uśpienia jest zaplanowany na dzisiaj",
-          "ko": "수면 모드는 오늘로 예약되어 있습니다"
+          "en": "Sleep mode !{{is|is not}} scheduled for today",
+          "nl": "Slaapstand !{{is|is niet}} gepland voor vandaag",
+          "de": "Schlafmodus !{{ist|ist nicht}} für heute geplant",
+          "fr": "Le mode veille !{{est|n'est pas}} programmé pour aujourd'hui",
+          "it": "La modalità sleep !{{è|non è}} programmata per oggi",
+          "sv": "Viloläge !{{är|är inte}} schemalagt för idag",
+          "no": "Hvilemodus !{{er|er ikke}} planlagt for i dag",
+          "es": "El modo de suspensión !{{está|no está}} programado para hoy",
+          "da": "Dvaletilstand !{{er|er ikke}} planlagt for i dag",
+          "ru": "Режим сна !{{запланирован|не запланирован}} на сегодня",
+          "pl": "Tryb uśpienia !{{jest|nie jest}} zaplanowany na dzisiaj",
+          "ko": "수면 모드가 !{{오늘로 예약됨|오늘로 예약되지 않음}}"
         },
         "hint": {
           "en": "Returns true when sleep mode is scheduled for today.",
@@ -1165,18 +926,18 @@
       {
         "id": "is_waste_drawer_full",
         "title": {
-          "en": "The waste drawer is full",
-          "nl": "De afvalbak vol is",
-          "de": "Der Abfallbehälter voll ist",
-          "fr": "Le bac à déchets est plein",
-          "it": "Il cassetto dei rifiuti è pieno",
-          "sv": "Avfallsbehållaren är full",
-          "no": "Avfallsbeholderen er full",
-          "es": "El contenedor de residuos está lleno",
-          "da": "Affaldsbeholderen er fuld",
-          "ru": "Контейнер для отходов заполнен",
-          "pl": "Pojemnik na odpady jest pełny",
-          "ko": "폐기물 서랍이 가득 찼습니다"
+          "en": "The waste drawer !{{is|is not}} full",
+          "nl": "De afvalbak !{{is|is niet}} vol",
+          "de": "Der Abfallbehälter !{{ist|ist nicht}} voll",
+          "fr": "Le bac à déchets !{{est|n'est pas}} plein",
+          "it": "Il cassetto dei rifiuti !{{è|non è}} pieno",
+          "sv": "Avfallsbehållaren !{{är|är inte}} full",
+          "no": "Avfallsbeholderen !{{er|er ikke}} full",
+          "es": "El contenedor de residuos !{{está|no está}} lleno",
+          "da": "Affaldsskuffen !{{er|er ikke}} fuld",
+          "ru": "Контейнер для отходов !{{заполнен|не заполнен}}",
+          "pl": "Pojemnik na odpady !{{jest|nie jest}} pełny",
+          "ko": "폐기물 서랍이 !{{가득 찼습니다|가득 차지 않았습니다}}"
         },
         "args": [
           {
@@ -1723,7 +1484,7 @@
           "en": "Set clean cycle wait time to",
           "nl": "Stel wachttijd schoonmaakcyclus in op",
           "de": "Reinigungszyklus-Wartezeit einstellen",
-          "fr": "Définir le temps d’attente du cycle de nettoyage",
+          "fr": "Définir le temps d'attente du cycle de nettoyage",
           "it": "Imposta tempo di attesa ciclo di pulizia",
           "sv": "Ställ in väntetid för rengöringscykel",
           "no": "Sett ventetid for rengjøringssyklus",
@@ -1737,7 +1498,7 @@
           "en": "Set the clean cycle wait time to [[wait_time]]",
           "nl": "Stel de wachttijd van de schoonmaakcyclus in op [[wait_time]]",
           "de": "Setze die Reinigungszyklus-Wartezeit auf [[wait_time]]",
-          "fr": "Définir le temps d’attente du cycle de nettoyage à [[wait_time]]",
+          "fr": "Définir le temps d'attente du cycle de nettoyage à [[wait_time]]",
           "it": "Imposta il tempo di attesa del ciclo di pulizia su [[wait_time]]",
           "sv": "Ställ in väntetiden för rengöringscykeln till [[wait_time]]",
           "no": "Sett ventetiden for rengjøringssyklus til [[wait_time]]",
@@ -2020,7 +1781,9 @@
         "start_clean_cycle",
         "start_empty_cycle",
         "short_reset_press",
-        "night_light_mode"
+        "night_light_mode",
+        "alarm_connectivity",
+        "last_seen"
       ],
       "connectivity": [
         "cloud"
@@ -2131,20 +1894,20 @@
             "ko": "폐기물 서랍 가득 참 임계값 (%)"
           },
           "hint": {
-            "en": "Adjust this percentage to determine when the Waste Drawer Full alarm should trigger, the default is 90%",
-            "nl": "Pas dit percentage aan om te bepalen wanneer de afvalbak als vol wordt gemeld. Standaard is dit 90%.",
-            "de": "Passen Sie diesen Prozentsatz an, um festzulegen, wann die Meldung „Abfallbehälter voll“ ausgelöst wird. Standard ist 90%.",
-            "fr": "Ajustez ce pourcentage pour déterminer quand l'alerte bac à déchets plein doit se déclencher. Par défaut : 90%.",
-            "it": "Modifica questa percentuale per decidere quando attivare l'allarme del cassetto pieno. Predefinito: 90%.",
-            "sv": "Justera denna procentsats för att avgöra när larmet för full avfallsbehållare ska utlösas. Standard är 90%.",
-            "no": "Juster denne prosenten for å angi når varsel om full avfallsbeholder skal utløses. Standard er 90%.",
-            "es": "Ajusta este porcentaje para determinar cuándo se debe activar la alarma de cajón de desechos lleno. Por defecto: 90%.",
-            "da": "Juster denne procentdel for at bestemme, hvornår alarmen for fuld affaldsskuffe skal udløses. Standard er 90%.",
-            "ru": "Настройте этот процент, чтобы определить, когда включать сигнал переполненного мусорного ящика. По умолчанию: 90%.",
-            "pl": "Dostosuj ten procent, aby określić, kiedy ma się włączyć alarm pełnego pojemnika. Domyślnie: 90%.",
-            "ko": "이 비율을 조정하여 폐기물 서랍이 가득 찼을 때 경고가 표시되도록 설정합니다. 기본값은 90%입니다."
+            "en": "Adjust this percentage to determine when the Waste Drawer Full alarm should trigger, the default is 80%",
+            "nl": "Pas dit percentage aan om te bepalen wanneer de afvalbak als vol wordt gemeld. Standaard is dit 80%.",
+            "de": "Passen Sie diesen Prozentsatz an, um festzulegen, wann die Meldung Abfallbehälter voll ausgelöst wird. Standard ist 80%.",
+            "fr": "Ajustez ce pourcentage pour déterminer quand l'alerte bac à déchets plein doit se déclencher. Par défaut : 80%.",
+            "it": "Modifica questa percentuale per decidere quando attivare l'allarme del cassetto pieno. Predefinito: 80%.",
+            "sv": "Justera denna procentsats för att avgöra när larmet för full avfallsbehållare ska utlösas. Standard är 80%.",
+            "no": "Juster denne prosenten for å angi når varsel om full avfallsbeholder skal utløses. Standard er 80%.",
+            "es": "Ajusta este porcentaje para determinar cuándo se debe activar la alarma de cajón de desechos lleno. Por defecto: 80%.",
+            "da": "Juster denne procentdel for at bestemme, hvornår alarmen for fuld affaldsskuffe skal udløses. Standard er 80%.",
+            "ru": "Настройте этот процент, чтобы определить, когда включать сигнал переполненного мусорного ящика. По умолчанию: 80%.",
+            "pl": "Dostosuj ten procent, aby określić, kiedy ma się włączyć alarm pełnego pojemnika. Domyślnie: 80%.",
+            "ko": "이 비율을 조정하여 폐기물 서랍이 가득 찼을 때 경고가 표시되도록 설정합니다. 기본값은 80%입니다."
           },
-          "value": 90,
+          "value": 80,
           "min": 1,
           "max": 100,
           "step": 1,
@@ -2215,12 +1978,157 @@
             "ko": "선택하면 날짜가 MM-DD-YYYY 형식으로 표시됩니다. 그렇지 않으면 YYYY-MM-DD 형식이 사용됩니다."
           },
           "value": false
+        },
+        {
+          "id": "device_information",
+          "type": "group",
+          "label": {
+            "en": "Device Information",
+            "nl": "Apparaatinformatie",
+            "de": "Geräteinformationen",
+            "fr": "Informations sur l'appareil",
+            "it": "Informazioni dispositivo",
+            "sv": "Enhetsinformation",
+            "no": "Enhetsinformasjon",
+            "es": "Información del dispositivo",
+            "da": "Enhedsinformation",
+            "ru": "Информация об устройстве",
+            "pl": "Informacje o urządzeniu",
+            "ko": "장치 정보"
+          },
+          "children": [
+            {
+              "id": "device_model",
+              "type": "label",
+              "label": {
+                "en": "Model",
+                "nl": "Model",
+                "de": "Modell",
+                "fr": "Modèle",
+                "it": "Modello",
+                "sv": "Modell",
+                "no": "Modell",
+                "es": "Modelo",
+                "da": "Model",
+                "ru": "Модель",
+                "pl": "Model",
+                "ko": "모델"
+              },
+              "value": "Litter-Robot 4"
+            },
+            {
+              "id": "device_serial",
+              "type": "label",
+              "label": {
+                "en": "Serial Number",
+                "nl": "Serienummer",
+                "de": "Seriennummer",
+                "fr": "Numéro de série",
+                "it": "Numero di serie",
+                "sv": "Serienummer",
+                "no": "Serienummer",
+                "es": "Número de serie",
+                "da": "Serienummer",
+                "ru": "Серийный номер",
+                "pl": "Numer seryjny",
+                "ko": "시리얼 번호"
+              },
+              "value": "Loading..."
+            },
+            {
+              "id": "device_user_id",
+              "type": "label",
+              "label": {
+                "en": "User ID",
+                "nl": "Gebruikers-ID",
+                "de": "Benutzer-ID",
+                "fr": "ID utilisateur",
+                "it": "ID utente",
+                "sv": "Användar-ID",
+                "no": "Bruker-ID",
+                "es": "ID de usuario",
+                "da": "Bruger-ID",
+                "ru": "ID пользователя",
+                "pl": "ID użytkownika",
+                "ko": "사용자 ID"
+              },
+              "value": "Loading..."
+            },
+            {
+              "id": "device_firmware",
+              "type": "label",
+              "label": {
+                "en": "Firmware Version",
+                "nl": "Firmware versie",
+                "de": "Firmware-Version",
+                "fr": "Version du firmware",
+                "it": "Versione firmware",
+                "sv": "Firmware-version",
+                "no": "Firmware-versjon",
+                "es": "Versión de firmware",
+                "da": "Firmware-version",
+                "ru": "Версия прошивки",
+                "pl": "Wersja oprogramowania",
+                "ko": "펌웨어 버전"
+              },
+              "value": "Loading..."
+            },
+            {
+              "id": "device_setup_date",
+              "type": "label",
+              "label": {
+                "en": "Setup Date",
+                "nl": "Installatiedatum",
+                "de": "Einrichtungsdatum",
+                "fr": "Date d'installation",
+                "it": "Data di installazione",
+                "sv": "Installationsdatum",
+                "no": "Installasjonsdato",
+                "es": "Fecha de instalación",
+                "da": "Installationsdato",
+                "ru": "Дата установки",
+                "pl": "Data instalacji",
+                "ko": "설치 날짜"
+              },
+              "value": "Loading..."
+            },
+            {
+              "id": "device_timezone",
+              "type": "label",
+              "label": {
+                "en": "Timezone",
+                "nl": "Tijdzone",
+                "de": "Zeitzone",
+                "fr": "Fuseau horaire",
+                "it": "Fuso orario",
+                "sv": "Tidszon",
+                "no": "Tidssone",
+                "es": "Zona horaria",
+                "da": "Tidszone",
+                "ru": "Часовой пояс",
+                "pl": "Strefa czasowa",
+                "ko": "시간대"
+              },
+              "value": "Loading..."
+            }
+          ]
         }
       ]
     },
     {
       "name": {
-        "en": "Pet Information"
+        "en": "Pet Information",
+        "nl": "Huisdier Informatie",
+        "de": "Haustier-Informationen",
+        "fr": "Informations sur l'animal",
+        "it": "Informazioni sull'animale",
+        "sv": "Husdjursinformation",
+        "no": "Kjæledyr informasjon",
+        "es": "Información de mascota",
+        "da": "Kæledyr information",
+        "ru": "Информация о питомце",
+        "pl": "Informacje o zwierzęciu",
+        "ko": "반려동물 정보"
       },
       "icon": [
         "/drivers/pet/assets/icon.svg"
@@ -2330,53 +2238,25 @@
           }
         }
       ],
-      "id": "pet",
-      "settings": [
-        {
-          "id": "pollInterval",
-          "type": "number",
-          "label": {
-            "en": "Poll interval",
-            "nl": "Poll-interval",
-            "de": "Abfrageintervall",
-            "fr": "Intervalle de sondage",
-            "it": "Intervallo di polling",
-            "sv": "Pollintervall",
-            "no": "Oppdateringsintervall",
-            "es": "Intervalo de sondeo",
-            "da": "Poll-interval",
-            "ru": "Интервал опроса",
-            "pl": "Interwał odpytywania",
-            "ko": "폴링 간격"
-          },
-          "hint": {
-            "en": "How often your pet's data is refreshed, in seconds",
-            "nl": "Hoe vaak de gegevens van je huisdier worden vernieuwd, in seconden",
-            "de": "Wie oft die Daten Ihres Haustiers in Sekunden aktualisiert werden",
-            "fr": "Fréquence de mise à jour des données de votre animal (en secondes)",
-            "it": "Frequenza di aggiornamento dei dati dell'animale in secondi",
-            "sv": "Hur ofta ditt husdjurs data uppdateras, i sekunder",
-            "no": "Hvor ofte kjæledyrets data skal oppdateres, i sekunder",
-            "es": "Frecuencia con la que se actualizan los datos de tu mascota, en segundos",
-            "da": "Hvor ofte dit kæledyrs data opdateres, i sekunder",
-            "ru": "Как часто обновляются данные питомца (в секундах)",
-            "pl": "Jak często odświeżać dane zwierzaka, w sekundach",
-            "ko": "반려동물의 데이터가 얼마나 자주 갱신될지 (초 단위)"
-          },
-          "value": 120,
-          "min": 30,
-          "max": 3600,
-          "step": 1,
-          "required": true
-        }
-      ]
+      "id": "pet"
     }
   ],
   "capabilities": {
     "alarm_cat_detected": {
       "type": "boolean",
       "title": {
-        "en": "Cat detected"
+        "en": "Cat detected",
+        "nl": "Kat gedetecteerd",
+        "de": "Katze erkannt",
+        "fr": "Chat détecté",
+        "it": "Gatto rilevato",
+        "sv": "Katt upptäckt",
+        "no": "Katt oppdaget",
+        "es": "Gato detectado",
+        "da": "Kat registreret",
+        "ru": "Кошка обнаружена",
+        "pl": "Kot wykryty",
+        "ko": "고양이 감지됨"
       },
       "getable": true,
       "uiComponent": "sensor",
@@ -2405,7 +2285,18 @@
     "alarm_sleep_mode_active": {
       "type": "boolean",
       "title": {
-        "en": "Sleep mode active"
+        "en": "Sleep mode active",
+        "nl": "Slaapmodus actief",
+        "de": "Schlafmodus aktiv",
+        "fr": "Mode veille actif",
+        "it": "Modalità sonno attiva",
+        "sv": "Viloläge aktivt",
+        "no": "Søvnmodus aktiv",
+        "es": "Modo sueño activo",
+        "da": "Søvn tilstand aktiv",
+        "ru": "Режим сна активен",
+        "pl": "Tryb snu aktywny",
+        "ko": "수면 모드 활성"
       },
       "getable": true,
       "uiComponent": "sensor",
@@ -2414,7 +2305,18 @@
     "alarm_sleep_mode_scheduled": {
       "type": "boolean",
       "title": {
-        "en": "Sleep mode scheduled"
+        "en": "Sleep mode scheduled",
+        "nl": "Slaapmodus gepland",
+        "de": "Schlafmodus geplant",
+        "fr": "Mode veille programmé",
+        "it": "Modalità sonno programmata",
+        "sv": "Viloläge schemalagt",
+        "no": "Søvnmodus planlagt",
+        "es": "Modo sueño programado",
+        "da": "Søvn tilstand planlagt",
+        "ru": "Режим сна запланирован",
+        "pl": "Tryb snu zaplanowany",
+        "ko": "수면 모드 예약됨"
       },
       "getable": true,
       "uiComponent": "sensor",
@@ -2423,7 +2325,18 @@
     "alarm_waste_drawer_full": {
       "type": "boolean",
       "title": {
-        "en": "Waste drawer Full"
+        "en": "Waste drawer Full",
+        "nl": "Afvalbak vol",
+        "de": "Abfallbehälter voll",
+        "fr": "Bac à déchets plein",
+        "it": "Cassetto rifiuti pieno",
+        "sv": "Sopkorg full",
+        "no": "Avfallsskuffe full",
+        "es": "Cajón de residuos lleno",
+        "da": "Affaldsskuffe fuld",
+        "ru": "Контейнер для отходов полный",
+        "pl": "Pojemnik na odpady pełny",
+        "ko": "쓰레기통 가득참"
       },
       "getable": true,
       "uiComponent": "sensor",
@@ -2432,7 +2345,18 @@
     "clean_cycle_status": {
       "type": "string",
       "title": {
-        "en": "Cleaning status"
+        "en": "Cleaning status",
+        "nl": "Reinigingsstatus",
+        "de": "Reinigungsstatus",
+        "fr": "Statut de nettoyage",
+        "it": "Stato di pulizia",
+        "sv": "Rengöringsstatus",
+        "no": "Rengjøringsstatus",
+        "es": "Estado de limpieza",
+        "da": "Rengøringsstatus",
+        "ru": "Статус очистки",
+        "pl": "Status czyszczenia",
+        "ko": "청소 상태"
       },
       "getable": true,
       "setable": false,
@@ -2441,7 +2365,18 @@
     },
     "clean_cycle_wait_time": {
       "title": {
-        "en": "Clean cycle wait time"
+        "en": "Clean cycle wait time",
+        "nl": "Wachttijd reinigingscyclus",
+        "de": "Wartezeit Reinigungszyklus",
+        "fr": "Temps d'attente du cycle de nettoyage",
+        "it": "Tempo di attesa ciclo di pulizia",
+        "sv": "Väntetid rengöringscykel",
+        "no": "Ventetid rengjøringscyklus",
+        "es": "Tiempo de espera del ciclo de limpieza",
+        "da": "Ventetid rengøringscyklus",
+        "ru": "Время ожидания цикла очистки",
+        "pl": "Czas oczekiwania cyklu czyszczenia",
+        "ko": "청소 주기 대기 시간"
       },
       "type": "enum",
       "uiComponent": "picker",
@@ -2451,38 +2386,104 @@
         {
           "id": "3",
           "title": {
-            "en": "3 minutes"
+            "en": "3 minutes",
+            "nl": "3 minuten",
+            "de": "3 Minuten",
+            "fr": "3 minutes",
+            "it": "3 minuti",
+            "sv": "3 minuter",
+            "no": "3 minutter",
+            "es": "3 minutos",
+            "da": "3 minutter",
+            "ru": "3 минуты",
+            "pl": "3 minuty",
+            "ko": "3분"
           }
         },
         {
           "id": "7",
           "title": {
-            "en": "7 minutes"
+            "en": "7 minutes",
+            "nl": "7 minuten",
+            "de": "7 Minuten",
+            "fr": "7 minutes",
+            "it": "7 minuti",
+            "sv": "7 minuter",
+            "no": "7 minutter",
+            "es": "7 minutos",
+            "da": "7 minutter",
+            "ru": "7 минут",
+            "pl": "7 minut",
+            "ko": "7분"
           }
         },
         {
           "id": "15",
           "title": {
-            "en": "15 minutes"
+            "en": "15 minutes",
+            "nl": "15 minuten",
+            "de": "15 Minuten",
+            "fr": "15 minutes",
+            "it": "15 minuti",
+            "sv": "15 minuter",
+            "no": "15 minutter",
+            "es": "15 minutos",
+            "da": "15 minutter",
+            "ru": "15 минут",
+            "pl": "15 minut",
+            "ko": "15분"
           }
         },
         {
           "id": "25",
           "title": {
-            "en": "25 minutes"
+            "en": "25 minutes",
+            "nl": "25 minuten",
+            "de": "25 Minuten",
+            "fr": "25 minutes",
+            "it": "25 minuti",
+            "sv": "25 minuter",
+            "no": "25 minutter",
+            "es": "25 minutos",
+            "da": "25 minutter",
+            "ru": "25 минут",
+            "pl": "25 minut",
+            "ko": "25분"
           }
         },
         {
           "id": "30",
           "title": {
-            "en": "30 minutes"
+            "en": "30 minutes",
+            "nl": "30 minuten",
+            "de": "30 Minuten",
+            "fr": "30 minutes",
+            "it": "30 minuti",
+            "sv": "30 minuter",
+            "no": "30 minutter",
+            "es": "30 minutos",
+            "da": "30 minutter",
+            "ru": "30 минут",
+            "pl": "30 minut",
+            "ko": "30분"
           }
         }
       ]
     },
     "key_pad_lock_out": {
       "title": {
-        "en": "Keypad lock"
+        "en": "Keypad lock",
+        "nl": "Toetsenbord vergrendeling",
+        "de": "Tastatursperre",
+        "fr": "Verrouillage du clavier",
+        "it": "Blocco tastierino",
+        "sv": "Knappsatslås",
+        "no": "Tastatursperre",
+        "es": "Bloqueo de teclado",
+        "da": "Tastatursperre",
+        "ru": "Блокировка клавиатуры",
+        "pl": "Blokada klawiatury",
+        "ko": "키패드 잠금"
       },
       "type": "boolean",
       "getable": true,
@@ -2616,10 +2617,42 @@
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/label_gender.svg"
     },
+    "last_seen": {
+      "title": {
+        "en": "Last seen",
+        "nl": "Laatst gezien",
+        "da": "Sidst set",
+        "de": "Zuletzt gesehen",
+        "fr": "Dernière vue",
+        "it": "Ultimo avvistamento",
+        "sv": "Senast sedd",
+        "no": "Sist sett",
+        "es": "Última vez visto",
+        "ru": "Последний раз видели",
+        "pl": "Ostatnio widziany",
+        "ko": "마지막으로 본 시간"
+      },
+      "type": "string",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/last_seen.svg"
+    },
     "litter_robot_status": {
       "type": "string",
       "title": {
-        "en": "Litter-Robot status"
+        "en": "Litter-Robot status",
+        "nl": "Litter-Robot status",
+        "de": "Litter-Robot Status",
+        "fr": "Statut Litter-Robot",
+        "it": "Stato Litter-Robot",
+        "sv": "Litter-Robot status",
+        "no": "Litter-Robot status",
+        "es": "Estado Litter-Robot",
+        "da": "Litter-Robot status",
+        "ru": "Статус Litter-Robot",
+        "pl": "Status Litter-Robot",
+        "ko": "리터 로봇 상태"
       },
       "getable": true,
       "setable": false,
@@ -2628,7 +2661,18 @@
     },
     "measure_litter_level_percentage": {
       "title": {
-        "en": "Litter level"
+        "en": "Litter level percentage",
+        "nl": "Vulstof niveau percentage",
+        "de": "Streu-Füllstand in Prozent",
+        "fr": "Pourcentage du niveau de litière",
+        "it": "Percentuale livello lettiera",
+        "sv": "Kattlåda nivå procent",
+        "no": "Katteboks nivå prosent",
+        "es": "Porcentaje de nivel de arena",
+        "da": "Kattebakke niveau procent",
+        "ru": "Процент заполнения лотка",
+        "pl": "Procent poziomu żwirku",
+        "ko": "모래 수준 백분율"
       },
       "type": "number",
       "getable": true,
@@ -2642,7 +2686,18 @@
     },
     "measure_odometer_clean_cycles": {
       "title": {
-        "en": "Completed clean cycles"
+        "en": "Clean cycles count",
+        "nl": "Reinigingscycli teller",
+        "de": "Reinigungszyklen Zähler",
+        "fr": "Compteur de cycles de nettoyage",
+        "it": "Contatore cicli di pulizia",
+        "sv": "Rengöringscykler räknare",
+        "no": "Rengjøringscykler teller",
+        "es": "Contador de ciclos de limpieza",
+        "da": "Rengøringscykler tæller",
+        "ru": "Счетчик циклов очистки",
+        "pl": "Licznik cykli czyszczenia",
+        "ko": "청소 주기 카운트"
       },
       "type": "number",
       "getable": true,
@@ -2656,7 +2711,18 @@
     },
     "measure_scoops_saved_count": {
       "title": {
-        "en": "Total scoops saved"
+        "en": "Scoops saved count",
+        "nl": "Bespaarde scheppen teller",
+        "de": "Eingesparte Schaufeln Zähler",
+        "fr": "Compteur de pelles économisées",
+        "it": "Contatore palette risparmiate",
+        "sv": "Sparade skopor räknare",
+        "no": "Sparte øser teller",
+        "es": "Contador de palas ahorradas",
+        "da": "Sparede øser tæller",
+        "ru": "Счетчик сэкономленных совков",
+        "pl": "Licznik zaoszczędzonych szufli",
+        "ko": "절약된 스쿱 카운트"
       },
       "type": "number",
       "getable": true,
@@ -2666,11 +2732,23 @@
         "en": "scoops"
       },
       "uiComponent": "sensor",
-      "insights": true
+      "insights": true,
+      "color": "#FF6B35"
     },
     "measure_waste_drawer_level_percentage": {
       "title": {
-        "en": "Waste drawer level"
+        "en": "Waste drawer level percentage",
+        "nl": "Afvalbak niveau percentage",
+        "de": "Abfallbehälter-Füllstand in Prozent",
+        "fr": "Pourcentage du niveau du bac à déchets",
+        "it": "Percentuale livello cassetto rifiuti",
+        "sv": "Sopkorg nivå procent",
+        "no": "Avfallsskuffe nivå prosent",
+        "es": "Porcentaje de nivel del cajón de residuos",
+        "da": "Affaldsskuffe niveau procent",
+        "ru": "Процент заполнения контейнера для отходов",
+        "pl": "Procent poziomu pojemnika na odpady",
+        "ko": "쓰레기통 수준 백분율"
       },
       "type": "number",
       "getable": true,
@@ -2684,7 +2762,18 @@
     },
     "night_light_mode": {
       "title": {
-        "en": "Night light mode"
+        "en": "Night light mode",
+        "nl": "Nachtlamp modus",
+        "de": "Nachtlicht-Modus",
+        "fr": "Mode veilleuse",
+        "it": "Modalità luce notturna",
+        "sv": "Nattlamp läge",
+        "no": "Nattlys modus",
+        "es": "Modo luz nocturna",
+        "da": "Natlys tilstand",
+        "ru": "Режим ночного света",
+        "pl": "Tryb światła nocnego",
+        "ko": "야간 조명 모드"
       },
       "type": "enum",
       "uiComponent": "picker",
@@ -2694,55 +2783,143 @@
         {
           "id": "off",
           "title": {
-            "en": "Off"
+            "en": "Off",
+            "nl": "Uit",
+            "de": "Aus",
+            "fr": "Éteint",
+            "it": "Spento",
+            "sv": "Av",
+            "no": "Av",
+            "es": "Apagado",
+            "da": "Slukket",
+            "ru": "Выключено",
+            "pl": "Wyłączone",
+            "ko": "끄기"
           }
         },
         {
           "id": "on",
           "title": {
-            "en": "On"
+            "en": "On",
+            "nl": "Aan",
+            "de": "An",
+            "fr": "Allumé",
+            "it": "Acceso",
+            "sv": "På",
+            "no": "På",
+            "es": "Encendido",
+            "da": "Tændt",
+            "ru": "Включено",
+            "pl": "Włączone",
+            "ko": "켜기"
           }
         },
         {
           "id": "auto",
           "title": {
-            "en": "Auto"
+            "en": "Auto",
+            "nl": "Automatisch",
+            "de": "Automatisch",
+            "fr": "Automatique",
+            "it": "Automatico",
+            "sv": "Automatiskt",
+            "no": "Automatisk",
+            "es": "Automático",
+            "da": "Automatisk",
+            "ru": "Автоматически",
+            "pl": "Automatycznie",
+            "ko": "자동"
           }
         }
       ]
     },
     "panel_brightness": {
       "title": {
-        "en": "Panel brightness"
+        "en": "Panel brightness",
+        "nl": "Paneel helderheid",
+        "de": "Panel-Helligkeit",
+        "fr": "Luminosité du panneau",
+        "it": "Luminosità pannello",
+        "sv": "Panel ljusstyrka",
+        "no": "Panel lysstyrke",
+        "es": "Brillo del panel",
+        "da": "Panel lysstyrke",
+        "ru": "Яркость панели",
+        "pl": "Jasność panelu",
+        "ko": "패널 밝기"
       },
       "type": "enum",
       "uiComponent": "picker",
-      "getable": true,
+      "getable": false,
       "setable": true,
       "values": [
         {
           "id": "low",
           "title": {
-            "en": "Low"
+            "en": "Low",
+            "nl": "Laag",
+            "de": "Niedrig",
+            "fr": "Faible",
+            "it": "Bassa",
+            "sv": "Låg",
+            "no": "Lav",
+            "es": "Baja",
+            "da": "Lav",
+            "ru": "Низкая",
+            "pl": "Niska",
+            "ko": "낮음"
           }
         },
         {
           "id": "medium",
           "title": {
-            "en": "Medium"
+            "en": "Medium",
+            "nl": "Gemiddeld",
+            "de": "Mittel",
+            "fr": "Moyenne",
+            "it": "Media",
+            "sv": "Medium",
+            "no": "Medium",
+            "es": "Media",
+            "da": "Medium",
+            "ru": "Средняя",
+            "pl": "Średnia",
+            "ko": "보통"
           }
         },
         {
           "id": "high",
           "title": {
-            "en": "High"
+            "en": "High",
+            "nl": "Hoog",
+            "de": "Hoch",
+            "fr": "Élevée",
+            "it": "Alta",
+            "sv": "Hög",
+            "no": "Høy",
+            "es": "Alta",
+            "da": "Høj",
+            "ru": "Высокая",
+            "pl": "Wysoka",
+            "ko": "높음"
           }
         }
       ]
     },
     "short_reset_press": {
       "title": {
-        "en": "Reset"
+        "en": "Short reset press",
+        "nl": "Korte reset druk",
+        "de": "Kurzer Reset-Druck",
+        "fr": "Appui court de réinitialisation",
+        "it": "Pressione breve di reset",
+        "sv": "Kort reset tryck",
+        "no": "Kort reset trykk",
+        "es": "Pulsación corta de reinicio",
+        "da": "Kort reset tryk",
+        "ru": "Краткое нажатие сброса",
+        "pl": "Krótkie naciśnięcie reset",
+        "ko": "짧은 재설정 누름"
       },
       "type": "boolean",
       "getable": false,
@@ -2752,27 +2929,60 @@
     },
     "sleep_mode_end_time": {
       "title": {
-        "en": "Sleep mode end time"
+        "en": "Sleep mode end time",
+        "nl": "Slaapmodus eindtijd",
+        "de": "Schlafmodus Endzeit",
+        "fr": "Heure de fin du mode veille",
+        "it": "Ora di fine modalità sonno",
+        "sv": "Viloläge sluttid",
+        "no": "Søvnmodus sluttid",
+        "es": "Hora de fin del modo sueño",
+        "da": "Søvn tilstand sluttid",
+        "ru": "Время окончания режима сна",
+        "pl": "Czas zakończenia trybu snu",
+        "ko": "수면 모드 종료 시간"
       },
       "type": "string",
       "getable": true,
-      "setable": false,
+      "setable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/sleep_mode_end_time.svg"
     },
     "sleep_mode_start_time": {
       "title": {
-        "en": "Sleep mode start time"
+        "en": "Sleep mode start time",
+        "nl": "Slaapmodus starttijd",
+        "de": "Schlafmodus Startzeit",
+        "fr": "Heure de début du mode veille",
+        "it": "Ora di inizio modalità sonno",
+        "sv": "Viloläge starttid",
+        "no": "Søvnmodus starttid",
+        "es": "Hora de inicio del modo sueño",
+        "da": "Søvn tilstand starttid",
+        "ru": "Время начала режима сна",
+        "pl": "Czas rozpoczęcia trybu snu",
+        "ko": "수면 모드 시작 시간"
       },
       "type": "string",
       "getable": true,
-      "setable": false,
+      "setable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/sleep_mode_start_time.svg"
     },
     "start_clean_cycle": {
       "title": {
-        "en": "Start clean cycle"
+        "en": "Start clean cycle",
+        "nl": "Start reinigingscyclus",
+        "de": "Reinigungszyklus starten",
+        "fr": "Démarrer le cycle de nettoyage",
+        "it": "Avvia ciclo di pulizia",
+        "sv": "Starta rengöringscykel",
+        "no": "Start rengjøringscyklus",
+        "es": "Iniciar ciclo de limpieza",
+        "da": "Start rengøringscyklus",
+        "ru": "Запустить цикл очистки",
+        "pl": "Uruchom cykl czyszczenia",
+        "ko": "청소 주기 시작"
       },
       "type": "boolean",
       "getable": false,
@@ -2782,7 +2992,18 @@
     },
     "start_empty_cycle": {
       "title": {
-        "en": "Start empty cycle"
+        "en": "Start empty cycle",
+        "nl": "Start leegmaak cyclus",
+        "de": "Entleerungszyklus starten",
+        "fr": "Démarrer le cycle de vidage",
+        "it": "Avvia ciclo di svuotamento",
+        "sv": "Starta tömningscykel",
+        "no": "Start tømmecyklus",
+        "es": "Iniciar ciclo de vaciado",
+        "da": "Start tømmecyklus",
+        "ru": "Запустить цикл опорожнения",
+        "pl": "Uruchom cykl opróżniania",
+        "ko": "비우기 주기 시작"
       },
       "type": "boolean",
       "getable": false,

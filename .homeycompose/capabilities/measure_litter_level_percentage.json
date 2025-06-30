@@ -1,6 +1,17 @@
 {
   "title": {
-    "en": "Litter level"
+    "en": "Litter level percentage",
+    "nl": "Vulstof niveau percentage",
+    "de": "Streu-Füllstand in Prozent",
+    "fr": "Pourcentage du niveau de litière",
+    "it": "Percentuale livello lettiera",
+    "sv": "Kattlåda nivå procent",
+    "no": "Katteboks nivå prosent",
+    "es": "Porcentaje de nivel de arena",
+    "da": "Kattebakke niveau procent",
+    "ru": "Процент заполнения лотка",
+    "pl": "Procent poziomu żwirku",
+    "ko": "모래 수준 백분율"
   },  
   "type": "number",
   "getable": true,

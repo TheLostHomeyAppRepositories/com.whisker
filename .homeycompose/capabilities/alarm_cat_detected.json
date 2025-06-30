@@ -1,9 +1,18 @@
-
-
 {
   "type": "boolean",
   "title": {
-    "en": "Cat detected"
+    "en": "Cat detected",
+    "nl": "Kat gedetecteerd",
+    "de": "Katze erkannt",
+    "fr": "Chat détecté",
+    "it": "Gatto rilevato",
+    "sv": "Katt upptäckt",
+    "no": "Katt oppdaget",
+    "es": "Gato detectado",
+    "da": "Kat registreret",
+    "ru": "Кошка обнаружена",
+    "pl": "Kot wykryty",
+    "ko": "고양이 감지됨"
   },
   "getable": true,
   "uiComponent": "sensor",

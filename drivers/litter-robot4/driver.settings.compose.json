@@ -1,5 +1,3 @@
-
-
 [
   {
     "id": "waste_drawer_threshold",
@@ -19,20 +17,20 @@
       "ko": "폐기물 서랍 가득 참 임계값 (%)"
     },
     "hint": {
-      "en": "Adjust this percentage to determine when the Waste Drawer Full alarm should trigger, the default is 90%",
-      "nl": "Pas dit percentage aan om te bepalen wanneer de afvalbak als vol wordt gemeld. Standaard is dit 90%.",
-      "de": "Passen Sie diesen Prozentsatz an, um festzulegen, wann die Meldung „Abfallbehälter voll“ ausgelöst wird. Standard ist 90%.",
-      "fr": "Ajustez ce pourcentage pour déterminer quand l'alerte bac à déchets plein doit se déclencher. Par défaut : 90%.",
-      "it": "Modifica questa percentuale per decidere quando attivare l'allarme del cassetto pieno. Predefinito: 90%.",
-      "sv": "Justera denna procentsats för att avgöra när larmet för full avfallsbehållare ska utlösas. Standard är 90%.",
-      "no": "Juster denne prosenten for å angi når varsel om full avfallsbeholder skal utløses. Standard er 90%.",
-      "es": "Ajusta este porcentaje para determinar cuándo se debe activar la alarma de cajón de desechos lleno. Por defecto: 90%.",
-      "da": "Juster denne procentdel for at bestemme, hvornår alarmen for fuld affaldsskuffe skal udløses. Standard er 90%.",
-      "ru": "Настройте этот процент, чтобы определить, когда включать сигнал переполненного мусорного ящика. По умолчанию: 90%.",
-      "pl": "Dostosuj ten procent, aby określić, kiedy ma się włączyć alarm pełnego pojemnika. Domyślnie: 90%.",
-      "ko": "이 비율을 조정하여 폐기물 서랍이 가득 찼을 때 경고가 표시되도록 설정합니다. 기본값은 90%입니다."
+      "en": "Adjust this percentage to determine when the Waste Drawer Full alarm should trigger, the default is 80%",
+      "nl": "Pas dit percentage aan om te bepalen wanneer de afvalbak als vol wordt gemeld. Standaard is dit 80%.",
+      "de": "Passen Sie diesen Prozentsatz an, um festzulegen, wann die Meldung Abfallbehälter voll ausgelöst wird. Standard ist 80%.",
+      "fr": "Ajustez ce pourcentage pour déterminer quand l'alerte bac à déchets plein doit se déclencher. Par défaut : 80%.",
+      "it": "Modifica questa percentuale per decidere quando attivare l'allarme del cassetto pieno. Predefinito: 80%.",
+      "sv": "Justera denna procentsats för att avgöra när larmet för full avfallsbehållare ska utlösas. Standard är 80%.",
+      "no": "Juster denne prosenten for å angi når varsel om full avfallsbeholder skal utløses. Standard er 80%.",
+      "es": "Ajusta este porcentaje para determinar cuándo se debe activar la alarma de cajón de desechos lleno. Por defecto: 80%.",
+      "da": "Juster denne procentdel for at bestemme, hvornår alarmen for fuld affaldsskuffe skal udløses. Standard er 80%.",
+      "ru": "Настройте этот процент, чтобы определить, когда включать сигнал переполненного мусорного ящика. По умолчанию: 80%.",
+      "pl": "Dostosuj ten procent, aby określić, kiedy ma się włączyć alarm pełnego pojemnika. Domyślnie: 80%.",
+      "ko": "이 비율을 조정하여 폐기물 서랍이 가득 찼을 때 경고가 표시되도록 설정합니다. 기본값은 80%입니다."
     },
-    "value": 90,
+    "value": 80,
     "min": 1,
     "max": 100,
     "step": 1,
@@ -103,5 +101,139 @@
       "ko": "선택하면 날짜가 MM-DD-YYYY 형식으로 표시됩니다. 그렇지 않으면 YYYY-MM-DD 형식이 사용됩니다."
     },
     "value": false
+  },
+  {
+    "id": "device_information",
+    "type": "group",
+    "label": {
+      "en": "Device Information",
+      "nl": "Apparaatinformatie",
+      "de": "Geräteinformationen",
+      "fr": "Informations sur l'appareil",
+      "it": "Informazioni dispositivo",
+      "sv": "Enhetsinformation",
+      "no": "Enhetsinformasjon",
+      "es": "Información del dispositivo",
+      "da": "Enhedsinformation",
+      "ru": "Информация об устройстве",
+      "pl": "Informacje o urządzeniu",
+      "ko": "장치 정보"
+    },
+    "children": [
+      {
+        "id": "device_model",
+        "type": "label",
+        "label": {
+          "en": "Model",
+          "nl": "Model",
+          "de": "Modell",
+          "fr": "Modèle",
+          "it": "Modello",
+          "sv": "Modell",
+          "no": "Modell",
+          "es": "Modelo",
+          "da": "Model",
+          "ru": "Модель",
+          "pl": "Model",
+          "ko": "모델"
+        },
+        "value": "Litter-Robot 4"
+      },
+      {
+        "id": "device_serial",
+        "type": "label",
+        "label": {
+          "en": "Serial Number",
+          "nl": "Serienummer",
+          "de": "Seriennummer",
+          "fr": "Numéro de série",
+          "it": "Numero di serie",
+          "sv": "Serienummer",
+          "no": "Serienummer",
+          "es": "Número de serie",
+          "da": "Serienummer",
+          "ru": "Серийный номер",
+          "pl": "Numer seryjny",
+          "ko": "시리얼 번호"
+        },
+        "value": "Loading..."
+      },
+      {
+        "id": "device_user_id",
+        "type": "label",
+        "label": {
+          "en": "User ID",
+          "nl": "Gebruikers-ID",
+          "de": "Benutzer-ID",
+          "fr": "ID utilisateur",
+          "it": "ID utente",
+          "sv": "Användar-ID",
+          "no": "Bruker-ID",
+          "es": "ID de usuario",
+          "da": "Bruger-ID",
+          "ru": "ID пользователя",
+          "pl": "ID użytkownika",
+          "ko": "사용자 ID"
+        },
+        "value": "Loading..."
+      },
+      {
+        "id": "device_firmware",
+        "type": "label",
+        "label": {
+          "en": "Firmware Version",
+          "nl": "Firmware versie",
+          "de": "Firmware-Version",
+          "fr": "Version du firmware",
+          "it": "Versione firmware",
+          "sv": "Firmware-version",
+          "no": "Firmware-versjon",
+          "es": "Versión de firmware",
+          "da": "Firmware-version",
+          "ru": "Версия прошивки",
+          "pl": "Wersja oprogramowania",
+          "ko": "펌웨어 버전"
+        },
+        "value": "Loading..."
+      },
+      {
+        "id": "device_setup_date",
+        "type": "label",
+        "label": {
+          "en": "Setup Date",
+          "nl": "Installatiedatum",
+          "de": "Einrichtungsdatum",
+          "fr": "Date d'installation",
+          "it": "Data di installazione",
+          "sv": "Installationsdatum",
+          "no": "Installasjonsdato",
+          "es": "Fecha de instalación",
+          "da": "Installationsdato",
+          "ru": "Дата установки",
+          "pl": "Data instalacji",
+          "ko": "설치 날짜"
+        },
+        "value": "Loading..."
+      },
+      {
+        "id": "device_timezone",
+        "type": "label",
+        "label": {
+          "en": "Timezone",
+          "nl": "Tijdzone",
+          "de": "Zeitzone",
+          "fr": "Fuseau horaire",
+          "it": "Fuso orario",
+          "sv": "Tidszon",
+          "no": "Tidssone",
+          "es": "Zona horaria",
+          "da": "Tidszone",
+          "ru": "Часовой пояс",
+          "pl": "Strefa czasowa",
+          "ko": "시간대"
+        },
+        "value": "Loading..."
+      }
+    ]
   }
 ]

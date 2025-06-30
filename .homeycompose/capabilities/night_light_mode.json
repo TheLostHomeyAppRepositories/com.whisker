@@ -1,8 +1,17 @@
-
-
 {
   "title": {
-    "en": "Night light mode"
+    "en": "Night light mode",
+    "nl": "Nachtlamp modus",
+    "de": "Nachtlicht-Modus",
+    "fr": "Mode veilleuse",
+    "it": "Modalità luce notturna",
+    "sv": "Nattlamp läge",
+    "no": "Nattlys modus",
+    "es": "Modo luz nocturna",
+    "da": "Natlys tilstand",
+    "ru": "Режим ночного света",
+    "pl": "Tryb światła nocnego",
+    "ko": "야간 조명 모드"
   },
   "type": "enum",
   "uiComponent": "picker",
@@ -12,19 +21,52 @@
     {
       "id": "off",
       "title": {
-        "en": "Off"
+        "en": "Off",
+        "nl": "Uit",
+        "de": "Aus",
+        "fr": "Éteint",
+        "it": "Spento",
+        "sv": "Av",
+        "no": "Av",
+        "es": "Apagado",
+        "da": "Slukket",
+        "ru": "Выключено",
+        "pl": "Wyłączone",
+        "ko": "끄기"
       }
     },
     {
       "id": "on",
       "title": {
-        "en": "On"
+        "en": "On",
+        "nl": "Aan",
+        "de": "An",
+        "fr": "Allumé",
+        "it": "Acceso",
+        "sv": "På",
+        "no": "På",
+        "es": "Encendido",
+        "da": "Tændt",
+        "ru": "Включено",
+        "pl": "Włączone",
+        "ko": "켜기"
       }
     },
     {
       "id": "auto",
       "title": {
-        "en": "Auto"
+        "en": "Auto",
+        "nl": "Automatisch",
+        "de": "Automatisch",
+        "fr": "Automatique",
+        "it": "Automatico",
+        "sv": "Automatiskt",
+        "no": "Automatisk",
+        "es": "Automático",
+        "da": "Automatisk",
+        "ru": "Автоматически",
+        "pl": "Automatycznie",
+        "ko": "자동"
       }
     }
   ]

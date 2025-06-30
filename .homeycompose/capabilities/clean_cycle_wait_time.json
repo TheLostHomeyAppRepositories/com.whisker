@@ -1,8 +1,17 @@
-
-
 {
   "title": {
-    "en": "Clean cycle wait time"
+    "en": "Clean cycle wait time",
+    "nl": "Wachttijd reinigingscyclus",
+    "de": "Wartezeit Reinigungszyklus",
+    "fr": "Temps d'attente du cycle de nettoyage",
+    "it": "Tempo di attesa ciclo di pulizia",
+    "sv": "Väntetid rengöringscykel",
+    "no": "Ventetid rengjøringscyklus",
+    "es": "Tiempo de espera del ciclo de limpieza",
+    "da": "Ventetid rengøringscyklus",
+    "ru": "Время ожидания цикла очистки",
+    "pl": "Czas oczekiwania cyklu czyszczenia",
+    "ko": "청소 주기 대기 시간"
   },
   "type": "enum",
   "uiComponent": "picker",
@@ -12,31 +21,86 @@
     {
       "id": "3",
       "title": {
-        "en": "3 minutes"
+        "en": "3 minutes",
+        "nl": "3 minuten",
+        "de": "3 Minuten",
+        "fr": "3 minutes",
+        "it": "3 minuti",
+        "sv": "3 minuter",
+        "no": "3 minutter",
+        "es": "3 minutos",
+        "da": "3 minutter",
+        "ru": "3 минуты",
+        "pl": "3 minuty",
+        "ko": "3분"
       }
     },
     {
       "id": "7",
       "title": {
-        "en": "7 minutes"
+        "en": "7 minutes",
+        "nl": "7 minuten",
+        "de": "7 Minuten",
+        "fr": "7 minutes",
+        "it": "7 minuti",
+        "sv": "7 minuter",
+        "no": "7 minutter",
+        "es": "7 minutos",
+        "da": "7 minutter",
+        "ru": "7 минут",
+        "pl": "7 minut",
+        "ko": "7분"
       }
     },
     {
       "id": "15",
       "title": {
-        "en": "15 minutes"
+        "en": "15 minutes",
+        "nl": "15 minuten",
+        "de": "15 Minuten",
+        "fr": "15 minutes",
+        "it": "15 minuti",
+        "sv": "15 minuter",
+        "no": "15 minutter",
+        "es": "15 minutos",
+        "da": "15 minutter",
+        "ru": "15 минут",
+        "pl": "15 minut",
+        "ko": "15분"
       }
     },
     {
       "id": "25",
       "title": {
-        "en": "25 minutes"
+        "en": "25 minutes",
+        "nl": "25 minuten",
+        "de": "25 Minuten",
+        "fr": "25 minutes",
+        "it": "25 minuti",
+        "sv": "25 minuter",
+        "no": "25 minutter",
+        "es": "25 minutos",
+        "da": "25 minutter",
+        "ru": "25 минут",
+        "pl": "25 minut",
+        "ko": "25분"
       }
     },
     {
       "id": "30",
       "title": {
-        "en": "30 minutes"
+        "en": "30 minutes",
+        "nl": "30 minuten",
+        "de": "30 Minuten",
+        "fr": "30 minutes",
+        "it": "30 minuti",
+        "sv": "30 minuter",
+        "no": "30 minutter",
+        "es": "30 minutos",
+        "da": "30 minutter",
+        "ru": "30 минут",
+        "pl": "30 minut",
+        "ko": "30분"
       }
     }
   ]

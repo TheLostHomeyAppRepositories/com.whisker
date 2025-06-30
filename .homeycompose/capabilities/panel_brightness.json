@@ -1,28 +1,72 @@
 {
   "title": {
-    "en": "Panel brightness"
+    "en": "Panel brightness",
+    "nl": "Paneel helderheid",
+    "de": "Panel-Helligkeit",
+    "fr": "Luminosité du panneau",
+    "it": "Luminosità pannello",
+    "sv": "Panel ljusstyrka",
+    "no": "Panel lysstyrke",
+    "es": "Brillo del panel",
+    "da": "Panel lysstyrke",
+    "ru": "Яркость панели",
+    "pl": "Jasność panelu",
+    "ko": "패널 밝기"
   },
   "type": "enum",
   "uiComponent": "picker",
-  "getable": true,
+  "getable": false,
   "setable": true,
   "values": [
     {
       "id": "low",
       "title": {
-        "en": "Low"
+        "en": "Low",
+        "nl": "Laag",
+        "de": "Niedrig",
+        "fr": "Faible",
+        "it": "Bassa",
+        "sv": "Låg",
+        "no": "Lav",
+        "es": "Baja",
+        "da": "Lav",
+        "ru": "Низкая",
+        "pl": "Niska",
+        "ko": "낮음"
       }
     },
     {
       "id": "medium",
       "title": {
-        "en": "Medium"
+        "en": "Medium",
+        "nl": "Gemiddeld",
+        "de": "Mittel",
+        "fr": "Moyenne",
+        "it": "Media",
+        "sv": "Medium",
+        "no": "Medium",
+        "es": "Media",
+        "da": "Medium",
+        "ru": "Средняя",
+        "pl": "Średnia",
+        "ko": "보통"
       }
     },
     {
       "id": "high",
       "title": {
-        "en": "High"
+        "en": "High",
+        "nl": "Hoog",
+        "de": "Hoch",
+        "fr": "Élevée",
+        "it": "Alta",
+        "sv": "Hög",
+        "no": "Høy",
+        "es": "Alta",
+        "da": "Høj",
+        "ru": "Высокая",
+        "pl": "Wysoka",
+        "ko": "높음"
       }
     }
   ]

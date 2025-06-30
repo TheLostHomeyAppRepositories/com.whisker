@@ -1,6 +1,17 @@
 {
   "title": {
-    "en": "Total scoops saved"
+    "en": "Scoops saved count",
+    "nl": "Bespaarde scheppen teller",
+    "de": "Eingesparte Schaufeln Zähler",
+    "fr": "Compteur de pelles économisées",
+    "it": "Contatore palette risparmiate",
+    "sv": "Sparade skopor räknare",
+    "no": "Sparte øser teller",
+    "es": "Contador de palas ahorradas",
+    "da": "Sparede øser tæller",
+    "ru": "Счетчик сэкономленных совков",
+    "pl": "Licznik zaoszczędzonych szufli",
+    "ko": "절약된 스쿱 카운트"
   },
   "type": "number",
   "getable": true,
@@ -10,5 +21,6 @@
     "en": "scoops"
   },
   "uiComponent": "sensor",
-  "insights": true
+  "insights": true,
+  "color": "#FF6B35"
 }

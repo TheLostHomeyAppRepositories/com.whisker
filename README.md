@@ -1,6 +1,6 @@
 # Whisker App for Homey
 
-This is an unofficial Homey integration for Whisker devices, focusing initially on the **Litter-Robot 4**. It brings your Whisker devices into your Homey based smart home with automations, insights, and more.
+This is an unofficial Homey integration for Whisker devices, focusing initially on the **Litter-Robot 4** and **Pet Information**. It brings your Whisker devices into your Homey based smart home with automations, insights, and comprehensive monitoring.
 
 ### 🙏 Special Thanks
 
@@ -8,14 +8,15 @@ This app builds on the work of [pylitterbot](https://github.com/natekspencer/pyl
 
 ## 🧠 Features
 
-Bring automation and insights to your Litter-Robot 4 with Homey Flows and device capabilities:
+Bring automation and insights to your Whisker devices with Homey Flows and device capabilities:
 
-### 📊 Device Capabilities
+### 📊 Litter-Robot 4 Capabilities
 
 - `alarm_cat_detected` – Cat presence alarm
 - `alarm_sleep_mode_active` – Sleep mode is currently active
 - `alarm_sleep_mode_scheduled` – Sleep mode is scheduled
 - `alarm_waste_drawer_full` – Waste drawer full indicator
+- `alarm_connectivity` – Device connectivity status
 - `clean_cycle_status` – Status of the cleaning cycle
 - `clean_cycle_wait_time` – Set delay before cycle starts
 - `key_pad_lock_out` – Lock/unlock the keypad
@@ -31,30 +32,53 @@ Bring automation and insights to your Litter-Robot 4 with Homey Flows and device
 - `sleep_mode_end_time` – When Sleep Mode ends
 - `start_clean_cycle` – Start cleaning
 - `start_empty_cycle` – Start emptying
+- `last_seen` – When device was last online
+
+### 🐱 Pet Information Capabilities
+
+- `measure_weight` – Pet's current weight
+- `label_gender` – Pet's gender
+- `label_food` – Pet's diet information
+- `label_environment` – Pet's environment type
+- `label_birthday` – Pet's birthday
+- `label_breed` – Pet's breed information
+- `label_age` – Pet's age
+- `alarm_health_concern` – Health concerns detected
 
 ### 🔁 Flow Triggers (When...)
 
+**Litter-Robot 4:**
 - Waste drawer becomes full
 - Waste drawer is no longer full
 - Cat detected
 - Cat not detected
 - Sleep mode activated
 - Sleep mode deactivated
-- Sleep mode starts in X hours
-- Sleep mode ends in X hours
 - Multiple clean cycles completed
 - Problem details provided
 
+**Pet Information:**
+- Health concern detected
+- Age changed
+- Environment changed
+- Diet changed
+
 ### 📥 Flow Conditions (And...)
 
+**Litter-Robot 4:**
 - Is a cat detected?
 - Is sleep mode active?
 - Is sleep mode scheduled?
 - Is the waste drawer full?
 - Is the robot currently cleaning?
 
+**Pet Information:**
+- Is it the pet's birthday today?
+- Is it X days until the pet's birthday?
+
 ### 🛠 Flow Actions (Then...)
 
+**Litter-Robot 4:**
 - Start a clean cycle
 - Start an empty cycle
 - Lock or unlock the keypad
@@ -65,13 +89,12 @@ Bring automation and insights to your Litter-Robot 4 with Homey Flows and device
 
 ## 📦 Supported Devices
 
-- ✅ **Litter-Robot 4**
+- ✅ **Litter-Robot 4** - Full support with all capabilities
+- ✅ **Pet Information** - Complete pet monitoring and health tracking
 - 🟡 Litter-Robot 3 (integration planned — hardware sample needed)
 - 🟡 Feeder-Robot (integration planned — hardware sample needed)
 
-> Support for additional Whisker devices would be great — but we’ll need sample hardware to build and test those integrations.
-
-**Cat data and individual pet stats** will be added in the future as a separate **“Cat” driver**.
+> Support for additional Whisker devices would be great — but we'll need sample hardware to build and test those integrations.
 
 ## 🚀 Installation
 
@@ -81,7 +104,7 @@ You can try the app in two ways:
 
 👉 [Install the latest test version via Homey](https://homey.app/a/com.whisker/test/)
 
-> Note: You’ll need a Homey Pro, support for Homey Cloud is planned.
+> Note: You'll need a Homey Pro, support for Homey Cloud is planned.
 
 ---
 
@@ -92,3 +115,4 @@ git clone https://github.com/yourusername/whisker-homey.git
 cd whisker-homey
 npm install
 homey app install
+```

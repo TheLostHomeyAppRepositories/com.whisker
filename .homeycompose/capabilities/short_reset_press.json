@@ -1,8 +1,17 @@
-
-
 {
   "title": {
-    "en": "Reset"
+    "en": "Short reset press",
+    "nl": "Korte reset druk",
+    "de": "Kurzer Reset-Druck",
+    "fr": "Appui court de réinitialisation",
+    "it": "Pressione breve di reset",
+    "sv": "Kort reset tryck",
+    "no": "Kort reset trykk",
+    "es": "Pulsación corta de reinicio",
+    "da": "Kort reset tryk",
+    "ru": "Краткое нажатие сброса",
+    "pl": "Krótkie naciśnięcie reset",
+    "ko": "짧은 재설정 누름"
   },
   "type": "boolean",
   "getable": false,

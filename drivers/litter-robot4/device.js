@@ -1,85 +1,333 @@
 'use strict';
 
-/**
- * LitterRobotDevice integrates with LR4Api to manage robot state and real-time updates.
- * @extends Device
- */
+const Homey = require('homey');
+const LR4Data = require('../../lib/litterrobot4data');
 
-const { Device } = require('homey');
-const LR4Api = require('../../lib/LR4Api');
-const LR4Data = require('../../lib/LR4Data'); // Import LR4Data for mappings
-
-module.exports = class LitterRobotDevice extends Device {
+module.exports = class LitterRobotDevice extends Homey.Device {
 
   /**
-   * Initialize device: validate settings, connect to CognitoRobot, and subscribe to updates.
-   * @returns {Promise<void>}
+   * Device initialization - sets up capabilities, WebSocket subscription, and listeners
    */
   async onInit() {
     this.log('Litter-Robot device initialized');
 
-    const settings = this.getSettings();
-    if (!settings || typeof settings !== 'object') {
-      throw new Error('Invalid device settings. Please repair device.');
-    }
-    const { tokens } = settings;
-    if (!tokens) {
-      throw new Error('Missing authentication tokens or refresh token. Please repair device.');
-    }
+    try {
+      // Get robot serial from device data
+      const data = this.getData();
+      this.robotSerial = data.id;
 
-    this.log('Loaded tokens from settings'); // token values are not logged for security
+      if (!this.robotSerial) {
+        throw new Error('Invalid device data. Missing robot serial.');
+      }
 
-    this.api = new LR4Api({ tokens: { ...tokens } });
+      this.log('Device data:', { robotSerial: this.robotSerial, data });
 
-    const data = this.getData();
-    if (!data || typeof data !== 'object') {
-      throw new Error('Invalid device data. Missing robot ID.');
+      // Initialize capabilities with loading states
+      await this._initializeCapabilities();
+
+      // Get robot data using centralized session
+      await this._fetchRobotData();
+
+      // Setup WebSocket subscription for real-time updates
+      await this._setupWebSocket();
+
+      // Register capability listeners for user interactions
+      await this._registerCapabilityListeners();
+      
+      this.log('Device initialization completed successfully');
+      
+      // Ensure device is marked as available
+      if (this.setAvailable) {
+        this.setAvailable();
+        this.log('Device marked as available');
+      }
+
+    } catch (err) {
+      this.error('Failed to initialize device:', err);
+      
+      // Mark device as unavailable if initialization fails
+      if (this.setUnavailable) {
+        this.setUnavailable(err.message);
+        this.log('Device marked as unavailable due to initialization failure');
+      }
+      
+      throw err;
     }
-    this.robotId = data.id;
-    if (!this.robotId) throw new Error('Missing robot ID');
+  }
+
+  /**
+   * Refresh device state - called during repair to reinitialize the device
+   * @returns {Promise<void>}
+   */
+  async refresh() {
+    this.log('Refreshing device state...');
 
     try {
-      this.robot = await this.api.getRobot(this.robotId);
+      // Clean up existing connections
+      if (this._eventSubscription) {
+        this._eventSubscription();
+        this._eventSubscription = null;
+        this.log('Cleaned up existing event subscription');
+      }
+
+      if (this.robot?.serial) {
+        const apiSession = this.homey.app.apiSession;
+        if (apiSession) {
+          apiSession.closeWebSocketConnection(this.robot.serial);
+          this.log('Closed existing WebSocket connection');
+    }
+      }
+
+      // Force re-initialization
+      await this._forceReinitialize();
+
+      this.log('Device refresh completed successfully');
     } catch (err) {
-      this.error('Failed to fetch robot details:', err);
-      throw err; // prevent continuing without robot data
+      this.error('Failed to refresh device:', err);
+    
+      // Mark device as unavailable if refresh fails
+      if (this.setUnavailable) {
+        this.setUnavailable(err.message);
+        this.log('Device marked as unavailable due to refresh failure');
+      }
+      
+      throw err;
     }
-    const refreshedTokens = this.api.getTokens();
-    if (refreshedTokens) {
-      await this.setSettings({ tokens: refreshedTokens });
+  }
+
+  /**
+   * Force re-initialization of the device
+   * @private
+   */
+  async _forceReinitialize() {
+    this.log('Forcing device re-initialization...');
+
+    try {
+      // Re-fetch robot data
+      await this._fetchRobotData();
+
+      // Re-setup WebSocket subscription
+      await this._setupWebSocket();
+
+      // Re-register capability listeners
+      await this._registerCapabilityListeners();
+      
+      // Ensure device is marked as available
+      if (this.setAvailable) {
+        this.setAvailable();
+        this.log('Device marked as available after re-initialization');
+      }
+
+      this.log('Device re-initialization completed successfully');
+    } catch (err) {
+      this.error('Failed to re-initialize device:', err);
+      throw err;
     }
-    this.log('Connected to robot:', this.robot.nickname || this.robot.serial);
+  }
 
-    this.updateCapabilities(this.robot);
+  /**
+   * Initialize all device capabilities with loading states
+   * @private
+   */
+  async _initializeCapabilities() {
+    const initialCapabilities = {
+      // Status capabilities
+      clean_cycle_status: 'Loading...',
+      litter_robot_status: 'Loading...',
+      
+      // Alarm capabilities
+      alarm_cat_detected: false,
+      alarm_waste_drawer_full: false,
+      alarm_sleep_mode_active: false,
+      alarm_sleep_mode_scheduled: false,
+      alarm_problem: false,
+      alarm_connectivity: false,
+      
+      // Measurement capabilities
+      measure_litter_level_percentage: null,
+      measure_waste_drawer_level_percentage: null,
+      measure_odometer_clean_cycles: null,
+      measure_scoops_saved_count: null,
+      measure_weight: null,
+      
+      // Control capabilities
+      clean_cycle_wait_time: null,
+      key_pad_lock_out: false,
+      
+      // Time-related capabilities
+      sleep_mode_start_time: 'Loading...',
+      sleep_mode_end_time: 'Loading...',
+      last_seen: 'Loading...'
+    };
 
-    // Register capability listeners with explanatory comments
-    // Delegate all listeners to helper methods to reduce code duplication and improve error handling
+    // Set all initial values
+    for (const [capability, value] of Object.entries(initialCapabilities)) {
+      try {
+        await this.setCapabilityValue(capability, value);
+      } catch (err) {
+        this.error(`Failed to initialize capability ${capability}:`, err);
+      }
+    }
+
+    this.log('Capabilities initialized');
+  }
+
+  /**
+   * Fetch robot data from API
+   * @private
+   */
+  async _fetchRobotData() {
+    try {
+      const apiSession = this.homey.app.apiSession;
+      if (!apiSession) {
+        throw new Error('No API session available. Please repair device.');
+      }
+
+      // Use the same approach as the old working code - get all robots and find by serial
+      const robots = await apiSession.getRobots();
+      const robot = robots.find(r => String(r.serial) === String(this.robotSerial));
+      
+      if (!robot) {
+        throw new Error(`Robot with serial ${this.robotSerial} not found`);
+      }
+
+      this.robot = robot;
+      this.log('Connected to robot:', this.robot.nickname || this.robot.serial);
+
+      // Update capabilities with initial data
+      this._updateCapabilities(this.robot);
+
+      // Update device settings with robot information
+      await this._updateDeviceSettings(this.robot);
+
+    } catch (err) {
+      this.error('Failed to fetch robot data:', err);
+      throw err;
+    }
+  }
+
+  /**
+   * Update device settings with robot information
+   * @param {Object} robot - Robot data
+   * @private
+   */
+  async _updateDeviceSettings(robot) {
+    try {
+      // Get user preferences for time/date formatting
+      const settings = this.getSettings();
+      const use12hFormat = settings.use_12h_format || false;
+      const forceUSDate = settings.use_us_date_format || false;
+      
+      // Update device settings with robot information
+      await this.setSettings({
+        device_serial: robot.serial || 'Unknown',
+        device_user_id: robot.userId || 'Unknown',
+        device_firmware: LR4Data.formatFirmwareVersion(robot) || 'Unknown',
+        device_setup_date: robot.setupDateTime ? 
+          LR4Data.formatTime(robot.setupDateTime, { use12hFormat, forceUSDate }) : 
+          'Unknown',
+        device_timezone: robot.unitTimezone || 'Unknown'
+      });
+
+      this.log('Device settings updated with robot information');
+    } catch (err) {
+      this.error('Failed to update device settings:', err);
+    }
+  }
+
+  /**
+   * Setup WebSocket subscription for real-time updates
+   * @private
+   */
+  async _setupWebSocket() {
+    try {
+      const apiSession = this.homey.app.apiSession;
+      
+      // Subscribe to robot updates via WebSocket
+      this._subscription = await apiSession.createWebSocketConnection(
+        this.robot.serial,
+        {
+          serial: this.robot.serial
+        }
+      );
+
+      // Subscribe to WebSocket events
+      this._eventSubscription = apiSession.getEventEmitter().on('data_received', (eventData) => {
+        if (eventData.deviceId === this.robot.serial) {
+          this._handleRobotUpdate(eventData.data);
+        }
+      });
+
+      this.log('WebSocket subscription established');
+
+      // Request initial state
+      setTimeout(() => {
+        this._requestInitialState();
+      }, 10000);
+      
+    } catch (err) {
+      this.error('Failed to setup WebSocket:', err);
+      throw err;
+    }
+  }
+
+  /**
+   * Request initial state from robot
+   * @private
+   */
+  async _requestInitialState() {
+    try {
+      const apiSession = this.homey.app.apiSession;
+      
+      // Send requestState command via GraphQL mutation (not WebSocket)
+      const query = `
+        mutation sendCommand($serial: String!, $command: String!, $value: String) {
+          sendLitterRobot4Command(input: {
+            serial: $serial,
+            command: $command,
+            value: $value
+          })
+        }
+      `;
+      
+      await apiSession.lr4Graphql(query, {
+        serial: this.robot.serial,
+        command: 'requestState',
+        value: null
+      });
+      
+      this.log('Requested initial state from robot via GraphQL');
+    } catch (err) {
+      this.error('Failed to request initial state:', err);
+    }
+  }
+
+  /**
+   * Register capability listeners for user interactions
+   * @private
+   */
+  async _registerCapabilityListeners() {
+    // Register capability listeners for user interactions
     this.registerCapabilityListener('start_clean_cycle', async () => {
-      return this._safeSendCommand('cleanCycle', this.robot.serial, undefined, 'Could not start clean cycle');
+      await this._sendCommand('cleanCycle');
     });
-    this.registerCapabilityListener('short_reset_press', async () => {
-      return this._safeSendCommand('shortResetPress', this.robot.serial, undefined, 'Could not send short reset press');
-    });
+
     this.registerCapabilityListener('start_empty_cycle', async () => {
-      return this._safeSendCommand('emptyCycle', this.robot.serial, undefined, 'Could not start empty cycle');
+      await this._sendCommand('emptyCycle');
     });
+
+    this.registerCapabilityListener('short_reset_press', async () => {
+      await this._sendCommand('shortResetPress');
+    });
+
     this.registerCapabilityListener('clean_cycle_wait_time', async (value) => {
       const clumpTime = parseInt(value, 10);
       if (isNaN(clumpTime)) throw new Error('Invalid wait time value');
       const payload = JSON.stringify({ clumpTime });
       this.log('Sending setClumpTime with payload:', payload);
-      return this._safeSendCommand('setClumpTime', this.robot.serial, payload, 'Could not set clean cycle wait time');
+      await this._sendCommand('setClumpTime', payload);
     });
-    this.registerCapabilityListener('panel_brightness', async (value) => {
-      let command;
-      switch (value) {
-        case 'low':    command = 'panelBrightnessLow'; break;
-        case 'medium': command = 'panelBrightnessMed'; break;
-        case 'high':   command = 'panelBrightnessHigh'; break;
-        default: throw new Error('Invalid panel brightness value');
-      }
-      return this._safeSendCommand(command, this.robot.serial, undefined, 'Could not set panel brightness');
-    });
+
     this.registerCapabilityListener('night_light_mode', async (value) => {
       let command;
       switch (value) {
@@ -88,632 +336,277 @@ module.exports = class LitterRobotDevice extends Device {
         case 'auto': command = 'nightLightModeAuto'; break;
         default: throw new Error('Invalid night light mode value');
       }
-      return this._safeSendCommand(command, this.robot.serial, undefined, 'Could not set night light mode');
+      await this._sendCommand(command);
     });
+
+    this.registerCapabilityListener('panel_brightness', async (value) => {
+      let command;
+      switch (value) {
+        case 'low':    command = 'panelBrightnessLow'; break;
+        case 'medium': command = 'panelBrightnessMed'; break;
+        case 'high':   command = 'panelBrightnessHigh'; break;
+        default: throw new Error('Invalid panel brightness value');
+      }
+      await this._sendCommand(command);
+    });
+
     this.registerCapabilityListener('key_pad_lock_out', async (value) => {
       const command = value ? 'keyPadLockOutOn' : 'keyPadLockOutOff';
-      return this._safeSendCommand(command, this.robot.serial, undefined, 'Could not set key pad lock out');
+      await this._sendCommand(command);
     });
 
-    // Register Flow cards (actions, triggers, and conditions) in a dedicated method for clarity
-    this._registerFlowCards();
+    this.log('Capability listeners registered');
+  }
+
+  /**
+   * Send command to robot using centralized session
+   * @param {string} command - Command to send
+   * @param {Object} payload - Optional payload
+   * @private
+   */
+  async _sendCommand(command, payload = null) {
+    try {
+      const apiSession = this.homey.app.apiSession;
+      
+      if (!this.robot?.isOnline) {
+        throw new Error(`Robot is offline. Cannot send command: ${command}`);
+      }
+
+      // Send command via GraphQL mutation (not WebSocket)
+      const query = `
+        mutation sendCommand($serial: String!, $command: String!, $value: String) {
+          sendLitterRobot4Command(input: {
+            serial: $serial,
+            command: $command,
+            value: $value
+          })
+        }
+      `;
+      
+      // Convert payload to string value if provided
+      const value = payload ? (typeof payload === 'object' ? JSON.stringify(payload) : String(payload)) : null;
+      
+      this.log(`Sending command: ${command}`, payload);
+      await apiSession.lr4Graphql(query, {
+        serial: this.robot.serial,
+        command,
+        value
+      });
+      this.log(`Successfully sent command: ${command}`);
+
+      } catch (err) {
+      this.error(`Failed to send command ${command}:`, err);
+        throw err;
+      }
+  }
+
+  /**
+   * Handle robot updates from WebSocket
+   * @param {Object} update - Robot update data
+   * @private
+   */
+  _handleRobotUpdate(update) {
+    this.log('Received robot update:', update);
     
-    // All flow card registration moved into _registerFlowCards for separation of concerns
+    // Update robot data
+    this.robot = { ...this.robot, ...update };
 
-    // (Moved flow trigger logic out of onInit; handled in updateCapabilities or elsewhere)
-
-    try {
-      // Subscribe to robot updates and keep handle for cleanup
-      this._subscription = await this.api.subscribeToRobotUpdates(
-        this.robotId,
-        (update) => {
-          if (!update) {
-            this.error('Received undefined or null update from subscription');
-            return;
-          }
-          this.log('Received update:', update);
-          try {
-            this.updateCapabilities(update);
-          } catch (err) {
-            this.error('Failed to update capabilities:', err);
-          }
-        }
-      );
-
-      // Delay sending requestState to ensure WebSocket is active
-      setTimeout(() => {
-        this.api.sendCommand('requestState', this.robot.serial)
-          .then(() => this.log('Sent requestState command after init'))
-          .catch(err => this.error('Failed to send requestState:', err));
-      }, 3000);
-    } catch (err) {
-      this.error('Failed to subscribe to robot updates:', err);
-      throw err;
+    // Update capabilities
+    this._updateCapabilities(update);
+    
+    // Update device settings if firmware information changed
+    if (update.espFirmware || update.picFirmwareVersion || update.laserBoardFirmwareVersion) {
+      this._updateDeviceSettings(this.robot);
+    }
+    
+    // Notify pet devices of weight changes
+    if (update.catWeight) {
+      const weightGrams = Math.round(update.catWeight * 453.592); // lbs to grams
+      this._notifyPetDevices(weightGrams);
     }
   }
 
   /**
-   * Register Flow card listeners for actions, triggers, and conditions.
-   * Separated from onInit for improved readability and maintenance.
-   * Includes error handling for potentially unregistered cards.
+   * Notify pet devices of weight measurement
+   * @param {number} weightGrams - Weight in grams
+   * @private
    */
-  _registerFlowCards() {
-    // Helper to safely get a Flow card and log if not found
-    const getCardSafe = (type, id) => {
-      try {
-        switch (type) {
-          case 'action': return this.homey.flow.getActionCard(id);
-          case 'trigger': return this.homey.flow.getDeviceTriggerCard(id);
-          case 'condition': return this.homey.flow.getConditionCard(id);
-        }
-      } catch (err) {
-        this.error(`Flow card not found: ${type} ${id}`, err);
-        return null;
+  async _notifyPetDevices(weightGrams) {
+    try {
+      const app = this.homey.app;
+      if (app && app.onWeightMeasurement) {
+        await app.onWeightMeasurement(weightGrams);
       }
-    };
+    } catch (err) {
+      this.error('Failed to notify pet devices:', err);
+    }
+  }
 
-    // Start clean cycle flow card action
-    const startCleanCycleCard = getCardSafe('action', 'start_clean_cycle');
-    if (startCleanCycleCard) {
-      startCleanCycleCard.registerRunListener(async () =>
-        this._safeSendCommand('cleanCycle', this.robot.serial, undefined, 'Failed to start cleaning cycle')
-      );
-    }
-    // Short reset press flow card action
-    const shortResetPressCard = getCardSafe('action', 'short_reset_press');
-    if (shortResetPressCard) {
-      shortResetPressCard.registerRunListener(async () =>
-        this._safeSendCommand('shortResetPress', this.robot.serial, undefined, 'Failed to send short reset press')
-      );
-    }
-    // Start empty cycle flow card action
-    const startEmptyCycleCard = getCardSafe('action', 'start_empty_cycle');
-    if (startEmptyCycleCard) {
-      startEmptyCycleCard.registerRunListener(async () =>
-        this._safeSendCommand('emptyCycle', this.robot.serial, undefined, 'Failed to start empty cycle')
-      );
-    }
-
-    // Set night light mode via Flow card
-    const setNightLightModeCard = getCardSafe('action', 'set_night_light_mode');
-    if (setNightLightModeCard) {
-      setNightLightModeCard.registerRunListener(async (args) => {
-        let command;
-        switch (args.mode) {
-          case 'off':  command = 'nightLightModeOff'; break;
-          case 'on':   command = 'nightLightModeOn'; break;
-          case 'auto': command = 'nightLightModeAuto'; break;
-          default: throw new Error('Invalid night light mode');
-        }
-        this.log('Flow card: setting night light mode to', args.mode);
-        return this._safeSendCommand(command, this.robot.serial, undefined, 'Failed to set night light mode');
-      });
-    }
-    // Set clean cycle wait time via Flow card
-    const setCleanCycleWaitCard = getCardSafe('action', 'set_clean_cycle_wait_time');
-    if (setCleanCycleWaitCard) {
-      setCleanCycleWaitCard.registerRunListener(async (args) => {
-        const clumpTime = parseInt(args.wait_time, 10);
-        if (isNaN(clumpTime)) throw new Error('Invalid wait time value');
-        const payload = JSON.stringify({ clumpTime });
-        this.log('Flow card: setting clean cycle wait time to', clumpTime);
-        return this._safeSendCommand('setClumpTime', this.robot.serial, payload, 'Failed to set clean cycle wait time');
-      });
-    }
-    // Set panel brightness via Flow card
-    const setPanelBrightnessCard = getCardSafe('action', 'set_panel_brightness');
-    if (setPanelBrightnessCard) {
-      setPanelBrightnessCard.registerRunListener(async (args) => {
-        let command;
-        switch (args.brightness) {
-          case 'low':    command = 'panelBrightnessLow'; break;
-          case 'medium': command = 'panelBrightnessMed'; break;
-          case 'high':   command = 'panelBrightnessHigh'; break;
-          default: throw new Error('Invalid panel brightness value');
-        }
-        this.log('Flow card: setting panel brightness to', args.brightness);
-        return this._safeSendCommand(command, this.robot.serial, undefined, 'Failed to set panel brightness');
-      });
-    }
-
-    // Lock keypad via Flow card
-    const lockKeypadCard = getCardSafe('action', 'lock_keypad');
-    if (lockKeypadCard) {
-      lockKeypadCard.registerRunListener(async () =>
-        this._safeSendCommand('keyPadLockOutOn', this.robot.serial, undefined, 'Failed to lock keypad')
-      );
-    }
-
-    // Unlock keypad via Flow card
-    const unlockKeypadCard = getCardSafe('action', 'unlock_keypad');
-    if (unlockKeypadCard) {
-      unlockKeypadCard.registerRunListener(async () =>
-        this._safeSendCommand('keyPadLockOutOff', this.robot.serial, undefined, 'Failed to unlock keypad')
-      );
-    }
-
-    // Trigger flow card for waste drawer full
-    const wasteDrawerFullCard = getCardSafe('trigger', 'waste_drawer_full');
-    if (wasteDrawerFullCard) {
-      wasteDrawerFullCard.registerRunListener(async () => {
-        this.log('Flow card triggered: Waste drawer is full');
-        return true;
-      });
-    }
-    // Trigger flow card for multiple clean cycles
-    const cleanCycleMultipleCard = getCardSafe('trigger', 'clean_cycle_multiple');
-    if (cleanCycleMultipleCard) {
-      cleanCycleMultipleCard.registerRunListener((args, state) => {
-        const total = this.getCapabilityValue('measure_odometer_clean_cycles');
-        this.log(`Flow check [clean_cycle_multiple]: total=${total}, requested count=${args.count}, remainder=${total % args.count}`);
-        // Trigger only on exact multiples of the user-defined count
-        const shouldTrigger = args.count > 0 && total % args.count === 0;
-        this.log(`Flow decision [clean_cycle_multiple]: will trigger? ${shouldTrigger}`);
-        return shouldTrigger;
-      });
-      // Store reference for use in updateCapabilities
-      this._cleanCycleMultipleCard = cleanCycleMultipleCard;
-    }
-    // Register condition cards with error handling
-    const condCards = [
-      ['is_cat_detected', () => this.getCapabilityValue('alarm_cat_detected') === true],
-      ['is_sleep_mode_active', () => this.getCapabilityValue('alarm_sleep_mode_active') === true],
-      ['is_waste_drawer_full', () => this.getCapabilityValue('alarm_waste_drawer_full') === true],
-      ['is_sleep_mode_scheduled', () => this.getCapabilityValue('alarm_sleep_mode_scheduled') === true],
-      ['is_cleaning_status', (args) => this.getCapabilityValue('clean_cycle_status') === args.status],
+  /**
+   * Update device capabilities based on robot data
+   * @param {Object} data - Robot data
+   * @private
+   */
+  _updateCapabilities(data) {
+    if (!data) return;
+    
+    // Create robot data instance for processing
+    const robotData = new LR4Data({ robot: data });
+    const settings = this.getSettings();
+    
+    // Define capability updates
+    const updates = [
+      ['clean_cycle_status', robotData.cycleStateDescription],
+      ['litter_robot_status', robotData.statusDescription],
+      ['alarm_cat_detected', robotData.isCatDetected],
+      ['alarm_waste_drawer_full', robotData.isDrawerFull],
+      ['measure_litter_level_percentage', robotData.litterLevelPercentage],
+      ['measure_waste_drawer_level_percentage', robotData.wasteDrawerLevelPercentage],
+      ['measure_odometer_clean_cycles', robotData.totalCleanCycles],
+      ['measure_scoops_saved_count', robotData.scoopsSavedCount],
+      ['alarm_sleep_mode_active', robotData.isSleepActive],
+      ['alarm_sleep_mode_scheduled', !!robotData.sleepSchedule],
+      ['sleep_mode_start_time', robotData.sleepSchedule?.startString || 'Not set'],
+      ['sleep_mode_end_time', robotData.sleepSchedule?.endString || 'Not set'],
+      ['measure_weight', robotData.weightInGrams],
+      ['alarm_problem', robotData.hasProblem],
+      ['clean_cycle_wait_time', robotData.cleanCycleWaitTimeString],
+      ['key_pad_lock_out', robotData.isKeypadLocked],
+      ['night_light_mode', robotData.nightLightMode],
+      ['alarm_connectivity', !robotData.isOnline],
+      ['last_seen', robotData.isOnline ? 'Currently connected' : (robotData.lastSeenFormatted || 'Unknown')]
     ];
-    for (const [cardId, fn] of condCards) {
-      const card = getCardSafe('condition', cardId);
-      if (card) card.registerRunListener(async (...args) => fn(...args));
+
+    // Track changes for Flow card triggering
+    const changes = new Set();
+    
+    // Update capabilities
+    for (const [capability, newValue] of updates) {
+      if (newValue === undefined || newValue === null) continue;
+
+      const oldValue = this.getCapabilityValue(capability);
+      
+      // Handle initialization from loading state
+      if (oldValue === 'Loading...') {
+        this.setCapabilityValue(capability, newValue).catch(err => {
+          this.error(`Failed to initialize capability ${capability}:`, err);
+        });
+        continue;
+      }
+
+      // Only update if value actually changed
+      if (newValue !== oldValue) {
+        this.log(`${capability} changed: ${oldValue} → ${newValue}`);
+        this.setCapabilityValue(capability, newValue).catch(err => {
+          this.error(`Failed to update capability ${capability}:`, err);
+        });
+        changes.add(capability);
+      }
+    }
+
+    // Trigger Flow cards for detected changes
+    if (changes.size > 0) {
+      this._triggerFlowCards(changes, robotData);
     }
   }
 
   /**
-   * Helper to safely send a command to the robot, with error logging and user-friendly error propagation.
-   * @param {string} command
-   * @param {string} serial
-   * @param {any} [payload]
-   * @param {string} [userError]
+   * Trigger Flow cards based on capability changes
+   * @param {Set<string>} changes - Set of changed capabilities
+   * @param {LR4Data} robotData - Current robot data
+   * @private
    */
-  async _safeSendCommand(command, serial, payload, userError) {
-    try {
-      await this.api.sendCommand(command, serial, payload);
-      this.log(`Sent command: ${command} to ${serial} with payload: ${payload || 'none'}`);
-      return true;
-    } catch (err) {
-      this.error(`Failed to send command: ${command}`, err);
-      throw new Error(userError || 'Failed to send command');
-    }
-  }
-
-  /**
-   * Retrieve the previously stored clean cycle count from the device store.
-   * @returns {number}
-   */
-  getPreviousCleanCycleCount() {
-    return this.getStoreValue('previous_clean_cycles') || 0;
-  }
-
-  /**
-   * Store the current clean cycle count in the device store.
-   * @param {number} count
-   */
-  setPreviousCleanCycleCount(count) {
-    this.setStoreValue('previous_clean_cycles', count);
-  }
-
-  /**
-   * Update Homey capabilities based on the robot status payload.
-   * Handles undefined or null data gracefully.
-   * @param {object} data Robot status information
-   */
-  updateCapabilities(data) {
-    // Debounce/throttle updates if called in rapid succession
-    if (this._capUpdateTimeout) clearTimeout(this._capUpdateTimeout);
-    this._capUpdateTimeout = setTimeout(() => this._doUpdateCapabilities(data), 100);
-  }
-
-  /**
-   * Internal implementation of capability update (debounced).
-   */
-  _doUpdateCapabilities(data) {
-    if (!data || typeof data !== 'object') {
-      this.error('Invalid data received in updateCapabilities:', data);
-      return;
-    }
-
-    // Helper for setting capability if changed
-    const _setCapabilityIfChanged = (cap, value) => {
-      if (this.getCapabilityValue(cap) !== value) {
-        this.setCapabilityValue(cap, value).catch(err => this.error(`Failed to set capability ${cap}:`, err));
-      }
-    };
-
-    // Map measure_odometer_clean_cycles capability from data if present, and trigger "clean_cycle_multiple" when count increases
-    if (typeof data.odometerCleanCycles === 'number') {
-      const prevCount = this.getPreviousCleanCycleCount();
-      const newCount = data.odometerCleanCycles;
-      _setCapabilityIfChanged('measure_odometer_clean_cycles', newCount);
-      if (newCount > prevCount && this._cleanCycleMultipleCard) {
-        this.log(`Invoking clean_cycle_multiple trigger: previous=${prevCount}, new=${newCount}`);
-        this._cleanCycleMultipleCard.trigger(this, { total_cycles: newCount })
-          .then(() => {
-            this.log(`Successfully triggered clean_cycle_multiple with total_cycles=${newCount}`);
-          })
-          .catch(err => this.error('Failed to trigger clean_cycle_multiple:', err));
-      }
-      this.setPreviousCleanCycleCount(newCount);
-    }
-    // Map measure_scoops_saved_count capability from data if present
-    if (typeof data.scoopsSavedCount === 'number') {
-      _setCapabilityIfChanged('measure_scoops_saved_count', data.scoopsSavedCount);
-    }
-    // Map measure_litter_level_percentage capability from data if present
-    if (typeof data.litterLevelPercentage === 'number') {
-      const percentage = Math.round(data.litterLevelPercentage * 100);
-      _setCapabilityIfChanged('measure_litter_level_percentage', percentage);
-    }
-    // Map measure_waste_drawer_level_percentage capability from data if present
-    if (typeof data.DFILevelPercent === 'number') {
-      _setCapabilityIfChanged('measure_waste_drawer_level_percentage', data.DFILevelPercent);
-    }
-    // Add clean_cycle_wait_time capability update based on WebSocket data
-    if (typeof data.cleanCycleWaitTime === 'number') {
-      _setCapabilityIfChanged('clean_cycle_wait_time', String(data.cleanCycleWaitTime));
-    }
-    // Map panel_brightness capability from data if present
-    if (typeof data.panelBrightness === 'string') {
-      _setCapabilityIfChanged('panel_brightness', data.panelBrightness.toLowerCase());
-    }
-    // Map night_light_mode capability from data if present
-    if (typeof data.nightLightMode === 'string') {
-      _setCapabilityIfChanged('night_light_mode', data.nightLightMode.toLowerCase());
-    }
-    // Map key_pad_lock_out capability from data if present
-    if (typeof data.isKeypadLockout === 'boolean') {
-      _setCapabilityIfChanged('key_pad_lock_out', data.isKeypadLockout);
-    }
-
-    // Map clean_cycle_status using robotCycleStatus and robotStatus
-    // Inline comment: Map robot's cycle status and status code to user-friendly string
-    let cleanStatus;
-    if (data.robotStatus === 'ROBOT_CAT_DETECT_DELAY') {
-      cleanStatus = 'Waiting to start';
-    } else if (data.robotCycleStatus === 'CYCLE_DUMP') {
-      cleanStatus = 'Scooping';
-    } else if (data.robotCycleStatus === 'CYCLE_DFI') {
-      cleanStatus = 'Dumping';
-    } else if (data.robotCycleStatus === 'CYCLE_LEVEL') {
-      cleanStatus = 'Leveling';
-    } else if (data.robotCycleStatus === 'CYCLE_HOME') {
-      cleanStatus = 'Completed';
-    } else if (data.robotCycleStatus === 'CYCLE_IDLE') {
-      cleanStatus = 'Idle';
-    } else {
-      cleanStatus = LR4Data.RobotStatusDescriptions[data.robotStatus] || 'Unknown Status';
-    }
-    this.log('Mapped clean_cycle_status from robotCycleStatus/robotStatus:', data.robotCycleStatus, data.robotStatus, '=>', cleanStatus);
-    _setCapabilityIfChanged('clean_cycle_status', cleanStatus);
-
-    // Map litter_robot_status capability using aggregated statusCode and statusDescription
-    // Inline comment: Use LR4Data class to derive status description for display
-    if (typeof data === 'object') {
-      try {
-        const lr4Data = new LR4Data({ robot: data, api: this.api });
-        const statusCode = lr4Data.statusCode;
-        const statusDescription = lr4Data.statusDescription;
-        this.log('Mapped litter_robot_status:', statusCode, '=>', statusDescription);
-        _setCapabilityIfChanged('litter_robot_status', statusDescription);
-      } catch (err) {
-        this.error('Failed to derive litter_robot_status:', err);
-      }
-    }
-
-    // Check if sleep mode is scheduled for the current day and set alarm_sleep_mode_scheduled
-    // Inline comment: Derive if sleep mode is scheduled for today based on robot config and timezone
-    if (typeof data.weekdaySleepModeEnabled === 'object' && data.unitTimezone) {
-      const daysOfWeek = [
-        "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-      ];
-      const now = new Date(new Date().toLocaleString("en-US", { timeZone: data.unitTimezone }));
-      const todayIdx = now.getDay();
-      const todayName = daysOfWeek[todayIdx];
-      const todaySchedule = data.weekdaySleepModeEnabled[todayName];
-      const isSleepModeScheduled = todaySchedule && todaySchedule.isEnabled === true;
-      this.log(`Mapped alarm_sleep_mode_scheduled for ${todayName}:`, isSleepModeScheduled);
-      _setCapabilityIfChanged('alarm_sleep_mode_scheduled', isSleepModeScheduled);
-    }
-    // Map alarm_sleep_mode_active capability from sleepStatus if present
-    // Inline comment: Set alarm if robot is currently in sleep mode
-    if (typeof data.sleepStatus === 'string') {
-      const isSleeping = data.sleepStatus !== 'WAKE';
-      this.log('Mapped alarm_sleep_mode_active from sleepStatus:', data.sleepStatus, '=>', isSleeping);
-      _setCapabilityIfChanged('alarm_sleep_mode_active', isSleeping);
-      // Trigger the sleep_mode_activated flow card only on transition to SLEEPING
-      const prevSleepStatus = this.getStoreValue('sleepStatus');
-      if (prevSleepStatus !== 'SLEEPING' && data.sleepStatus === 'SLEEPING') {
-        this.log('Triggering flow: sleep_mode_activated');
-        this.homey.flow
-          .getDeviceTriggerCard('sleep_mode_activated')
-          .trigger(this, {}, {})
-          .catch(err => this.error('Failed to trigger flow sleep_mode_activated:', err));
-      }
-      // Trigger the sleep_mode_deactivated flow card on transition from SLEEPING to not SLEEPING
-      const wasSleeping = this.getStoreValue('sleepStatus');
-      if (wasSleeping === 'SLEEPING' && data.sleepStatus !== 'SLEEPING') {
-        this.log('Triggering flow: sleep_mode_deactivated');
-        this.homey.flow
-          .getDeviceTriggerCard('sleep_mode_deactivated')
-          .trigger(this, {}, {})
-          .catch(err => this.error('Failed to trigger flow sleep_mode_deactivated:', err));
-      }
-      this.setStoreValue('sleepStatus', data.sleepStatus);
-    }
-
-    // -- BEGIN: “Today's sleep start/end” calculation --
-    // Inline comment: Calculate today's sleep mode start/end times for display and scheduling
-    if (data.unitTimezone && typeof data.weekdaySleepModeEnabled === 'object') {
-      try {
-        const schedule = data.weekdaySleepModeEnabled;
-        const tz = data.unitTimezone; // e.g. "Europe/Amsterdam"
-        const now = new Date(new Date().toLocaleString('en-US', { timeZone: tz }));
-        const daysOfWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-        const todayName = daysOfWeek[now.getDay()];
-        const todayConfig = schedule[todayName];
-
-        if (todayConfig && todayConfig.isEnabled) {
-          const sleepMin = parseInt(todayConfig.sleepTime, 10);
-          const wakeMin  = parseInt(todayConfig.wakeTime, 10);
-
-          // Use 12H format if user checked the box; otherwise default to 24H
-          const use12h = this.getSetting('use_12h_format') === true;
-
-          // Determine date format: US (MM-DD-YYYY) or Euro (DD-MM-YYYY) with '-' delimiter
-          const useUSDate = this.getSetting('use_us_date_format') === true;
-          // Extract year/month/day in the robot's timezone
-          const yearNum  = parseInt(new Date(now.toLocaleString('en-US', { timeZone: tz })).getFullYear(), 10);
-          const monthNum = parseInt(new Date(now.toLocaleString('en-US', { timeZone: tz })).getMonth(), 10) + 1;
-          const dayNum   = parseInt(new Date(now.toLocaleString('en-US', { timeZone: tz })).getDate(), 10);
-          const dayStr   = String(dayNum).padStart(2, '0');
-          const monthStr = String(monthNum).padStart(2, '0');
-          const yearStr  = String(yearNum);
-
-          let todayDate;
-          if (useUSDate) {
-            // MM-DD-YYYY
-            todayDate = `${monthStr}-${dayStr}-${yearStr}`;
-          } else {
-            // DD-MM-YYYY
-            todayDate = `${dayStr}-${monthStr}-${yearStr}`;
-          }
-          // Helper to pad minutes
-          const pad = (num) => String(num).padStart(2, '0');
-
-          // Compute hour, minute, and period for sleep start
-          const sleepHourNum = Math.floor(sleepMin / 60);
-          const sleepMinuteNum = sleepMin % 60;
-          let sleepHourStr, sleepPeriod;
-          if (use12h) {
-            sleepPeriod = sleepHourNum < 12 ? 'AM' : 'PM';
-            const hour12 = sleepHourNum % 12 === 0 ? 12 : sleepHourNum % 12;
-            sleepHourStr = String(hour12);
-          } else {
-            sleepHourStr = pad(sleepHourNum);
-            sleepPeriod = '';
-          }
-          const sleepMinuteStr = pad(sleepMinuteNum);
-          const startTimeStr = use12h
-            ? `${sleepHourStr}:${sleepMinuteStr} ${sleepPeriod}`
-            : `${sleepHourStr}:${sleepMinuteStr}`;
-          const startString = `${todayDate} ${startTimeStr}`;
-
-          // Compute end date
-          let endDate;
-          if (wakeMin < sleepMin) {
-            const tomorrow = new Date(now);
-            tomorrow.setDate(now.getDate() + 1);
-            const yearNumT  = parseInt(new Date(tomorrow.toLocaleString('en-US', { timeZone: tz })).getFullYear(), 10);
-            const monthNumT = parseInt(new Date(tomorrow.toLocaleString('en-US', { timeZone: tz })).getMonth(), 10) + 1;
-            const dayNumT   = parseInt(new Date(tomorrow.toLocaleString('en-US', { timeZone: tz })).getDate(), 10);
-            const dayStrT   = String(dayNumT).padStart(2, '0');
-            const monthStrT = String(monthNumT).padStart(2, '0');
-            const yearStrT  = String(yearNumT);
-
-            if (useUSDate) {
-              endDate = `${monthStrT}-${dayStrT}-${yearStrT}`;
-            } else {
-              endDate = `${dayStrT}-${monthStrT}-${yearStrT}`;
-            }
-          } else {
-            endDate = todayDate;
-          }
-
-          // Compute hour, minute, and period for wake time
-          const wakeHourNum = Math.floor(wakeMin / 60);
-          const wakeMinuteNum = wakeMin % 60;
-          let wakeHourStr, wakePeriod;
-          if (use12h) {
-            wakePeriod = wakeHourNum < 12 ? 'AM' : 'PM';
-            const hour12 = wakeHourNum % 12 === 0 ? 12 : wakeHourNum % 12;
-            wakeHourStr = String(hour12);
-          } else {
-            wakeHourStr = pad(wakeHourNum);
-            wakePeriod = '';
-          }
-          const wakeMinuteStr = pad(wakeMinuteNum);
-          const wakeTimeStr = use12h
-            ? `${wakeHourStr}:${wakeMinuteStr} ${wakePeriod}`
-            : `${wakeHourStr}:${wakeMinuteStr}`;
-          const endString = `${endDate} ${wakeTimeStr}`;
-
-          this.log('Mapped sleep_mode_start_time:', startString, 'sleep_mode_end_time:', endString);
-          this.setCapabilityValue('sleep_mode_start_time', startString)
-            .catch(err => this.error('Failed to set sleep_mode_start_time:', err));
-          this.setCapabilityValue('sleep_mode_end_time', endString)
-            .catch(err => this.error('Failed to set sleep_mode_end_time:', err));
-
-          // --- TRIGGER FLOW CARDS for sleep_mode_starts_in and sleep_mode_ends_in ---
-          // Store as Date objects for use elsewhere if needed
-          this._sleepModeStartTime = new Date(`${todayDate} ${startTimeStr}`);
-          this._sleepModeEndTime = new Date(`${endDate} ${wakeTimeStr}`);
-
-          // Trigger sleep_mode_starts_in
-          this.homey.flow.getDeviceTriggerCard('sleep_mode_starts_in')
-            .trigger(this, {
-              amount: Math.round((this._sleepModeStartTime - new Date()) / 60000), // minutes
-              unit: 'minutes'
-            })
-            .catch(err => this.error('Failed to trigger sleep_mode_starts_in:', err));
-
-          // Trigger sleep_mode_ends_in
-          this.homey.flow.getDeviceTriggerCard('sleep_mode_ends_in')
-            .trigger(this, {
-              amount: Math.round((this._sleepModeEndTime - new Date()) / 60000), // minutes
-              unit: 'minutes'
-            })
-            .catch(err => this.error('Failed to trigger sleep_mode_ends_in:', err));
-          // --- END TRIGGER FLOW CARDS ---
-        } else {
-          this.setCapabilityValue('sleep_mode_start_time', 'Not set')
-            .catch(err => this.error('Failed to set sleep_mode_start_time:', err));
-          this.setCapabilityValue('sleep_mode_end_time', 'Not set')
-            .catch(err => this.error('Failed to set sleep_mode_end_time:', err));
+  _triggerFlowCards(changes, robotData) {
+    // Clean cycle multiple trigger - trigger on every cycle increase
+    // The run listener in the driver will check if it's a multiple of the user's configured count
+    if (changes.has('measure_odometer_clean_cycles')) {
+      const totalCycles = this.getCapabilityValue('measure_odometer_clean_cycles');
+      if (typeof totalCycles === 'number' && totalCycles > 0) {
+        // Get the previous cycle count from device store
+        const previousCycles = this.getStoreValue('previous_clean_cycles') || 0;
+        
+        // Only trigger if the cycle count increased (not on initialization)
+        if (totalCycles > previousCycles) {
+          this.log(`Clean cycle count increased: ${previousCycles} → ${totalCycles}`);
+          
+          // Trigger the clean_cycle_multiple card - the run listener will check if it's a multiple
+          this.homey.flow.getDeviceTriggerCard('clean_cycle_multiple')
+            .trigger(this, { total_cycles: totalCycles })
+            .catch(err => this.error('Failed to trigger clean_cycle_multiple:', err));
         }
-      } catch (err) {
-        this.error('Error mapping today\'s sleep start/end:', err);
+        
+        // Store the current count for next comparison
+        this.setStoreValue('previous_clean_cycles', totalCycles);
       }
-    }
-    // -- END: “Today's sleep start/end” calculation --
-
-    // Map alarm_cat_detected capability from status conditions
-    // Inline comment: Use robot status and display code to determine if a cat is detected
-    try {
-      const lr4Data = new LR4Data({ robot: data, api: this.api });
-      const isCatDetected = data.catDetect === "CAT_DETECT"
-        || data.displayCode === "DC_CAT_DETECT"
-        || lr4Data.statusCode === "CD";
-      this.log('Mapped alarm_cat_detected:', isCatDetected);
-      _setCapabilityIfChanged('alarm_cat_detected', isCatDetected);
-      // Retrieve previous cat detected state
-      const prevCatDetected = this.getStoreValue('catDetectedStatus');
-      // Trigger "cat_detected" when transitioning from false to true
-      if (!prevCatDetected && isCatDetected) {
-        this.log('Triggering flow: cat_detected');
-        this.homey.flow.getDeviceTriggerCard('cat_detected')
-          .trigger(this)
-          .catch(err => this.error('Failed to trigger flow card "cat_detected":', err));
-      }
-      // Trigger "cat_not_detected" when transitioning from true to false
-      if (prevCatDetected && !isCatDetected) {
-        this.log('Triggering flow: cat_not_detected');
-        this.homey.flow.getDeviceTriggerCard('cat_not_detected')
-          .trigger(this)
-          .catch(err => this.error('Failed to trigger flow card "cat_not_detected":', err));
-      }
-      // Store the current cat detected state for next update
-      this.setStoreValue('catDetectedStatus', isCatDetected);
-    } catch (err) {
-      this.error('Failed to determine alarm_cat_detected:', err);
-    }
-    // Map alarm_waste_drawer_full capability based on user-defined threshold
-    // Inline comment: Set alarm if drawer level exceeds user threshold and trigger flows on change
-    try {
-      const threshold = parseInt(this.getSetting('waste_drawer_threshold'), 10) || 85;
-      const level = data.DFILevelPercent;
-      const alarmWasteDrawerFull = typeof level === 'number' && level >= threshold;
-      this.log('Mapped alarm_waste_drawer_full:', alarmWasteDrawerFull, `(Level: ${level}%, Threshold: ${threshold}%)`);
-      // Use Homey's capability value as previous value
-      const previousWasteDrawerFull = this.getCapabilityValue('alarm_waste_drawer_full');
-      if (alarmWasteDrawerFull !== previousWasteDrawerFull) {
-        _setCapabilityIfChanged('alarm_waste_drawer_full', alarmWasteDrawerFull);
-        if (alarmWasteDrawerFull) {
-          this.homey.flow
-            .getDeviceTriggerCard('waste_drawer_full')
-            .trigger(this)
-            .catch(err => this.error('Failed to trigger flow card "waste_drawer_full":', err));
-        } else {
-          this.homey.flow
-            .getDeviceTriggerCard('waste_drawer_not_full')
-            .trigger(this)
-            .catch(err => this.error('Failed to trigger flow card "waste_drawer_not_full":', err));
-        }
-      }
-    } catch (err) {
-      this.error('Failed to determine alarm_waste_drawer_full:', err);
     }
 
-    // Map alarm_problem capability based on error-related status codes
-    // Inline comment: Set alarm if robot status code indicates a problem
-    try {
-      const lr4Data = new LR4Data({ robot: data, api: this.api });
-      const problemDescriptions = {
-        'PF': 'Pinch detect fault',
-        'PFR': 'Pinch detect fault during retract',
-        'MTR': 'Globe motor fault',
-        'MTRB': 'Globe motor fault (backwards)',
-        'MTRH': 'Globe motor fault (home)',
-        'OTF': 'Over torque fault',
-        'OTFTO': 'Over torque fault timeout',
-        'LSD': 'Laser dirty',
-        'USB': 'USB fault',
-      };
-      // Support for multiple problems at once (extensible)
-      // For now, only lr4Data.statusCode is available; adapt if multiple codes are present in future
-      const activeProblemCodes = Object.keys(problemDescriptions).filter(code => code === lr4Data.statusCode);
-      const hasProblem = activeProblemCodes.length > 0;
-      this.log('Mapped alarm_problem:', hasProblem, `(Status Code: ${lr4Data.statusCode})`);
-      _setCapabilityIfChanged('alarm_problem', hasProblem);
+    // Cat detection triggers
+    if (changes.has('alarm_cat_detected')) {
+      const isCatDetected = robotData.isCatDetected;
+      const triggerCard = isCatDetected ? 'cat_detected' : 'cat_not_detected';
+      
+      this.homey.flow.getDeviceTriggerCard(triggerCard)
+        .trigger(this, {})
+        .catch(err => this.error(`Failed to trigger ${triggerCard}:`, err));
+    }
+
+    // Waste drawer triggers
+    if (changes.has('alarm_waste_drawer_full')) {
+      const isDrawerFull = robotData.isDrawerFull;
+      const wasteLevel = robotData.wasteDrawerLevelPercentage;
+      const triggerCard = isDrawerFull ? 'waste_drawer_full' : 'waste_drawer_not_full';
+      
+      this.homey.flow.getDeviceTriggerCard(triggerCard)
+        .trigger(this, { waste_level: wasteLevel })
+        .catch(err => this.error(`Failed to trigger ${triggerCard}:`, err));
+    }
+
+    // Sleep mode triggers
+    if (changes.has('alarm_sleep_mode_active')) {
+      const isSleepActive = robotData.isSleepActive;
+      if (isSleepActive) {
+        this.homey.flow.getDeviceTriggerCard('sleep_mode_activated')
+          .trigger(this, {})
+          .catch(err => this.error('Failed to trigger sleep_mode_activated:', err));
+      } else {
+        this.homey.flow.getDeviceTriggerCard('sleep_mode_deactivated')
+          .trigger(this, {})
+          .catch(err => this.error('Failed to trigger sleep_mode_deactivated:', err));
+      }
+    }
+
+    // Problem detection triggers
+    if (changes.has('alarm_problem')) {
+      const hasProblem = robotData.hasProblem;
       if (hasProblem) {
-        const problem_description = problemDescriptions[activeProblemCodes[0]];
-        const problem_codes = activeProblemCodes.join(',');
-        const problem_count = activeProblemCodes.length;
-        this.homey.flow.getDeviceTriggerCard('problem_occurred')
+        this.homey.flow.getDeviceTriggerCard('problem_details_provided')
           .trigger(this, {
-            problem_description,
-            problem_codes,
-            problem_count,
+          problem_description: robotData.problemDescription,
+          problem_codes: robotData.problemCodes,
+          problem_count: robotData.problemCount
           })
-          .then(() => {
-            this.log('Triggered problem_occurred Flow card with tokens:', {
-              problem_description,
-              problem_codes,
-              problem_count,
-            });
-          })
-          .catch(err => this.error('Failed to trigger Flow card "problem_occurred":', err));
+          .catch(err => this.error('Failed to trigger problem_details_provided:', err));
       }
-    } catch (err) {
-      this.error('Failed to determine alarm_problem:', err);
-    }
-    // Map measure_weight capability from catWeight (lbs) to grams
-    // Inline comment: Convert cat weight from lbs to grams for display
-    if (typeof data.catWeight === 'number') {
-      const weightGrams = Math.round(data.catWeight * 453.592);
-      this.log('Mapped measure_weight from catWeight:', data.catWeight, 'lbs =>', weightGrams, 'g');
-      _setCapabilityIfChanged('measure_weight', weightGrams);
     }
   }
 
   /**
-   * Cleanup when device is removed: unsubscribe from updates.
-   * @returns {Promise<void>}
+   * Device cleanup when deleted
    */
-  async onDeleted() {
-    this.log('Litter-Robot device removed');
-    await this.unsubscribeFromRobotUpdates();
-  }
-
-  /**
-   * Unsubscribe from robot updates safely.
-   */
-  async unsubscribeFromRobotUpdates() {
-    if (this._subscription && typeof this._subscription.unsubscribe === 'function') {
-      try {
-        this._subscription.unsubscribe();
-        this.log('Unsubscribed from robot updates');
-      } catch (err) {
-        this.error('Error unsubscribing from updates:', err);
-      }
+  onDeleted() {
+    this.log('Device deleted, cleaning up...');
+    
+    // Clean up WebSocket connection
+    if (this.robot?.serial) {
+      const apiSession = this.homey.app.apiSession;
+      if (apiSession) {
+        apiSession.closeWebSocketConnection(this.robot.serial);
     }
   }
-};
+
+    // Clean up event subscription
+    if (this._eventSubscription) {
+      this._eventSubscription();
+    }
+  }
+} 

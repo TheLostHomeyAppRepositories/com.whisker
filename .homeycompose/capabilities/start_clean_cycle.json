@@ -1,8 +1,17 @@
-
-
 {
   "title": {
-    "en": "Start clean cycle"
+    "en": "Start clean cycle",
+    "nl": "Start reinigingscyclus",
+    "de": "Reinigungszyklus starten",
+    "fr": "Démarrer le cycle de nettoyage",
+    "it": "Avvia ciclo di pulizia",
+    "sv": "Starta rengöringscykel",
+    "no": "Start rengjøringscyklus",
+    "es": "Iniciar ciclo de limpieza",
+    "da": "Start rengøringscyklus",
+    "ru": "Запустить цикл очистки",
+    "pl": "Uruchom cykl czyszczenia",
+    "ko": "청소 주기 시작"
   },
   "type": "boolean",
   "getable": false,
