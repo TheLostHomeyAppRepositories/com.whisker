@@ -12,27 +12,44 @@ Bring automation and insights to your Whisker devices with Homey Flows and devic
 
 ### 📊 Litter-Robot 4 Capabilities
 
-- `alarm_cat_detected` – Cat presence alarm
-- `alarm_sleep_mode_active` – Sleep mode is currently active
-- `alarm_sleep_mode_scheduled` – Sleep mode is scheduled
-- `alarm_waste_drawer_full` – Waste drawer full indicator
-- `alarm_connectivity` – Device connectivity status
-- `clean_cycle_status` – Status of the cleaning cycle
-- `clean_cycle_wait_time` – Set delay before cycle starts
-- `key_pad_lock_out` – Lock/unlock the keypad
+**Status & Monitoring:**
 - `litter_robot_status` – Device status (ready, cycling, etc.)
+- `clean_cycle_status` – Status of the cleaning cycle
+- `alarm_connectivity` – Device connectivity status
+- `last_seen` – When device was last online
+
+**Cat Detection & Presence:**
+- `alarm_cat_detected` – Cat presence alarm
+- `measure_weight` – Cat weight measurement (for pet tracking)
+
+**Waste Management:**
+- `alarm_waste_drawer_full` – Waste drawer full indicator
+- `measure_waste_drawer_level_percentage` – Waste drawer fill level (%)
+- `measure_scoops_saved_count` – Estimated scoops saved
+
+**Litter Management:**
 - `measure_litter_level_percentage` – Litter level (%)
 - `measure_odometer_clean_cycles` – Total clean cycles
-- `measure_scoops_saved_count` – Estimated scoops saved
-- `measure_waste_drawer_level_percentage` – Waste drawer fill level (%)
-- `night_light_mode` – Off / On / Auto
-- `panel_brightness` – Panel LED brightness
-- `short_reset_press` – Trigger soft reset
+
+**LitterHopper:**
+- `alarm_litter_hopper_empty` – LitterHopper empty alarm
+- `litter_hopper_enabled` – Enable/disable LitterHopper control
+- `litter_hopper_status` – LitterHopper status monitoring
+
+**Sleep Mode:**
+- `alarm_sleep_mode_active` – Sleep mode is currently active
+- `alarm_sleep_mode_scheduled` – Sleep mode is scheduled
 - `sleep_mode_start_time` – When Sleep Mode activates
 - `sleep_mode_end_time` – When Sleep Mode ends
+
+**Controls & Settings:**
+- `clean_cycle_wait_time` – Set delay before cycle starts
+- `key_pad_lock_out` – Lock/unlock the keypad
+- `night_light_mode` – Off / On / Auto
+- `panel_brightness` – Panel LED brightness
 - `start_clean_cycle` – Start cleaning
 - `start_empty_cycle` – Start emptying
-- `last_seen` – When device was last online
+- `short_reset_press` – Trigger soft reset
 
 ### 🐱 Pet Information Capabilities
 
@@ -56,6 +73,8 @@ Bring automation and insights to your Whisker devices with Homey Flows and devic
 - Sleep mode deactivated
 - Multiple clean cycles completed
 - Problem details provided
+- **LitterHopper becomes empty**
+- **LitterHopper is no longer empty**
 
 **Pet Information:**
 - Health concern detected
@@ -71,6 +90,8 @@ Bring automation and insights to your Whisker devices with Homey Flows and devic
 - Is sleep mode scheduled?
 - Is the waste drawer full?
 - Is the robot currently cleaning?
+- **Is the LitterHopper empty?**
+- **Is the LitterHopper enabled?**
 
 **Pet Information:**
 - Is it the pet's birthday today?
@@ -86,10 +107,11 @@ Bring automation and insights to your Whisker devices with Homey Flows and devic
 - Set panel brightness
 - Set clean cycle wait time
 - Press reset (short press)
+- **Enable/disable LitterHopper**
 
 ## 📦 Supported Devices
 
-- ✅ **Litter-Robot 4** - Full support with all capabilities
+- ✅ **Litter-Robot 4** - Full support with all capabilities including LitterHopper
 - ✅ **Pet Information** - Complete pet monitoring and health tracking
 - 🟡 Litter-Robot 3 (integration planned — hardware sample needed)
 - 🟡 Feeder-Robot (integration planned — hardware sample needed)
@@ -111,7 +133,7 @@ You can try the app in two ways:
 ### 🛠️ Option 2: Manual installation (for developers)
 
 ```bash
-git clone https://github.com/yourusername/whisker-homey.git
+git clone https://github.com/Doekse/whisker-homey.git
 cd whisker-homey
 npm install
 homey app install
