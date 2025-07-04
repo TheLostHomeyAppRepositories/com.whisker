@@ -34,7 +34,10 @@
     "short_reset_press",
     "night_light_mode",
     "alarm_connectivity",
-    "last_seen"
+    "last_seen",
+    "alarm_litter_hopper_empty",
+    "litter_hopper_status",
+    "litter_hopper_enabled"
   ],
   "connectivity": [
     "cloud"

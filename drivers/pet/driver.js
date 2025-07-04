@@ -69,6 +69,7 @@ module.exports = class PetDriver extends Homey.Driver {
     // Pairing: handle user login and fetch available pets
     let pets = [];
 
+    // Always require login during pairing
     session.setHandler('login', async ({ username, password }) => {
       if (!username || !password) {
         throw new Error('Username and password are required for pairing');
@@ -78,36 +79,8 @@ module.exports = class PetDriver extends Homey.Driver {
         // Use centralized app session management
         const apiSession = await this.homey.app.initializeSession(username, password);
         
-        // Get pets using the correct GraphQL query structure
-        const petsResponse = await apiSession.petGraphql(`
-          query GetPetsByUser($userId: String!) {
-            getPetsByUser(userId: $userId) {
-              petId
-              userId
-              name
-              type
-              gender
-              weight
-              weightLastUpdated
-              lastWeightReading
-              breeds
-              age
-              birthday
-              adoptionDate
-              s3ImageURL
-              diet
-              isFixed
-              environmentType
-              healthConcerns
-              isActive
-              whiskerProducts
-              petTagId
-              weightIdFeatureEnabled
-            }
-          }
-        `, { userId: apiSession.getUserId() });
-        
-        pets = petsResponse.data?.getPetsByUser || [];
+        // Get pets using the new session
+        pets = await apiSession.getPets();
         this.log(`Found ${pets.length} pet(s) for account`);
       } catch (err) {
         this.error('Login or fetching pets failed:', err);
@@ -148,106 +121,33 @@ module.exports = class PetDriver extends Homey.Driver {
     const { id } = device.getData();
     this.log('Repairing device with ID:', id);
 
-    // Check if app already has a valid session
-    if (this.homey.app.isAuthenticated()) {
-      session.setHandler('login', async () => {
-        this.log('Using existing authenticated session for device ID:', id);
-        try {
-          // Verify pet exists with current session using correct query
-          const petResponse = await this.homey.app.apiSession.petGraphql(`
-            query GetPetsByUser($userId: String!) {
-              getPetsByUser(userId: $userId) {
-                petId
-                userId
-                name
-                type
-                gender
-                weight
-                weightLastUpdated
-                lastWeightReading
-                breeds
-                age
-                birthday
-                adoptionDate
-                s3ImageURL
-                diet
-                isFixed
-                environmentType
-                healthConcerns
-                isActive
-                whiskerProducts
-                petTagId
-                weightIdFeatureEnabled
-              }
-            }
-          `, { userId: this.homey.app.apiSession.getUserId() });
-          
-          const pet = petResponse.data?.getPetsByUser?.find(p => String(p.petId) === String(id));
-          if (!pet) {
-            throw new Error(`Pet with ID ${id} not found`);
-          }
-          
-          device.petData = new PetData({ pet });
-          this.log('Pet verification successful with existing session');
-        } catch (err) {
-          this.error('Pet verification failed:', err);
-          throw new Error('Pet verification failed: ' + err.message);
+    // Always require fresh login during repair
+    session.setHandler('login', async ({ username, password }) => {
+      if (!username || !password) {
+        throw new Error('Username and password are required for repair');
+      }
+      this.log('Repair login with username:', username);
+      try {
+        // Clear any existing session and create a fresh one
+        await this.homey.app.signOut();
+        
+        // Initialize new session with fresh credentials
+        const apiSession = await this.homey.app.initializeSession(username, password);
+        
+        // Verify pet exists using the new session
+        const pets = await apiSession.getPets();
+        const pet = pets.find(p => String(p.petId) === String(id));
+        if (!pet) {
+          throw new Error(`Pet with ID ${id} not found`);
         }
-        return true;
-      });
-    } else {
-      // Prompt user to log in again
-      session.setHandler('login', async ({ username, password }) => {
-        if (!username || !password) {
-          throw new Error('Username and password are required for repair');
-        }
-        this.log('Repair login with username:', username);
-        try {
-          // Initialize new session
-          const apiSession = await this.homey.app.initializeSession(username, password);
-          
-          // Verify pet exists using correct query
-          const petResponse = await apiSession.petGraphql(`
-            query GetPetsByUser($userId: String!) {
-              getPetsByUser(userId: $userId) {
-                petId
-                userId
-                name
-                type
-                gender
-                weight
-                weightLastUpdated
-                lastWeightReading
-                breeds
-                age
-                birthday
-                adoptionDate
-                s3ImageURL
-                diet
-                isFixed
-                environmentType
-                healthConcerns
-                isActive
-                whiskerProducts
-                petTagId
-                weightIdFeatureEnabled
-              }
-            }
-          `, { userId: apiSession.getUserId() });
-          
-          const pet = petResponse.data?.getPetsByUser?.find(p => String(p.petId) === String(id));
-          if (!pet) {
-            throw new Error(`Pet with ID ${id} not found`);
-          }
-          
-          device.petData = new PetData({ pet });
-          this.log('Re-authentication successful');
-        } catch (err) {
-          this.error('Repair login failed:', err);
-          throw new Error('Repair login failed: ' + err.message);
-        }
-        return true;
-      });
-    }
+        
+        device.petData = new PetData({ pet });
+        this.log('Re-authentication successful');
+      } catch (err) {
+        this.error('Repair login failed:', err);
+        throw new Error('Repair login failed: ' + err.message);
+      }
+      return true;
+    });
   }
 }

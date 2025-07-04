@@ -42,6 +42,9 @@
     "en": "Initial stable release"
   },
   "1.1.0": {
-    "en": "Major refactor for better performance and stability. Added connectivity alarm and last seen capability to Litter-Robot driver. Improved connection management and reduced memory usage. Enhanced date/time formatting in device settings."
+    "en": "Major refactor for better performance and stability. Added connectivity alarm and last seen capability to Litter-Robot 4 driver."
+  },
+  "1.2.0": {
+    "en": "Added LitterHopper support for Litter-Robot 4. New capabilities include LitterHopper empty alarm, LitterHopper enabled control, and LitterHopper status monitoring. Added Flow cards for LitterHopper empty/not empty triggers and enabled/disabled conditions."
   }                                        
 }

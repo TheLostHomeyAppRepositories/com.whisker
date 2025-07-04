@@ -26,7 +26,8 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
           this.error('Device or robot data not available for cat detection check');
           return false;
         }
-        const lr4Data = new LR4Data({ robot: device.robot });
+        const deviceSettings = device.getSettings();
+        const lr4Data = new LR4Data({ robot: device.robot, settings: deviceSettings });
         const result = lr4Data.isCatDetected;
         this.log(`Cat detection check: result=${result}`);
         return result;
@@ -39,7 +40,8 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
           this.error('Device or robot data not available for sleep mode check');
           return false;
         }
-        const lr4Data = new LR4Data({ robot: device.robot });
+        const deviceSettings = device.getSettings();
+        const lr4Data = new LR4Data({ robot: device.robot, settings: deviceSettings });
         const result = lr4Data.isSleepActive;
         this.log(`Sleep mode check: result=${result}`);
         return result;
@@ -48,16 +50,13 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
     this.homey.flow.getConditionCard('is_waste_drawer_full')
       .registerRunListener(async (args, state) => {
         const device = args.device;
-        if (!device || !device.robot) {
-          this.error('Device or robot data not available for waste drawer check');
+        if (!device) {
+          this.error('Device not available for waste drawer check');
           return false;
         }
-        const lr4Data = new LR4Data({ robot: device.robot });
-        const drawerLevel = lr4Data.wasteDrawerLevelPercentage || 0;
-        const threshold = device.getSettings().waste_drawer_threshold || 80;
-        const result = drawerLevel >= threshold;
-        this.log(`Waste drawer check: level=${drawerLevel}%, threshold=${threshold}%, result=${result}`);
-        return result;
+        const isDrawerFull = device.getCapabilityValue('alarm_waste_drawer_full');
+        this.log(`Flow check [is_waste_drawer_full]: isDrawerFull=${isDrawerFull}`);
+        return isDrawerFull;
       });
 
     this.homey.flow.getConditionCard('is_sleep_mode_scheduled')
@@ -84,12 +83,39 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
           this.error('Device or robot data not available for cleaning status check');
           return false;
         }
-        const lr4Data = new LR4Data({ robot: device.robot });
+        const deviceSettings = device.getSettings();
+        const lr4Data = new LR4Data({ robot: device.robot, settings: deviceSettings });
         const current = lr4Data.cycleStateDescription;
         const expected = args.status;
         const result = current === expected;
         this.log(`Cleaning status check: current=${current}, expected=${expected}, result=${result}`);
         return result;
+      });
+
+    this.homey.flow.getConditionCard('is_litter_hopper_empty')
+      .registerRunListener(async (args) => {
+        const device = args.device;
+        if (!device) {
+          this.error('Device not available for hopper empty check');
+          return false;
+        }
+        
+        const isHopperEmpty = device.getCapabilityValue('alarm_litter_hopper_empty');
+        this.log(`Flow check [is_litter_hopper_empty]: isHopperEmpty=${isHopperEmpty}`);
+        return isHopperEmpty;
+      });
+      
+    this.homey.flow.getConditionCard('is_litter_hopper_enabled')
+      .registerRunListener(async (args) => {
+        const device = args.device;
+        if (!device) {
+          this.error('Device not available for hopper enabled check');
+          return false;
+        }
+        
+        const isHopperEnabled = device.getCapabilityValue('litter_hopper_enabled');
+        this.log(`Flow check [is_litter_hopper_enabled]: isHopperEnabled=${isHopperEnabled}`);
+        return isHopperEnabled;
       });
 
     // Register action cards
@@ -166,12 +192,10 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
       });
 
     // Register trigger cards (devices will trigger these directly)
-    this.homey.flow.getDeviceTriggerCard('waste_drawer_full');
-    this.homey.flow.getDeviceTriggerCard('waste_drawer_not_full');
-    this.homey.flow.getDeviceTriggerCard('cat_detected');
-    this.homey.flow.getDeviceTriggerCard('cat_not_detected');
-    this.homey.flow.getDeviceTriggerCard('sleep_mode_activated');
-    this.homey.flow.getDeviceTriggerCard('sleep_mode_deactivated');
+    
+    // Manual triggers that need custom logic
+    this.homey.flow.getDeviceTriggerCard('litter_hopper_empty');
+    this.homey.flow.getDeviceTriggerCard('litter_hopper_not_empty');
     
     // Register clean_cycle_multiple trigger with run listener
     this.homey.flow.getDeviceTriggerCard('clean_cycle_multiple')
@@ -207,6 +231,7 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
     // Pairing: handle user login and fetch available robots
     let robots = [];
 
+    // Always require login during pairing
     session.setHandler('login', async ({ username, password }) => {
       if (!username || !password) {
         throw new Error('Username and password are required for pairing');
@@ -215,22 +240,9 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
       try {
         // Use centralized app session management
         const apiSession = await this.homey.app.initializeSession(username, password);
-        // Get robots using the centralized API session
-        const robotsResponse = await apiSession.lr4Graphql(`
-          query GetLitterRobot4ByUser($userId: String!) {
-            getLitterRobot4ByUser(userId: $userId) {
-              unitId
-              name
-              serial
-              userId
-              robotStatus
-              sleepStatus
-              setupDateTime
-              unitTimezone
-            }
-          }
-        `, { userId: apiSession.getUserId() });
-        robots = robotsResponse.data?.getLitterRobot4ByUser || [];
+        
+        // Get robots using the new session
+        robots = await apiSession.getRobots();
         this.log(`Found ${robots.length} robot(s) for account`);
       } catch (err) {
         this.error('Login or fetching robots failed:', err);
@@ -241,23 +253,19 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
 
     session.setHandler('list_devices', async () => {
       if (!robots.length) {
-        throw new Error('No Litter-Robot devices found for this account');
+        throw new Error('No robots found for this account');
       }
       return robots.map(robotData => {
-        const robotInstance = new LR4Data({ robot: robotData });
-        const serialOrId = robotInstance.serial || robotData.unitId;
+        const nickname = robotData.nickname || 'Litter-Robot 4';
+        const serial = robotData.serial || 'Unknown';
+        const deviceName = `${nickname} (${serial})`;
+        
         return {
-          name: robotInstance.name || `Litter-Robot ${serialOrId}`,
-          data: { id: String(serialOrId) },
+          name: deviceName,
+          data: { id: robotData.serial },
           // No need to store tokens in device settings - they're managed centrally
         };
       });
-    });
-    
-    // Allow adding multiple robots in one pairing session
-    session.setHandler('add_devices', async (selectedDevices) => {
-      // Homey will pass an array of { name, data, settings } for each checked robot
-      return selectedDevices;
     });
   }
 
@@ -272,49 +280,32 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
     const { id } = device.getData();
     this.log('Repairing device with ID:', id);
 
+    // Always require fresh login during repair
     session.setHandler('login', async ({ username, password }) => {
       if (!username || !password) {
         throw new Error('Username and password are required for repair');
       }
       this.log('Repair login with username:', username);
-      
       try {
-        // Initialize new session (this will handle both new login and existing session)
+        // Clear any existing session and create a fresh one
+        await this.homey.app.signOut();
+        
+        // Initialize new session with fresh credentials
         const apiSession = await this.homey.app.initializeSession(username, password);
         
-        // Get all robots and find by serial
-        const robotsResponse = await apiSession.lr4Graphql(`
-          query GetLitterRobot4ByUser($userId: String!) {
-            getLitterRobot4ByUser(userId: $userId) {
-              unitId
-              name
-              serial
-              userId
-              robotStatus
-              sleepStatus
-              setupDateTime
-              unitTimezone
-            }
-          }
-        `, { userId: apiSession.getUserId() });
-        
-        const robot = robotsResponse.data?.getLitterRobot4ByUser?.find(r => String(r.serial) === String(id));
+        // Verify robot exists using the new session
+        const robots = await apiSession.getRobots();
+        const robot = robots.find(r => String(r.serial) === String(id));
         if (!robot) {
           throw new Error(`Robot with ID ${id} not found`);
         }
         
-        device.robot = robot;
         this.log('Re-authentication successful');
-        
-        // Trigger device refresh
-        await device.refresh();
-        this.log('Device repair completed successfully');
-        
-        return true;
       } catch (err) {
         this.error('Repair login failed:', err);
         throw new Error('Repair login failed: ' + err.message);
       }
+      return true;
     });
   }
 }

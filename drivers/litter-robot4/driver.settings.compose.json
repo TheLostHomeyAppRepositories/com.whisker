@@ -38,69 +38,161 @@
   },
   {
     "id": "use_12h_format",
-    "type": "checkbox",
+    "type": "dropdown",
     "label": {
-      "en": "Use 12H time format",
-      "nl": "Gebruik 12-uurs tijdnotatie",
-      "de": "12-Stunden-Zeitformat verwenden",
-      "fr": "Utiliser le format horaire 12h",
-      "it": "Usa il formato orario 12H",
-      "sv": "Använd 12-timmarsformat",
-      "no": "Bruk 12-timers tidsformat",
-      "es": "Usar formato de hora de 12 horas",
-      "da": "Brug 12-timers tidsformat",
-      "ru": "Использовать 12-часовой формат времени",
-      "pl": "Użyj 12-godzinnego formatu czasu",
-      "ko": "12시간제 시간 형식 사용"
+      "en": "Time format",
+      "nl": "Tijdnotatie",
+      "de": "Zeitformat",
+      "fr": "Format d'heure",
+      "it": "Formato orario",
+      "sv": "Tidsformat",
+      "no": "Tidsformat",
+      "es": "Formato de hora",
+      "da": "Tidsformat",
+      "ru": "Формат времени",
+      "pl": "Format czasu",
+      "ko": "시간 형식"
     },
     "hint": {
-      "en": "If checked, times will display in 12H format. Otherwise 24H is used.",
-      "nl": "Indien aangevinkt, worden tijden weergegeven in 12-uurs formaat. Anders wordt 24-uurs gebruikt.",
-      "de": "Wenn aktiviert, werden Zeiten im 12-Stunden-Format angezeigt. Andernfalls wird das 24-Stunden-Format verwendet.",
-      "fr": "Si coché, les heures seront affichées au format 12h. Sinon, le format 24h sera utilisé.",
-      "it": "Se selezionato, gli orari saranno visualizzati nel formato 12H. Altrimenti verrà usato il formato 24H.",
-      "sv": "Om markerat visas tider i 12-timmarsformat. Annars används 24-timmarsformat.",
-      "no": "Hvis valgt, vises tider i 12-timersformat. Ellers brukes 24-timersformat.",
-      "es": "Si está marcado, las horas se mostrarán en formato de 12 horas. De lo contrario, se usará el formato de 24 horas.",
-      "da": "Hvis markeret vises tider i 12-timers format. Ellers bruges 24-timers format.",
-      "ru": "Если отмечено, время будет отображаться в 12-часовом формате. В противном случае используется 24-часовой формат.",
-      "pl": "Jeśli zaznaczone, godziny będą wyświetlane w formacie 12-godzinnym. W przeciwnym razie używany jest format 24-godzinny.",
-      "ko": "선택하면 시간이 12시간제로 표시됩니다. 그렇지 않으면 24시간제가 사용됩니다."
+      "en": "Choose the time format for displaying times in the app.",
+      "nl": "Kies de tijdnotatie voor het weergeven van tijden in de app.",
+      "de": "Wählen Sie das Zeitformat für die Anzeige von Zeiten in der App.",
+      "fr": "Choisissez le format d'heure pour afficher les heures dans l'application.",
+      "it": "Scegli il formato orario per visualizzare gli orari nell'app.",
+      "sv": "Välj tidsformat för att visa tider i appen.",
+      "no": "Velg tidsformat for å vise tider i appen.",
+      "es": "Elige el formato de hora para mostrar las horas en la aplicación.",
+      "da": "Vælg tidsformat til at vise tider i appen.",
+      "ru": "Выберите формат времени для отображения времени в приложении.",
+      "pl": "Wybierz format czasu do wyświetlania godzin w aplikacji.",
+      "ko": "앱에서 시간을 표시할 시간 형식을 선택하세요."
     },
-    "value": false
+    "value": "24h",
+    "values": [
+      {
+        "id": "24h",
+        "label": {
+          "en": "24-hour format",
+          "nl": "24-uurs formaat",
+          "de": "24-Stunden-Format",
+          "fr": "Format 24 heures",
+          "it": "Formato 24 ore",
+          "sv": "24-timmarsformat",
+          "no": "24-timers format",
+          "es": "Formato de 24 horas",
+          "da": "24-timers format",
+          "ru": "24-часовой формат",
+          "pl": "Format 24-godzinny",
+          "ko": "24시간 형식"
+        }
+      },
+      {
+        "id": "12h",
+        "label": {
+          "en": "12-hour format",
+          "nl": "12-uurs formaat",
+          "de": "12-Stunden-Format",
+          "fr": "Format 12 heures",
+          "it": "Formato 12 ore",
+          "sv": "12-timmarsformat",
+          "no": "12-timers format",
+          "es": "Formato de 12 horas",
+          "da": "12-timers format",
+          "ru": "12-часовой формат",
+          "pl": "Format 12-godzinny",
+          "ko": "12시간 형식"
+        }
+      }
+    ],
+    "required": true
   },
+
   {
-    "id": "use_us_date_format",
-    "type": "checkbox",
+    "id": "litter_hopper_mode",
+    "type": "dropdown",
     "label": {
-      "en": "Use US date format (MM-DD-YYYY)",
-      "nl": "Gebruik VS-datumformaat (MM-DD-JJJJ)",
-      "de": "US-Datumsformat verwenden (MM-TT-JJJJ)",
-      "fr": "Utiliser le format de date US (MM-JJ-AAAA)",
-      "it": "Usa formato data USA (MM-GG-AAAA)",
-      "sv": "Använd amerikanskt datumformat (MM-DD-ÅÅÅÅ)",
-      "no": "Bruk amerikansk datoformat (MM-DD-ÅÅÅÅ)",
-      "es": "Usar formato de fecha estadounidense (MM-DD-AAAA)",
-      "da": "Brug amerikansk datoformat (MM-DD-ÅÅÅÅ)",
-      "ru": "Использовать американский формат даты (MM-ДД-ГГГГ)",
-      "pl": "Użyj amerykańskiego formatu daty (MM-DD-RRRR)",
-      "ko": "미국식 날짜 형식 사용 (MM-DD-YYYY)"
+      "en": "LitterHopper functionality",
+      "nl": "LitterHopper functionaliteit",
+      "de": "LitterHopper-Funktionalität",
+      "fr": "Fonctionnalité LitterHopper",
+      "it": "Funzionalità LitterHopper",
+      "sv": "LitterHopper-funktionalitet",
+      "no": "LitterHopper-funksjonalitet",
+      "es": "Funcionalidad LitterHopper",
+      "da": "LitterHopper-funktionalitet",
+      "ru": "Функциональность LitterHopper",
+      "pl": "Funkcjonalność LitterHopper",
+      "ko": "LitterHopper 기능"
     },
     "hint": {
-      "en": "If checked, dates will display as MM-DD-YYYY. Otherwise YYYY-MM-DD is used.",
-      "nl": "Indien aangevinkt, worden datums weergegeven als MM-DD-JJJJ. Anders wordt JJJJ-MM-DD gebruikt.",
-      "de": "Wenn aktiviert, werden Daten als MM-TT-JJJJ angezeigt. Andernfalls wird JJJJ-MM-TT verwendet.",
-      "fr": "Si coché, les dates seront affichées au format MM-JJ-AAAA. Sinon, AAAA-MM-JJ sera utilisé.",
-      "it": "Se selezionato, le date saranno visualizzate come MM-GG-AAAA. Altrimenti verrà usato AAAA-MM-GG.",
-      "sv": "Om markerat visas datum som MM-DD-ÅÅÅÅ. Annars används ÅÅÅÅ-MM-DD.",
-      "no": "Hvis valgt, vises datoer som MM-DD-ÅÅÅÅ. Ellers brukes ÅÅÅÅ-MM-DD.",
-      "es": "Si está marcado, las fechas se mostrarán como MM-DD-AAAA. De lo contrario, se usará AAAA-MM-DD.",
-      "da": "Hvis markeret vises datoer som MM-DD-ÅÅÅÅ. Ellers bruges ÅÅÅÅ-MM-DD.",
-      "ru": "Если отмечено, даты будут отображаться как MM-ДД-ГГГГ. В противном случае используется ГГГГ-MM-ДД.",
-      "pl": "Jeśli zaznaczone, daty będą wyświetlane jako MM-DD-RRRR. W przeciwnym razie używany jest format RRRR-MM-DD.",
-      "ko": "선택하면 날짜가 MM-DD-YYYY 형식으로 표시됩니다. 그렇지 않으면 YYYY-MM-DD 형식이 사용됩니다."
+      "en": "Choose how LitterHopper functionality should be managed. Detect automatically detects from the device, Disabled hides all hopper features, Enabled shows all hopper features.",
+      "nl": "Kies hoe LitterHopper-functionaliteit moet worden beheerd. Automatisch detecteren detecteert van het apparaat, Uitgeschakeld verbergt alle hopper-functies, Ingeschakeld toont alle hopper-functies.",
+      "de": "Wählen Sie, wie LitterHopper-Funktionalität verwaltet werden soll. Automatisch erkennen erkennt vom Gerät, Deaktiviert versteckt alle Hopper-Funktionen, Aktiviert zeigt alle Hopper-Funktionen.",
+      "fr": "Choisissez comment la fonctionnalité LitterHopper doit être gérée. Détecter automatiquement détecte depuis l'appareil, Désactivé masque toutes les fonctionnalités hopper, Activé affiche toutes les fonctionnalités hopper.",
+      "it": "Scegli come gestire la funzionalità LitterHopper. Rileva automaticamente rileva dal dispositivo, Disabilitato nasconde tutte le funzionalità hopper, Abilitato mostra tutte le funzionalità hopper.",
+      "sv": "Välj hur LitterHopper-funktionalitet ska hanteras. Upptäck automatiskt upptäcker från enheten, Inaktiverad döljer alla hopper-funktioner, Aktiverad visar alla hopper-funktioner.",
+      "no": "Velg hvordan LitterHopper-funksjonalitet skal administreres. Oppdag automatisk oppdager fra enheten, Deaktivert skjuler alle hopper-funksjoner, Aktivert viser alle hopper-funksjoner.",
+      "es": "Elige cómo se debe gestionar la funcionalidad de LitterHopper. Detectar automáticamente detecta desde el dispositivo, Deshabilitado oculta todas las funciones de hopper, Habilitado muestra todas las funciones de hopper.",
+      "da": "Vælg hvordan LitterHopper-funktionalitet skal administreres. Opdag automatisk opdager fra enheden, Deaktiveret skjuler alle hopper-funktioner, Aktiveret viser alle hopper-funktioner.",
+      "ru": "Выберите, как должна управляться функциональность LitterHopper. Обнаруживать автоматически обнаруживает с устройства, Отключено скрывает все функции hopper, Включено показывает все функции hopper.",
+      "pl": "Wybierz, jak funkcjonalność LitterHopper powinna być zarządzana. Wykrywaj automatycznie wykrywa z urządzenia, Wyłączone ukrywa wszystkie funkcje hopper, Włączone pokazuje wszystkie funkcje hopper.",
+      "ko": "LitterHopper 기능을 관리하는 방법을 선택하세요. 자동 감지는 장치에서 감지하고, 비활성화는 모든 hopper 기능을 숨기고, 활성화는 모든 hopper 기능을 표시합니다."
     },
-    "value": false
+    "value": "automatic",
+    "values": [
+      {
+        "id": "automatic",
+        "label": {
+          "en": "Detect automatically",
+          "nl": "Automatisch detecteren",
+          "de": "Automatisch erkennen",
+          "fr": "Détecter automatiquement",
+          "it": "Rileva automaticamente",
+          "sv": "Upptäck automatiskt",
+          "no": "Oppdag automatisk",
+          "es": "Detectar automáticamente",
+          "da": "Opdag automatisk",
+          "ru": "Обнаруживать автоматически",
+          "pl": "Wykrywaj automatycznie",
+          "ko": "자동 감지"
+        }
+      },
+      {
+        "id": "disabled",
+        "label": {
+          "en": "Disabled",
+          "nl": "Uitgeschakeld",
+          "de": "Deaktiviert",
+          "fr": "Désactivé",
+          "it": "Disabilitato",
+          "sv": "Inaktiverad",
+          "no": "Deaktivert",
+          "es": "Deshabilitado",
+          "da": "Deaktiveret",
+          "ru": "Отключено",
+          "pl": "Wyłączone",
+          "ko": "비활성화"
+        }
+      },
+      {
+        "id": "enabled",
+        "label": {
+          "en": "Enabled",
+          "nl": "Ingeschakeld",
+          "de": "Aktiviert",
+          "fr": "Activé",
+          "it": "Abilitato",
+          "sv": "Aktiverad",
+          "no": "Aktivert",
+          "es": "Habilitado",
+          "da": "Aktiveret",
+          "ru": "Включено",
+          "pl": "Włączone",
+          "ko": "활성화"
+        }
+      }
+    ],
+    "required": true
   },
   {
     "id": "device_information",

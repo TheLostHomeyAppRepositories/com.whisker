@@ -1,0 +1,21 @@
+{
+  "type": "string",
+  "title": {
+    "en": "LitterHopper status",
+    "nl": "Kattenbakvuller status",
+    "de": "Streuschacht Status",
+    "fr": "Statut trémie à litière",
+    "it": "Stato tramoggia lettiera",
+    "sv": "Kattlåda fyllare status",
+    "no": "Kattesandfyller status",
+    "es": "Estado tolva de arena",
+    "da": "Kattebakke fylder status",
+    "ru": "Статус бункера наполнителя",
+    "pl": "Status zasobnika żwirku",
+    "ko": "모래 호퍼 상태"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/litter_hopper_status.svg"
+} 

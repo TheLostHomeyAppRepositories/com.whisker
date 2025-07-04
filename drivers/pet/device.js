@@ -23,6 +23,9 @@ module.exports = class PetDevice extends Homey.Device {
       // Initialize capabilities with loading states
       await this._initializeCapabilities();
 
+      // Register with DataManager for weight updates
+      await this._registerWithDataManager();
+
       // Fetch pet data using centralized session
       await this._fetchPetData();
 
@@ -64,6 +67,44 @@ module.exports = class PetDevice extends Homey.Device {
     }
 
     this.log('Pet capabilities initialized');
+  }
+
+  /**
+   * Subscribe to weight updates from DataManager
+   * @private
+   */
+  async _registerWithDataManager() {
+    try {
+      const dataManager = this.homey.app.dataManager;
+      if (dataManager) {
+        // Subscribe to weight updates (device is already registered during pairing)
+        this._weightUnsubscribe = dataManager.subscribeToWeightUpdates((weightData) => {
+          this._handleWeightUpdate(weightData);
+        });
+        
+        this.log('Subscribed to weight updates from DataManager');
+      }
+    } catch (err) {
+      this.error('Failed to subscribe to weight updates:', err);
+    }
+  }
+
+  /**
+   * Handle weight updates from DataManager - triggers pet data refresh
+   * @param {Object} weightData - Weight data from LR4 (used as trigger only)
+   * @private
+   */
+  async _handleWeightUpdate(weightData) {
+    this.log(`\x1b[36mReceived weight update trigger: ${weightData.weight} lbs (${weightData.weightGrams} g) from device ${weightData.sourceDeviceId}\x1b[0m`);
+    
+    // Use weight update as trigger to refresh pet data via DataManager (centralized)
+    try {
+      this.log('Weight update detected - refreshing pet data via DataManager...');
+      await this.refreshPetData();
+      this.log('Pet data refreshed successfully after weight update');
+    } catch (err) {
+      this.error('Failed to refresh pet data after weight update:', err);
+    }
   }
 
   /**
@@ -153,17 +194,18 @@ module.exports = class PetDevice extends Homey.Device {
       
       // Handle initialization from loading state
       if (oldValue === 'Loading...') {
+        this.log(`\x1b[36mInitializing capability ${capability}: ${newValue}\x1b[0m`);
         this.setCapabilityValue(capability, newValue).catch(err => {
-          this.error(`Failed to initialize capability ${capability}:`, err);
+          this.error(`\x1b[31mFailed to initialize capability ${capability}:\x1b[0m`, err);
         });
         continue;
       }
 
       // Only update if value actually changed
       if (newValue !== oldValue) {
-        this.log(`${capability} changed: ${oldValue} → ${newValue}`);
+        this.log(`\x1b[33m${capability} changed: ${oldValue} → ${newValue}\x1b[0m`);
         this.setCapabilityValue(capability, newValue).catch(err => {
-          this.error(`Failed to update capability ${capability}:`, err);
+          this.error(`\x1b[31mFailed to update capability ${capability}:\x1b[0m`, err);
         });
         changes.add(capability);
       }
@@ -215,14 +257,22 @@ module.exports = class PetDevice extends Homey.Device {
   }
 
   /**
-   * Refresh pet data (called by centralized DataManager when weight updates occur)
+   * Refresh pet data via DataManager
    * @public
    */
   async refreshPetData() {
     try {
-      this.log('Refreshing pet data...');
-      await this._fetchPetData();
-      this.log('Pet data refreshed successfully');
+      this.log('Refreshing pet data via DataManager...');
+      const dataManager = this.homey.app.dataManager;
+      if (dataManager) {
+        // Use DataManager's centralized refresh which will update all pet devices efficiently
+        await dataManager.refreshDeviceData(this.getData().id, true);
+        this.log('Pet data refreshed successfully via DataManager');
+      } else {
+        // Fallback to direct fetch if DataManager not available
+        await this._fetchPetData();
+        this.log('Pet data refreshed successfully via direct fetch');
+      }
     } catch (err) {
       this.error('Failed to refresh pet data:', err);
     }
@@ -233,5 +283,15 @@ module.exports = class PetDevice extends Homey.Device {
    */
   onDeleted() {
     this.log('Pet device deleted, cleaning up...');
+    
+    // Unsubscribe from weight updates
+    try {
+      if (this._weightUnsubscribe) {
+        this._weightUnsubscribe();
+        this.log('Unsubscribed from weight updates');
+      }
+    } catch (err) {
+      this.error('Failed to unsubscribe from weight updates:', err);
+    }
   }
 }

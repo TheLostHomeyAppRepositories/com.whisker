@@ -1,0 +1,21 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "LitterHopper empty",
+    "nl": "Kattenbakvuller leeg",
+    "de": "Streuschacht leer",
+    "fr": "Trémie à litière vide",
+    "it": "Tramoggia lettiera vuota",
+    "sv": "Kattlåda fyllare tom",
+    "no": "Kattesandfyller tom",
+    "es": "Tolva de arena vacía",
+    "da": "Kattebakke fylder tom",
+    "ru": "Бункер наполнителя пуст",
+    "pl": "Zasobnik żwirku pusty",
+    "ko": "모래 호퍼 비어있음"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm_litter_hopper_empty.svg"
+} 

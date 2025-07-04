@@ -60,7 +60,7 @@ class WhiskerApp extends Homey.App {
         this.log('Found stored tokens, attempting to restore session...');
         
         // Check if tokens are still valid
-        const decoded = this._decodeJwt(storedTokens.id_token);
+        const decoded = this._decodeJwt(storedTokens.access_token);
         if (decoded && decoded.exp) {
           const now = Math.floor(Date.now() / 1000);
           if (decoded.exp > now + 30) {
@@ -287,6 +287,31 @@ class WhiskerApp extends Homey.App {
     this._dataManager = null;
     
     this.log('Signed out and cleaned up sessions');
+  }
+
+  /**
+   * Check if we have valid stored tokens that can be used for pairing
+   * @returns {boolean} True if we have valid stored tokens
+   */
+  hasValidStoredTokens() {
+    try {
+      const storedTokens = this.homey.settings.get('cognito_tokens');
+      if (!storedTokens || !storedTokens.access_token) {
+        return false;
+      }
+      
+      // Check if access token is still valid
+      const decoded = this._decodeJwt(storedTokens.access_token);
+      if (decoded && decoded.exp) {
+        const now = Math.floor(Date.now() / 1000);
+        return decoded.exp > now + 30; // 30 second buffer
+      }
+      
+      return false;
+    } catch (error) {
+      this.log('Error checking stored tokens:', error.message);
+      return false;
+    }
   }
 
 }

@@ -503,7 +503,7 @@
   ],
   "triggers": [
     {
-      "id": "cat_detected",
+      "id": "alarm_cat_detected_true",
       "highlight": true,
       "title": {
         "en": "A cat is detected",
@@ -535,7 +535,7 @@
       }
     },
     {
-      "id": "cat_not_detected",
+      "id": "alarm_cat_detected_false",
       "title": {
         "en": "A cat is no longer detected",
         "nl": "Er is geen kat meer gedetecteerd",
@@ -566,7 +566,7 @@
       }
     },    
     {
-      "id": "waste_drawer_not_full",
+      "id": "alarm_waste_drawer_full_false",
       "title": {
         "en": "The waste drawer is no longer full",
         "nl": "De afvalbak is niet langer vol",
@@ -594,27 +594,7 @@
         "ru": "Срабатывает, когда контейнер для отходов Litter-Robot опустошен.",
         "pl": "Uruchamia się, gdy pojemnik na odpady Litter-Robota został opróżniony.",
         "ko": "Litter-Robot의 폐기물 통이 비워졌을 때 트리거됩니다."
-      },
-      "tokens": [
-        {
-          "name": "waste_level",
-          "type": "number",
-          "title": {
-            "en": "Waste drawer level",
-            "nl": "Afvalbak niveau",
-            "de": "Abfallbehälter-Füllstand",
-            "fr": "Niveau du bac à déchets",
-            "it": "Livello cassetto rifiuti",
-            "sv": "Avfallsbehållarens nivå",
-            "no": "Avfallsbeholderens nivå",
-            "es": "Nivel del contenedor de residuos",
-            "da": "Affaldsbeholderens niveau",
-            "ru": "Уровень заполнения контейнера",
-            "pl": "Poziom szuflady na odpady",
-            "ko": "폐기물 서랍 레벨"
-          }
-        }
-      ]
+      }
     },
     {
       "id": "clean_cycle_multiple",
@@ -790,7 +770,7 @@
       ]
     },
     {
-      "id": "waste_drawer_full",
+      "id": "alarm_waste_drawer_full_true",
       "highlight": true,
       "title": {
         "en": "The waste drawer is full",
@@ -819,30 +799,10 @@
         "ru": "Срабатывает, когда Litter-Robot обнаруживает полный контейнер для отходов.",
         "pl": "Uruchamia się, gdy Litter-Robot wykryje pełną szufladę na odpady.",
         "ko": "Litter-Robot가 폐기물 서랍이 가득 찼음을 감지하면 트리거됩니다."
-      },
-      "tokens": [
-        {
-          "name": "waste_level",
-          "type": "number",
-          "title": {
-            "en": "Waste drawer level",
-            "nl": "Afvalbak niveau",
-            "de": "Abfallbehälter-Füllstand",
-            "fr": "Niveau du bac à déchets",
-            "it": "Livello cassetto rifiuti",
-            "sv": "Avfallsbehållarens nivå",
-            "no": "Avfallsbeholderens nivå",
-            "es": "Nivel del contenedor de residuos",
-            "da": "Affaldsbeholderens niveau",
-            "ru": "Уровень заполнения контейнера",
-            "pl": "Poziom szuflady na odpady",
-            "ko": "폐기물 서랍 레벨"
-          }
-        }
-      ]
+      }
     },
     {
-      "id": "sleep_mode_activated",
+      "id": "alarm_sleep_mode_active_true",
       "title": {
         "en": "Sleep mode is activated",
         "nl": "Slaapstand is geactiveerd",
@@ -873,7 +833,7 @@
       }
     },
     {
-      "id": "sleep_mode_deactivated",
+      "id": "alarm_sleep_mode_active_false",
       "title": {
         "en": "Sleep mode is deactivated",
         "nl": "Slaapstand is gedeactiveerd",
@@ -901,6 +861,130 @@
         "ru": "Срабатывает, когда Litter-Robot выходит из режима сна.",
         "pl": "Uruchamia się, gdy Litter-Robot wychodzi z trybu uśpienia.",
         "ko": "Litter-Robot이 수면 모드에서 해제될 때 트리거됩니다."
+      }
+    },
+    {
+      "id": "litter_hopper_empty",
+      "title": {
+        "en": "The LitterHopper is empty",
+        "nl": "De LitterHopper is leeg",
+        "de": "Der LitterHopper ist leer",
+        "fr": "Le LitterHopper est vide",
+        "it": "Il LitterHopper è vuoto",
+        "sv": "LitterHopper är tom",
+        "no": "LitterHopper er tom",
+        "es": "El LitterHopper está vacío",
+        "da": "LitterHopper er tom",
+        "ru": "LitterHopper пуст",
+        "pl": "LitterHopper jest pusty",
+        "ko": "LitterHopper가 비어있습니다"
+      },
+      "hint": {
+        "en": "Triggers when the LitterHopper runs out of litter. Only works when LitterHopper functionality is enabled in device settings.",
+        "nl": "Wordt geactiveerd wanneer de LitterHopper geen kattenbakvulling meer heeft. Werkt alleen wanneer LitterHopper-functionaliteit is ingeschakeld in apparaatinstellingen.",
+        "de": "Wird ausgelöst, wenn der LitterHopper keine Streu mehr hat. Funktioniert nur, wenn die LitterHopper-Funktionalität in den Geräteeinstellungen aktiviert ist.",
+        "fr": "Se déclenche lorsque le LitterHopper n'a plus de litière. Ne fonctionne que lorsque la fonctionnalité LitterHopper est activée dans les paramètres de l'appareil.",
+        "it": "Si attiva quando il LitterHopper rimane senza lettiera. Funziona solo quando la funzionalità LitterHopper è abilitata nelle impostazioni del dispositivo.",
+        "sv": "Utlöses när LitterHopper tar slut på kattlitter. Fungerar endast när LitterHopper-funktionalitet är aktiverad i enhetsinställningar.",
+        "no": "Utøses når LitterHopper går tom for kattesand. Fungerer kun når LitterHopper-funksjonalitet er aktivert i enhetsinnstillinger.",
+        "es": "Se activa cuando el LitterHopper se queda sin arena. Solo funciona cuando la funcionalidad LitterHopper está habilitada en la configuración del dispositivo.",
+        "da": "Udløses, når LitterHopper løber tør for kattegrus. Virker kun, når LitterHopper-funktionalitet er aktiveret i enhedsindstillinger.",
+        "ru": "Срабатывает, когда LitterHopper заканчивается наполнитель. Работает только при включенной функциональности LitterHopper в настройках устройства.",
+        "pl": "Uruchamia się, gdy LitterHopper skończy się żwirek. Działa tylko wtedy, gdy funkcjonalność LitterHopper jest włączona w ustawieniach urządzenia.",
+        "ko": "LitterHopper에 모래가 없을 때 트리거됩니다. 장치 설정에서 LitterHopper 기능이 활성화된 경우에만 작동합니다."
+      }
+    },
+    {
+      "id": "litter_hopper_not_empty",
+      "title": {
+        "en": "The LitterHopper is no longer empty",
+        "nl": "De LitterHopper is niet langer leeg",
+        "de": "Der LitterHopper ist nicht mehr leer",
+        "fr": "Le LitterHopper n'est plus vide",
+        "it": "Il LitterHopper non è più vuoto",
+        "sv": "LitterHopper är inte längre tom",
+        "no": "LitterHopper er ikke lenger tom",
+        "es": "El LitterHopper ya no está vacío",
+        "da": "LitterHopper er ikke længere tom",
+        "ru": "LitterHopper больше не пуст",
+        "pl": "LitterHopper nie jest już pusty",
+        "ko": "LitterHopper가 더 이상 비어있지 않습니다"
+      },
+      "hint": {
+        "en": "Triggers when the LitterHopper has been refilled with litter. Only works when LitterHopper functionality is enabled in device settings.",
+        "nl": "Wordt geactiveerd wanneer de LitterHopper opnieuw is gevuld met kattenbakvulling. Werkt alleen wanneer LitterHopper-functionaliteit is ingeschakeld in apparaatinstellingen.",
+        "de": "Wird ausgelöst, wenn der LitterHopper wieder mit Streu gefüllt wurde. Funktioniert nur, wenn die LitterHopper-Funktionalität in den Geräteeinstellungen aktiviert ist.",
+        "fr": "Se déclenche lorsque le LitterHopper a été rempli de litière. Ne fonctionne que lorsque la fonctionnalité LitterHopper est activée dans les paramètres de l'appareil.",
+        "it": "Si attiva quando il LitterHopper è stato riempito di lettiera. Funziona solo quando la funzionalità LitterHopper è abilitata nelle impostazioni del dispositivo.",
+        "sv": "Utlöses när LitterHopper har fyllts på med kattlitter. Fungerar endast när LitterHopper-funktionalitet är aktiverad i enhetsinställningar.",
+        "no": "Utøses når LitterHopper er fylt opp med kattesand igjen. Fungerer kun når LitterHopper-funksjonalitet er aktivert i enhetsinnstillinger.",
+        "es": "Se activa cuando el LitterHopper ha sido rellenado con arena. Solo funciona cuando la funcionalidad LitterHopper está habilitada en la configuración del dispositivo.",
+        "da": "Udløses, når LitterHopper er blevet fyldt op med kattegrus igen. Virker kun, når LitterHopper-funktionalitet er aktiveret i enhedsindstillinger.",
+        "ru": "Срабатывает, когда LitterHopper снова заполнен наполнителем. Работает только при включенной функциональности LitterHopper в настройках устройства.",
+        "pl": "Uruchamia się, gdy LitterHopper został ponownie napełniony żwirkiem. Działa tylko wtedy, gdy funkcjonalność LitterHopper jest włączona w ustawieniach urządzenia.",
+        "ko": "LitterHopper에 모래가 다시 채워졌을 때 트리거됩니다. 장치 설정에서 LitterHopper 기능이 활성화된 경우에만 작동합니다."
+      }
+    },
+    {
+      "id": "litter_hopper_enabled_true",
+      "title": {
+        "en": "The LitterHopper is enabled",
+        "nl": "De LitterHopper is ingeschakeld",
+        "de": "Der LitterHopper ist aktiviert",
+        "fr": "Le LitterHopper est activé",
+        "it": "Il LitterHopper è abilitato",
+        "sv": "LitterHopper är aktiverad",
+        "no": "LitterHopper er aktivert",
+        "es": "El LitterHopper está habilitado",
+        "da": "LitterHopper er aktiveret",
+        "ru": "LitterHopper включен",
+        "pl": "LitterHopper jest włączony",
+        "ko": "LitterHopper가 활성화되었습니다"
+      },
+      "hint": {
+        "en": "Triggers when the LitterHopper is enabled. Only works when LitterHopper functionality is enabled in device settings.",
+        "nl": "Wordt geactiveerd wanneer de LitterHopper wordt ingeschakeld. Werkt alleen wanneer LitterHopper-functionaliteit is ingeschakeld in apparaatinstellingen.",
+        "de": "Wird ausgelöst, wenn der LitterHopper aktiviert wird. Funktioniert nur, wenn die LitterHopper-Funktionalität in den Geräteeinstellungen aktiviert ist.",
+        "fr": "Se déclenche lorsque le LitterHopper est activé. Ne fonctionne que lorsque la fonctionnalité LitterHopper est activée dans les paramètres de l'appareil.",
+        "it": "Si attiva quando il LitterHopper viene abilitato. Funziona solo quando la funzionalità LitterHopper è abilitata nelle impostazioni del dispositivo.",
+        "sv": "Utlöses när LitterHopper aktiveras. Fungerar endast när LitterHopper-funktionalitet är aktiverad i enhetsinställningar.",
+        "no": "Utøses når LitterHopper aktiveres. Fungerer kun når LitterHopper-funksjonalitet er aktivert i enhetsinnstillinger.",
+        "es": "Se activa cuando el LitterHopper está habilitado. Solo funciona cuando la funcionalidad LitterHopper está habilitada en la configuración del dispositivo.",
+        "da": "Udløses, når LitterHopper aktiveres. Virker kun, når LitterHopper-funktionalitet er aktiveret i enhedsindstillinger.",
+        "ru": "Срабатывает, когда LitterHopper включен. Работает только при включенной функциональности LitterHopper в настройках устройства.",
+        "pl": "Uruchamia się, gdy LitterHopper jest włączony. Działa tylko wtedy, gdy funkcjonalność LitterHopper jest włączona w ustawieniach urządzenia.",
+        "ko": "LitterHopper가 활성화될 때 트리거됩니다. 장치 설정에서 LitterHopper 기능이 활성화된 경우에만 작동합니다."
+      }
+    },
+    {
+      "id": "litter_hopper_enabled_false",
+      "title": {
+        "en": "The LitterHopper is disabled",
+        "nl": "De LitterHopper is uitgeschakeld",
+        "de": "Der LitterHopper ist deaktiviert",
+        "fr": "Le LitterHopper est désactivé",
+        "it": "Il LitterHopper è disabilitato",
+        "sv": "LitterHopper är inaktiverad",
+        "no": "LitterHopper er deaktivert",
+        "es": "El LitterHopper está deshabilitado",
+        "da": "LitterHopper er deaktiveret",
+        "ru": "LitterHopper отключен",
+        "pl": "LitterHopper jest wyłączony",
+        "ko": "LitterHopper가 비활성화되었습니다"
+      },
+      "hint": {
+        "en": "Triggers when the LitterHopper is disabled. Only works when LitterHopper functionality is enabled in device settings.",
+        "nl": "Wordt geactiveerd wanneer de LitterHopper wordt uitgeschakeld. Werkt alleen wanneer LitterHopper-functionaliteit is ingeschakeld in apparaatinstellingen.",
+        "de": "Wird ausgelöst, wenn der LitterHopper deaktiviert wird. Funktioniert nur, wenn die LitterHopper-Funktionalität in den Geräteeinstellungen aktiviert ist.",
+        "fr": "Se déclenche lorsque le LitterHopper est désactivé. Ne fonctionne que lorsque la fonctionnalité LitterHopper est activée dans les paramètres de l'appareil.",
+        "it": "Si attiva quando il LitterHopper viene disabilitato. Funziona solo quando la funzionalità LitterHopper è abilitata nelle impostazioni del dispositivo.",
+        "sv": "Utlöses när LitterHopper inaktiveras. Fungerar endast när LitterHopper-funktionalitet är aktiverad i enhetsinställningar.",
+        "no": "Utøses når LitterHopper deaktiveres. Fungerer kun når LitterHopper-funksjonalitet er aktivert i enhetsinnstillinger.",
+        "es": "Se activa cuando el LitterHopper está deshabilitado. Solo funciona cuando la funcionalidad LitterHopper está habilitada en la configuración del dispositivo.",
+        "da": "Udløses, når LitterHopper deaktiveres. Virker kun, når LitterHopper-funktionalitet er aktiveret i enhedsindstillinger.",
+        "ru": "Срабатывает, когда LitterHopper отключен. Работает только при включенной функциональности LitterHopper в настройках устройства.",
+        "pl": "Uruchamia się, gdy LitterHopper jest wyłączony. Działa tylko wtedy, gdy funkcjonalność LitterHopper jest włączona w ustawieniach urządzenia.",
+        "ko": "LitterHopper가 비활성화될 때 트리거됩니다. 장치 설정에서 LitterHopper 기능이 활성화된 경우에만 작동합니다."
       }
     }
   ]
@@ -1092,6 +1176,70 @@
         "pl": "Status czyszczenia to [[status]]",
         "ko": "청소 상태가 [[status]]"
       }
+    },
+    {
+      "id": "is_litter_hopper_empty",
+      "title": {
+        "en": "The LitterHopper !{{is|is not}} empty",
+        "nl": "De LitterHopper !{{is|is niet}} leeg",
+        "de": "Der LitterHopper !{{ist|ist nicht}} leer",
+        "fr": "Le LitterHopper !{{est|n'est pas}} vide",
+        "it": "Il LitterHopper !{{è|non è}} vuoto",
+        "sv": "LitterHopper !{{är|är inte}} tom",
+        "no": "LitterHopper !{{er|er ikke}} tom",
+        "es": "El LitterHopper !{{está|no está}} vacío",
+        "da": "LitterHopper !{{er|er ikke}} tom",
+        "ru": "LitterHopper !{{пуст|не пуст}}",
+        "pl": "LitterHopper !{{jest|nie jest}} pusty",
+        "ko": "LitterHopper가 !{{비어있습니다|비어있지 않습니다}}"
+      },
+      "hint": {
+        "en": "Returns true when the LitterHopper is empty. Only works when LitterHopper functionality is enabled in device settings.",
+        "nl": "Geeft true terug wanneer de LitterHopper leeg is. Werkt alleen wanneer LitterHopper-functionaliteit is ingeschakeld in apparaatinstellingen.",
+        "de": "Gibt true zurück, wenn der LitterHopper leer ist. Funktioniert nur, wenn die LitterHopper-Funktionalität in den Geräteeinstellungen aktiviert ist.",
+        "fr": "Renvoie vrai lorsque le LitterHopper est vide. Ne fonctionne que lorsque la fonctionnalité LitterHopper est activée dans les paramètres de l'appareil.",
+        "it": "Restituisce vero quando il LitterHopper è vuoto. Funziona solo quando la funzionalità LitterHopper è abilitata nelle impostazioni del dispositivo.",
+        "sv": "Returnerar sant när LitterHopper är tom. Fungerar endast när LitterHopper-funktionalitet är aktiverad i enhetsinställningar.",
+        "no": "Returnerer true når LitterHopper er tom. Fungerer kun når LitterHopper-funksjonalitet er aktivert i enhetsinnstillinger.",
+        "es": "Devuelve verdadero cuando el LitterHopper está vacío. Solo funciona cuando la funcionalidad LitterHopper está habilitada en la configuración del dispositivo.",
+        "da": "Returnerer sandt, når LitterHopper er tom. Virker kun, når LitterHopper-funktionalitet er aktiveret i enhedsindstillinger.",
+        "ru": "Возвращает true, когда LitterHopper пуст. Работает только при включенной функциональности LitterHopper в настройках устройства.",
+        "pl": "Zwraca true, gdy LitterHopper jest pusty. Działa tylko wtedy, gdy funkcjonalność LitterHopper jest włączona w ustawieniach urządzenia.",
+        "ko": "LitterHopper가 비어있을 때 true를 반환합니다. 장치 설정에서 LitterHopper 기능이 활성화된 경우에만 작동합니다."
+      },
+      "args": []
+    },
+    {
+      "id": "is_litter_hopper_enabled",
+      "title": {
+        "en": "The LitterHopper !{{is|is not}} enabled",
+        "nl": "De LitterHopper !{{is|is niet}} ingeschakeld",
+        "de": "Der LitterHopper !{{ist|ist nicht}} aktiviert",
+        "fr": "Le LitterHopper !{{est|n'est pas}} activé",
+        "it": "Il LitterHopper !{{è|non è}} abilitato",
+        "sv": "LitterHopper !{{är|är inte}} aktiverad",
+        "no": "LitterHopper !{{er|er ikke}} aktivert",
+        "es": "El LitterHopper !{{está|no está}} habilitado",
+        "da": "LitterHopper !{{er|er ikke}} aktiveret",
+        "ru": "LitterHopper !{{включен|не включен}}",
+        "pl": "LitterHopper !{{jest|nie jest}} włączony",
+        "ko": "LitterHopper가 !{{활성화됨|비활성화됨}}"
+      },
+      "hint": {
+        "en": "Returns true when the LitterHopper is enabled. Only works when LitterHopper functionality is enabled in device settings.",
+        "nl": "Geeft true terug wanneer de LitterHopper is ingeschakeld. Werkt alleen wanneer LitterHopper-functionaliteit is ingeschakeld in apparaatinstellingen.",
+        "de": "Gibt true zurück, wenn der LitterHopper aktiviert ist. Funktioniert nur, wenn die LitterHopper-Funktionalität in den Geräteeinstellungen aktiviert ist.",
+        "fr": "Renvoie vrai lorsque le LitterHopper est activé. Ne fonctionne que lorsque la fonctionnalité LitterHopper est activée dans les paramètres de l'appareil.",
+        "it": "Restituisce vero quando il LitterHopper è abilitato. Funziona solo quando la funzionalità LitterHopper è abilitata nelle impostazioni del dispositivo.",
+        "sv": "Returnerar sant när LitterHopper är aktiverad. Fungerar endast när LitterHopper-funktionalitet är aktiverad i enhetsinställningar.",
+        "no": "Returnerer true når LitterHopper er aktivert. Fungerer kun når LitterHopper-funksjonalitet er aktivert i enhetsinnstillinger.",
+        "es": "Devuelve verdadero cuando el LitterHopper está habilitado. Solo funciona cuando la funcionalidad LitterHopper está habilitada en la configuración del dispositivo.",
+        "da": "Returnerer sandt, når LitterHopper er aktiveret. Virker kun, når LitterHopper-funktionalitet er aktiveret i enhedsindstillinger.",
+        "ru": "Возвращает true, когда LitterHopper включен. Работает только при включенной функциональности LitterHopper в настройках устройства.",
+        "pl": "Zwraca true, gdy LitterHopper jest włączony. Działa tylko wtedy, gdy funkcjonalność LitterHopper jest włączona w ustawieniach urządzenia.",
+        "ko": "LitterHopper가 활성화되었을 때 true를 반환합니다. 장치 설정에서 LitterHopper 기능이 활성화된 경우에만 작동합니다."
+      },
+      "args": []
     }
   ]
 }
