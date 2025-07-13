@@ -6,10 +6,10 @@ const PetData = require('../../lib/petdata');
 module.exports = class PetDevice extends Homey.Device {
 
   /**
-   * Device initialization - sets up capabilities and fetches pet data
+   * Device initialization - sets up capabilities and registers with DataManager
    */
   async onInit() {
-    this.log('Pet device initialized');
+    this.log('\x1b[36mPet device initialized\x1b[0m');
 
     try {
       // Get pet ID from device data
@@ -23,15 +23,13 @@ module.exports = class PetDevice extends Homey.Device {
       // Initialize capabilities with loading states
       await this._initializeCapabilities();
 
-      // Register with DataManager for weight updates
+      // Register with DataManager for centralized data management
+      // This will automatically fetch initial data and set up polling
       await this._registerWithDataManager();
 
-      // Fetch pet data using centralized session
-      await this._fetchPetData();
-
-      this.log('Pet device initialization completed successfully');
+      this.log('\x1b[32mPet device initialization completed successfully\x1b[0m');
     } catch (err) {
-      this.error('Failed to initialize pet device:', err);
+      this.error('\x1b[31mFailed to initialize pet device:\x1b[0m', err);
       throw err;
     }
   }
@@ -66,102 +64,47 @@ module.exports = class PetDevice extends Homey.Device {
       }
     }
 
-    this.log('Pet capabilities initialized');
+            this.log('\x1b[32mPet capabilities initialized\x1b[0m');
   }
 
   /**
-   * Subscribe to weight updates from DataManager
+   * Register with DataManager and subscribe to weight updates
    * @private
    */
   async _registerWithDataManager() {
     try {
       const dataManager = this.homey.app.dataManager;
       if (dataManager) {
-        // Subscribe to weight updates (device is already registered during pairing)
-        this._weightUnsubscribe = dataManager.subscribeToWeightUpdates((weightData) => {
-          this._handleWeightUpdate(weightData);
-        });
-        
-        this.log('Subscribed to weight updates from DataManager');
-      }
-    } catch (err) {
-      this.error('Failed to subscribe to weight updates:', err);
-    }
-  }
-
-  /**
-   * Handle weight updates from DataManager - triggers pet data refresh
-   * @param {Object} weightData - Weight data from LR4 (used as trigger only)
-   * @private
-   */
-  async _handleWeightUpdate(weightData) {
-    this.log(`\x1b[36mReceived weight update trigger: ${weightData.weight} lbs (${weightData.weightGrams} g) from device ${weightData.sourceDeviceId}\x1b[0m`);
-    
-    // Use weight update as trigger to refresh pet data via DataManager (centralized)
-    try {
-      this.log('Weight update detected - refreshing pet data via DataManager...');
-      await this.refreshPetData();
-      this.log('Pet data refreshed successfully after weight update');
-    } catch (err) {
-      this.error('Failed to refresh pet data after weight update:', err);
-    }
-  }
-
-  /**
-   * Fetch pet data using centralized session
-   * @private
-   */
-  async _fetchPetData() {
-    try {
-      const apiSession = this.homey.app.apiSession;
-      if (!apiSession) {
-        throw new Error('No API session available. Please repair device.');
-      }
-
-      const response = await apiSession.petGraphql(`
-        query GetPetsByUser($userId: String!) {
-          getPetsByUser(userId: $userId) {
-            petId
-            userId
-            name
-            type
-            gender
-            weight
-            weightLastUpdated
-            lastWeightReading
-            breeds
-            age
-            birthday
-            adoptionDate
-            s3ImageURL
-            diet
-            isFixed
-            environmentType
-            healthConcerns
-            isActive
-            whiskerProducts
-            petTagId
-            weightIdFeatureEnabled
+        // Register device with DataManager
+        await dataManager.registerDevice(this.getId(), {
+          type: 'pet', // This matches DEVICE_TYPES.PET in DataManager
+          data: {
+            petId: this.petId,
+            name: this.petData?.name || 'Unknown Pet'
+          },
+          onDataUpdate: (data, source) => {
+            // Handle data updates from DataManager
+            this.log(`\x1b[36mReceived data update from ${source} for pet ${this.petId}\x1b[0m`);
+            
+            // Process the pet data and update capabilities
+            if (data) {
+              this.petData = new PetData({ pet: data });
+              this._updateCapabilities(this.petData);
+              this.log(`\x1b[32mPet data updated via DataManager for ${this.petData.name}\x1b[0m`);
+            }
           }
-        }
-      `, { userId: apiSession.getUserId() });
+        });
 
-      const pet = response.data?.getPetsByUser?.find(p => String(p.petId) === String(this.petId));
-      if (!pet) {
-        throw new Error(`Pet with ID ${this.petId} not found`);
+        this.log('\x1b[32mRegistered with DataManager for centralized data management\x1b[0m');
       }
-
-      this.petData = new PetData({ pet });
-      this.log('Connected to pet:', this.petData.name);
-
-      // Update capabilities with initial data
-      this._updateCapabilities(this.petData);
-
     } catch (err) {
-      this.error('Failed to fetch pet data:', err);
-      throw err;
+      this.error('\x1b[31mFailed to register with DataManager:\x1b[0m', err);
     }
   }
+
+
+
+
 
   /**
    * Update device capabilities based on pet data
@@ -228,21 +171,21 @@ module.exports = class PetDevice extends Homey.Device {
     if (changes.has('label_food')) {
       this.homey.flow.getDeviceTriggerCard('diet_changed')
         .trigger(this, { diet: petData.dietLabel })
-        .catch(err => this.error('Failed to trigger diet_changed:', err));
+        .catch(err => this.error('\x1b[31mFailed to trigger diet_changed:\x1b[0m', err));
     }
 
     // Environment changed trigger
     if (changes.has('label_environment')) {
       this.homey.flow.getDeviceTriggerCard('environment_changed')
         .trigger(this, { environment: petData.environmentLabel })
-        .catch(err => this.error('Failed to trigger environment_changed:', err));
+        .catch(err => this.error('\x1b[31mFailed to trigger environment_changed:\x1b[0m', err));
     }
 
     // Age changed trigger
     if (changes.has('label_age')) {
       this.homey.flow.getDeviceTriggerCard('age_changed')
         .trigger(this, { age: petData.ageLabel })
-        .catch(err => this.error('Failed to trigger age_changed:', err));
+        .catch(err => this.error('\x1b[31mFailed to trigger age_changed:\x1b[0m', err));
     }
 
     // Health concern detected trigger
@@ -251,7 +194,7 @@ module.exports = class PetDevice extends Homey.Device {
       if (concerns) {
         this.homey.flow.getDeviceTriggerCard('health_concern_detected')
           .trigger(this, { concerns })
-          .catch(err => this.error('Failed to trigger health_concern_detected:', err));
+          .catch(err => this.error('\x1b[31mFailed to trigger health_concern_detected:\x1b[0m', err));
       }
     }
   }
@@ -262,19 +205,17 @@ module.exports = class PetDevice extends Homey.Device {
    */
   async refreshPetData() {
     try {
-      this.log('Refreshing pet data via DataManager...');
+      this.log('\x1b[33mRefreshing pet data via DataManager...\x1b[0m');
       const dataManager = this.homey.app.dataManager;
       if (dataManager) {
         // Use DataManager's centralized refresh which will update all pet devices efficiently
-        await dataManager.refreshDeviceData(this.getData().id, true);
-        this.log('Pet data refreshed successfully via DataManager');
+        await dataManager.refreshDeviceData(this.getId(), true);
+        this.log('\x1b[32mPet data refreshed successfully via DataManager\x1b[0m');
       } else {
-        // Fallback to direct fetch if DataManager not available
-        await this._fetchPetData();
-        this.log('Pet data refreshed successfully via direct fetch');
+        throw new Error('DataManager not available. Please restart the app.');
       }
     } catch (err) {
-      this.error('Failed to refresh pet data:', err);
+      this.error('\x1b[31mFailed to refresh pet data:\x1b[0m', err);
     }
   }
 
@@ -282,16 +223,17 @@ module.exports = class PetDevice extends Homey.Device {
    * Device cleanup when deleted
    */
   onDeleted() {
-    this.log('Pet device deleted, cleaning up...');
+    this.log('\x1b[33mPet device deleted, cleaning up...\x1b[0m');
     
-    // Unsubscribe from weight updates
+    // Unregister from DataManager (this also handles weight update unsubscription)
     try {
-      if (this._weightUnsubscribe) {
-        this._weightUnsubscribe();
-        this.log('Unsubscribed from weight updates');
+      const dataManager = this.homey.app.dataManager;
+      if (dataManager) {
+        dataManager.unregisterDevice(this.getId());
+        this.log('\x1b[32mUnregistered from DataManager\x1b[0m');
       }
     } catch (err) {
-      this.error('Failed to unsubscribe from weight updates:', err);
+      this.error('\x1b[31mFailed to unregister from DataManager:\x1b[0m', err);
     }
   }
 }

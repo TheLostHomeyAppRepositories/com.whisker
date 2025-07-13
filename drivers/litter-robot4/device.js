@@ -31,8 +31,8 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       // Manage hopper capabilities based on settings and device state
       await this._manageHopperCapabilities();
 
-      // Setup WebSocket subscription for real-time updates
-      await this._setupWebSocket();
+      // Register with DataManager for centralized data management
+      await this._registerWithDataManager();
 
       // Register capability listeners for user interactions
       await this._registerCapabilityListeners();
@@ -66,19 +66,13 @@ module.exports = class LitterRobotDevice extends Homey.Device {
     this.log('Refreshing device state...');
 
     try {
-      // Clean up existing connections
-      if (this._eventSubscription) {
-        this._eventSubscription();
-        this._eventSubscription = null;
-        this.log('Cleaned up existing event subscription');
-      }
-
-      if (this.robot?.serial) {
-        const apiSession = this.homey.app.apiSession;
-        if (apiSession) {
-          apiSession.closeWebSocketConnection(this.robot.serial);
-          this.log('Closed existing WebSocket connection');
-    }
+      // Clean up existing DataManager registration
+      if (this.robotSerial) {
+        const dataManager = this.homey.app.dataManager;
+        if (dataManager) {
+          await dataManager.unregisterDevice(this.robotSerial);
+          this.log('Unregistered from DataManager');
+        }
       }
 
       // Force re-initialization
@@ -109,8 +103,8 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       // Re-fetch robot data
       await this._fetchRobotData();
 
-      // Re-setup WebSocket subscription
-      await this._setupWebSocket();
+      // Re-register with DataManager
+      await this._registerWithDataManager();
 
       // Re-register capability listeners
       await this._registerCapabilityListeners();
@@ -345,37 +339,37 @@ module.exports = class LitterRobotDevice extends Homey.Device {
   }
 
   /**
-   * Setup WebSocket subscription for real-time updates
+   * Register with DataManager for centralized data management
    * @private
    */
-  async _setupWebSocket() {
+  async _registerWithDataManager() {
     try {
-      const apiSession = this.homey.app.apiSession;
-      
-      // Subscribe to robot updates via WebSocket
-      this._subscription = await apiSession.createWebSocketConnection(
-        this.robot.serial,
-        {
-          serial: this.robot.serial
-        }
-      );
+      const dataManager = this.homey.app.dataManager;
+      if (!dataManager) {
+        throw new Error('DataManager not available');
+      }
 
-      // Subscribe to WebSocket events
-      this._eventSubscription = apiSession.getEventEmitter().on('data_received', (eventData) => {
-        if (eventData.deviceId === this.robot.serial) {
-          this._handleRobotUpdate(eventData.data);
+      // Register device with DataManager
+      await dataManager.registerDevice(this.robotSerial, {
+        type: 'litter_robot_4',
+        data: {
+          serial: this.robot.serial,
+          name: this.robot.name
+        },
+        onDataUpdate: (data, source) => {
+          this._handleRobotUpdate(data);
         }
       });
 
-      this.log('WebSocket subscription established');
+      this.log('Registered with DataManager for centralized data management');
 
-      // Request initial state
+      // Request initial state after a short delay
       setTimeout(() => {
         this._requestInitialState();
-      }, 10000);
+      }, 5000);
       
     } catch (err) {
-      this.error('Failed to setup WebSocket:', err);
+      this.error('Failed to register with DataManager:', err);
       throw err;
     }
   }
@@ -536,31 +530,11 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       this._updateDeviceSettings(this.robot);
     }
     
-    // Notify pet devices of weight changes
-    if (update.catWeight) {
-      const weightGrams = Math.round(update.catWeight * 453.592); // lbs to grams
-      this._notifyPetDevices(weightGrams);
-    }
+    // Note: Weight updates are handled centrally by DataManager when WebSocket data is received
+    // No need to manually notify pet devices here to avoid duplication
   }
 
-  /**
-   * Notify pet devices of weight measurement via DataManager
-   * @param {number} weightGrams - Weight in grams
-   * @private
-   */
-  async _notifyPetDevices(weightGrams) {
-    try {
-      const dataManager = this.homey.app.dataManager;
-      if (dataManager) {
-        // Convert back to pounds for consistency with API
-        const weightLbs = weightGrams / 453.59237;
-        await dataManager._notifyWeightUpdate(weightLbs, this.robotSerial);
-        this.log(`Weight update sent to DataManager: ${weightLbs} lbs (${weightGrams} g)`);
-      }
-    } catch (err) {
-      this.error('Failed to notify pet devices via DataManager:', err);
-    }
-  }
+
 
   /**
    * Update device capabilities based on robot data
@@ -733,17 +707,16 @@ module.exports = class LitterRobotDevice extends Homey.Device {
   onDeleted() {
     this.log('Device deleted, cleaning up...');
     
-    // Clean up WebSocket connection
-    if (this.robot?.serial) {
-      const apiSession = this.homey.app.apiSession;
-      if (apiSession) {
-        apiSession.closeWebSocketConnection(this.robot.serial);
+    // Clean up DataManager registration
+    if (this.robotSerial) {
+      const dataManager = this.homey.app.dataManager;
+      if (dataManager) {
+        dataManager.unregisterDevice(this.robotSerial).catch(err => {
+          this.error('Error during DataManager cleanup:', err);
+        });
+      }
     }
-  }
-
-    // Clean up event subscription
-    if (this._eventSubscription) {
-      this._eventSubscription();
-    }
+    
+    this.log('Device cleanup completed');
   }
 } 
