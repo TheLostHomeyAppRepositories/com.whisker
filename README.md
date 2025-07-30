@@ -73,8 +73,13 @@ Bring automation and insights to your Whisker devices with Homey Flows and devic
 - Sleep mode deactivated
 - Multiple clean cycles completed
 - Problem details provided
-- **LitterHopper becomes empty**
-- **LitterHopper is no longer empty**
+- LitterHopper becomes empty
+- LitterHopper is no longer empty
+- LitterHopper is enabled
+- LitterHopper is disabled
+- A cleaning cycle is finished
+- The cleaning status changes
+- The Litter-Robot status changes
 
 **Pet Information:**
 - Health concern detected
@@ -90,8 +95,10 @@ Bring automation and insights to your Whisker devices with Homey Flows and devic
 - Is sleep mode scheduled?
 - Is the waste drawer full?
 - Is the robot currently cleaning?
-- **Is the LitterHopper empty?**
-- **Is the LitterHopper enabled?**
+- Is the LitterHopper empty?
+- Is the LitterHopper enabled?
+- What is the current cleaning status?
+- What is the current Litter-Robot status?
 
 **Pet Information:**
 - Is it the pet's birthday today?

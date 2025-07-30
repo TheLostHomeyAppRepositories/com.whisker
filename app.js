@@ -174,6 +174,9 @@ class WhiskerApp extends Homey.App {
       // Create data manager
       this._dataManager = new DataManager(this._apiSession, this.homey);
       
+      // Re-register all devices with the new DataManager
+      await this._reRegisterAllDevices();
+      
       this.log('API session initialized successfully');
       return this._apiSession;
     } catch (error) {
@@ -223,11 +226,49 @@ class WhiskerApp extends Homey.App {
       // Create data manager
       this._dataManager = new DataManager(this._apiSession, this.homey);
       
+      // Re-register all devices with the new DataManager
+      await this._reRegisterAllDevices();
+      
       this.log('API session initialized successfully with tokens');
       return this._apiSession;
     } catch (error) {
       this.log('Failed to initialize API session with tokens:', error);
       throw error;
+    }
+  }
+
+  /**
+   * Re-register all devices with the new DataManager after repair
+   * @private
+   */
+  async _reRegisterAllDevices() {
+    this.log('Re-registering all devices with new DataManager...');
+    
+    try {
+      const devices = await this.homey.drivers.getDrivers();
+      
+      for (const driver of Object.values(devices)) {
+        const driverDevices = await driver.getDevices();
+        
+        for (const device of driverDevices) {
+          try {
+            // Only refresh devices that have a refresh method
+            // The device's refresh method will handle the registration logic
+            if (typeof device.refresh === 'function') {
+              this.log(`Refreshing device ${device.getName()} (${device.getData().id})`);
+              await device.refresh();
+            } else {
+              this.log(`Device ${device.getName()} (${device.getData().id}) has no refresh method, skipping`);
+            }
+          } catch (error) {
+            this.error(`Failed to refresh device ${device.getName()}:`, error);
+          }
+        }
+      }
+      
+      this.log('Device re-registration completed successfully');
+    } catch (error) {
+      this.error('Error during device re-registration:', error);
     }
   }
 
@@ -311,6 +352,22 @@ class WhiskerApp extends Homey.App {
     } catch (error) {
       this.log('Error checking stored tokens:', error.message);
       return false;
+    }
+  }
+
+  /**
+   * Clean up resources when the app is destroyed
+   */
+  async onUninit() {
+    this.log('Whisker app is being destroyed, cleaning up resources...');
+    
+    try {
+      // Sign out and clean up all sessions
+      await this.signOut();
+      
+      this.log('Whisker app cleanup completed successfully');
+    } catch (error) {
+      this.error('Error during app cleanup:', error);
     }
   }
 

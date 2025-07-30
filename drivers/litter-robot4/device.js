@@ -323,13 +323,13 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       
       // Update device settings with robot information
       await this.setSettings({
-        device_serial: robot.serial || 'Unknown',
-        device_user_id: robot.userId || 'Unknown',
-        device_firmware: LR4Data.formatFirmwareVersion(robot) || 'Unknown',
+        device_serial: robot.serial || 'Loading...',
+        device_user_id: robot.userId || 'Loading...',
+        device_firmware: LR4Data.formatFirmwareVersion(robot) || 'Loading...',
         device_setup_date: robot.setupDateTime ? 
           LR4Data.formatTime(robot.setupDateTime, { use12hFormat }) : 
-          'Unknown',
-        device_timezone: robot.unitTimezone || 'Unknown'
+          'Loading...',
+        device_timezone: robot.unitTimezone || 'Loading...'
       });
 
       this.log('Device settings updated with robot information');
@@ -643,11 +643,36 @@ module.exports = class LitterRobotDevice extends Homey.Device {
           this.homey.flow.getDeviceTriggerCard('clean_cycle_multiple')
             .trigger(this, { total_cycles: totalCycles })
             .catch(err => this.error('Failed to trigger clean_cycle_multiple:', err));
+          
+          // Trigger the clean_cycle_finished card for each completed cycle
+          this.homey.flow.getDeviceTriggerCard('clean_cycle_finished')
+            .trigger(this, { total_clean_cycles: totalCycles })
+            .catch(err => this.error('Failed to trigger clean_cycle_finished:', err));
         }
         
         // Store the current count for next comparison
         this.setStoreValue('previous_clean_cycles', totalCycles);
       }
+    }
+
+    // Clean cycle status changed trigger
+    if (changes.has('clean_cycle_status')) {
+      const cleanCycleStatus = this.getCapabilityValue('clean_cycle_status');
+      this.log(`Clean cycle status changed to: ${cleanCycleStatus}`);
+      
+      this.homey.flow.getDeviceTriggerCard('clean_cycle_status_changed')
+        .trigger(this, { clean_cycle_status: cleanCycleStatus })
+        .catch(err => this.error('Failed to trigger clean_cycle_status_changed:', err));
+    }
+
+    // Litter-Robot status changed trigger
+    if (changes.has('litter_robot_status')) {
+      const litterRobotStatus = this.getCapabilityValue('litter_robot_status');
+      this.log(`Litter-Robot status changed to: ${litterRobotStatus}`);
+      
+      this.homey.flow.getDeviceTriggerCard('litter_robot_status_changed')
+        .trigger(this, { litter_robot_status: litterRobotStatus })
+        .catch(err => this.error('Failed to trigger litter_robot_status_changed:', err));
     }
 
     // Problem detection triggers

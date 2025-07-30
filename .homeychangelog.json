@@ -49,5 +49,8 @@
   },
   "1.2.1": {
     "en": "Performance improvements and bug fixes."
+  },
+  "1.3.0": {
+    "en": "Added new Flow triggers for the Litter-Robot 4 driver."
   }
 }

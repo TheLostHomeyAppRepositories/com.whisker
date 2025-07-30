@@ -118,6 +118,22 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         return isHopperEnabled;
       });
 
+    this.homey.flow.getConditionCard('is_litter_robot_status')
+      .registerRunListener(async (args, state) => {
+        const device = args.device;
+        if (!device || !device.robot) {
+          this.error('Device or robot data not available for Litter-Robot status check');
+          return false;
+        }
+        const deviceSettings = device.getSettings();
+        const lr4Data = new LR4Data({ robot: device.robot, settings: deviceSettings });
+        const current = lr4Data.statusDescription;
+        const expected = args.status;
+        const result = current === expected;
+        this.log(`Litter-Robot status check: current=${current}, expected=${expected}, result=${result}`);
+        return result;
+      });
+
     // Register action cards
     this.homey.flow.getActionCard('lock_keypad')
       .registerRunListener(async (args) => {

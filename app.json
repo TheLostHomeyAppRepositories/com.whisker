@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.whisker",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -632,6 +632,180 @@
         ]
       },
       {
+        "id": "clean_cycle_status_changed",
+        "title": {
+          "en": "The cleaning status changes",
+          "nl": "De schoonmaakstatus verandert",
+          "de": "Der Reinigungsstatus ändert sich",
+          "fr": "Le statut de nettoyage change",
+          "it": "Lo stato della pulizia cambia",
+          "sv": "Stästatusen ändras",
+          "no": "Rengjøringsstatusen endres",
+          "es": "El estado de limpieza cambia",
+          "da": "Rengøringsstatussen ændres",
+          "ru": "Статус очистки изменяется",
+          "pl": "Status czyszczenia się zmienia",
+          "ko": "청소 상태가 변경됩니다"
+        },
+        "hint": {
+          "en": "Triggers when the cleaning status of the Litter-Robot changes.",
+          "nl": "Wordt geactiveerd wanneer de schoonmaakstatus van de Litter-Robot verandert.",
+          "de": "Wird ausgelöst, wenn sich der Reinigungsstatus des Litter-Robots ändert.",
+          "fr": "Se déclenche lorsque le statut de nettoyage du Litter-Robot change.",
+          "it": "Si attiva quando lo stato della pulizia del Litter-Robot cambia.",
+          "sv": "Utlöses när Litter-Robots stästatus ändras.",
+          "no": "Utøses når Litter-Robots rengjøringsstatus endres.",
+          "es": "Se activa cuando cambia el estado de limpieza del Litter-Robot.",
+          "da": "Udløses, når Litter-Robots rengøringsstatus ændres.",
+          "ru": "Срабатывает при изменении статуса очистки Litter-Robot.",
+          "pl": "Uruchamia się, gdy zmienia się status czyszczenia Litter-Robot.",
+          "ko": "Litter-Robot의 청소 상태가 변경될 때 트리거됩니다."
+        },
+        "tokens": [
+          {
+            "name": "clean_cycle_status",
+            "type": "string",
+            "title": {
+              "en": "Cleaning status",
+              "nl": "Schoonmaakstatus",
+              "de": "Reinigungsstatus",
+              "fr": "Statut de nettoyage",
+              "it": "Stato della pulizia",
+              "sv": "Stästatus",
+              "no": "Rengjøringsstatus",
+              "es": "Estado de limpieza",
+              "da": "Rengøringsstatus",
+              "ru": "Статус очистки",
+              "pl": "Status czyszczenia",
+              "ko": "청소 상태"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot4"
+          }
+        ]
+      },
+      {
+        "id": "litter_robot_status_changed",
+        "title": {
+          "en": "The Litter-Robot status changes",
+          "nl": "De Litter-Robot status verandert",
+          "de": "Der Litter-Robot Status ändert sich",
+          "fr": "Le statut du Litter-Robot change",
+          "it": "Lo stato del Litter-Robot cambia",
+          "sv": "Litter-Robot status ändras",
+          "no": "Litter-Robot status endres",
+          "es": "El estado del Litter-Robot cambia",
+          "da": "Litter-Robot status ændres",
+          "ru": "Статус Litter-Robot изменяется",
+          "pl": "Status Litter-Robot się zmienia",
+          "ko": "Litter-Robot 상태가 변경됩니다"
+        },
+        "hint": {
+          "en": "Triggers when the status of the Litter-Robot changes.",
+          "nl": "Wordt geactiveerd wanneer de status van de Litter-Robot verandert.",
+          "de": "Wird ausgelöst, wenn sich der Status des Litter-Robots ändert.",
+          "fr": "Se déclenche lorsque le statut du Litter-Robot change.",
+          "it": "Si attiva quando cambia lo stato del Litter-Robot.",
+          "sv": "Utlöses när Litter-Robots status ändras.",
+          "no": "Utøses når Litter-Robots status endres.",
+          "es": "Se activa cuando cambia el estado del Litter-Robot.",
+          "da": "Udløses, når Litter-Robots status ændres.",
+          "ru": "Срабатывает при изменении статуса Litter-Robot.",
+          "pl": "Uruchamia się, gdy zmienia się status Litter-Robot.",
+          "ko": "Litter-Robot의 상태가 변경될 때 트리거됩니다."
+        },
+        "tokens": [
+          {
+            "name": "litter_robot_status",
+            "type": "string",
+            "title": {
+              "en": "Litter-Robot status",
+              "nl": "Litter-Robot status",
+              "de": "Litter-Robot Status",
+              "fr": "Statut Litter-Robot",
+              "it": "Stato Litter-Robot",
+              "sv": "Litter-Robot status",
+              "no": "Litter-Robot status",
+              "es": "Estado Litter-Robot",
+              "da": "Litter-Robot status",
+              "ru": "Статус Litter-Robot",
+              "pl": "Status Litter-Robot",
+              "ko": "Litter-Robot 상태"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot4"
+          }
+        ]
+      },
+      {
+        "id": "clean_cycle_finished",
+        "title": {
+          "en": "A cleaning cycle is finished",
+          "nl": "Een schoonmaakcyclus is voltooid",
+          "de": "Ein Reinigungszyklus ist abgeschlossen",
+          "fr": "Un cycle de nettoyage est terminé",
+          "it": "Un ciclo di pulizia è completato",
+          "sv": "En rengöringscykel är slutförd",
+          "no": "En rengjøringssyklus er fullført",
+          "es": "Un ciclo de limpieza ha terminado",
+          "da": "En rengøringscyklus er afsluttet",
+          "ru": "Цикл очистки завершен",
+          "pl": "Cykl czyszczenia został zakończony",
+          "ko": "청소 사이클이 완료되었습니다"
+        },
+        "hint": {
+          "en": "Triggers each time a cleaning cycle is finished.",
+          "nl": "Wordt geactiveerd elke keer dat een schoonmaakcyclus is voltooid.",
+          "de": "Wird jedes Mal ausgelöst, wenn ein Reinigungszyklus abgeschlossen ist.",
+          "fr": "Se déclenche à chaque fois qu'un cycle de nettoyage est terminé.",
+          "it": "Si attiva ogni volta che un ciclo di pulizia è completato.",
+          "sv": "Utlöses varje gång en rengöringscykel är slutförd.",
+          "no": "Utøses hver gang en rengjøringssyklus er fullført.",
+          "es": "Se activa cada vez que se termina un ciclo de limpieza.",
+          "da": "Udløses hver gang en rengøringscyklus er afsluttet.",
+          "ru": "Срабатывает каждый раз при завершении цикла очистки.",
+          "pl": "Uruchamia się za każdym razem, gdy cykl czyszczenia zostanie zakończony.",
+          "ko": "청소 사이클이 완료될 때마다 트리거됩니다."
+        },
+        "tokens": [
+          {
+            "name": "total_clean_cycles",
+            "type": "number",
+            "title": {
+              "en": "Total completed clean cycles",
+              "nl": "Totaal voltooide schoonmaakcycli",
+              "de": "Insgesamt abgeschlossene Reinigungszyklen",
+              "fr": "Total des cycles de nettoyage terminés",
+              "it": "Totale cicli di pulizia completati",
+              "sv": "Totalt slutförda rengöringscykler",
+              "no": "Totalt fullførte rengjøringssykluser",
+              "es": "Ciclos de limpieza completados",
+              "da": "Samlet antal afsluttede rengøringscyklusser",
+              "ru": "Всего завершено циклов очистки",
+              "pl": "Łączna liczba zakończonych cykli czyszczenia",
+              "ko": "완료된 총 청소 사이클 수"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot4"
+          }
+        ]
+      },
+      {
         "id": "health_concern_detected",
         "title": {
           "en": "A health concern has been detected",
@@ -1076,18 +1250,18 @@
       {
         "id": "is_cleaning_status",
         "title": {
-          "en": "The cleaning status is",
-          "nl": "De schoonmaakstatus is",
-          "de": "Der Reinigungsstatus ist",
-          "fr": "Le statut de nettoyage est",
-          "it": "Lo stato della pulizia è",
-          "sv": "Stästatusen är",
-          "no": "Rengjøringsstatusen er",
-          "es": "El estado de limpieza es",
-          "da": "Rengøringsstatussen er",
-          "ru": "Статус очистки",
-          "pl": "Status czyszczenia to",
-          "ko": "청소 상태가"
+          "en": "The cleaning status !{{is|is not}}",
+          "nl": "De schoonmaakstatus !{{is|is niet}}",
+          "de": "Der Reinigungsstatus !{{ist|ist nicht}}",
+          "fr": "Le statut de nettoyage !{{est|n'est pas}}",
+          "it": "Lo stato della pulizia !{{è|non è}}",
+          "sv": "Stästatusen !{{är|är inte}}",
+          "no": "Rengjøringsstatusen !{{er|er ikke}}",
+          "es": "El estado de limpieza !{{es|no es}}",
+          "da": "Rengøringsstatussen !{{er|er ikke}}",
+          "ru": "Статус очистки !{{|не}}",
+          "pl": "Status czyszczenia !{{to|nie to}}",
+          "ko": "청소 상태가 !{{|아님}}"
         },
         "args": [
           {
@@ -1242,6 +1416,232 @@
             "filter": "driver_id=litter-robot4"
           }
         ]
+      },
+      {
+        "id": "is_litter_robot_status",
+        "title": {
+          "en": "The Litter-Robot status !{{is|is not}}",
+          "nl": "De Litter-Robot status !{{is|is niet}}",
+          "de": "Der Litter-Robot Status !{{ist|ist nicht}}",
+          "fr": "Le statut du Litter-Robot !{{est|n'est pas}}",
+          "it": "Lo stato del Litter-Robot !{{è|non è}}",
+          "sv": "Litter-Robot status !{{är|är inte}}",
+          "no": "Litter-Robot status !{{er|er ikke}}",
+          "es": "El estado del Litter-Robot !{{es|no es}}",
+          "da": "Litter-Robot status !{{er|er ikke}}",
+          "ru": "Статус Litter-Robot !{{|не}}",
+          "pl": "Status Litter-Robot !{{to|nie to}}",
+          "ko": "Litter-Robot 상태가 !{{|아님}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=litter-robot4"
+          },
+          {
+            "name": "status",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "Ready",
+                "title": {
+                  "en": "Ready"
+                }
+              },
+              {
+                "id": "Cat detected",
+                "title": {
+                  "en": "Cat detected"
+                }
+              },
+              {
+                "id": "Cat sensor timing",
+                "title": {
+                  "en": "Cat sensor timing"
+                }
+              },
+              {
+                "id": "Cleaning cycle in progress",
+                "title": {
+                  "en": "Cleaning cycle in progress"
+                }
+              },
+              {
+                "id": "Cleaning cycle complete",
+                "title": {
+                  "en": "Cleaning cycle complete"
+                }
+              },
+              {
+                "id": "Clean cycle paused",
+                "title": {
+                  "en": "Clean cycle paused"
+                }
+              },
+              {
+                "id": "Emptying cycle",
+                "title": {
+                  "en": "Emptying cycle"
+                }
+              },
+              {
+                "id": "Drawer full",
+                "title": {
+                  "en": "Drawer full"
+                }
+              },
+              {
+                "id": "Drawer almost full - 1 cycle left",
+                "title": {
+                  "en": "Drawer almost full - 1 cycle left"
+                }
+              },
+              {
+                "id": "Drawer almost full - 2 cycles left",
+                "title": {
+                  "en": "Drawer almost full - 2 cycles left"
+                }
+              },
+              {
+                "id": "Drawer almost full - 3+ cycles left",
+                "title": {
+                  "en": "Drawer almost full - 3+ cycles left"
+                }
+              },
+              {
+                "id": "Bonnet removed",
+                "title": {
+                  "en": "Bonnet removed"
+                }
+              },
+              {
+                "id": "Off",
+                "title": {
+                  "en": "Off"
+                }
+              },
+              {
+                "id": "Offline",
+                "title": {
+                  "en": "Offline"
+                }
+              },
+              {
+                "id": "Powering up",
+                "title": {
+                  "en": "Powering up"
+                }
+              },
+              {
+                "id": "Powering down",
+                "title": {
+                  "en": "Powering down"
+                }
+              },
+              {
+                "id": "Pinch detected",
+                "title": {
+                  "en": "Pinch detected"
+                }
+              },
+              {
+                "id": "Potential pinch detected",
+                "title": {
+                  "en": "Potential pinch detected"
+                }
+              },
+              {
+                "id": "Cat sensor fault",
+                "title": {
+                  "en": "Cat sensor fault"
+                }
+              },
+              {
+                "id": "Cat sensor fault at startup",
+                "title": {
+                  "en": "Cat sensor fault at startup"
+                }
+              },
+              {
+                "id": "Cat sensor interrupted",
+                "title": {
+                  "en": "Cat sensor interrupted"
+                }
+              },
+              {
+                "id": "Drawer full at startup",
+                "title": {
+                  "en": "Drawer full at startup"
+                }
+              },
+              {
+                "id": "Pinch detect at startup",
+                "title": {
+                  "en": "Pinch detect at startup"
+                }
+              },
+              {
+                "id": "Dump + home position fault",
+                "title": {
+                  "en": "Dump + home position fault"
+                }
+              },
+              {
+                "id": "Dump position fault",
+                "title": {
+                  "en": "Dump position fault"
+                }
+              },
+              {
+                "id": "Home position fault",
+                "title": {
+                  "en": "Home position fault"
+                }
+              },
+              {
+                "id": "Over torque fault",
+                "title": {
+                  "en": "Over torque fault"
+                }
+              },
+              {
+                "id": "Unknown status",
+                "title": {
+                  "en": "Unknown status"
+                }
+              }
+            ]
+          }
+        ],
+        "hint": {
+          "en": "Returns true if the current Litter-Robot status matches the selected value.",
+          "nl": "Geeft true terug wanneer de huidige Litter-Robot status overeenkomt met de geselecteerde waarde.",
+          "de": "Gibt true zurück, wenn der aktuelle Litter-Robot Status mit dem ausgewählten Wert übereinstimmt.",
+          "fr": "Renvoie vrai si le statut actuel du Litter-Robot correspond à la valeur sélectionnée.",
+          "it": "Restituisce true se lo stato corrente del Litter-Robot corrisponde al valore selezionato.",
+          "sv": "Returnerar sant om det aktuella Litter-Robot statusen matchar det valda värdet.",
+          "no": "Returnerer true hvis den nåværende Litter-Robot statusen samsvarer med den valgte verdien.",
+          "es": "Devuelve verdadero si el estado actual del Litter-Robot coincide con el valor seleccionado.",
+          "da": "Returnerer sandt, hvis den aktuelle Litter-Robot status svarer til den valgte værdi.",
+          "ru": "Возвращает true, если текущий статус Litter-Robot соответствует выбранному значению.",
+          "pl": "Zwraca true, jeśli bieżący status Litter-Robot odpowiada wybranej wartości.",
+          "ko": "현재 Litter-Robot 상태가 선택한 값과 일치하면 true를 반환합니다."
+        },
+        "titleFormatted": {
+          "en": "The Litter-Robot status is [[status]]",
+          "nl": "De Litter-Robot status is [[status]]",
+          "de": "Der Litter-Robot Status ist [[status]]",
+          "fr": "Le statut du Litter-Robot est [[status]]",
+          "it": "Lo stato del Litter-Robot è [[status]]",
+          "sv": "Litter-Robot status är [[status]]",
+          "no": "Litter-Robot status er [[status]]",
+          "es": "El estado del Litter-Robot es [[status]]",
+          "da": "Litter-Robot status er [[status]]",
+          "ru": "Статус Litter-Robot [[status]]",
+          "pl": "Status Litter-Robot to [[status]]",
+          "ko": "Litter-Robot 상태가 [[status]]"
+        }
       },
       {
         "id": "birthday_today",
