@@ -2,17 +2,18 @@
 
 const Homey = require('homey');
 const LR4Data = require('../../lib/litterrobot4data');
+const { colorize, LOG_COLORS } = require('../../lib/utils');
 
 module.exports = class LitterRobotDevice extends Homey.Device {
 
   /**
-   * Device initialization - sets up capabilities, WebSocket subscription, and listeners
+   * Initializes the Litter-Robot device and establishes connection to the centralized
+   * data management system for real-time updates and cross-device communication.
    */
   async onInit() {
-    this.log('Litter-Robot device initialized');
+    this.log(colorize(LOG_COLORS.INFO, 'Initializing Litter-Robot device...'));
 
     try {
-      // Get robot serial from device data
       const data = this.getData();
       this.robotSerial = data.id;
 
@@ -20,38 +21,27 @@ module.exports = class LitterRobotDevice extends Homey.Device {
         throw new Error('Invalid device data. Missing robot serial.');
       }
 
-      this.log(`Device initialized with robot serial: ${this.robotSerial}`);
+      this.log(colorize(LOG_COLORS.INFO, `Device initialized with robot serial: ${this.robotSerial}`));
 
-      // Initialize capabilities with loading states
       await this._initializeCapabilities();
-
-      // Get robot data using centralized session
       await this._fetchRobotData();
-
-      // Manage hopper capabilities based on settings and device state
       await this._manageHopperCapabilities();
-
-      // Register with DataManager for centralized data management
       await this._registerWithDataManager();
-
-      // Register capability listeners for user interactions
       await this._registerCapabilityListeners();
       
-      this.log('Device initialization completed successfully');
+      this.log(colorize(LOG_COLORS.SUCCESS, 'Device initialization completed successfully'));
       
-      // Ensure device is marked as available
       if (this.setAvailable) {
         this.setAvailable();
-        this.log('Device marked as available');
+        this.log(colorize(LOG_COLORS.SUCCESS, 'Device marked as available'));
       }
 
     } catch (err) {
-      this.error('Failed to initialize device:', err);
+      this.error(colorize(LOG_COLORS.ERROR, 'Failed to initialize device:'), err);
       
-      // Mark device as unavailable if initialization fails
       if (this.setUnavailable) {
         this.setUnavailable(err.message);
-        this.log('Device marked as unavailable due to initialization failure');
+        this.log(colorize(LOG_COLORS.ERROR, 'Device marked as unavailable due to initialization failure'));
       }
       
       throw err;
@@ -59,71 +49,8 @@ module.exports = class LitterRobotDevice extends Homey.Device {
   }
 
   /**
-   * Refresh device state - called during repair to reinitialize the device
-   * @returns {Promise<void>}
-   */
-  async refresh() {
-    this.log('Refreshing device state...');
-
-    try {
-      // Clean up existing DataManager registration
-      if (this.robotSerial) {
-        const dataManager = this.homey.app.dataManager;
-        if (dataManager) {
-          await dataManager.unregisterDevice(this.robotSerial);
-          this.log('Unregistered from DataManager');
-        }
-      }
-
-      // Force re-initialization
-      await this._forceReinitialize();
-
-      this.log('Device refresh completed successfully');
-    } catch (err) {
-      this.error('Failed to refresh device:', err);
-    
-      // Mark device as unavailable if refresh fails
-      if (this.setUnavailable) {
-        this.setUnavailable(err.message);
-        this.log('Device marked as unavailable due to refresh failure');
-      }
-      
-      throw err;
-    }
-  }
-
-  /**
-   * Force re-initialization of the device
-   * @private
-   */
-  async _forceReinitialize() {
-    this.log('Forcing device re-initialization...');
-
-    try {
-      // Re-fetch robot data
-      await this._fetchRobotData();
-
-      // Re-register with DataManager
-      await this._registerWithDataManager();
-
-      // Re-register capability listeners
-      await this._registerCapabilityListeners();
-      
-      // Ensure device is marked as available
-      if (this.setAvailable) {
-        this.setAvailable();
-        this.log('Device marked as available after re-initialization');
-      }
-
-      this.log('Device re-initialization completed successfully');
-    } catch (err) {
-      this.error('Failed to re-initialize device:', err);
-      throw err;
-    }
-  }
-
-  /**
-   * Initialize all device capabilities with loading states
+   * Sets up all device capabilities with default values to prevent undefined
+   * states while waiting for initial data from the robot.
    * @private
    */
   async _initializeCapabilities() {
@@ -157,20 +84,20 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       last_seen: 'Loading...'
     };
 
-    // Set all initial values
     for (const [capability, value] of Object.entries(initialCapabilities)) {
       try {
         await this.setCapabilityValue(capability, value);
       } catch (err) {
-        this.error(`Failed to initialize capability ${capability}:`, err);
+        this.error(`[Capability] ${colorize(LOG_COLORS.ERROR, `Failed to initialize capability ${colorize(LOG_COLORS.BOLD, capability)}:`)}`, err);
       }
     }
 
-    this.log('Capabilities initialized');
+    this.log(colorize(LOG_COLORS.INFO, 'Capabilities initialized successfully'));
   }
 
   /**
-   * Manage hopper capabilities based on user settings and device state
+   * Determines hopper capability visibility based on user preferences and
+   * hardware detection to provide a consistent user experience.
    * @private
    */
   async _manageHopperCapabilities() {
@@ -180,29 +107,25 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       
       await this._manageHopperCapabilitiesWithMode(hopperMode);
     } catch (err) {
-      this.error('Failed to manage hopper capabilities:', err);
+      this.error(colorize(LOG_COLORS.ERROR, 'Failed to manage hopper capabilities:'), err);
     }
   }
 
   /**
-   * Manage hopper capabilities with a specific mode
-   * @param {string} hopperMode - The hopper mode to use
+   * Dynamically adjusts hopper capabilities based on user preferences and hardware
+   * detection to ensure the interface matches the actual device capabilities.
+   * @param {string} hopperMode - The hopper mode to use (automatic, enabled, disabled)
    * @private
    */
   async _manageHopperCapabilitiesWithMode(hopperMode) {
     try {
-      // Get current device state for hopper detection
       const settings = this.getSettings();
       const robotData = this.robot ? new LR4Data({ robot: this.robot, settings }) : null;
       
-      // Determine if device has a hopper based on hopper status
-      // A device has a hopper if it has any hopper status (not null/undefined)
-      // and is not in a "removed" state
       const hasHopper = robotData ? 
         (robotData.hopperStatus !== null && robotData.hopperStatus !== undefined && !robotData.isHopperRemoved) : 
         false;
       
-      // Determine if hopper capabilities should be shown
       let shouldShowHopper = false;
       switch (hopperMode) {
         case 'automatic':
@@ -215,55 +138,51 @@ module.exports = class LitterRobotDevice extends Homey.Device {
           shouldShowHopper = false;
           break;
         default:
-          shouldShowHopper = hasHopper; // fallback to automatic
+          shouldShowHopper = hasHopper;
       }
       
-      // Define hopper capabilities
       const hopperCapabilities = [
         'alarm_litter_hopper_empty',
         'litter_hopper_status', 
         'litter_hopper_enabled'
       ];
       
-      // Get current capabilities
       const currentCapabilities = this.getCapabilities();
-      
-      // Track if any changes were made
       let changesMade = false;
       
-      // Add or remove hopper capabilities as needed
       for (const capability of hopperCapabilities) {
         const hasCapability = currentCapabilities.includes(capability);
         
         if (shouldShowHopper && !hasCapability) {
-          this.log(`\x1b[36mAdding hopper capability: ${capability}\x1b[0m`);
+          this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `Adding hopper capability: [${capability}]`)}`);
           await this.addCapability(capability);
           
-          // Initialize the capability with appropriate default values
           const defaultValue = this._getHopperCapabilityDefaultValue(capability);
-          await this.setCapabilityValue(capability, defaultValue);
+          await this.setCapabilityValue(capability, defaultValue).catch(err => {
+            this.error(`[Capability] ${colorize(LOG_COLORS.ERROR, `Failed to initialize hopper capability ${colorize(LOG_COLORS.BOLD, capability)}:`)}`, err);
+          });
           changesMade = true;
           
         } else if (!shouldShowHopper && hasCapability) {
-          this.log(`\x1b[33mRemoving hopper capability: ${capability}\x1b[0m`);
+          this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `Removing hopper capability: [${capability}]`)}`);
           await this.removeCapability(capability);
           changesMade = true;
         }
       }
       
-      // Only log completion if changes were made
       if (changesMade) {
-        this.log(`\x1b[32mHopper capability management completed (mode: ${hopperMode})\x1b[0m`);
+        this.log(`[Capability] ${colorize(LOG_COLORS.SUCCESS, `Hopper capability management completed (mode: ${hopperMode})`)}`);
       }
     } catch (err) {
-      this.error('Failed to manage hopper capabilities:', err);
+      this.error(colorize(LOG_COLORS.ERROR, 'Failed to manage hopper capabilities:'), err);
     }
   }
 
   /**
-   * Get default value for a hopper capability
+   * Provides safe default values for hopper capabilities to prevent undefined
+   * states when capabilities are dynamically added.
    * @param {string} capability - Capability ID
-   * @returns {any} Default value
+   * @returns {any} Default value for the capability
    * @private
    */
   _getHopperCapabilityDefaultValue(capability) {
@@ -272,7 +191,6 @@ module.exports = class LitterRobotDevice extends Homey.Device {
         return false;
       case 'litter_hopper_status':
         return 'Loading...';
-
       case 'litter_hopper_enabled':
         return false;
       default:
@@ -281,7 +199,8 @@ module.exports = class LitterRobotDevice extends Homey.Device {
   }
 
   /**
-   * Fetch robot data from API
+   * Retrieves robot data from the centralized API session to establish
+   * device identity and connection status.
    * @private
    */
   async _fetchRobotData() {
@@ -291,7 +210,6 @@ module.exports = class LitterRobotDevice extends Homey.Device {
         throw new Error('No API session available. Please repair device.');
       }
 
-      // Use the same approach as the old working code - get all robots and find by serial
       const robots = await apiSession.getRobots();
       const robot = robots.find(r => String(r.serial) === String(this.robotSerial));
       
@@ -300,28 +218,27 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       }
 
       this.robot = robot;
-      this.log('Connected to robot:', this.robot.nickname || this.robot.serial);
+      this.log(colorize(LOG_COLORS.INFO, `Connected to robot: ${this.robot.nickname || this.robot.serial}`));
 
       await this._updateDeviceSettings(this.robot);
 
     } catch (err) {
-      this.error('Failed to fetch robot data:', err);
+      this.error(colorize(LOG_COLORS.ERROR, 'Failed to fetch robot data:'), err);
       throw err;
     }
   }
 
   /**
-   * Update device settings with robot information
+   * Updates device settings with robot metadata to provide users with
+   * device information and firmware status in their preferred format.
    * @param {Object} robot - Robot data
    * @private
    */
   async _updateDeviceSettings(robot) {
     try {
-      // Get user preferences for time formatting
       const settings = this.getSettings();
       const use12hFormat = settings.use_12h_format === '12h';
       
-      // Update device settings with robot information
       await this.setSettings({
         device_serial: robot.serial || 'Loading...',
         device_user_id: robot.userId || 'Loading...',
@@ -332,14 +249,15 @@ module.exports = class LitterRobotDevice extends Homey.Device {
         device_timezone: robot.unitTimezone || 'Loading...'
       });
 
-      this.log('Device settings updated with robot information');
+      this.log(colorize(LOG_COLORS.INFO, 'Device settings updated with robot information'));
     } catch (err) {
-      this.error('Failed to update device settings:', err);
+      this.error(colorize(LOG_COLORS.ERROR, 'Failed to update device settings:'), err);
     }
   }
 
   /**
-   * Register with DataManager for centralized data management
+   * Registers with the centralized DataManager to enable real-time updates
+   * and cross-device communication for automation scenarios.
    * @private
    */
   async _registerWithDataManager() {
@@ -349,7 +267,10 @@ module.exports = class LitterRobotDevice extends Homey.Device {
         throw new Error('DataManager not available');
       }
 
-      // Register device with DataManager
+      if (!this.robot) {
+        await this._fetchRobotData();
+      }
+
       await dataManager.registerDevice(this.robotSerial, {
         type: 'litter_robot_4',
         data: {
@@ -361,199 +282,150 @@ module.exports = class LitterRobotDevice extends Homey.Device {
         }
       });
 
-      this.log('Registered with DataManager for centralized data management');
+      this.log(colorize(LOG_COLORS.INFO, 'Registered with DataManager for centralized data management'));
 
-      // Request initial state after a short delay
-      setTimeout(() => {
+      this.homey.setTimeout(() => {
         this._requestInitialState();
       }, 5000);
       
     } catch (err) {
-      this.error('Failed to register with DataManager:', err);
+      this.error(colorize(LOG_COLORS.ERROR, 'Failed to register with DataManager:'), err);
       throw err;
     }
   }
 
   /**
-   * Request initial state from robot
+   * Requests current robot state to ensure device data is synchronized
+   * after registration with the DataManager.
    * @private
    */
   async _requestInitialState() {
     try {
-      const apiSession = this.homey.app.apiSession;
-      
-      // Send requestState command via GraphQL mutation (not WebSocket)
-      const query = `
-        mutation sendCommand($serial: String!, $command: String!, $value: String) {
-          sendLitterRobot4Command(input: {
-            serial: $serial,
-            command: $command,
-            value: $value
-          })
-        }
-      `;
-      
-      await apiSession.lr4Graphql(query, {
-        serial: this.robot.serial,
-        command: 'requestState',
-        value: null
-      });
-      
-      this.log('Requested initial state from robot via GraphQL');
+      if (!this.robot) await this._fetchRobotData();
+      await this.homey.app.apiSession.sendCommand(this.robot.serial, LR4Data.Commands.REQUEST_STATE, null, 'litter_robot_4');
+      this.log(colorize(LOG_COLORS.INFO, 'Successfully requested initial state from robot'));
     } catch (err) {
-      this.error('Failed to request initial state:', err);
+      this.error(colorize(LOG_COLORS.ERROR, 'Failed to request initial state:'), err);
     }
   }
 
   /**
-   * Register capability listeners for user interactions
+   * Sets up capability listeners to translate user interface actions
+   * into robot commands for remote control functionality.
    * @private
    */
   async _registerCapabilityListeners() {
-    // Register capability listeners for user interactions
     this.registerCapabilityListener('start_clean_cycle', async () => {
-      await this._sendCommand('cleanCycle');
+      if (!this.robot) await this._fetchRobotData();
+      await this.homey.app.apiSession.sendCommand(this.robot.serial, LR4Data.Commands.CLEAN_CYCLE, null, 'litter_robot_4');
     });
 
     this.registerCapabilityListener('start_empty_cycle', async () => {
-      await this._sendCommand('emptyCycle');
+      if (!this.robot) await this._fetchRobotData();
+      await this.homey.app.apiSession.sendCommand(this.robot.serial, LR4Data.Commands.EMPTY_CYCLE, null, 'litter_robot_4');
     });
 
     this.registerCapabilityListener('short_reset_press', async () => {
-      await this._sendCommand('shortResetPress');
+      if (!this.robot) await this._fetchRobotData();
+      await this.homey.app.apiSession.sendCommand(this.robot.serial, LR4Data.Commands.SHORT_RESET_PRESS, null, 'litter_robot_4');
     });
 
     this.registerCapabilityListener('clean_cycle_wait_time', async (value) => {
       const clumpTime = parseInt(value, 10);
-      if (isNaN(clumpTime)) throw new Error('Invalid wait time value');
+      if (isNaN(clumpTime)) throw new Error(LR4Data.ErrorMessages.INVALID_WAIT_TIME);
       const payload = JSON.stringify({ clumpTime });
-      this.log('Sending setClumpTime with payload:', payload);
-      await this._sendCommand('setClumpTime', payload);
+      this.log(colorize(LOG_COLORS.COMMAND, `Sending ${LR4Data.Commands.SET_CLUMP_TIME} with payload: ${payload}`));
+      if (!this.robot) await this._fetchRobotData();
+      await this.homey.app.apiSession.sendCommand(this.robot.serial, LR4Data.Commands.SET_CLUMP_TIME, payload, 'litter_robot_4');
     });
 
     this.registerCapabilityListener('night_light_mode', async (value) => {
       let command;
       switch (value) {
-        case 'off':  command = 'nightLightModeOff'; break;
-        case 'on':   command = 'nightLightModeOn'; break;
-        case 'auto': command = 'nightLightModeAuto'; break;
-        default: throw new Error('Invalid night light mode value');
+        case 'off':  command = LR4Data.Commands.NIGHT_LIGHT_MODE_OFF; break;
+        case 'on':   command = LR4Data.Commands.NIGHT_LIGHT_MODE_ON; break;
+        case 'auto': command = LR4Data.Commands.NIGHT_LIGHT_MODE_AUTO; break;
+        default: throw new Error(LR4Data.ErrorMessages.INVALID_NIGHT_LIGHT_MODE);
       }
-      await this._sendCommand(command);
+      if (!this.robot) await this._fetchRobotData();
+      await this.homey.app.apiSession.sendCommand(this.robot.serial, command, null, 'litter_robot_4');
     });
 
     this.registerCapabilityListener('panel_brightness', async (value) => {
       let command;
       switch (value) {
-        case 'low':    command = 'panelBrightnessLow'; break;
-        case 'medium': command = 'panelBrightnessMed'; break;
-        case 'high':   command = 'panelBrightnessHigh'; break;
-        default: throw new Error('Invalid panel brightness value');
+        case 'low':    command = LR4Data.Commands.PANEL_BRIGHTNESS_LOW; break;
+        case 'medium': command = LR4Data.Commands.PANEL_BRIGHTNESS_MEDIUM; break;
+        case 'high':   command = LR4Data.Commands.PANEL_BRIGHTNESS_HIGH; break;
+        default: throw new Error(LR4Data.ErrorMessages.INVALID_PANEL_BRIGHTNESS);
       }
-      await this._sendCommand(command);
+      if (!this.robot) await this._fetchRobotData();
+      await this.homey.app.apiSession.sendCommand(this.robot.serial, command, null, 'litter_robot_4');
     });
 
     this.registerCapabilityListener('key_pad_lock_out', async (value) => {
-      const command = value ? 'keyPadLockOutOn' : 'keyPadLockOutOff';
-      await this._sendCommand(command);
+      const command = value ? LR4Data.Commands.KEY_PAD_LOCK_OUT_ON : LR4Data.Commands.KEY_PAD_LOCK_OUT_OFF;
+      if (!this.robot) await this._fetchRobotData();
+      await this.homey.app.apiSession.sendCommand(this.robot.serial, command, null, 'litter_robot_4');
     });
 
-    // Register hopper capability listeners
     this.registerCapabilityListener('litter_hopper_enabled', async (value) => {
-      this.log(`LitterHopper enabled capability changed to: ${value}`);
-      const command = value ? 'enableHopper' : 'disableHopper';
-      this.log(`Sending command: ${command}`);
-      await this._sendCommand(command);
+      this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `LitterHopper enabled capability changed to: ${value}`)}`);
+      const command = value ? LR4Data.Commands.ENABLE_HOPPER : LR4Data.Commands.DISABLE_HOPPER;
+      this.log(colorize(LOG_COLORS.COMMAND, `Sending command: ${command}`));
+      if (!this.robot) await this._fetchRobotData();
+      await this.homey.app.apiSession.sendCommand(this.robot.serial, command, null, 'litter_robot_4');
     });
 
-    this.log('Capability listeners registered');
+    this.log(colorize(LOG_COLORS.INFO, 'Capability listeners registered'));
   }
 
   /**
-   * Send command to robot using centralized session
-   * @param {string} command - Command to send
-   * @param {Object} payload - Optional payload
-   * @private
-   */
-  async _sendCommand(command, payload = null) {
-    try {
-      const apiSession = this.homey.app.apiSession;
-      
-      if (!this.robot?.isOnline) {
-        throw new Error(`Robot is offline. Cannot send command: ${command}`);
-      }
-
-      // Send command via GraphQL mutation (not WebSocket)
-      const query = `
-        mutation sendCommand($serial: String!, $command: String!, $value: String) {
-          sendLitterRobot4Command(input: {
-            serial: $serial,
-            command: $command,
-            value: $value
-          })
-        }
-      `;
-      
-      // Convert payload to string value if provided
-      const value = payload ? (typeof payload === 'object' ? JSON.stringify(payload) : String(payload)) : null;
-      
-      this.log(`\x1b[33mSending command: ${command}${payload ? ' with payload' : ''}\x1b[0m`);
-      await apiSession.lr4Graphql(query, {
-        serial: this.robot.serial,
-        command,
-        value
-      });
-      this.log(`Successfully sent command: ${command}`);
-
-      } catch (err) {
-      this.error(`Failed to send command ${command}:`, err);
-        throw err;
-      }
-  }
-
-  /**
-   * Handle robot updates from WebSocket
+   * Processes real-time robot updates to keep device state synchronized
+   * with the actual robot status and trigger automation flows.
    * @param {Object} update - Robot update data
    * @private
    */
   async _handleRobotUpdate(update) {
-    this.log(`\x1b[36mReceived robot update for ${update.name || update.serial}\x1b[0m`);
+    this.log(colorize(LOG_COLORS.INFO, `Received robot update for ${update.name || update.serial}`));
     
-    // Update robot data
+    const previousFirmware = {
+      espFirmware: this.robot?.espFirmware,
+      picFirmwareVersion: this.robot?.picFirmwareVersion,
+      laserBoardFirmwareVersion: this.robot?.laserBoardFirmwareVersion
+    };
+    
     this.robot = { ...this.robot, ...update };
 
-    // Update capabilities
     await this._updateCapabilities(update);
     
-    // Update device settings if firmware information changed
-    if (update.espFirmware || update.picFirmwareVersion || update.laserBoardFirmwareVersion) {
-      this._updateDeviceSettings(this.robot);
-    }
+    const hasFirmwareUpdate = (
+      (update.espFirmware && update.espFirmware !== previousFirmware.espFirmware) ||
+      (update.picFirmwareVersion && update.picFirmwareVersion !== previousFirmware.picFirmwareVersion) ||
+      (update.laserBoardFirmwareVersion && update.laserBoardFirmwareVersion !== previousFirmware.laserBoardFirmwareVersion)
+    );
     
-    // Note: Weight updates are handled centrally by DataManager when WebSocket data is received
-    // No need to manually notify pet devices here to avoid duplication
+    if (hasFirmwareUpdate) {
+      this._updateDeviceSettings(this.robot);
+    }    
   }
 
 
 
   /**
-   * Update device capabilities based on robot data
+   * Updates device capabilities with current robot data and triggers
+   * automation flows when significant changes occur.
    * @param {Object} data - Robot data
    * @private
    */
   async _updateCapabilities(data) {
     if (!data) return;
     
-    // Get current settings for time formatting
     const settings = this.getSettings();
-    
-    // Create robot data instance for processing with current settings
     const robotData = new LR4Data({ robot: data, settings });
     
-    // Manage hopper capabilities first (this may add/remove capabilities)
     await this._manageHopperCapabilities();
     
-    // Define capability updates
     const updates = [
       ['clean_cycle_status', robotData.cycleStateDescription],
       ['litter_robot_status', robotData.statusDescription],
@@ -572,11 +444,11 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       ['clean_cycle_wait_time', robotData.cleanCycleWaitTimeString],
       ['key_pad_lock_out', robotData.isKeypadLocked],
       ['night_light_mode', robotData.nightLightMode],
+      ['panel_brightness', robotData.panelBrightness],
       ['alarm_connectivity', !robotData.isOnline],
       ['last_seen', robotData.isOnline ? 'Currently connected' : (robotData.lastSeenFormatted || 'Unknown')]
     ];
 
-    // Add hopper capability updates if hopper capabilities are present
     const currentCapabilities = this.getCapabilities();
     if (currentCapabilities.includes('alarm_litter_hopper_empty')) {
       updates.push(
@@ -586,162 +458,141 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       );
     }
 
-    // Track changes for Flow card triggering
     const changes = new Set();
     
-    // Update capabilities
     for (const [capability, newValue] of updates) {
       if (newValue === undefined || newValue === null) continue;
 
       const oldValue = this.getCapabilityValue(capability);
       
-      // Handle initialization from loading state
       if (oldValue === 'Loading...') {
-        this.log(`\x1b[36mInitializing capability ${capability}: ${newValue}\x1b[0m`);
+        this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `Initializing capability [${capability}]: ${newValue}`)}`);
         this.setCapabilityValue(capability, newValue).catch(err => {
-          this.error(`\x1b[31mFailed to initialize capability ${capability}:\x1b[0m`, err);
+          this.error(`[Capability] ${colorize(LOG_COLORS.ERROR, `Failed to initialize capability ${colorize(LOG_COLORS.BOLD, capability)}:`)}`, err);
         });
         continue;
       }
 
-      // Only update if value actually changed
       if (newValue !== oldValue) {
-        this.log(`\x1b[33m${capability} changed: ${oldValue} → ${newValue}\x1b[0m`);
+        if (capability === 'panel_brightness') {
+          this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `Panel brightness updated via websocket: ${oldValue} → ${newValue}`)}`);
+        }
+        
+        if (capability === 'night_light_mode') {
+          this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `Night light mode updated via websocket: ${oldValue} → ${newValue}`)}`);
+        }
+        
+        if (capability === 'clean_cycle_wait_time') {
+          this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `Clean cycle wait time updated via websocket: ${oldValue} → ${newValue}`)}`);
+        }
+        
+        this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `Capability [${capability}] changed: ${oldValue} → ${newValue}`)}`);
         this.setCapabilityValue(capability, newValue).catch(err => {
-          this.error(`\x1b[31mFailed to update capability ${capability}:\x1b[0m`, err);
+          this.error(`[Capability] ${colorize(LOG_COLORS.ERROR, `Failed to update capability ${colorize(LOG_COLORS.BOLD, capability)}:`)}`, err);
         });
         changes.add(capability);
       }
     }
 
-    // Trigger Flow cards for detected changes
     if (changes.size > 0) {
       this._triggerFlowCards(changes, robotData);
     }
   }
 
   /**
-   * Trigger Flow cards based on capability changes
+   * Triggers Flows when significant device events occur.
    * @param {Set<string>} changes - Set of changed capabilities
    * @param {LR4Data} robotData - Current robot data
    * @private
    */
   _triggerFlowCards(changes, robotData) {
-    // Clean cycle multiple trigger - trigger on every cycle increase
-    // The run listener in the driver will check if it's a multiple of the user's configured count
     if (changes.has('measure_odometer_clean_cycles')) {
       const totalCycles = this.getCapabilityValue('measure_odometer_clean_cycles');
       if (typeof totalCycles === 'number' && totalCycles > 0) {
-        // Get the previous cycle count from device store
         const previousCycles = this.getStoreValue('previous_clean_cycles') || 0;
         
-        // Only trigger if the cycle count increased (not on initialization)
         if (totalCycles > previousCycles) {
-          this.log(`Clean cycle count increased: ${previousCycles} → ${totalCycles}`);
+          this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Triggering [clean_cycle_multiple] (${previousCycles} → ${totalCycles})`)}`);
           
-          // Trigger the clean_cycle_multiple card - the run listener will check if it's a multiple
           this.homey.flow.getDeviceTriggerCard('clean_cycle_multiple')
             .trigger(this, { total_cycles: totalCycles })
-            .catch(err => this.error('Failed to trigger clean_cycle_multiple:', err));
+            .catch(err => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger clean_cycle_multiple:'), err));
           
-          // Trigger the clean_cycle_finished card for each completed cycle
+          this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Triggering [clean_cycle_finished] (${totalCycles})`)}`);
           this.homey.flow.getDeviceTriggerCard('clean_cycle_finished')
             .trigger(this, { total_clean_cycles: totalCycles })
-            .catch(err => this.error('Failed to trigger clean_cycle_finished:', err));
+            .catch(err => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger clean_cycle_finished:'), err));
         }
         
-        // Store the current count for next comparison
         this.setStoreValue('previous_clean_cycles', totalCycles);
       }
     }
 
-    // Clean cycle status changed trigger
-    if (changes.has('clean_cycle_status')) {
-      const cleanCycleStatus = this.getCapabilityValue('clean_cycle_status');
-      this.log(`Clean cycle status changed to: ${cleanCycleStatus}`);
-      
-      this.homey.flow.getDeviceTriggerCard('clean_cycle_status_changed')
-        .trigger(this, { clean_cycle_status: cleanCycleStatus })
-        .catch(err => this.error('Failed to trigger clean_cycle_status_changed:', err));
-    }
 
-    // Litter-Robot status changed trigger
-    if (changes.has('litter_robot_status')) {
-      const litterRobotStatus = this.getCapabilityValue('litter_robot_status');
-      this.log(`Litter-Robot status changed to: ${litterRobotStatus}`);
-      
-      this.homey.flow.getDeviceTriggerCard('litter_robot_status_changed')
-        .trigger(this, { litter_robot_status: litterRobotStatus })
-        .catch(err => this.error('Failed to trigger litter_robot_status_changed:', err));
-    }
-
-    // Problem detection triggers
     if (changes.has('alarm_problem')) {
       const hasProblem = robotData.hasProblem;
       if (hasProblem) {
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Triggering [problem_details_provided] (${robotData.problemDescription})`)}`);
         this.homey.flow.getDeviceTriggerCard('problem_details_provided')
           .trigger(this, {
           problem_description: robotData.problemDescription,
           problem_codes: robotData.problemCodes.join(', '),
           problem_count: robotData.problemCount
           })
-          .catch(err => this.error('Failed to trigger problem_details_provided:', err));
+          .catch(err => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger problem_details_provided:'), err));
       }
     }
   }
 
   /**
-   * Handle settings changes
+   * Responds to user preference changes by updating device behavior
+   * and refreshing data with new formatting options.
    * @param {Object} oldSettings - Previous settings
    * @param {Object} newSettings - New settings
    */
   async onSettings({ oldSettings, newSettings }) {
-    this.log('Device settings updated');
+    this.log(colorize(LOG_COLORS.SYSTEM, 'Device settings updated'));
     
-    // Check if hopper mode changed
     if (oldSettings?.litter_hopper_mode !== newSettings?.litter_hopper_mode) {
-      this.log(`Hopper mode changed: ${oldSettings?.litter_hopper_mode} → ${newSettings?.litter_hopper_mode}`);
+      this.log(colorize(LOG_COLORS.SYSTEM, `Hopper mode changed: ${oldSettings?.litter_hopper_mode} → ${newSettings?.litter_hopper_mode}`));
       
-      // Use the new settings directly instead of reading from cache
       await this._manageHopperCapabilitiesWithMode(newSettings.litter_hopper_mode);
       
-      // Request fresh state from the device to get updated hopper status
       try {
-        this.log('Requesting fresh device state after hopper mode change...');
-        await this._sendCommand('requestState');
+        this.log(colorize(LOG_COLORS.INFO, 'Requesting fresh device state after hopper mode change...'));
+        if (!this.robot) await this._fetchRobotData();
+        await this.homey.app.apiSession.sendCommand(this.robot.serial, LR4Data.Commands.REQUEST_STATE, null, 'litter_robot_4');
       } catch (err) {
-        this.error('Failed to request state after hopper mode change:', err);
+        this.error(colorize(LOG_COLORS.ERROR, 'Failed to request state after hopper mode change:'), err);
       }
     }
     
-    // Check if time format changed
     if (oldSettings?.use_12h_format !== newSettings?.use_12h_format) {
-      this.log(`Time format changed: ${oldSettings?.use_12h_format} → ${newSettings?.use_12h_format}`);
+      this.log(colorize(LOG_COLORS.SYSTEM, `Time format changed: ${oldSettings?.use_12h_format} → ${newSettings?.use_12h_format}`));
       
-      // Re-process current robot data with new time format settings
       if (this.robot) {
-        this.log('Re-processing robot data with new time format settings...');
+        this.log(colorize(LOG_COLORS.INFO, 'Re-processing robot data with new time format settings...'));
         await this._updateCapabilities(this.robot);
       }
     }
   }
 
   /**
-   * Device cleanup when deleted
+   * Performs cleanup to prevent memory leaks and ensure proper
+   * resource management when the device is removed.
    */
   onDeleted() {
-    this.log('Device deleted, cleaning up...');
+    this.log(colorize(LOG_COLORS.INFO, 'Device deleted, cleaning up...'));
     
-    // Clean up DataManager registration
     if (this.robotSerial) {
       const dataManager = this.homey.app.dataManager;
       if (dataManager) {
         dataManager.unregisterDevice(this.robotSerial).catch(err => {
-          this.error('Error during DataManager cleanup:', err);
+          this.error(colorize(LOG_COLORS.ERROR, 'Error during DataManager cleanup:'), err);
         });
       }
     }
     
-    this.log('Device cleanup completed');
+    this.log(colorize(LOG_COLORS.SUCCESS, 'Device cleanup completed'));
   }
 } 

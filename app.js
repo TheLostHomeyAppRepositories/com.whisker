@@ -1,373 +1,158 @@
 'use strict';
 
 const Homey = require('homey');
-const CognitoSession = require('./lib/cognitosession');
-const ApiSession = require('./lib/apisession');
+const WhiskerClient = require('./lib/whiskerclient');
 const DataManager = require('./lib/datamanager');
+const { colorize, LOG_COLORS } = require('./lib/utils');
 
+/**
+ * Main application class for the Whisker Homey app.
+ * Manages centralized authentication, data management, and device coordination
+ * for all Whisker devices (Litter-Robot 4, pet tracking, etc.).
+ */
 class WhiskerApp extends Homey.App {
 
-  /**
-   * Initialize the app and set up the centralized session and data management
-   */
   async onInit() {
-    this.log('Whisker app is initializing...');
-
-    // Initialize centralized session management
-    this._initializeSessionManagement();
-
-    // Initialize centralized data management
+    this.log(colorize(LOG_COLORS.INFO, 'Initializing Whisker app...'));
+    this.client = new WhiskerClient(this.homey);
     this._initializeDataManagement();
-
-    // Try to restore session from stored tokens
     await this._restoreSessionFromStorage();
-
-    this.log('Whisker app has been initialized');
+    this.log(colorize(LOG_COLORS.SUCCESS, 'Whisker app initialization completed successfully'));
   }
 
   /**
-   * Initialize the centralized session management
-   * @private
-   */
-  _initializeSessionManagement() {
-    // Create centralized Cognito session
-    // This will be initialized with credentials when devices are paired
-    this._cognitoSession = null;
-    this._apiSession = null;
-    
-    this.log('Session management initialized');
-  }
-
-  /**
-   * Initialize the centralized data management
-   * @private
+   * Initializes the data management system to handle cross-device communication
+   * and centralized data processing for all Whisker devices.
    */
   _initializeDataManagement() {
-    // Data manager will be created once we have an API session
     this._dataManager = null;
-    
-    this.log('Data management initialized');
+    this.log(colorize(LOG_COLORS.INFO, 'Data management system initialized'));
   }
 
   /**
-   * Try to restore session from stored tokens
-   * @private
+   * Attempts to restore user session from stored authentication tokens.
+   * This enables seamless app restarts without requiring re-authentication
+   * when valid tokens are available.
    */
   async _restoreSessionFromStorage() {
     try {
       const storedTokens = this.homey.settings.get('cognito_tokens');
-      if (storedTokens && storedTokens.id_token && storedTokens.access_token && storedTokens.refresh_token) {
-        this.log('Found stored tokens, attempting to restore session...');
-        
-        // Check if tokens are still valid
-        const decoded = this._decodeJwt(storedTokens.access_token);
-        if (decoded && decoded.exp) {
-          const now = Math.floor(Date.now() / 1000);
-          if (decoded.exp > now + 30) {
-            // Tokens are still valid, restore session
-            await this.initializeSessionWithTokens(storedTokens);
-            this.log('Session restored successfully from stored tokens');
-            return;
-          } else {
-            this.log('Stored tokens are expired, will need to refresh');
-            // Try to refresh the session
-            try {
-              await this.initializeSessionWithTokens(storedTokens);
-              // If we get here, refresh was successful
-              this.log('Session refreshed successfully from stored tokens');
-              return;
-            } catch (refreshError) {
-              this.log('Failed to refresh stored tokens:', refreshError.message);
-              // Clear invalid tokens
-              this._clearStoredTokens();
-            }
-          }
-        }
-      }
-    } catch (error) {
-      this.log('Error restoring session from storage:', error.message);
-      // Clear potentially corrupted tokens
-      this._clearStoredTokens();
-    }
-    
-    this.log('No valid stored session found, user will need to authenticate');
-  }
-
-  /**
-   * Store tokens in persistent storage
-   * @param {Object} tokens - Tokens object { id_token, access_token, refresh_token }
-   * @private
-   */
-  _storeTokens(tokens) {
-    try {
-      this.homey.settings.set('cognito_tokens', tokens);
-      this.log('Tokens stored in persistent storage');
-    } catch (error) {
-      this.log('Failed to store tokens:', error.message);
-    }
-  }
-
-  /**
-   * Clear stored tokens from persistent storage
-   * @private
-   */
-  _clearStoredTokens() {
-    try {
-      this.homey.settings.unset('cognito_tokens');
-      this.log('Stored tokens cleared');
-    } catch (error) {
-      this.log('Failed to clear stored tokens:', error.message);
-    }
-  }
-
-  /**
-   * Decode JWT without verification (for checking expiration)
-   * @param {string} token - JWT token
-   * @returns {Object|null} Decoded payload or null
-   * @private
-   */
-  _decodeJwt(token) {
-    try {
-      if (!token) return null;
-      const jwt = require('jsonwebtoken');
-      return jwt.decode(token) || null;
-    } catch (err) {
-      this.log('Failed to decode JWT:', err.message);
-      return null;
-    }
-  }
-
-  /**
-   * Initialize the API session with credentials
-   * @param {string} username - Cognito username/email
-   * @param {string} password - Cognito password
-   * @returns {Promise<ApiSession>}
-   */
-  async initializeSession(username, password) {
-    if (this._apiSession) {
-      this.log('API session already initialized');
-      return this._apiSession;
-    }
-
-    this.log('Initializing API session with credentials...');
-
-    try {
-      // Create Cognito session with token refresh callback
-      this._cognitoSession = new CognitoSession({ 
-        username, 
-        password,
-        onTokensRefreshed: (tokens) => this._storeTokens(tokens)
-      });
-      
-      // Authenticate and get tokens
-      await this._cognitoSession.login();
-      
-      // Store tokens in persistent storage
-      const tokens = this._cognitoSession.getTokens();
-      if (tokens) {
-        this._storeTokens(tokens);
-      }
-      
-      // Create API session
-      this._apiSession = new ApiSession(this._cognitoSession, this.homey);
-      
-      // Create data manager
-      this._dataManager = new DataManager(this._apiSession, this.homey);
-      
-      // Re-register all devices with the new DataManager
-      await this._reRegisterAllDevices();
-      
-      this.log('API session initialized successfully');
-      return this._apiSession;
-    } catch (error) {
-      this.log('Failed to initialize API session:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Initialize the API session with existing tokens
-   * @param {Object} tokens - Existing tokens { id_token, access_token, refresh_token }
-   * @returns {Promise<ApiSession>}
-   */
-  async initializeSessionWithTokens(tokens) {
-    if (this._apiSession) {
-      this.log('API session already initialized');
-      return this._apiSession;
-    }
-
-    this.log('Initializing API session with existing tokens...');
-
-    try {
-      // Create Cognito session with tokens and token refresh callback
-      this._cognitoSession = new CognitoSession({ 
-        tokens,
-        onTokensRefreshed: (tokens) => this._storeTokens(tokens)
-      });
-      
-      // Check if session is valid, if not try to refresh
-      if (!this._cognitoSession.isSessionValid()) {
-        this.log('Session is not valid, attempting to refresh...');
-        await this._cognitoSession.refreshSession();
-        
-        // Store the refreshed tokens
-        const refreshedTokens = this._cognitoSession.getTokens();
-        if (refreshedTokens) {
-          this._storeTokens(refreshedTokens);
+      if (storedTokens) {
+        this.log(colorize(LOG_COLORS.INFO, 'Found stored tokens, attempting to restore session...'));
+        const loggedIn = await this.client.loginWithTokens(storedTokens);
+        if (loggedIn) {
+            this._dataManager = new DataManager(this.client.apiSession, this.homey);
+            await this._reRegisterAllDevices();
+            this.log(colorize(LOG_COLORS.SUCCESS, 'Session restored successfully from stored tokens'));
         }
       } else {
-        // Store the current tokens
-        this._storeTokens(tokens);
+        this.log(colorize(LOG_COLORS.WARNING, 'No valid stored session found, user will need to authenticate'));
       }
-      
-      // Create API session
-      this._apiSession = new ApiSession(this._cognitoSession, this.homey);
-      
-      // Create data manager
-      this._dataManager = new DataManager(this._apiSession, this.homey);
-      
-      // Re-register all devices with the new DataManager
-      await this._reRegisterAllDevices();
-      
-      this.log('API session initialized successfully with tokens');
-      return this._apiSession;
     } catch (error) {
-      this.log('Failed to initialize API session with tokens:', error);
+      this.error(colorize(LOG_COLORS.ERROR, 'Error restoring session from storage:'), error.message);
+      this.homey.settings.unset('cognito_tokens');
+    }
+  }
+
+  /**
+   * Initializes a new API session using user credentials.
+   * Creates the data manager and re-registers all devices to ensure
+   * they have access to the new session and can communicate properly.
+   */
+  async initializeSession(username, password) {
+    if (this.client.isAuthenticated()) {
+      this.log(colorize(LOG_COLORS.WARNING, 'API session already initialized'));
+      return this.client.apiSession;
+    }
+
+    this.log(colorize(LOG_COLORS.INFO, 'Initializing API session with credentials...'));
+
+    try {
+      const loggedIn = await this.client.login(username, password);
+      if (loggedIn) {
+        this._dataManager = new DataManager(this.client.apiSession, this.homey);
+        await this._reRegisterAllDevices();
+        this.log(colorize(LOG_COLORS.SUCCESS, 'API session initialized successfully'));
+        return this.client.apiSession;
+      }
+      return null;
+    } catch (error) {
+      this.error(colorize(LOG_COLORS.ERROR, 'Failed to initialize API session:'), error);
       throw error;
     }
   }
 
   /**
-   * Re-register all devices with the new DataManager after repair
-   * @private
+   * Re-registers all existing devices with the new data manager instance.
+   * This ensures all devices can communicate with the centralized data system
+   * after session restoration or re-authentication.
    */
   async _reRegisterAllDevices() {
-    this.log('Re-registering all devices with new DataManager...');
-    
+    this.log(colorize(LOG_COLORS.INFO, 'Re-registering all devices with new DataManager...'));
+
     try {
-      const devices = await this.homey.drivers.getDrivers();
-      
-      for (const driver of Object.values(devices)) {
+      const drivers = await this.homey.drivers.getDrivers();
+
+      for (const driver of Object.values(drivers)) {
         const driverDevices = await driver.getDevices();
-        
+
         for (const device of driverDevices) {
           try {
-            // Only refresh devices that have a refresh method
-            // The device's refresh method will handle the registration logic
-            if (typeof device.refresh === 'function') {
-              this.log(`Refreshing device ${device.getName()} (${device.getData().id})`);
-              await device.refresh();
+            this.log(colorize(LOG_COLORS.INFO, `Re-registering device ${device.getName()} with DataManager...`));
+            if (typeof device._registerWithDataManager === 'function') {
+              await device._registerWithDataManager();
+              this.log(colorize(LOG_COLORS.SUCCESS, `Device ${device.getName()} re-registered successfully`));
             } else {
-              this.log(`Device ${device.getName()} (${device.getData().id}) has no refresh method, skipping`);
+              this.log(colorize(LOG_COLORS.WARNING, `Device ${device.getName()} has no _registerWithDataManager method, skipping`));
             }
           } catch (error) {
-            this.error(`Failed to refresh device ${device.getName()}:`, error);
+            this.error(colorize(LOG_COLORS.ERROR, `Failed to re-register device ${device.getName()}:`), error);
           }
         }
       }
-      
-      this.log('Device re-registration completed successfully');
+
+      this.log(colorize(LOG_COLORS.SUCCESS, 'Device re-registration completed successfully'));
     } catch (error) {
-      this.error('Error during device re-registration:', error);
+      this.error(colorize(LOG_COLORS.ERROR, 'Error during device re-registration:'), error);
     }
   }
 
-  /**
-   * Get the API session instance
-   * @returns {ApiSession|null}
-   */
   get apiSession() {
-    return this._apiSession;
+    return this.client.apiSession;
   }
 
-  /**
-   * Get the data manager instance
-   * @returns {DataManager|null}
-   */
   get dataManager() {
     return this._dataManager;
   }
 
-  /**
-   * Get the Cognito session instance
-   * @returns {CognitoSession|null}
-   */
   get cognitoSession() {
-    return this._cognitoSession;
+    return this.client.cognitoSession;
   }
 
   /**
-   * Check if the app is authenticated
-   * @returns {boolean}
-   */
-  isAuthenticated() {
-    return this._cognitoSession && this._cognitoSession.isSessionValid();
-  }
-
-  /**
-   * Sign out and clean up sessions
+   * Signs out the user and cleans up all sessions and data managers.
+   * Ensures no sensitive data remains in memory after logout.
    */
   async signOut() {
-    if (this._cognitoSession) {
-      this._cognitoSession.signOut();
-    }
-    
-    if (this._apiSession) {
-      this._apiSession.destroy();
-    }
-    
+    this.client.signOut();
     if (this._dataManager) {
       this._dataManager.destroy();
+      this._dataManager = null;
     }
-    
-    // Clear stored tokens
-    this._clearStoredTokens();
-    
-    this._cognitoSession = null;
-    this._apiSession = null;
-    this._dataManager = null;
-    
-    this.log('Signed out and cleaned up sessions');
+    this.log(colorize(LOG_COLORS.SYSTEM, 'Signed out and cleaned up all sessions'));
   }
 
   /**
-   * Check if we have valid stored tokens that can be used for pairing
-   * @returns {boolean} True if we have valid stored tokens
-   */
-  hasValidStoredTokens() {
-    try {
-      const storedTokens = this.homey.settings.get('cognito_tokens');
-      if (!storedTokens || !storedTokens.access_token) {
-        return false;
-      }
-      
-      // Check if access token is still valid
-      const decoded = this._decodeJwt(storedTokens.access_token);
-      if (decoded && decoded.exp) {
-        const now = Math.floor(Date.now() / 1000);
-        return decoded.exp > now + 30; // 30 second buffer
-      }
-      
-      return false;
-    } catch (error) {
-      this.log('Error checking stored tokens:', error.message);
-      return false;
-    }
-  }
-
-  /**
-   * Clean up resources when the app is destroyed
+   * Cleanup method called when the app is being destroyed.
+   * Ensures proper resource cleanup and session termination.
    */
   async onUninit() {
-    this.log('Whisker app is being destroyed, cleaning up resources...');
-    
+    this.log(colorize(LOG_COLORS.INFO, 'Whisker app is being destroyed, cleaning up resources...'));
     try {
-      // Sign out and clean up all sessions
       await this.signOut();
-      
-      this.log('Whisker app cleanup completed successfully');
+      this.log(colorize(LOG_COLORS.SUCCESS, 'Whisker app cleanup completed successfully'));
     } catch (error) {
-      this.error('Error during app cleanup:', error);
+      this.error(colorize(LOG_COLORS.ERROR, 'Error during app cleanup:'), error);
     }
   }
 

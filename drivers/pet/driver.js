@@ -1,33 +1,34 @@
 'use strict';
 
 /**
- * PetDriver integrates Homey.Driver for pet information pairing and repair flows.
- * Updated to use the new centralized session and data management architecture.
- * @class
+ * PetDriver manages pet information devices for the Whisker app.
+ * Handles device pairing, repair flows, and Flow card registration for pet-related automation.
+ * Uses centralized session management for authentication and data access.
  */
 
 const Homey = require('homey');
 const PetData = require('../../lib/petdata');
+const { colorize, LOG_COLORS } = require('../../lib/utils');
 
 module.exports = class PetDriver extends Homey.Driver {
 
   /**
-   * Log driver initialization and register all Flow cards.
-   * @returns {void}
+   * Initialize the driver and register Flow cards for pet automation.
+   * Sets up condition cards for birthday checks and trigger cards for pet data changes.
    */
   async onInit() {
-    this.log('PetDriver has been initialized');
+    this.log(colorize(LOG_COLORS.INFO, 'Initializing Pet driver...'));
 
-    // Register condition cards
+    // Register condition cards for birthday automation
     this.homey.flow.getConditionCard('birthday_today')
       .registerRunListener(async (args, state) => {
         const device = args.device;
         if (!device || !device.petData) {
-          this.error('Device or pet data not available for birthday check');
+          this.error(colorize(LOG_COLORS.ERROR, 'Device or pet data not available for birthday check'));
           return false;
         }
         const result = device.petData.isBirthdayToday;
-        this.log(`Birthday check for ${device.petData.name}: result=${result}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition check [label_birthday]: pet=${device.petData.name}, result=${result}`)}`);
         return result;
       });
 
@@ -37,53 +38,54 @@ module.exports = class PetDriver extends Homey.Driver {
         const days = args.days;
         
         if (!device || !device.petData) {
-          this.error('Device or pet data not available for days until birthday check');
+          this.error(colorize(LOG_COLORS.ERROR, 'Device or pet data not available for days until birthday check'));
           return false;
         }
         
         const threshold = parseInt(days, 10);
         if (isNaN(threshold)) {
-          this.error('Invalid days threshold provided:', days);
+          this.error(colorize(LOG_COLORS.ERROR, `Invalid days threshold provided: ${days}`));
           return false;
         }
         
         const result = device.petData.isDaysUntilBirthday(threshold);
-        this.log(`Days until birthday check for ${device.petData.name}: remaining=${device.petData.daysUntilBirthday}, threshold=${threshold}, result=${result}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition check [label_birthday]: pet=${device.petData.name}, remaining=${device.petData.daysUntilBirthday}, threshold=${threshold}, result=${result}`)}`);
         return result;
       });
 
-    // Register trigger cards (devices will trigger these directly)
+    // Register trigger cards for pet data change automation
     this.homey.flow.getDeviceTriggerCard('health_concern_detected');
     this.homey.flow.getDeviceTriggerCard('age_changed');
     this.homey.flow.getDeviceTriggerCard('environment_changed');
     this.homey.flow.getDeviceTriggerCard('diet_changed');
+
+    this.log(colorize(LOG_COLORS.SUCCESS, 'Pet driver initialization completed successfully'));
   }
 
   /**
-   * Handle device pairing: authenticate user and list available pets.
-   * Updated to use centralized session management.
+   * Handle device pairing flow for pet information devices.
+   * Authenticates user credentials and discovers available pets from the Whisker account.
+   * Uses centralized session management to avoid storing tokens in device settings.
    * @param {object} session Homey pairing session
-   * @returns {Promise<void>}
    */
   async onPair(session) {
-    // Pairing: handle user login and fetch available pets
     let pets = [];
 
-    // Always require login during pairing
+    // Require fresh authentication during pairing
     session.setHandler('login', async ({ username, password }) => {
       if (!username || !password) {
         throw new Error('Username and password are required for pairing');
       }
-      this.log('Attempting login for user:', username);
+      this.log(colorize(LOG_COLORS.INFO, `Attempting login for user: ${username}`));
       try {
-        // Use centralized app session management
+        // Use centralized session management for authentication
         const apiSession = await this.homey.app.initializeSession(username, password);
         
-        // Get pets using the new session
+        // Fetch available pets from the account
         pets = await apiSession.getPets();
-        this.log(`Found ${pets.length} pet(s) for account`);
+        this.log(colorize(LOG_COLORS.SUCCESS, `Found ${pets.length} pet(s) for account`));
       } catch (err) {
-        this.error('Login or fetching pets failed:', err);
+        this.error(colorize(LOG_COLORS.ERROR, `Login or fetching pets failed: ${err.message}`));
         throw new Error('Login failed: ' + err.message);
       }
       return true;
@@ -98,53 +100,54 @@ module.exports = class PetDriver extends Homey.Driver {
         return {
           name: petInstance.name || `Pet ${petData.petId}`,
           data: { id: String(petData.petId) },
-          // No need to store tokens in device settings - they're managed centrally
+          // Authentication tokens are managed centrally, not stored in device settings
         };
       });
     });
     
-    // Allow adding multiple pets in one pairing session
+    // Support adding multiple pets in a single pairing session
     session.setHandler('add_devices', async (selectedDevices) => {
-      // Homey will pass an array of { name, data, settings } for each checked pet
+      // Homey provides selected devices as array of { name, data, settings }
       return selectedDevices;
     });
   }
 
   /**
-   * Handle device repair: refresh authentication and validate pet connectivity.
-   * Updated to use centralized session management.
+   * Handle device repair flow for pet information devices.
+   * Refreshes authentication credentials and validates that the pet still exists in the account.
+   * Uses centralized session management to ensure secure re-authentication.
    * @param {object} session Homey pairing session
    * @param {object} device Homey device instance
-   * @returns {Promise<void>}
    */
   async onRepair(session, device) {
     const { id } = device.getData();
-    this.log('Repairing device with ID:', id);
+    this.log(colorize(LOG_COLORS.INFO, `Repairing device with ID: ${id}`));
 
-    // Always require fresh login during repair
+    // Require fresh authentication during repair
     session.setHandler('login', async ({ username, password }) => {
       if (!username || !password) {
         throw new Error('Username and password are required for repair');
       }
-      this.log('Repair login with username:', username);
+      this.log(colorize(LOG_COLORS.INFO, `Repair login with username: ${username}`));
       try {
-        // Clear any existing session and create a fresh one
+        // Clear existing session and establish fresh authentication
         await this.homey.app.signOut();
         
-        // Initialize new session with fresh credentials
+        // Initialize new session with provided credentials
         const apiSession = await this.homey.app.initializeSession(username, password);
         
-        // Verify pet exists using the new session
+        // Verify the pet still exists in the account
         const pets = await apiSession.getPets();
         const pet = pets.find(p => String(p.petId) === String(id));
         if (!pet) {
           throw new Error(`Pet with ID ${id} not found`);
         }
         
+        // Restore pet data for the device
         device.petData = new PetData({ pet });
-        this.log('Re-authentication successful');
+        this.log(colorize(LOG_COLORS.SUCCESS, 'Re-authentication successful'));
       } catch (err) {
-        this.error('Repair login failed:', err);
+        this.error(colorize(LOG_COLORS.ERROR, `Repair login failed: ${err.message}`));
         throw new Error('Repair login failed: ' + err.message);
       }
       return true;

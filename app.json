@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.whisker",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -1272,6 +1272,20 @@
           {
             "name": "status",
             "type": "dropdown",
+            "title": {
+              "en": "Cleaning status",
+              "nl": "Schoonmaakstatus",
+              "de": "Reinigungsstatus",
+              "fr": "Statut de nettoyage",
+              "it": "Stato della pulizia",
+              "sv": "Stästatus",
+              "no": "Rengjøringsstatus",
+              "es": "Estado de limpieza",
+              "da": "Rengøringsstatus",
+              "ru": "Статус очистки",
+              "pl": "Status czyszczenia",
+              "ko": "청소 상태"
+            },
             "values": [
               {
                 "id": "Idle",
@@ -1442,6 +1456,20 @@
           {
             "name": "status",
             "type": "dropdown",
+            "title": {
+              "en": "Litter-Robot status",
+              "nl": "Litter-Robot status",
+              "de": "Litter-Robot Status",
+              "fr": "Statut Litter-Robot",
+              "it": "Stato Litter-Robot",
+              "sv": "Litter-Robot status",
+              "no": "Litter-Robot status",
+              "es": "Estado Litter-Robot",
+              "da": "Litter-Robot status",
+              "ru": "Статус Litter-Robot",
+              "pl": "Status Litter-Robot",
+              "ko": "Litter-Robot 상태"
+            },
             "values": [
               {
                 "id": "Ready",
@@ -2119,6 +2147,20 @@
           {
             "name": "wait_time",
             "type": "dropdown",
+            "title": {
+              "en": "Wait time",
+              "nl": "Wachttijd",
+              "de": "Wartezeit",
+              "fr": "Temps d'attente",
+              "it": "Tempo di attesa",
+              "sv": "Väntetid",
+              "no": "Ventetid",
+              "es": "Tiempo de espera",
+              "da": "Ventetid",
+              "ru": "Время ожидания",
+              "pl": "Czas oczekiwania",
+              "ko": "대기 시간"
+            },
             "values": [
               {
                 "id": "3",
@@ -3595,7 +3637,7 @@
       },
       "type": "enum",
       "uiComponent": "picker",
-      "getable": false,
+      "getable": true,
       "setable": true,
       "values": [
         {

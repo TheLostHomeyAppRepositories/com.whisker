@@ -15,7 +15,7 @@
   },
   "type": "enum",
   "uiComponent": "picker",
-  "getable": false,
+  "getable": true,
   "setable": true,
   "values": [
     {

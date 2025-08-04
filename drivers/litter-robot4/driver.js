@@ -2,34 +2,36 @@
 
 /**
  * LitterRobotDriver integrates Homey.Driver for Litter-Robot 4 pairing and repair flows.
- * Updated to use the new centralized session and data management architecture.
+ * Provides comprehensive Flow automation integration with centralized session management.
  * @class
  */
 
 const Homey = require('homey');
 const LR4Data = require('../../lib/litterrobot4data');
+const { colorize, LOG_COLORS } = require('../../lib/utils');
 
 module.exports = class LitterRobotDriver extends Homey.Driver {
 
   /**
-   * Log driver initialization and register all Flow cards.
+   * Initializes the driver and registers all Flow automation cards.
+   * Establishes condition, action, and trigger cards for comprehensive device automation.
    * @returns {void}
    */
   async onInit() {
-    this.log('LitterRobotDriver has been initialized');
+    this.log(colorize(LOG_COLORS.INFO, 'Initializing LitterRobotDriver...'));
 
-    // Register condition cards
+    // Register condition cards for Flow automation logic
     this.homey.flow.getConditionCard('is_cat_detected')
       .registerRunListener(async (args, state) => {
         const device = args.device;
         if (!device || !device.robot) {
-          this.error('Device or robot data not available for cat detection check');
+          this.error(colorize(LOG_COLORS.ERROR, 'Device or robot data not available for cat detection check'));
           return false;
         }
         const deviceSettings = device.getSettings();
         const lr4Data = new LR4Data({ robot: device.robot, settings: deviceSettings });
         const result = lr4Data.isCatDetected;
-        this.log(`Cat detection check: result=${result}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition check [alarm_cat_detected]: result=${result}`)}`);
         return result;
       });
 
@@ -37,13 +39,13 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
       .registerRunListener(async (args, state) => {
         const device = args.device;
         if (!device || !device.robot) {
-          this.error('Device or robot data not available for sleep mode check');
+          this.error(colorize(LOG_COLORS.ERROR, 'Device or robot data not available for sleep mode check'));
           return false;
         }
         const deviceSettings = device.getSettings();
         const lr4Data = new LR4Data({ robot: device.robot, settings: deviceSettings });
         const result = lr4Data.isSleepActive;
-        this.log(`Sleep mode check: result=${result}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition check [alarm_sleep_mode_active]: result=${result}`)}`);
         return result;
       });
 
@@ -51,11 +53,11 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
       .registerRunListener(async (args, state) => {
         const device = args.device;
         if (!device) {
-          this.error('Device not available for waste drawer check');
+          this.error(colorize(LOG_COLORS.ERROR, 'Device not available for waste drawer check'));
           return false;
         }
         const isDrawerFull = device.getCapabilityValue('alarm_waste_drawer_full');
-        this.log(`Flow check [is_waste_drawer_full]: isDrawerFull=${isDrawerFull}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition check [alarm_waste_drawer_full]: result=${isDrawerFull}`)}`);
         return isDrawerFull;
       });
 
@@ -63,7 +65,7 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
       .registerRunListener(async (args, state) => {
         const device = args.device;
         if (!device || !device.robot) {
-          this.error('Device or robot data not available for sleep schedule check');
+          this.error(colorize(LOG_COLORS.ERROR, 'Device or robot data not available for sleep schedule check'));
           return false;
         }
         const deviceSettings = device.getSettings();
@@ -72,7 +74,7 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
           settings: deviceSettings
         });
         const result = lr4Data.isSleepScheduled;
-        this.log(`Sleep schedule check: result=${result}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition check [alarm_sleep_mode_scheduled]: result=${result}`)}`);
         return result;
       });
 
@@ -80,7 +82,7 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
       .registerRunListener(async (args, state) => {
         const device = args.device;
         if (!device || !device.robot) {
-          this.error('Device or robot data not available for cleaning status check');
+          this.error(colorize(LOG_COLORS.ERROR, 'Device or robot data not available for cleaning status check'));
           return false;
         }
         const deviceSettings = device.getSettings();
@@ -88,7 +90,7 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         const current = lr4Data.cycleStateDescription;
         const expected = args.status;
         const result = current === expected;
-        this.log(`Cleaning status check: current=${current}, expected=${expected}, result=${result}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition check [clean_cycle_status]: current=${current}, expected=${expected}, result=${result}`)}`);
         return result;
       });
 
@@ -96,12 +98,12 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
       .registerRunListener(async (args) => {
         const device = args.device;
         if (!device) {
-          this.error('Device not available for hopper empty check');
+          this.error(colorize(LOG_COLORS.ERROR, 'Device not available for hopper empty check'));
           return false;
         }
         
         const isHopperEmpty = device.getCapabilityValue('alarm_litter_hopper_empty');
-        this.log(`Flow check [is_litter_hopper_empty]: isHopperEmpty=${isHopperEmpty}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition check [alarm_litter_hopper_empty]: result=${isHopperEmpty}`)}`);
         return isHopperEmpty;
       });
       
@@ -109,12 +111,12 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
       .registerRunListener(async (args) => {
         const device = args.device;
         if (!device) {
-          this.error('Device not available for hopper enabled check');
+          this.error(colorize(LOG_COLORS.ERROR, 'Device not available for hopper enabled check'));
           return false;
         }
         
         const isHopperEnabled = device.getCapabilityValue('litter_hopper_enabled');
-        this.log(`Flow check [is_litter_hopper_enabled]: isHopperEnabled=${isHopperEnabled}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition check [litter_hopper_enabled]: result=${isHopperEnabled}`)}`);
         return isHopperEnabled;
       });
 
@@ -122,7 +124,7 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
       .registerRunListener(async (args, state) => {
         const device = args.device;
         if (!device || !device.robot) {
-          this.error('Device or robot data not available for Litter-Robot status check');
+          this.error(colorize(LOG_COLORS.ERROR, 'Device or robot data not available for Litter-Robot status check'));
           return false;
         }
         const deviceSettings = device.getSettings();
@@ -130,18 +132,19 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         const current = lr4Data.statusDescription;
         const expected = args.status;
         const result = current === expected;
-        this.log(`Litter-Robot status check: current=${current}, expected=${expected}, result=${result}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition check [litter_robot_status]: current=${current}, expected=${expected}, result=${result}`)}`);
         return result;
       });
 
-    // Register action cards
+    // Register action cards for device control
     this.homey.flow.getActionCard('lock_keypad')
       .registerRunListener(async (args) => {
         const device = args.device;
         if (!device) {
           throw new Error('Device not found');
         }
-        await device.setCapabilityValue('key_pad_lock_out', true);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Action [lock_keypad] executed for device: ${device.getName()}`)}`);
+        await device.triggerCapabilityListener('key_pad_lock_out', true);
       });
 
     this.homey.flow.getActionCard('unlock_keypad')
@@ -150,7 +153,8 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         if (!device) {
           throw new Error('Device not found');
         }
-        await device.setCapabilityValue('key_pad_lock_out', false);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Action [unlock_keypad] executed for device: ${device.getName()}`)}`);
+        await device.triggerCapabilityListener('key_pad_lock_out', false);
       });
 
     this.homey.flow.getActionCard('set_night_light_mode')
@@ -159,7 +163,8 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         if (!device) {
           throw new Error('Device not found');
         }
-        await device.setCapabilityValue('night_light_mode', args.mode);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Action [set_night_light_mode] executed for device: ${device.getName()} with mode: ${args.mode}`)}`);
+        await device.triggerCapabilityListener('night_light_mode', args.mode);
       });
 
     this.homey.flow.getActionCard('start_clean_cycle')
@@ -168,7 +173,8 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         if (!device) {
           throw new Error('Device not found');
         }
-        await device.setCapabilityValue('start_clean_cycle', true);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Action [start_clean_cycle] executed for device: ${device.getName()}`)}`);
+        await device.triggerCapabilityListener('start_clean_cycle', true);
       });
 
     this.homey.flow.getActionCard('short_reset_press')
@@ -177,7 +183,8 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         if (!device) {
           throw new Error('Device not found');
         }
-        await device.setCapabilityValue('short_reset_press', true);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Action [short_reset_press] executed for device: ${device.getName()}`)}`);
+        await device.triggerCapabilityListener('short_reset_press', true);
       });
 
     this.homey.flow.getActionCard('start_empty_cycle')
@@ -186,7 +193,8 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         if (!device) {
           throw new Error('Device not found');
         }
-        await device.setCapabilityValue('start_empty_cycle', true);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Action [start_empty_cycle] executed for device: ${device.getName()}`)}`);
+        await device.triggerCapabilityListener('start_empty_cycle', true);
       });
 
     this.homey.flow.getActionCard('set_clean_cycle_wait_time')
@@ -195,7 +203,8 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         if (!device) {
           throw new Error('Device not found');
         }
-        await device.setCapabilityValue('clean_cycle_wait_time', args.wait_time);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Action [set_clean_cycle_wait_time] executed for device: ${device.getName()} with wait time: ${args.wait_time} minutes`)}`);
+        await device.triggerCapabilityListener('clean_cycle_wait_time', args.wait_time);
       });
 
     this.homey.flow.getActionCard('set_panel_brightness')
@@ -204,64 +213,67 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         if (!device) {
           throw new Error('Device not found');
         }
-        await device.setCapabilityValue('panel_brightness', args.brightness);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Action [set_panel_brightness] executed for device: ${device.getName()} with brightness: ${args.brightness}`)}`);
+        await device.triggerCapabilityListener('panel_brightness', args.brightness);
       });
 
-    // Register trigger cards (devices will trigger these directly)
+    // Register trigger cards for event-driven automation
     
-    // Manual triggers that need custom logic
+    // Manual triggers for state changes
     this.homey.flow.getDeviceTriggerCard('litter_hopper_empty');
     this.homey.flow.getDeviceTriggerCard('litter_hopper_not_empty');
     
-    // Register clean_cycle_multiple trigger with run listener
+    // Smart trigger for clean cycle milestones
     this.homey.flow.getDeviceTriggerCard('clean_cycle_multiple')
       .registerRunListener(async (args, state) => {
         const device = args.device;
         if (!device) {
-          this.error('Device not available for clean cycle multiple check');
+          this.error(colorize(LOG_COLORS.ERROR, 'Device not available for clean cycle multiple check'));
           return false;
         }
         
         const totalCycles = device.getCapabilityValue('measure_odometer_clean_cycles');
         const requestedCount = args.count;
         
-        this.log(`Flow check [clean_cycle_multiple]: total=${totalCycles}, requested count=${requestedCount}, remainder=${totalCycles % requestedCount}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition check [measure_odometer_clean_cycles]: total=${totalCycles}, requested count=${requestedCount}, remainder=${totalCycles % requestedCount}`)}`);
         
-        // Trigger only on exact multiples of the user-defined count
+        // Trigger only when total cycles reach exact multiples of the user-defined count
         const shouldTrigger = requestedCount > 0 && totalCycles % requestedCount === 0;
-        this.log(`Flow decision [clean_cycle_multiple]: will trigger? ${shouldTrigger}`);
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Condition decision [clean_cycle_multiple]: trigger condition met? ${shouldTrigger}`)}`);
         
         return shouldTrigger;
       });
       
     this.homey.flow.getDeviceTriggerCard('problem_details_provided');
+
+    this.log(colorize(LOG_COLORS.SUCCESS, 'LitterRobotDriver initialization completed successfully'));
   }
 
   /**
-   * Handle device pairing: authenticate user and list available robots.
-   * Updated to use centralized session management.
+   * Handles device pairing by authenticating user credentials and discovering available robots.
+   * Uses centralized session management to avoid storing tokens per device.
    * @param {object} session Homey pairing session
    * @returns {Promise<void>}
    */
   async onPair(session) {
-    // Pairing: handle user login and fetch available robots
+    // Discover available robots for the authenticated account
     let robots = [];
 
-    // Always require login during pairing
+    // Require fresh authentication for pairing
     session.setHandler('login', async ({ username, password }) => {
       if (!username || !password) {
         throw new Error('Username and password are required for pairing');
       }
-      this.log('Attempting login for user:', username);
+      this.log(colorize(LOG_COLORS.INFO, `Attempting login for user: ${username}`));
       try {
-        // Use centralized app session management
+        // Initialize centralized session for all device operations
         const apiSession = await this.homey.app.initializeSession(username, password);
         
-        // Get robots using the new session
+        // Discover robots associated with the authenticated account
         robots = await apiSession.getRobots();
-        this.log(`Found ${robots.length} robot(s) for account`);
+        this.log(colorize(LOG_COLORS.SUCCESS, `Found ${robots.length} robot(s) for account`));
       } catch (err) {
-        this.error('Login or fetching robots failed:', err);
+        this.error(colorize(LOG_COLORS.ERROR, `Login or fetching robots failed: ${err.message}`));
         throw new Error('Login failed: ' + err.message);
       }
       return true;
@@ -279,46 +291,46 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         return {
           name: deviceName,
           data: { id: robotData.serial },
-          // No need to store tokens in device settings - they're managed centrally
+          // Tokens managed centrally, no device-level storage needed
         };
       });
     });
   }
 
   /**
-   * Handle device repair: refresh authentication and validate robot connectivity.
-   * Updated to use centralized session management.
+   * Handles device repair by refreshing authentication and validating robot connectivity.
+   * Ensures device can still access the robot through centralized session management.
    * @param {object} session Homey pairing session
    * @param {object} device Homey device instance
    * @returns {Promise<void>}
    */
   async onRepair(session, device) {
     const { id } = device.getData();
-    this.log('Repairing device with ID:', id);
+    this.log(colorize(LOG_COLORS.INFO, `Repairing device with ID: ${id}`));
 
-    // Always require fresh login during repair
+    // Require fresh authentication to validate current credentials
     session.setHandler('login', async ({ username, password }) => {
       if (!username || !password) {
         throw new Error('Username and password are required for repair');
       }
-      this.log('Repair login with username:', username);
+      this.log(colorize(LOG_COLORS.INFO, `Repair login with username: ${username}`));
       try {
-        // Clear any existing session and create a fresh one
+        // Clear existing session to ensure fresh authentication
         await this.homey.app.signOut();
         
-        // Initialize new session with fresh credentials
+        // Establish new session with provided credentials
         const apiSession = await this.homey.app.initializeSession(username, password);
         
-        // Verify robot exists using the new session
+        // Validate robot still exists in the authenticated account
         const robots = await apiSession.getRobots();
         const robot = robots.find(r => String(r.serial) === String(id));
         if (!robot) {
           throw new Error(`Robot with ID ${id} not found`);
         }
         
-        this.log('Re-authentication successful');
+        this.log(colorize(LOG_COLORS.SUCCESS, 'Re-authentication successful'));
       } catch (err) {
-        this.error('Repair login failed:', err);
+        this.error(colorize(LOG_COLORS.ERROR, `Repair login failed: ${err.message}`));
         throw new Error('Repair login failed: ' + err.message);
       }
       return true;

@@ -307,6 +307,20 @@
         {
           "name": "wait_time",
           "type": "dropdown",
+          "title": {
+            "en": "Wait time",
+            "nl": "Wachttijd",
+            "de": "Wartezeit",
+            "fr": "Temps d'attente",
+            "it": "Tempo di attesa",
+            "sv": "Väntetid",
+            "no": "Ventetid",
+            "es": "Tiempo de espera",
+            "da": "Ventetid",
+            "ru": "Время ожидания",
+            "pl": "Czas oczekiwania",
+            "ko": "대기 시간"
+          },
           "values": [
             { "id": "3", "label": {
               "en": "3 minutes",
@@ -1291,6 +1305,20 @@
         {
           "name": "status",
           "type": "dropdown",
+          "title": {
+            "en": "Cleaning status",
+            "nl": "Schoonmaakstatus",
+            "de": "Reinigungsstatus",
+            "fr": "Statut de nettoyage",
+            "it": "Stato della pulizia",
+            "sv": "Stästatus",
+            "no": "Rengjøringsstatus",
+            "es": "Estado de limpieza",
+            "da": "Rengøringsstatus",
+            "ru": "Статус очистки",
+            "pl": "Status czyszczenia",
+            "ko": "청소 상태"
+          },
           "values": [
             { "id": "Idle", "title": { "en": "Idle" } },
             { "id": "Waiting to start", "title": { "en": "Waiting to start" } },
@@ -1414,6 +1442,20 @@
         {
           "name": "status",
           "type": "dropdown",
+          "title": {
+            "en": "Litter-Robot status",
+            "nl": "Litter-Robot status",
+            "de": "Litter-Robot Status",
+            "fr": "Statut Litter-Robot",
+            "it": "Stato Litter-Robot",
+            "sv": "Litter-Robot status",
+            "no": "Litter-Robot status",
+            "es": "Estado Litter-Robot",
+            "da": "Litter-Robot status",
+            "ru": "Статус Litter-Robot",
+            "pl": "Status Litter-Robot",
+            "ko": "Litter-Robot 상태"
+          },
           "values": [
             { "id": "Ready", "title": { "en": "Ready" } },
             { "id": "Cat detected", "title": { "en": "Cat detected" } },
