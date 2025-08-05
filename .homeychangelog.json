@@ -61,5 +61,8 @@
   },
   "1.5.0": {
     "en": "Enabled support for Homey Cloud."
+  },
+  "1.5.1": {
+    "en": "Updated support email address."
   }
 }

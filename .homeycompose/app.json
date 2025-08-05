@@ -1,6 +1,6 @@
 {
   "id": "com.whisker",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -47,7 +47,7 @@
   },
   "author": {
     "name": "Abe Haverkamp",
-    "email": "abe.haverkamp@gmail.com"
+    "email": "abe.haverkamp+whisker@homey.app"
   },
   "contributors": {
     "developers": [
@@ -60,6 +60,6 @@
     ]
   },
   "source": "https://github.com/Doekse/whisker-homey",
-  "support": "mailto:abe.haverkamp@homey.app",
+  "support": "mailto:abe.haverkamp+whisker@homey.app",
   "homeyCommunityTopicId": 137474
 }
