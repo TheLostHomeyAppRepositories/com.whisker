@@ -155,7 +155,9 @@ module.exports = class LitterRobotDevice extends Homey.Device {
         
         if (shouldShowHopper && !hasCapability) {
           this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `Adding hopper capability: [${capability}]`)}`);
-          await this.addCapability(capability);
+          await this.addCapability(capability).catch(err => {
+            this.error(`[Capability] ${colorize(LOG_COLORS.ERROR, `Failed to add hopper capability ${colorize(LOG_COLORS.BOLD, capability)}:`)}`, err);
+          });
           
           const defaultValue = this._getHopperCapabilityDefaultValue(capability);
           await this.setCapabilityValue(capability, defaultValue).catch(err => {
@@ -165,7 +167,9 @@ module.exports = class LitterRobotDevice extends Homey.Device {
           
         } else if (!shouldShowHopper && hasCapability) {
           this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `Removing hopper capability: [${capability}]`)}`);
-          await this.removeCapability(capability);
+          await this.removeCapability(capability).catch(err => {
+            this.error(`[Capability] ${colorize(LOG_COLORS.ERROR, `Failed to remove hopper capability ${colorize(LOG_COLORS.BOLD, capability)}:`)}`, err);
+          });
           changesMade = true;
         }
       }
@@ -247,6 +251,8 @@ module.exports = class LitterRobotDevice extends Homey.Device {
           LR4Data.formatTime(robot.setupDateTime, { use12hFormat }) : 
           'Loading...',
         device_timezone: robot.unitTimezone || 'Loading...'
+      }).catch(err => {
+        this.error(colorize(LOG_COLORS.ERROR, 'Failed to update device settings:'), err);
       });
 
       this.log(colorize(LOG_COLORS.INFO, 'Device settings updated with robot information'));

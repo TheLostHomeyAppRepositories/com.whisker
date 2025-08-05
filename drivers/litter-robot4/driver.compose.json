@@ -43,7 +43,8 @@
     "cloud"
   ],
   "platforms": [
-    "local"
+    "local",
+    "cloud"
   ],
   "pair": [
     {
@@ -51,6 +52,20 @@
       "template": "login_credentials",
       "options": {
         "logo": "whisker-logo.png",
+        "title": {
+          "en": "Log in with your Whisker account",
+          "nl": "Log in met je Whisker-account",
+          "da": "Log ind med din Whisker-konto",
+          "de": "Melden Sie sich mit Ihrem Whisker-Konto an",
+          "es": "Inicia sesión con tu cuenta de Whisker",
+          "fr": "Connectez-vous avec votre compte Whisker",
+          "it": "Accedi con il tuo account Whisker",
+          "no": "Logg inn med Whisker-kontoen din",
+          "sv": "Logga in med ditt Whisker-konto",
+          "pl": "Zaloguj się na swoje konto Whisker",
+          "ru": "Войдите в свой аккаунт Whisker",
+          "ko": "Whisker 계정으로 로그인"
+        },
         "usernameLabel": {
           "en": "E-mail address",
           "nl": "E-mailadres",
@@ -98,6 +113,20 @@
       "template": "login_credentials",
       "options": {
         "logo": "whisker-logo.png",
+        "title": {
+          "en": "Log in with your Whisker account",
+          "nl": "Log in met je Whisker-account",
+          "da": "Log ind med din Whisker-konto",
+          "de": "Melden Sie sich mit Ihrem Whisker-Konto an",
+          "es": "Inicia sesión con tu cuenta de Whisker",
+          "fr": "Connectez-vous avec votre compte Whisker",
+          "it": "Accedi con il tuo account Whisker",
+          "no": "Logg inn med Whisker-kontoen din",
+          "sv": "Logga in med ditt Whisker-konto",
+          "pl": "Zaloguj się na swoje konto Whisker",
+          "ru": "Войдите в свой аккаунт Whisker",
+          "ko": "Whisker 계정으로 로그인"
+        },
         "usernameLabel": {
           "en": "E-mail address",
           "nl": "E-mailadres",

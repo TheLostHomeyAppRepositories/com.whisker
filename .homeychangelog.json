@@ -58,5 +58,8 @@
   },
   "1.4.0": {
     "en": "Enhanced code architecture and improved logging, error handling, as well as some performance optimizations."
+  },
+  "1.5.0": {
+    "en": "Enabled support for Homey Cloud."
   }
 }
