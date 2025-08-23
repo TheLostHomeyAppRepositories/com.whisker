@@ -133,11 +133,11 @@ You can try the app in two ways:
 
 👉 [Install the latest test version via Homey](https://homey.app/a/com.whisker/test/)
 
-> Note: You'll need a Homey Pro, support for Homey Cloud is planned.
+> Note: Can be used on both Homey Cloud as well as Homey Pro.
 
 ---
 
-### 🛠️ Option 2: Manual installation (for developers)
+### 🛠️ Option 2: Manual installation via Homey CLI
 
 ```bash
 git clone https://github.com/Doekse/whisker-homey.git
