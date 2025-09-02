@@ -70,5 +70,8 @@
   },
   "1.5.3": {
     "en": "Fixed Websocket connection dropping after a while"
+  },
+  "1.5.4": {
+    "en": "Fixed unhandled rejection errors"
   }
 }

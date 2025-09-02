@@ -1,0 +1,375 @@
+"""This directive allows results to be deferred during execution"""
+directive @defer on FIELD
+
+"""Tells the service which mutation triggers this subscription."""
+directive @aws_subscribe(
+  """
+  List of mutations which will trigger this subscription when they are called.
+  """
+  mutations: [String]
+) on FIELD_DEFINITION
+
+"""
+Tells the service this field/object has access authorized by an API key.
+"""
+directive @aws_api_key on OBJECT | FIELD_DEFINITION
+
+"""Directs the schema to enforce authorization on a field"""
+directive @aws_auth(
+  """List of cognito user pool groups which have access on this field"""
+  cognito_groups: [String]
+) on FIELD_DEFINITION
+
+"""
+Tells the service this field/object has access authorized by sigv4 signing.
+"""
+directive @aws_iam on OBJECT | FIELD_DEFINITION
+
+"""
+Tells the service which subscriptions will be published to when this mutation is called. This directive is deprecated use @aws_susbscribe directive instead.
+"""
+directive @aws_publish(
+  """
+  List of subscriptions which will be published to when this mutation is called.
+  """
+  subscriptions: [String]
+) on FIELD_DEFINITION
+
+"""
+Tells the service this field/object has access authorized by a Lambda Authorizer.
+"""
+directive @aws_lambda on OBJECT | FIELD_DEFINITION
+
+"""
+Tells the service this field/object has access authorized by an OIDC token.
+"""
+directive @aws_oidc on OBJECT | FIELD_DEFINITION
+
+"""
+Tells the service this field/object has access authorized by a Cognito User Pools token.
+"""
+directive @aws_cognito_user_pools(
+  """List of cognito user pool groups which have access on this field"""
+  cognito_groups: [String]
+) on OBJECT | FIELD_DEFINITION
+
+"""  Queries"""
+type Query {
+  getPetsByUser(userId: String!, locale: String): [Pet]
+  getPetByPetId(petId: String!, locale: String): Pet
+  getImageUploadUrl(petId: String!, userId: String!, fileExtension: String!): String
+  getPetIntakeSchema(locale: String): PetIntakeSchema
+  getWeightHistoryByPetId(petId: String!, limit: Int): [WeightReadingEvent]
+  getAnchorWeightsByUserId(userId: String!): [AnchorReadingEvent]
+  getPetTagByTagId(petTagId: String!): PetTag
+  getPetTagsByUser(userId: String!): [PetTag]
+  getPetFoodOptions(locale: String): PetDietOptions
+}
+
+"""  Data Models"""
+type Pet {
+  petId: String!
+  userId: String!
+  createdAt: String
+  name: String!
+  type: PetType!
+  gender: PetGender!
+  weight: Float!
+  weightLastUpdated: String
+  lastWeightReading: Float
+  breeds: [String]
+  age: Int
+  birthday: String
+  adoptionDate: String
+  s3ImageURL: String @deprecated(reason: "s3ImageURL is deprecated. Please use profileImage.")
+  profileImage: PetImage
+  diet: PetDiet
+  wetFood: PetFood
+  dryFood: PetFood
+  mealAccess: PetMealAccess
+  mealSchedule: PetMealSchedule
+  personality: [PetPersonality]
+  activityLevel: PetActivityLevel
+  adoptionType: PetAdoptionType
+  isFixed: Boolean
+  environmentType: PetEnvironment
+  healthConcerns: [String]
+  isHealthy: Boolean
+  isActive: Boolean
+  whiskerProducts: [WhiskerProduct]
+  petTagId: String
+
+  """  feature flag for weight based id"""
+  weightIdFeatureEnabled: Boolean
+  weightHistory: [PetWeightReading]
+  weightHistoryErrorType: String
+  isDeceased: Boolean
+  dateOfDeath: String
+  personalNotes: String
+}
+
+"""  Enums"""
+enum PetType {
+  CAT
+  DOG
+}
+
+enum PetGender {
+  FEMALE
+  MALE
+}
+
+type PetImage {
+  imagePath: String
+  s3ImageURL: String
+}
+
+enum PetDiet {
+  WET_FOOD
+  DRY_FOOD
+  BOTH
+}
+
+type PetFood {
+  brandType: String!
+  productLineType: String
+  flavorTypes: [String]
+  brandValue: String
+  productLineValue: String
+  translatedFlavorValues: [String]
+}
+
+enum PetMealAccess {
+  SHARED
+  SEPARATE
+}
+
+enum PetMealSchedule {
+  FREE_FEEDING
+  SPECIFIC_TIMES
+}
+
+enum PetPersonality {
+  AFFECTIONATE
+  PLAYFUL
+  SHY
+  INDEPENDENT
+  VOCAL
+  CURIOUS
+  LAID_BACK
+  BOSSY
+  ANXIOUS
+  HUNTER
+  FRIENDLY
+  PREFERS_TO_BE_ALONE
+}
+
+enum PetActivityLevel {
+  LOW
+  MODERATE
+  HIGH
+}
+
+enum PetAdoptionType {
+  SHELTER
+  STRAY
+  FRIEND_OR_RELATIVE
+  BREEDER_OR_PET_STORE
+  OTHER
+}
+
+enum PetEnvironment {
+  INDOOR
+  OUTDOOR
+  BOTH
+}
+
+enum WhiskerProduct {
+  LR3
+  LR4
+  FR1
+}
+
+type PetWeightReading {
+  weight: Float
+  timestamp: String!
+}
+
+type PetIntakeSchema {
+  cat: PetSchemaOptions
+  dog: PetSchemaOptions
+}
+
+type PetSchemaOptions {
+  breeds: [String] @deprecated(reason: "breeds is deprecated. Use petBreeds instead.")
+  petBreeds: [PetBreed]
+  healthConcerns: [PetHealthConcern]
+}
+
+type PetBreed {
+  breedKey: String
+  breedValue: String
+}
+
+type PetHealthConcern {
+  healthConcernKey: String
+  healthConcernValue: String
+}
+
+type WeightReadingEvent {
+  petId: String!
+  timestamp: String!
+  robotSerial: String!
+  weight: Float
+  status: String
+}
+
+type AnchorReadingEvent {
+  weight: Float
+}
+
+type PetTag {
+  petTagId: String!
+  userId: String!
+  petId: String
+  batteryLevel: Float
+}
+
+type PetDietOptions {
+  wetFood: PetFoodOptions!
+  dryFood: PetFoodOptions!
+}
+
+type PetFoodOptions {
+  brands: [PetFoodBrandOption]!
+}
+
+type PetFoodBrandOption {
+  key: String!
+  value: String!
+  productLines: [PetFoodProductLineOption]!
+}
+
+type PetFoodProductLineOption {
+  key: String!
+  value: String!
+  flavors: [PetFoodFlavorOption]!
+}
+
+type PetFoodFlavorOption {
+  key: String!
+  value: String!
+}
+
+"""  Mutations"""
+type Mutation {
+  addPet(input: AddPetInput!): Pet
+  updatePet(input: UpdatePetInput!): Pet
+  deletePet(input: DeletePetInput!): String
+  onboardPetTag(input: OnboardPetTagInput!): PetTag
+  offboardPetTag(input: OffboardPetTagInput!): String
+  reassignPetTag(input: ReassignPetTagInput!): String
+}
+
+"""  Inputs"""
+input AddPetInput {
+  userId: String!
+  name: String!
+  type: PetType!
+  gender: PetGender!
+  weight: Float!
+  breeds: [String]
+  age: Int
+  birthday: String
+  adoptionDate: String
+  diet: PetDiet
+  wetFood: PetFoodInput
+  dryFood: PetFoodInput
+  mealAccess: PetMealAccess
+  mealSchedule: PetMealSchedule
+  personality: [PetPersonality]
+  activityLevel: PetActivityLevel
+  adoptionType: PetAdoptionType
+  isFixed: Boolean
+  environmentType: PetEnvironment
+  healthConcerns: [String]
+  isHealthy: Boolean
+  imageFileExtension: String
+  whiskerProducts: [WhiskerProduct]
+  petTagId: String
+}
+
+"""  PetFoodOptions API types"""
+input PetFoodInput {
+  brandType: String!
+  productLineType: String
+  flavorTypes: [String]
+}
+
+input UpdatePetInput {
+  petId: String!
+  name: String
+  type: PetType
+  gender: PetGender
+  weight: Float
+
+  """  weight is being updated from the SmartWeight analysis system"""
+  isSmartWeight: Boolean
+  breeds: [String]
+  age: Int
+  birthday: String
+  adoptionDate: String
+  diet: PetDiet
+  wetFood: PetFoodInput
+  dryFood: PetFoodInput
+  mealAccess: PetMealAccess
+  mealSchedule: PetMealSchedule
+  personality: [PetPersonality]
+  activityLevel: PetActivityLevel
+  adoptionType: PetAdoptionType
+  isFixed: Boolean
+  environmentType: PetEnvironment
+  healthConcerns: [String]
+  isHealthy: Boolean
+  isActive: Boolean
+  whiskerProducts: [WhiskerProduct]
+  imageFileExtension: String
+  isDeceased: Boolean
+  dateOfDeath: String
+  personalNotes: String
+}
+
+input DeletePetInput {
+  petId: String!
+}
+
+input OnboardPetTagInput {
+  petId: String
+  petTagId: String!
+  userId: String!
+}
+
+input OffboardPetTagInput {
+  petTagId: String!
+  petId: String
+}
+
+input ReassignPetTagInput {
+  newPetId: String!
+  petTagId: String!
+}
+
+type PetActivity {
+  petId: String!
+  petEventType: PetEvent!
+  timestamp: String!
+  robotSerial: String!
+  weight: Float
+  duration: Float
+  status: String
+}
+
+enum PetEvent {
+  WEIGHT_READING
+  FEEDER_VISIT
+}

@@ -284,7 +284,9 @@ module.exports = class LitterRobotDevice extends Homey.Device {
           name: this.robot.name
         },
         onDataUpdate: (data, source) => {
-          this._handleRobotUpdate(data);
+          this._handleRobotUpdate(data).catch(err => {
+            this.error(colorize(LOG_COLORS.ERROR, 'Failed to handle robot update:'), err);
+          });
         }
       });
 
@@ -393,6 +395,12 @@ module.exports = class LitterRobotDevice extends Homey.Device {
    * @private
    */
   async _handleRobotUpdate(update) {
+    // Check if device is still available before processing updates
+    if (!this.homey || !this.homey.app) {
+      this.log(colorize(LOG_COLORS.WARNING, 'Device no longer available, skipping robot update'));
+      return;
+    }
+
     this.log(colorize(LOG_COLORS.INFO, `Received robot update for ${update.name || update.serial}`));
     
     const previousFirmware = {
@@ -403,7 +411,12 @@ module.exports = class LitterRobotDevice extends Homey.Device {
     
     this.robot = { ...this.robot, ...update };
 
-    await this._updateCapabilities(update);
+    try {
+      await this._updateCapabilities(update);
+    } catch (err) {
+      this.error(colorize(LOG_COLORS.ERROR, 'Failed to update capabilities:'), err);
+      return;
+    }
     
     const hasFirmwareUpdate = (
       (update.espFirmware && update.espFirmware !== previousFirmware.espFirmware) ||
@@ -430,7 +443,11 @@ module.exports = class LitterRobotDevice extends Homey.Device {
     const settings = this.getSettings();
     const robotData = new LR4Data({ robot: data, settings });
     
-    await this._manageHopperCapabilities();
+    try {
+      await this._manageHopperCapabilities();
+    } catch (err) {
+      this.error(colorize(LOG_COLORS.ERROR, 'Failed to manage hopper capabilities during update:'), err);
+    }
     
     const updates = [
       ['clean_cycle_status', robotData.cycleStateDescription],
@@ -530,7 +547,9 @@ module.exports = class LitterRobotDevice extends Homey.Device {
             .catch(err => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger clean_cycle_finished:'), err));
         }
         
-        this.setStoreValue('previous_clean_cycles', totalCycles);
+        this.setStoreValue('previous_clean_cycles', totalCycles).catch(err => {
+          this.error(colorize(LOG_COLORS.ERROR, 'Failed to update store value for previous_clean_cycles:'), err);
+        });
       }
     }
 
@@ -578,7 +597,11 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       
       if (this.robot) {
         this.log(colorize(LOG_COLORS.INFO, 'Re-processing robot data with new time format settings...'));
-        await this._updateCapabilities(this.robot);
+        try {
+          await this._updateCapabilities(this.robot);
+        } catch (err) {
+          this.error(colorize(LOG_COLORS.ERROR, 'Failed to update capabilities after time format change:'), err);
+        }
       }
     }
   }
