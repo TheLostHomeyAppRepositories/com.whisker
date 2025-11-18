@@ -1,18 +1,35 @@
+"""Directs the executor to include this field or fragment only when the `if` argument is true"""
+directive @include(
+  """Included when true."""
+  if: Boolean!
+) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"""Directs the executor to skip this field or fragment when the `if`'argument is true."""
+directive @skip(
+  """Skipped when true."""
+  if: Boolean!
+) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
 """This directive allows results to be deferred during execution"""
 directive @defer on FIELD
 
-"""Tells the service which mutation triggers this subscription."""
-directive @aws_subscribe(
-  """
-  List of mutations which will trigger this subscription when they are called.
-  """
-  mutations: [String]
+"""Tells the service which subscriptions will be published to when this mutation is called. This directive is deprecated use @aws_susbscribe directive instead."""
+directive @aws_publish(
+  """List of subscriptions which will be published to when this mutation is called."""
+  subscriptions: [String]
 ) on FIELD_DEFINITION
 
-"""
-Tells the service this field/object has access authorized by an API key.
-"""
-directive @aws_api_key on OBJECT | FIELD_DEFINITION
+"""Tells the service this field/object has access authorized by an OIDC token."""
+directive @aws_oidc on OBJECT | FIELD_DEFINITION
+
+"""Tells the service this field/object has access authorized by a Cognito User Pools token."""
+directive @aws_cognito_user_pools(
+  """List of cognito user pool groups which have access on this field"""
+  cognito_groups: [String]
+) on OBJECT | FIELD_DEFINITION
+
+"""Tells the service this field/object has access authorized by sigv4 signing."""
+directive @aws_iam on OBJECT | FIELD_DEFINITION
 
 """Directs the schema to enforce authorization on a field"""
 directive @aws_auth(
@@ -20,38 +37,21 @@ directive @aws_auth(
   cognito_groups: [String]
 ) on FIELD_DEFINITION
 
-"""
-Tells the service this field/object has access authorized by sigv4 signing.
-"""
-directive @aws_iam on OBJECT | FIELD_DEFINITION
-
-"""
-Tells the service which subscriptions will be published to when this mutation is called. This directive is deprecated use @aws_susbscribe directive instead.
-"""
-directive @aws_publish(
-  """
-  List of subscriptions which will be published to when this mutation is called.
-  """
-  subscriptions: [String]
-) on FIELD_DEFINITION
-
-"""
-Tells the service this field/object has access authorized by a Lambda Authorizer.
-"""
+"""Tells the service this field/object has access authorized by a Lambda Authorizer."""
 directive @aws_lambda on OBJECT | FIELD_DEFINITION
 
-"""
-Tells the service this field/object has access authorized by an OIDC token.
-"""
-directive @aws_oidc on OBJECT | FIELD_DEFINITION
+directive @deprecated(
+  reason: String = "No longer supported"
+) on FIELD_DEFINITION | ENUM_VALUE
 
-"""
-Tells the service this field/object has access authorized by a Cognito User Pools token.
-"""
-directive @aws_cognito_user_pools(
-  """List of cognito user pool groups which have access on this field"""
-  cognito_groups: [String]
-) on OBJECT | FIELD_DEFINITION
+"""Tells the service which mutation triggers this subscription."""
+directive @aws_subscribe(
+  """List of mutations which will trigger this subscription when they are called."""
+  mutations: [String]
+) on FIELD_DEFINITION
+
+"""Tells the service this field/object has access authorized by an API key."""
+directive @aws_api_key on OBJECT | FIELD_DEFINITION
 
 """  Queries"""
 type Query {
@@ -61,12 +61,18 @@ type Query {
   getPetIntakeSchema(locale: String): PetIntakeSchema
   getWeightHistoryByPetId(petId: String!, limit: Int): [WeightReadingEvent]
   getAnchorWeightsByUserId(userId: String!): [AnchorReadingEvent]
-  getPetTagByTagId(petTagId: String!): PetTag
-  getPetTagsByUser(userId: String!): [PetTag]
   getPetFoodOptions(locale: String): PetDietOptions
+  getWeeklyHoroscope(petId: String!, locale: String): WeeklyHoroscope
+  getAllPetsHoroscopes(userId: String!, locale: String): [PetHoroscopeDetails]
 }
 
-"""  Data Models"""
+"""  Mutations"""
+type Mutation {
+  addPet(input: AddPetInput!): Pet
+  updatePet(input: UpdatePetInput!): Pet
+  deletePet(input: DeletePetInput!): String
+}
+
 type Pet {
   petId: String!
   userId: String!
@@ -97,8 +103,7 @@ type Pet {
   isHealthy: Boolean
   isActive: Boolean
   whiskerProducts: [WhiskerProduct]
-  petTagId: String
-
+  petTagAssigned: PetTagAssignment
   """  feature flag for weight based id"""
   weightIdFeatureEnabled: Boolean
   weightHistory: [PetWeightReading]
@@ -106,7 +111,11 @@ type Pet {
   isDeceased: Boolean
   dateOfDeath: String
   personalNotes: String
+  zodiacSign: String
 }
+
+"""Built-in String"""
+scalar String
 
 """  Enums"""
 enum PetType {
@@ -118,6 +127,12 @@ enum PetGender {
   FEMALE
   MALE
 }
+
+"""Built-in Float"""
+scalar Float
+
+"""Built-in Int"""
+scalar Int
 
 type PetImage {
   imagePath: String
@@ -178,6 +193,9 @@ enum PetAdoptionType {
   OTHER
 }
 
+"""Built-in Boolean"""
+scalar Boolean
+
 enum PetEnvironment {
   INDOOR
   OUTDOOR
@@ -189,6 +207,30 @@ enum WhiskerProduct {
   LR4
   FR1
 }
+
+"""  Data Models"""
+type PetTagAssignment {
+  requested: Boolean!
+  success: Boolean!
+  error: String
+  petTag: PetTag
+}
+
+type PetTag {
+  petTagId: ID!
+  """  Changed from String! to ID! to match common practice, ensure consistency"""
+  userId: String
+  """  Added as required based on pet_profile schema"""
+  petId: String
+  """  Optional, as in pet_profile schema"""
+  batteryLevel: Float
+  createdAt: Int
+  """  Timestamp in milliseconds when tag was onboarded"""
+  updatedAt: Int
+}
+
+"""Built-in ID"""
+scalar ID
 
 type PetWeightReading {
   weight: Float
@@ -222,17 +264,11 @@ type WeightReadingEvent {
   robotSerial: String!
   weight: Float
   status: String
+  isReassigned: Boolean!
 }
 
 type AnchorReadingEvent {
   weight: Float
-}
-
-type PetTag {
-  petTagId: String!
-  userId: String!
-  petId: String
-  batteryLevel: Float
 }
 
 type PetDietOptions {
@@ -261,14 +297,25 @@ type PetFoodFlavorOption {
   value: String!
 }
 
-"""  Mutations"""
-type Mutation {
-  addPet(input: AddPetInput!): Pet
-  updatePet(input: UpdatePetInput!): Pet
-  deletePet(input: DeletePetInput!): String
-  onboardPetTag(input: OnboardPetTagInput!): PetTag
-  offboardPetTag(input: OffboardPetTagInput!): String
-  reassignPetTag(input: ReassignPetTagInput!): String
+type WeeklyHoroscope {
+  zodiacSign: String!
+  weekStart: String!
+  horoscope: String!
+}
+
+type PetHoroscopeDetails {
+  petId: String!
+  petName: String!
+  zodiacSign: String
+  zodiacDescription: ZodiacDescription
+  weeklyHoroscope: WeeklyHoroscope
+  profileImage: PetImage
+  birthday: String
+}
+
+type ZodiacDescription {
+  name: String!
+  description: String!
 }
 
 """  Inputs"""
@@ -312,7 +359,6 @@ input UpdatePetInput {
   type: PetType
   gender: PetGender
   weight: Float
-
   """  weight is being updated from the SmartWeight analysis system"""
   isSmartWeight: Boolean
   breeds: [String]
@@ -333,7 +379,6 @@ input UpdatePetInput {
   isHealthy: Boolean
   isActive: Boolean
   whiskerProducts: [WhiskerProduct]
-  imageFileExtension: String
   isDeceased: Boolean
   dateOfDeath: String
   personalNotes: String
@@ -343,20 +388,19 @@ input DeletePetInput {
   petId: String!
 }
 
-input OnboardPetTagInput {
-  petId: String
-  petTagId: String!
-  userId: String!
-}
-
-input OffboardPetTagInput {
-  petTagId: String!
-  petId: String
-}
-
-input ReassignPetTagInput {
-  newPetId: String!
-  petTagId: String!
+enum PetZodiacSign {
+  ARIES
+  TAURUS
+  GEMINI
+  CANCER
+  LEO
+  VIRGO
+  LIBRA
+  SCORPIO
+  SAGITTARIUS
+  CAPRICORN
+  AQUARIUS
+  PISCES
 }
 
 type PetActivity {
@@ -373,3 +417,4 @@ enum PetEvent {
   WEIGHT_READING
   FEEDER_VISIT
 }
+

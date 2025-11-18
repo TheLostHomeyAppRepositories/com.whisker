@@ -1,0 +1,22 @@
+{
+  "title": {
+    "en": "Reset waste drawer gauge",
+    "nl": "Reset afvalbak meter",
+    "de": "Abfallbehälter-Anzeige zurücksetzen",
+    "fr": "Réinitialiser la jauge du bac à déchets",
+    "it": "Reimposta indicatore cassetto rifiuti",
+    "sv": "Återställ avfallsbehållarens mätare",
+    "no": "Tilbakestill avfallsskuff-måler",
+    "es": "Restablecer indicador de cajón de desechos",
+    "da": "Nulstil affaldsskuffe-måler",
+    "ru": "Сбросить индикатор контейнера",
+    "pl": "Zresetuj wskaźnik pojemnika na odpady",
+    "ko": "폐기물 서랍 게이지 초기화"
+  },
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "icon": "/assets/capabilities/reset_waste_drawer.svg"
+}
+

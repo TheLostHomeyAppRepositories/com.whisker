@@ -1,5 +1,48 @@
+"""Directs the executor to include this field or fragment only when the `if` argument is true"""
+directive @include(
+  """Included when true."""
+  if: Boolean!
+) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"""Directs the executor to skip this field or fragment when the `if`'argument is true."""
+directive @skip(
+  """Skipped when true."""
+  if: Boolean!
+) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
 """This directive allows results to be deferred during execution"""
 directive @defer on FIELD
+
+"""Tells the service this field/object has access authorized by a Cognito User Pools token."""
+directive @aws_cognito_user_pools(
+  """List of cognito user pool groups which have access on this field"""
+  cognito_groups: [String]
+) on OBJECT | FIELD_DEFINITION
+
+"""Tells the service which mutation triggers this subscription."""
+directive @aws_subscribe(
+  """List of mutations which will trigger this subscription when they are called."""
+  mutations: [String]
+) on FIELD_DEFINITION
+
+"""Tells the service this field/object has access authorized by sigv4 signing."""
+directive @aws_iam on OBJECT | FIELD_DEFINITION
+
+"""Tells the service this field/object has access authorized by a Lambda Authorizer."""
+directive @aws_lambda on OBJECT | FIELD_DEFINITION
+
+"""Tells the service which subscriptions will be published to when this mutation is called. This directive is deprecated use @aws_susbscribe directive instead."""
+directive @aws_publish(
+  """List of subscriptions which will be published to when this mutation is called."""
+  subscriptions: [String]
+) on FIELD_DEFINITION
+
+directive @deprecated(
+  reason: String = "No longer supported"
+) on FIELD_DEFINITION | ENUM_VALUE
+
+"""Tells the service this field/object has access authorized by an API key."""
+directive @aws_api_key on OBJECT | FIELD_DEFINITION
 
 """Directs the schema to enforce authorization on a field"""
 directive @aws_auth(
@@ -7,230 +50,212 @@ directive @aws_auth(
   cognito_groups: [String]
 ) on FIELD_DEFINITION
 
-"""Tells the service which mutation triggers this subscription."""
-directive @aws_subscribe(
-  """
-  List of mutations which will trigger this subscription when they are called.
-  """
-  mutations: [String]
-) on FIELD_DEFINITION
-
-"""
-Tells the service this field/object has access authorized by a Lambda Authorizer.
-"""
-directive @aws_lambda on OBJECT | FIELD_DEFINITION
-
-"""
-Tells the service this field/object has access authorized by an API key.
-"""
-directive @aws_api_key on OBJECT | FIELD_DEFINITION
-
-"""
-Tells the service this field/object has access authorized by an OIDC token.
-"""
+"""Tells the service this field/object has access authorized by an OIDC token."""
 directive @aws_oidc on OBJECT | FIELD_DEFINITION
 
-"""
-Tells the service this field/object has access authorized by a Cognito User Pools token.
-"""
-directive @aws_cognito_user_pools(
-  """List of cognito user pool groups which have access on this field"""
-  cognito_groups: [String]
-) on OBJECT | FIELD_DEFINITION
-
-"""
-Tells the service this field/object has access authorized by sigv4 signing.
-"""
-directive @aws_iam on OBJECT | FIELD_DEFINITION
-
-"""
-Tells the service which subscriptions will be published to when this mutation is
-called. This directive is deprecated use @aws_susbscribe directive instead.
-"""
-directive @aws_publish(
-  """
-  List of subscriptions which will be published to when this mutation is called.
-  """
-  subscriptions: [String]
-) on FIELD_DEFINITION
-
-type ActivityOutput {
-  timestamp: String
-  value: String
-  actionValue: String
+"""  Queries"""
+type Query {
+  litterRobot4CompareFirmwareVersion(serial: String!, overrideUpward: Boolean): LR4CompareFirmwareVersionOutput
+  getUnitDiagnosticsBySerial(serial: String!): UnitDiagnostics
+  getUnitDiagnosticsByUser(userId: String!): [UnitDiagnostics]
+  getLitterRobot4BySerial(serial: String!): LitterRobot4
+  getLitterRobot4ByUnitId(unitId: ID!): LitterRobot4
+  getLitterRobot4ByUser(userId: String!): [LitterRobot4]
+  getLitterRobotActivity(serial: String!, startTimestamp: String, endTimestamp: String, limit: Int, consumer: String): [LR4ActivityTimestreamRowOutput]
+  getLitterRobot4Activity(serial: String!, startTimestamp: String, endTimestamp: String, limit: Int, consumer: String, activityTypes: [String]): [LR4ActivityTimestreamRowOutput]
+  getLitterRobot4Insights(serial: String!, startTimestamp: String, timezoneOffset: Int): LR4InsightsOutput
+  getLitterRobot4Summary(serial: String!, timezoneOffset: Int): [LR4SummaryOutput]
+  getLitterRobot4Lifecycle(serial: String!, startTimestamp: String, endTimestamp: String, limit: Int): [LR4LifecycleTimestreamRowOutput]
+  weightHistory(serial: String!, startDate: String!): [CloudUnitActivity]
+  robot(serial: String!): RobotData
 }
 
-"""
-The `AWSDateTime` scalar type provided by AWS AppSync, represents a valid
-***extended*** [ISO 8601 DateTime](https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations)
-string. In other words, this scalar type accepts datetime strings of the form
-`YYYY-MM-DDThh:mm:ss.SSSZ`.  The scalar can also accept "negative years" of the
-form `-YYYY` which correspond to years before `0000`. For example,
-"**-2017-01-01T00:00Z**" and "**-9999-01-01T00:00Z**" are both valid datetime
-strings.  The field after the two digit seconds field is a nanoseconds field. It
-can accept between 1 and 9 digits. So, for example,
-"**1970-01-01T12:00:00.2Z**", "**1970-01-01T12:00:00.277Z**" and
-"**1970-01-01T12:00:00.123456789Z**" are all valid datetime strings.  The
-seconds and nanoseconds fields are optional (the seconds field must be specified
-if the nanoseconds field is to be used).  The [time zone
-offset](https://en.wikipedia.org/wiki/ISO_8601#Time_zone_designators) is
-compulsory for this scalar. The time zone offset must either be `Z`
-(representing the UTC time zone) or be in the format `±hh:mm:ss`. The seconds
-field in the timezone offset will be considered valid even though it is not part
-of the ISO 8601 standard.
-"""
+"""  Mutations"""
+type Mutation {
+  litterRobot4FirmwareVersionAdd(input: LR4OTAFirmwareVersionAddInput!): OTAFirmware
+  litterRobot4FirmwareVersionUpdate(input: LR4OTAFirmwareVersionUpdateInput!): OTAFirmware
+  litterRobot4TriggerFirmwareUpdate(input: LR4OTATriggerFirmwareUpdateInput!): LR4OTATriggerFirmwareUpdateOutput
+  sendLitterRobot4Command(input: LR4CommandInput!): String
+  resetScoopsSavedCounter(serial: String!): LitterRobot4Array
+  registerLitterRobot4(input: LR4RegisterRobotInput!): LR4RegisterRobotOutput
+  deleteLitterRobot4(input: LR4DeleteRobotInput!): LR4DeleteRobotOutput
+  updateLitterRobot4(input: LR4UpdateLitterRobotInput!): LitterRobot4
+  litterRobot4StateUpdate(input: LR4LitterRobot4StateUpdateInput!): LitterRobot4Output
+  litterRobot4MultiStateUpdate(input: LR4LitterRobot4StateUpdateInput!): LitterRobot4Array
+  litterRobot4ActivityUpdate(input: LR4ActivityTimestreamRowInput!): LR4ActivityTimestreamRowOutput
+  litterRobot4LifecycleUpdate(input: LR4LifecycleTimestreamRowInput!): LR4LifecycleTimestreamRowOutput
+  litterRobot4MultiStateSync(input: LR4LitterRobot4MultiStateSyncInput!): String
+  toggleHopper(serial: String!, isRemoved: Boolean!): ToggleHopperOutput
+  reassignPetVisit(input: reassignPetVisitInput!): String
+}
+
+type LR4CompareFirmwareVersionOutput {
+  serial: String!
+  isEspFirmwareUpdateNeeded: Boolean!
+  isPicFirmwareUpdateNeeded: Boolean!
+  isLaserboardFirmwareUpdateNeeded: Boolean!
+  latestFirmware: OTAFirmware!
+  robotFirmware: RobotFirmwareType!
+}
+
+"""Built-in String"""
+scalar String
+
+"""Built-in Boolean"""
+scalar Boolean
+
+type OTAFirmware {
+  combinedVersions: String!
+  motherBoardType: PicBoardTypeEnum!
+  motherBoardTypeHex: PicBoardTypeHexEnum!
+  espFirmwareVersion: String!
+  espFirmwareDescription: String
+  espFirmwareAuthor: String
+  espFirmwareDateTime: AWSDateTime!
+  espFirmwareS3Filename: String!
+  picFirmwareVersion: String!
+  picFirmwareVersionHex: String!
+  picFirmwareDescription: String
+  picFirmwareAuthor: String
+  picFirmwareDateTime: AWSDateTime!
+  picFirmwareS3Filename: String!
+  picFirmwareS3BackupFilename: String!
+  laserBoardFirmwareVersion: String!
+  laserBoardFirmwareVersionHex: String!
+  laserBoardFirmwareDescription: String
+  laserBoardFirmwareAuthor: String
+  laserBoardFirmwareDateTime: AWSDateTime!
+  laserBoardFirmwareS3Filename: String!
+  laserBoardFirmwareS3BackupFilename: String!
+  updateEnabledFlag: Boolean!
+  createdDateTime: AWSDateTime!
+}
+
+enum PicBoardTypeEnum {
+  D_10512_257
+  D_10512_2560
+  D_10500_262
+  D_10500_2560
+  D_10500_3072
+  D_10512_3072
+  D_10535_259
+}
+
+enum PicBoardTypeHexEnum {
+  H_2910_0101
+  H_2910_0A00
+  H_2904_0106
+  H_2904_0A00
+  H_2904_0C00
+  H_2910_0C00
+  H_2927_0103
+}
+
+"""The `AWSDateTime` scalar type provided by AWS AppSync, represents a valid ***extended*** [ISO 8601 DateTime](https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations) string. In other words, this scalar type accepts datetime strings of the form `YYYY-MM-DDThh:mm:ss.SSSZ`.  The scalar can also accept "negative years" of the form `-YYYY` which correspond to years before `0000`. For example, "**-2017-01-01T00:00Z**" and "**-9999-01-01T00:00Z**" are both valid datetime strings.  The field after the two digit seconds field is a nanoseconds field. It can accept between 1 and 9 digits. So, for example, "**1970-01-01T12:00:00.2Z**", "**1970-01-01T12:00:00.277Z**" and "**1970-01-01T12:00:00.123456789Z**" are all valid datetime strings.  The seconds and nanoseconds fields are optional (the seconds field must be specified if the nanoseconds field is to be used).  The [time zone offset](https://en.wikipedia.org/wiki/ISO_8601#Time_zone_designators) is compulsory for this scalar. The time zone offset must either be `Z` (representing the UTC time zone) or be in the format `±hh:mm:ss`. The seconds field in the timezone offset will be considered valid even though it is not part of the ISO 8601 standard."""
 scalar AWSDateTime
 
-enum CatDetectEnum {
-  CAT_DETECT_CLEAR
-  CAT_DETECT_LASER_CLEAR
-  CAT_DETECT_LASER_SET
-  CAT_DETECT_SCALE_CLEAR
-  CAT_DETECT_SCALE_SET
-  CAT_DETECT_DRAWER_CLEAR
-  CAT_DETECT_DRAWER_SET
-  CAT_DETECT_RESET_CANCELLED
-  CAT_DETECT_RESET_PAUSED
-  CAT_DETECT_RESET_HOME
-  CAT_DETECT_STUCK
-  CAT_DETECT_STUCK_LASER
-  CAT_DETECT_STUCK_WEIGHT
+type RobotFirmwareType {
+  espFirmware: String
+  picFirmwareVersion: String
+  laserBoardFirmwareVersion: String
 }
 
-type CloudUnitActivity {
-  datum_id: String
-  subject_id: String
-  record_id: String
-  timestamp: String
-  observation_id: String
-  committed_at: String
-  expiration_date: String
-  record_field_00: String
-  record_field_01: String
-  record_field_02: String
-  record_field_03: String
-  record_field_04: String
-  record_field_05: String
-  record_field_06: String
+type UnitDiagnostics {
+  unitId: ID!
+  serial: String!
+  userId: String!
+  RTCChipId: Int
+  mbHardware: Int
+  mbBom: Int
+  mbSuite: Int
+  mbRevision: Int
+  mbRevisionId: Int
+  mbDeviceId: Int
+  mbHardwareHex: String
+  mbBomHex: String
+  mbSuiteHex: String
+  mbRevisionHex: String
+  mbRevisionIdHex: String
+  mbDeviceIdHex: String
+  lbHardware: Int
+  lbBom: Int
+  lbSuite: Int
+  lbRevision: Int
+  lbRevisionId: Int
+  lbDeviceId: Int
+  lbHardwareHex: String
+  lbBomHex: String
+  lbSuiteHex: String
+  lbRevisionHex: String
+  lbRevisionIdHex: String
+  lbDeviceIdHex: String
+  isScaleReady: Boolean
+  DFIToFDistanceMax: Int
+  DFIToFDistanceMin: Int
+  systemPowerSensor: Float
+  ambientSensor: Int
+  bonnetSensor: Int
+  hallSensor: Int
+  globeMotorAmperes: Int
+  hopperMotorAmperes: Int
+  drawerSensor: Int
+  ToFSensorDistances: ToFSensorDistancesType
+  ToFSensorSlopes: ToFSensorSlopesType
+  globeRotationSpeed: Float
+  cycleTimerPending: Int
+  cycleTimerIdle: Int
+  cycleTimerDump: Int
+  cycleTimerDFI: Int
+  cycleTimerLevel: Int
+  cycleTimerHome: Int
+  cycleTimerEmpty: Int
+  cycleTimerEmptyHome: Int
+  cycleTimerAbort: Int
+  cycleTimerCatRelease: Int
+  cycleTimerCatRelDFI: Int
+  cycleTimerCatRelLevel: Int
+  cycleTimerFindDump: Int
+  cycleTimerComplete: Int
+  cycleTimerChangeFilter: Int
+  cycleTimerUnknown: Int
+  avgMotorAmpsDump: Int
+  avgMotorAmpsDFI: Int
+  avgMotorAmpsLevel: Int
+  avgMotorAmpsHome: Int
+  avgMotorAmpsUnknown: Int
+  motorFaultCycleTime: Int
+  motorFaultVoltage: Int
+  motorFaultAmperage: Int
+  motorFaultSlope: Int
+  motorFaultSpeed: Int
+  globeSpeedDumpToHall: Float
+  revisionId: Int
+  deviceId: Int
+  prmDisplayIntensityHigh: Int
+  prmDisplayIntensityLow: Int
+  prmAmbientLightSensorLimitsHigh: Int
+  prmAmbientLightSensorLimitsLow: Int
 }
 
-type CycleHistory {
-  date: String!
-  numberOfCycles: Int!
+"""Built-in ID"""
+scalar ID
+
+"""Built-in Int"""
+scalar Int
+
+"""Built-in Float"""
+scalar Float
+
+type ToFSensorDistancesType {
+  ToFSensorDistanceLeft: Int
+  ToFSensorDistanceMiddle: Int
+  ToFSensorDistanceRight: Int
 }
 
-type DeleteRobotsBySerialReturn {
-  deletedRobots: [LitterRobot4!]
-  counter: Int
-}
-
-type DeleteUnitDiagnosticsBySerialReturn {
-  deletedUnitDiagnostics: [UnitDiagnostics!]
-  counter: Int
-}
-
-enum DisplayCodeEnum {
-  NONE
-  DC_BD_SCALE_CAL
-  DC_BD_PINCH
-  DC_BD_MOTOR
-  DC_BD_GM_TOF
-  DC_BD_HALL
-  DC_BD_DRAWER
-  DC_BONNET_OFF
-  DC_CAT_DETECT_30M
-  DC_CAT_DETECT
-  DC_CAT_DETECT_DWR
-  DC_CAT_DETECT_PINCH
-  DC_USER_PAUSE
-  DC_MTR_FAULT_PINCH
-  DC_MTR_FAULT_UV
-  DC_MTR_FAULT_OT_AMP
-  DC_MTR_FAULT_OT_SLP
-  DC_CYCLE_TIMEOUT
-  DC_SET_CLUMP_TIME
-  DC_SET_NIGHT_LIGHT
-  DC_TOF_CAL
-  DC_TOF_CAL_FAIL
-  DC_TOF_CAL_PASS
-  DC_MODE_CYCLE
-  DC_DFI_FULL
-  DC_MODE_IDLE
-  DC_EST_TOF_LIMITS
-  DC_KEYPAD_TEST
-  DC_USB_FAULT
-  DC_BD_HOPPER
-  DC_BD_SCALE_ZERO
-  DCX_SUSPEND
-  DCX_REFRESH
-  DCX_LAMP_TEST
-  DCX_ESP_FW_UPDATE
-  DCX_CONFIRM
-  DCX_LOCKOUT_KEYHIT
-  DCX_CAL_SCALE
-}
-
-enum FirmwareUpdateStatusEnum {
-  NONE
-  TRIGGERED
-  PICTRIGGERED
-  LASERBOARDTRIGGERED
-  ESPTRIGGERED
-  STARTED
-  IN_PROGRESS
-  SUCCEEDED
-  FAILED
-  CANCELED
-  DELETED
-  REJECTED
-  TIMED_OUT
-  REMOVED
-  COMPLETED
-  CANCELLATION_IN_PROGRESS
-  DELETION_IN_PROGRESS
-}
-
-enum GlobeMotorFaultStatusEnum {
-  NONE
-  FAULT_CLEAR
-  FAULT_TIMEOUT
-  FAULT_DISCONNECT
-  FAULT_UNDERVOLTAGE
-  FAULT_OVERTORQUE_AMP
-  FAULT_OVERTORQUE_SLOPE
-  FAULT_PINCH
-  FAULT_ALL_SENSORS
-  FAULT_UNKNOWN
-}
-
-enum GlobeMotorRetractFaultStatusEnum {
-  NONE
-  FAULT_CLEAR
-  FAULT_TIMEOUT
-  FAULT_DISCONNECT
-  FAULT_UNDERVOLTAGE
-  FAULT_OVERTORQUE_AMP
-  FAULT_OVERTORQUE_SLOPE
-  FAULT_PINCH
-  FAULT_ALL_SENSORS
-  FAULT_UNKNOWN
-}
-
-enum HopperStatusEnum {
-  ENABLED
-  DISABLED
-  MOTOR_FAULT_SHORT
-  MOTOR_OT_AMPS
-  MOTOR_DISCONNECTED
-  EMPTY
-}
-
-enum LitterLevelStateEnum {
-  OVERFILL
-  OPTIMAL
-  REFILL
-  LOW
-  EMPTY
+type ToFSensorSlopesType {
+  ToFSensorSlopeLeft: Int
+  ToFSensorSlopeMiddle: Int
+  ToFSensorSlopeRight: Int
 }
 
 type LitterRobot4 {
@@ -306,6 +331,428 @@ type LitterRobot4 {
   optimalLitterLevel: Int
   litterLevelPercentage: Float
   litterLevelState: LitterLevelStateEnum
+}
+
+enum UnitPowerTypeEnum {
+  NONE
+  AC
+  DC
+}
+
+enum DisplayCodeEnum {
+  NONE
+  DC_BD_SCALE_CAL
+  DC_BD_PINCH
+  DC_BD_MOTOR
+  DC_BD_GM_TOF
+  DC_BD_HALL
+  DC_BD_DRAWER
+  DC_BONNET_OFF
+  DC_CAT_DETECT_30M
+  DC_CAT_DETECT
+  DC_CAT_DETECT_DWR
+  DC_CAT_DETECT_PINCH
+  DC_USER_PAUSE
+  DC_MTR_FAULT_PINCH
+  DC_MTR_FAULT_UV
+  DC_MTR_FAULT_OT_AMP
+  DC_MTR_FAULT_OT_SLP
+  DC_CYCLE_TIMEOUT
+  DC_SET_CLUMP_TIME
+  DC_SET_NIGHT_LIGHT
+  DC_TOF_CAL
+  DC_TOF_CAL_FAIL
+  DC_TOF_CAL_PASS
+  DC_MODE_CYCLE
+  DC_DFI_FULL
+  DC_MODE_IDLE
+  DC_EST_TOF_LIMITS
+  DC_KEYPAD_TEST
+  DC_USB_FAULT
+  DC_BD_HOPPER
+  DC_BD_SCALE_ZERO
+  DCX_SUSPEND
+  DCX_REFRESH
+  DCX_LAMP_TEST
+  DCX_ESP_FW_UPDATE
+  DCX_CONFIRM
+  DCX_LOCKOUT_KEYHIT
+  DCX_CAL_SCALE
+}
+
+enum NightLightModeEnum {
+  OFF
+  ON
+  AUTO
+}
+
+type WeekdaysSleepWakeEnabledType {
+  Sunday: SleepWakeEnabledType
+  Monday: SleepWakeEnabledType
+  Tuesday: SleepWakeEnabledType
+  Wednesday: SleepWakeEnabledType
+  Thursday: SleepWakeEnabledType
+  Friday: SleepWakeEnabledType
+  Saturday: SleepWakeEnabledType
+}
+
+type SleepWakeEnabledType {
+  sleepTime: Int
+  wakeTime: Int
+  isEnabled: Boolean
+}
+
+enum UnitPowerStatusEnum {
+  NONE
+  ON
+  OFF
+}
+
+enum SleepStatusEnum {
+  NONE
+  WAKE
+  SLEEPING
+}
+
+enum RobotStatusEnum {
+  NONE
+  ROBOT_POWER_OFF
+  ROBOT_POWER_UP
+  ROBOT_POWER_DOWN
+  ROBOT_IDLE
+  ROBOT_BONNET
+  ROBOT_CAT_DETECT
+  ROBOT_CAT_DETECT_DELAY
+  ROBOT_SET_CLUMP_TIME
+  ROBOT_SET_NIGHT_LIGHT
+  ROBOT_CLEAN
+  ROBOT_EMPTY
+  ROBOT_CAT_RELEASE
+  ROBOT_FIND_DUMP
+  ROBOT_CHANGE_FILTER
+  ROBOT_SCALE_CAL
+  ROBOT_SCALE_RECAL
+  ROBOT_SCALE_TOF_OTA
+  ROBOT_SCALE_AUX_MOR
+  ROBOT_OPS_AUDIT_MODE
+  ROBOT_KEYPAD_TEST
+}
+
+enum GlobeMotorFaultStatusEnum {
+  NONE
+  FAULT_CLEAR
+  FAULT_TIMEOUT
+  FAULT_DISCONNECT
+  FAULT_UNDERVOLTAGE
+  FAULT_OVERTORQUE_AMP
+  FAULT_OVERTORQUE_SLOPE
+  FAULT_PINCH
+  FAULT_ALL_SENSORS
+  FAULT_UNKNOWN
+}
+
+enum PinchStatusEnum {
+  CLEAR
+  SWITCH_1_SET
+  SWITCH_2_SET
+  FAULT_SET
+  SWITCH_1_FAULT
+  SWITCH_2_FAULT
+  SWITCH_FAULT_1
+  SWITCH_FAULT_2
+  DISCONNECTED_CABLE
+  SWITCH_1_SWITCH_2
+  FAULT_1_SWITCH_1_SWITCH2
+  FAULT_2_SWITCH_1_SWITCH_2
+}
+
+enum CatDetectEnum {
+  CAT_DETECT_CLEAR
+  CAT_DETECT_LASER_CLEAR
+  CAT_DETECT_LASER_SET
+  CAT_DETECT_SCALE_CLEAR
+  CAT_DETECT_SCALE_SET
+  CAT_DETECT_DRAWER_CLEAR
+  CAT_DETECT_DRAWER_SET
+  CAT_DETECT_RESET_CANCELLED
+  CAT_DETECT_RESET_PAUSED
+  CAT_DETECT_RESET_HOME
+  CAT_DETECT_STUCK
+  CAT_DETECT_STUCK_LASER
+  CAT_DETECT_STUCK_WEIGHT
+}
+
+enum GlobeMotorRetractFaultStatusEnum {
+  NONE
+  FAULT_CLEAR
+  FAULT_TIMEOUT
+  FAULT_DISCONNECT
+  FAULT_UNDERVOLTAGE
+  FAULT_OVERTORQUE_AMP
+  FAULT_OVERTORQUE_SLOPE
+  FAULT_PINCH
+  FAULT_ALL_SENSORS
+  FAULT_UNKNOWN
+}
+
+enum RobotCycleStatusEnum {
+  NONE
+  CYCLE_PENDING
+  CYCLE_IDLE
+  CYCLE_DUMP
+  CYCLE_DFI
+  CYCLE_LEVEL
+  CYCLE_HOME
+  CYCLE_EMPTY
+  CYCLE_EMPTY_HOME
+  CYCLE_EMPTY_ABORT
+  CYCLE_CAT_RELEASE
+  CYCLE_CAT_REL_DFI
+  CYCLE_CAT_REL_LEVEL
+  CYCLE_FIND_DUMP
+  CYCLE_COMPLETE
+  CYCLE_CHANGE_FILTER
+  CYCLE_CHANGE_FILTER2
+}
+
+enum RobotCycleStateEnum {
+  NONE
+  CYCLE_STATE_NONE
+  CYCLE_STATE_WAIT_ON
+  CYCLE_STATE_PROCESS
+  CYCLE_STATE_WAIT_OFF
+  CYCLE_STATE_CAT_DETECT
+  CYCLE_STATE_CAT_DETECT_DWR
+  CYCLE_STATE_BONNET
+  CYCLE_STATE_INIT
+  CYCLE_STATE_IDLE
+  CYCLE_STATE_PAUSE
+  CYCLE_STATE_RESET
+  CYCLE_STATE_FAULT_RETRY
+  CYCLE_STATE_DELAY_1
+  CYCLE_STATE_DELAY_2
+  CYCLE_STATE_DELAY_3
+  CYCLE_STATE_FAULT_1
+  CYCLE_STATE_FAULT_2
+  CYCLE_STATE_FAULT_3
+  CYCLE_STATE_FAULT_UV
+  CYCLE_STATE_FAULT_OT_AMP
+  CYCLE_STATE_FAULT_OT_SLOPE
+  CYCLE_STATE_FAULT_PINCH
+  CYCLE_STATE_FAULT_PAUSE
+}
+
+enum FirmwareUpdateStatusEnum {
+  NONE
+  TRIGGERED
+  PICTRIGGERED
+  LASERBOARDTRIGGERED
+  ESPTRIGGERED
+  STARTED
+  IN_PROGRESS
+  SUCCEEDED
+  FAILED
+  CANCELED
+  DELETED
+  REJECTED
+  TIMED_OUT
+  REMOVED
+  COMPLETED
+  CANCELLATION_IN_PROGRESS
+  DELETION_IN_PROGRESS
+}
+
+enum WIFIModeStatusEnum {
+  NONE
+  OFF
+  OFF_WAITING
+  OFF_CONNECTED
+  OFF_FAULT
+  HOTSPOT_WAITING
+  HOTSPOT_CONNECTED
+  HOTSPOT_FAULT
+  ROUTER_WAITING
+  ROUTER_CONNECTED
+  ROUTER_FAULT
+}
+
+enum USBFaultStatusEnum {
+  NONE
+  CLEAR
+  SET
+}
+
+enum LR4SurfaceTypeEnum {
+  TILE
+  CARPET
+  UNKNOWN
+  CARPET_TRAY
+}
+
+enum HopperStatusEnum {
+  ENABLED
+  DISABLED
+  MOTOR_FAULT_SHORT
+  MOTOR_OT_AMPS
+  MOTOR_DISCONNECTED
+  EMPTY
+}
+
+enum LitterLevelStateEnum {
+  OVERFILL
+  OPTIMAL
+  REFILL
+  LOW
+  EMPTY
+}
+
+type LR4ActivityTimestreamRowOutput {
+  serial: String
+  measure: String
+  timestamp: String
+  value: String
+  actionValue: String
+  originalHex: String
+  valueString: String
+  stateString: String
+  consumer: String
+  commandSource: String
+}
+
+type LR4InsightsOutput {
+  totalCycles: Int
+  averageCycles: Float
+  cycleHistory: [CycleHistory]
+  totalCatDetections: Int
+}
+
+type CycleHistory {
+  date: String!
+  numberOfCycles: Int!
+}
+
+type LR4SummaryOutput {
+  weekStart: String
+  weekEnd: String
+  numberOfCycles: Int
+  maxWeight: Float
+  minWeight: Float
+  numberOfCatDetections: Int
+}
+
+type LR4LifecycleTimestreamRowOutput {
+  serial: String
+  measure: String
+  timestamp: String
+  value: String
+  sessionId: String
+  clientInitiatedDisconnect: String
+  disconnectReason: String
+  traceId: String
+  versionNumber: String
+  principalIdentifier: String
+  clientId: String
+}
+
+type CloudUnitActivity {
+  datum_id: String
+  subject_id: String
+  record_id: String
+  timestamp: String
+  observation_id: String
+  committed_at: String
+  expiration_date: String
+  record_field_00: String
+  record_field_01: String
+  record_field_02: String
+  record_field_03: String
+  record_field_04: String
+  record_field_05: String
+  record_field_06: String
+  is_reassigned: Boolean
+}
+
+type RobotData {
+  monthly(startDate: String!, timezoneOffsetSec: Int): MonthlyData
+  weekly(startDate: String!, timezoneOffsetSec: Int): WeeklyData
+  historyDownload(startDate: String!, endDate: String, timezoneOffsetSec: Int, limit: Int): [ActivityOutput]
+}
+
+type MonthlyData {
+  insights: LR4InsightsOutput
+  summary: [LR4SummaryOutput]
+}
+
+type WeeklyData {
+  insights: LR4InsightsOutput
+  activity(limit: Int): [ActivityOutput]
+}
+
+type ActivityOutput {
+  timestamp: String
+  value: String
+  actionValue: String
+}
+
+input LR4OTAFirmwareVersionAddInput {
+  motherBoardType: PicBoardTypeEnum!
+  motherBoardTypeHex: PicBoardTypeHexEnum!
+  espFirmwareVersion: String!
+  espFirmwareDescription: String
+  espFirmwareAuthor: String
+  espFirmwareDateTime: AWSDateTime!
+  espFirmwareS3Filename: String!
+  picFirmwareVersion: String!
+  picFirmwareVersionHex: String!
+  picFirmwareDescription: String
+  picFirmwareAuthor: String
+  picFirmwareDateTime: AWSDateTime!
+  picFirmwareS3Filename: String!
+  picFirmwareS3BackupFilename: String!
+  laserBoardFirmwareVersion: String!
+  laserBoardFirmwareVersionHex: String!
+  laserBoardFirmwareDescription: String
+  laserBoardFirmwareAuthor: String
+  laserBoardFirmwareDateTime: AWSDateTime!
+  laserBoardFirmwareS3Filename: String!
+  laserBoardFirmwareS3BackupFilename: String!
+  updateEnabledFlag: Boolean!
+}
+
+input LR4OTAFirmwareVersionUpdateInput {
+  combinedVersions: String!
+  espFirmwareDescription: String
+  espFirmwareAuthor: String
+  picFirmwareDescription: String
+  picFirmwareAuthor: String
+  laserBoardFirmwareDescription: String
+  laserBoardFirmwareAuthor: String
+  updateEnabledFlag: Boolean!
+}
+
+type LR4OTATriggerFirmwareUpdateOutput {
+  serial: String!
+  isUpdateTriggered: Boolean!
+  SFNOTAExecutionArn: String
+  SFNOTAStartDate: String
+  isEspFirmwareUpdateNeeded: Boolean!
+  isPicFirmwareUpdateNeeded: Boolean!
+  isLaserboardFirmwareUpdateNeeded: Boolean!
+  latestFirmware: OTAFirmware!
+  robotFirmware: RobotFirmwareType!
+}
+
+input LR4OTATriggerFirmwareUpdateInput {
+  serial: String!
+  sourceOfTrigger: String
+  overrideUpward: Boolean
+}
+
+input LR4CommandInput {
+  serial: String!
+  command: String!
+  value: String
+  commandSource: String
 }
 
 type LitterRobot4Array {
@@ -390,50 +837,19 @@ type LitterRobot4Output {
   litterLevelState: LitterLevelStateEnum
 }
 
-input LR4ActivityTimestreamRowInput {
-  serial: String!
-  measure: String!
-  timestamp: String!
-  value: String!
-  actionValue: String
-  originalHex: String
-  valueString: String
-  stateString: String
-  consumer: String
-  commandSource: String
+type LR4RegisterRobotOutput {
+  statusCode: Int!
+  body: String!
 }
 
-type LR4ActivityTimestreamRowOutput {
-  serial: String
-  measure: String
-  timestamp: String
-  value: String
-  actionValue: String
-  originalHex: String
-  valueString: String
-  stateString: String
-  consumer: String
-  commandSource: String
-}
-
-input LR4CommandInput {
+input LR4RegisterRobotInput {
   serial: String!
-  command: String!
-  value: String
-  commandSource: String
-}
-
-type LR4CompareFirmwareVersionOutput {
-  serial: String!
-  isEspFirmwareUpdateNeeded: Boolean!
-  isPicFirmwareUpdateNeeded: Boolean!
-  isLaserboardFirmwareUpdateNeeded: Boolean!
-  latestFirmware: OTAFirmware!
-  robotFirmware: RobotFirmwareType!
-}
-
-input LR4DeleteRobotInput {
-  serial: String!
+  name: String!
+  userId: String!
+  timezone: String
+  updateNetwork: Boolean
+  smartWeightEnabled: Boolean
+  surfaceType: LR4SurfaceTypeEnum
 }
 
 type LR4DeleteRobotOutput {
@@ -441,44 +857,17 @@ type LR4DeleteRobotOutput {
   body: String!
 }
 
-type LR4InsightsOutput {
-  totalCycles: Int
-  averageCycles: Float
-  cycleHistory: [CycleHistory]
-  totalCatDetections: Int
-}
-
-input LR4LifecycleTimestreamRowInput {
+input LR4DeleteRobotInput {
   serial: String!
-  measure: String!
-  timestamp: String!
-  value: String!
-  sessionId: String
-  clientInitiatedDisconnect: String
-  disconnectReason: String
-  traceId: String
-  versionNumber: String
-  principalIdentifier: String
-  clientId: String
 }
 
-type LR4LifecycleTimestreamRowOutput {
-  serial: String
-  measure: String
-  timestamp: String
-  value: String
-  sessionId: String
-  clientInitiatedDisconnect: String
-  disconnectReason: String
-  traceId: String
-  versionNumber: String
-  principalIdentifier: String
-  clientId: String
-}
-
-input LR4LitterRobot4MultiStateSyncInput {
-  userId: String!
-  commandSource: String
+input LR4UpdateLitterRobotInput {
+  serial: String!
+  name: String
+  userId: String
+  unitTimezone: String
+  smartWeightEnabled: Boolean
+  surfaceType: LR4SurfaceTypeEnum
 }
 
 input LR4LitterRobot4StateUpdateInput {
@@ -556,292 +945,14 @@ input LR4LitterRobot4StateUpdateInput {
   litterLevelState: LitterLevelStateEnum
 }
 
-input LR4OTAFirmwareVersionAddInput {
-  motherBoardType: PicBoardTypeEnum!
-  motherBoardTypeHex: PicBoardTypeHexEnum!
-  espFirmwareVersion: String!
-  espFirmwareDescription: String
-  espFirmwareAuthor: String
-  espFirmwareDateTime: AWSDateTime!
-  espFirmwareS3Filename: String!
-  picFirmwareVersion: String!
-  picFirmwareVersionHex: String!
-  picFirmwareDescription: String
-  picFirmwareAuthor: String
-  picFirmwareDateTime: AWSDateTime!
-  picFirmwareS3Filename: String!
-  picFirmwareS3BackupFilename: String!
-  laserBoardFirmwareVersion: String!
-  laserBoardFirmwareVersionHex: String!
-  laserBoardFirmwareDescription: String
-  laserBoardFirmwareAuthor: String
-  laserBoardFirmwareDateTime: AWSDateTime!
-  laserBoardFirmwareS3Filename: String!
-  laserBoardFirmwareS3BackupFilename: String!
-  updateEnabledFlag: Boolean!
-}
-
-input LR4OTAFirmwareVersionUpdateInput {
-  combinedVersions: String!
-  espFirmwareDescription: String
-  espFirmwareAuthor: String
-  picFirmwareDescription: String
-  picFirmwareAuthor: String
-  laserBoardFirmwareDescription: String
-  laserBoardFirmwareAuthor: String
-  updateEnabledFlag: Boolean!
-}
-
-input LR4OTATriggerFirmwareUpdateInput {
-  serial: String!
-  sourceOfTrigger: String
-  overrideUpward: Boolean
-}
-
-type LR4OTATriggerFirmwareUpdateOutput {
-  serial: String!
-  isUpdateTriggered: Boolean!
-  SFNOTAExecutionArn: String
-  SFNOTAStartDate: String
-  isEspFirmwareUpdateNeeded: Boolean!
-  isPicFirmwareUpdateNeeded: Boolean!
-  isLaserboardFirmwareUpdateNeeded: Boolean!
-  latestFirmware: OTAFirmware!
-  robotFirmware: RobotFirmwareType!
-}
-
-input LR4RegisterRobotInput {
-  serial: String!
-  name: String!
-  userId: String!
-  timezone: String
-  updateNetwork: Boolean
-  smartWeightEnabled: Boolean
-  surfaceType: LR4SurfaceTypeEnum
-}
-
-type LR4RegisterRobotOutput {
-  statusCode: Int!
-  body: String!
-}
-
-type LR4SummaryOutput {
-  weekStart: String
-  weekEnd: String
-  numberOfCycles: Int
-  maxWeight: Float
-  minWeight: Float
-  numberOfCatDetections: Int
-}
-
-enum LR4SurfaceTypeEnum {
-  TILE
-  CARPET
-  UNKNOWN
-}
-
-input LR4UpdateLitterRobotInput {
-  serial: String!
-  name: String
-  userId: String
-  unitTimezone: String
-  smartWeightEnabled: Boolean
-  surfaceType: LR4SurfaceTypeEnum
-}
-
-type MonthlyData {
-  insights: LR4InsightsOutput
-  summary: [LR4SummaryOutput]
-}
-
-type Mutation {
-  litterRobot4FirmwareVersionAdd(input: LR4OTAFirmwareVersionAddInput!): OTAFirmware
-  litterRobot4FirmwareVersionUpdate(input: LR4OTAFirmwareVersionUpdateInput!): OTAFirmware
-  litterRobot4TriggerFirmwareUpdate(input: LR4OTATriggerFirmwareUpdateInput!): LR4OTATriggerFirmwareUpdateOutput
-  sendLitterRobot4Command(input: LR4CommandInput!): String
-  resetScoopsSavedCounter(serial: String!): LitterRobot4Array
-  registerLitterRobot4(input: LR4RegisterRobotInput!): LR4RegisterRobotOutput
-  deleteLitterRobot4(input: LR4DeleteRobotInput!): LR4DeleteRobotOutput
-  updateLitterRobot4(input: LR4UpdateLitterRobotInput!): LitterRobot4
-  litterRobot4StateUpdate(input: LR4LitterRobot4StateUpdateInput!): LitterRobot4Output
-  litterRobot4MultiStateUpdate(input: LR4LitterRobot4StateUpdateInput!): LitterRobot4Array
-  litterRobot4ActivityUpdate(input: LR4ActivityTimestreamRowInput!): LR4ActivityTimestreamRowOutput
-  litterRobot4LifecycleUpdate(input: LR4LifecycleTimestreamRowInput!): LR4LifecycleTimestreamRowOutput
-  litterRobot4MultiStateSync(input: LR4LitterRobot4MultiStateSyncInput!): String
-  toggleHopper(serial: String!, isRemoved: Boolean!): ToggleHopperOutput
-}
-
-enum NightLightModeEnum {
-  OFF
-  ON
-  AUTO
-}
-
-type OTAFirmware {
-  combinedVersions: String!
-  motherBoardType: PicBoardTypeEnum!
-  motherBoardTypeHex: PicBoardTypeHexEnum!
-  espFirmwareVersion: String!
-  espFirmwareDescription: String
-  espFirmwareAuthor: String
-  espFirmwareDateTime: AWSDateTime!
-  espFirmwareS3Filename: String!
-  picFirmwareVersion: String!
-  picFirmwareVersionHex: String!
-  picFirmwareDescription: String
-  picFirmwareAuthor: String
-  picFirmwareDateTime: AWSDateTime!
-  picFirmwareS3Filename: String!
-  picFirmwareS3BackupFilename: String!
-  laserBoardFirmwareVersion: String!
-  laserBoardFirmwareVersionHex: String!
-  laserBoardFirmwareDescription: String
-  laserBoardFirmwareAuthor: String
-  laserBoardFirmwareDateTime: AWSDateTime!
-  laserBoardFirmwareS3Filename: String!
-  laserBoardFirmwareS3BackupFilename: String!
-  updateEnabledFlag: Boolean!
-  createdDateTime: AWSDateTime!
-}
-
-enum PicBoardTypeEnum {
-  D_10512_257
-  D_10512_2560
-  D_10500_262
-  D_10500_2560
-  D_10500_3072
-  D_10512_3072
-  D_10535_259
-}
-
-enum PicBoardTypeHexEnum {
-  H_2910_0101
-  H_2910_0A00
-  H_2904_0106
-  H_2904_0A00
-  H_2904_0C00
-  H_2910_0C00
-  H_2927_0103
-}
-
-enum PinchStatusEnum {
-  CLEAR
-  SWITCH_1_SET
-  SWITCH_2_SET
-  FAULT_SET
-  SWITCH_1_FAULT
-  SWITCH_2_FAULT
-  SWITCH_FAULT_1
-  SWITCH_FAULT_2
-  DISCONNECTED_CABLE
-  SWITCH_1_SWITCH_2
-  FAULT_1_SWITCH_1_SWITCH2
-  FAULT_2_SWITCH_1_SWITCH_2
-}
-
-type Query {
-  litterRobot4CompareFirmwareVersion(serial: String!, overrideUpward: Boolean): LR4CompareFirmwareVersionOutput
-  getUnitDiagnosticsBySerial(serial: String!): UnitDiagnostics
-  getUnitDiagnosticsByUser(userId: String!): [UnitDiagnostics]
-  getLitterRobot4BySerial(serial: String!): LitterRobot4
-  getLitterRobot4ByUnitId(unitId: ID!): LitterRobot4
-  getLitterRobot4ByUser(userId: String!): [LitterRobot4]
-  getLitterRobotActivity(serial: String!, startTimestamp: String, endTimestamp: String, limit: Int, consumer: String): [LR4ActivityTimestreamRowOutput]
-  getLitterRobot4Activity(serial: String!, startTimestamp: String, endTimestamp: String, limit: Int, consumer: String, activityTypes: [String]): [LR4ActivityTimestreamRowOutput]
-  getLitterRobot4Insights(serial: String!, startTimestamp: String, timezoneOffset: Int): LR4InsightsOutput
-  getLitterRobot4Summary(serial: String!, timezoneOffset: Int): [LR4SummaryOutput]
-  getLitterRobot4Lifecycle(serial: String!, startTimestamp: String, endTimestamp: String, limit: Int): [LR4LifecycleTimestreamRowOutput]
-  weightHistory(serial: String!, startDate: String!): [CloudUnitActivity]
-  robot(serial: String!): RobotData
-}
-
-enum RobotCycleStateEnum {
-  NONE
-  CYCLE_STATE_NONE
-  CYCLE_STATE_WAIT_ON
-  CYCLE_STATE_PROCESS
-  CYCLE_STATE_WAIT_OFF
-  CYCLE_STATE_CAT_DETECT
-  CYCLE_STATE_CAT_DETECT_DWR
-  CYCLE_STATE_BONNET
-  CYCLE_STATE_INIT
-  CYCLE_STATE_IDLE
-  CYCLE_STATE_PAUSE
-  CYCLE_STATE_RESET
-  CYCLE_STATE_FAULT_RETRY
-  CYCLE_STATE_DELAY_1
-  CYCLE_STATE_DELAY_2
-  CYCLE_STATE_DELAY_3
-  CYCLE_STATE_FAULT_1
-  CYCLE_STATE_FAULT_2
-  CYCLE_STATE_FAULT_3
-  CYCLE_STATE_FAULT_UV
-  CYCLE_STATE_FAULT_OT_AMP
-  CYCLE_STATE_FAULT_OT_SLOPE
-  CYCLE_STATE_FAULT_PINCH
-  CYCLE_STATE_FAULT_PAUSE
-}
-
-enum RobotCycleStatusEnum {
-  NONE
-  CYCLE_PENDING
-  CYCLE_IDLE
-  CYCLE_DUMP
-  CYCLE_DFI
-  CYCLE_LEVEL
-  CYCLE_HOME
-  CYCLE_EMPTY
-  CYCLE_EMPTY_HOME
-  CYCLE_EMPTY_ABORT
-  CYCLE_CAT_RELEASE
-  CYCLE_CAT_REL_DFI
-  CYCLE_CAT_REL_LEVEL
-  CYCLE_FIND_DUMP
-  CYCLE_COMPLETE
-  CYCLE_CHANGE_FILTER
-  CYCLE_CHANGE_FILTER2
-}
-
-type RobotData {
-  monthly(startDate: String!, timezoneOffsetSec: Int): MonthlyData
-  weekly(startDate: String!, timezoneOffsetSec: Int): WeeklyData
-  historyDownload(startDate: String!, endDate: String, timezoneOffsetSec: Int, limit: Int): [ActivityOutput]
-}
-
-type RobotFirmwareType {
-  espFirmware: String
-  picFirmwareVersion: String
-  laserBoardFirmwareVersion: String
-}
-
-enum RobotStatusEnum {
-  NONE
-  ROBOT_POWER_OFF
-  ROBOT_POWER_UP
-  ROBOT_POWER_DOWN
-  ROBOT_IDLE
-  ROBOT_BONNET
-  ROBOT_CAT_DETECT
-  ROBOT_CAT_DETECT_DELAY
-  ROBOT_SET_CLUMP_TIME
-  ROBOT_SET_NIGHT_LIGHT
-  ROBOT_CLEAN
-  ROBOT_EMPTY
-  ROBOT_CAT_RELEASE
-  ROBOT_FIND_DUMP
-  ROBOT_CHANGE_FILTER
-  ROBOT_SCALE_CAL
-  ROBOT_SCALE_RECAL
-  ROBOT_SCALE_TOF_OTA
-  ROBOT_SCALE_AUX_MOR
-  ROBOT_OPS_AUDIT_MODE
-  ROBOT_KEYPAD_TEST
-}
-
-enum SleepStatusEnum {
-  NONE
-  WAKE
-  SLEEPING
+input WeekdaysSleepWakeEnabledInput {
+  Sunday: SleepWakeEnabledInputType
+  Monday: SleepWakeEnabledInputType
+  Tuesday: SleepWakeEnabledInputType
+  Wednesday: SleepWakeEnabledInputType
+  Thursday: SleepWakeEnabledInputType
+  Friday: SleepWakeEnabledInputType
+  Saturday: SleepWakeEnabledInputType
 }
 
 input SleepWakeEnabledInputType {
@@ -850,41 +961,47 @@ input SleepWakeEnabledInputType {
   isEnabled: Boolean
 }
 
-type SleepWakeEnabledType {
-  sleepTime: Int
-  wakeTime: Int
-  isEnabled: Boolean
+input LR4ActivityTimestreamRowInput {
+  serial: String!
+  measure: String!
+  timestamp: String!
+  value: String!
+  actionValue: String
+  originalHex: String
+  valueString: String
+  stateString: String
+  consumer: String
+  commandSource: String
 }
 
-type Subscription {
-  litterRobot4StateSubscriptionByUser(userId: String!): LitterRobot4Array
-  litterRobot4StateSubscriptionBySerial(serial: String!, consumer: String): LitterRobot4Output
-  litterRobot4ActivitySubscriptionBySerial(serial: String!, consumer: String): LR4ActivityTimestreamRowOutput
-  litterRobot4LifecycleSubscriptionBySerial(serial: String!): LR4LifecycleTimestreamRowOutput
+input LR4LifecycleTimestreamRowInput {
+  serial: String!
+  measure: String!
+  timestamp: String!
+  value: String!
+  sessionId: String
+  clientInitiatedDisconnect: String
+  disconnectReason: String
+  traceId: String
+  versionNumber: String
+  principalIdentifier: String
+  clientId: String
 }
 
-enum TOFBoardTypeDec {
-  D_10505_2560
-  D_10497_2560
-  UNKNOWN
+input LR4LitterRobot4MultiStateSyncInput {
+  userId: String!
+  commandSource: String
 }
 
-enum TOFBoardTypeHex {
-  H_2909_0A00
-  H_2901_0A00
-  UNKNOWN
+type ToggleHopperOutput {
+  success: Boolean
 }
 
-input ToFSensorDistancesInput {
-  ToFSensorDistanceLeft: Int
-  ToFSensorDistanceMiddle: Int
-  ToFSensorDistanceRight: Int
-}
-
-type ToFSensorDistancesType {
-  ToFSensorDistanceLeft: Int
-  ToFSensorDistanceMiddle: Int
-  ToFSensorDistanceRight: Int
+input reassignPetVisitInput {
+  robotSerial: String!
+  fromPetId: String
+  toPetId: String
+  visitTimestamp: String!
 }
 
 input ToFSensorSlopesInputType {
@@ -893,91 +1010,32 @@ input ToFSensorSlopesInputType {
   ToFSensorSlopeRight: Int
 }
 
-type ToFSensorSlopesType {
-  ToFSensorSlopeLeft: Int
-  ToFSensorSlopeMiddle: Int
-  ToFSensorSlopeRight: Int
+type DeleteUnitDiagnosticsBySerialReturn {
+  deletedUnitDiagnostics: [UnitDiagnostics!]
+  counter: Int
 }
 
-type ToggleHopperOutput {
-  success: Boolean
+enum TOFBoardTypeHex {
+  H_2909_0A00
+  H_2901_0A00
+  UNKNOWN
 }
 
-type UnitDiagnostics {
-  unitId: ID!
-  serial: String!
-  userId: String!
-  RTCChipId: Int
-  mbHardware: Int
-  mbBom: Int
-  mbSuite: Int
-  mbRevision: Int
-  mbRevisionId: Int
-  mbDeviceId: Int
-  mbHardwareHex: String
-  mbBomHex: String
-  mbSuiteHex: String
-  mbRevisionHex: String
-  mbRevisionIdHex: String
-  mbDeviceIdHex: String
-  lbHardware: Int
-  lbBom: Int
-  lbSuite: Int
-  lbRevision: Int
-  lbRevisionId: Int
-  lbDeviceId: Int
-  lbHardwareHex: String
-  lbBomHex: String
-  lbSuiteHex: String
-  lbRevisionHex: String
-  lbRevisionIdHex: String
-  lbDeviceIdHex: String
-  isScaleReady: Boolean
-  DFIToFDistanceMax: Int
-  DFIToFDistanceMin: Int
-  systemPowerSensor: Float
-  ambientSensor: Int
-  bonnetSensor: Int
-  hallSensor: Int
-  globeMotorAmperes: Int
-  hopperMotorAmperes: Int
-  drawerSensor: Int
-  ToFSensorDistances: ToFSensorDistancesType
-  ToFSensorSlopes: ToFSensorSlopesType
-  globeRotationSpeed: Float
-  cycleTimerPending: Int
-  cycleTimerIdle: Int
-  cycleTimerDump: Int
-  cycleTimerDFI: Int
-  cycleTimerLevel: Int
-  cycleTimerHome: Int
-  cycleTimerEmpty: Int
-  cycleTimerEmptyHome: Int
-  cycleTimerAbort: Int
-  cycleTimerCatRelease: Int
-  cycleTimerCatRelDFI: Int
-  cycleTimerCatRelLevel: Int
-  cycleTimerFindDump: Int
-  cycleTimerComplete: Int
-  cycleTimerChangeFilter: Int
-  cycleTimerUnknown: Int
-  avgMotorAmpsDump: Int
-  avgMotorAmpsDFI: Int
-  avgMotorAmpsLevel: Int
-  avgMotorAmpsHome: Int
-  avgMotorAmpsUnknown: Int
-  motorFaultCycleTime: Int
-  motorFaultVoltage: Int
-  motorFaultAmperage: Int
-  motorFaultSlope: Int
-  motorFaultSpeed: Int
-  globeSpeedDumpToHall: Float
-  revisionId: Int
-  deviceId: Int
-  prmDisplayIntensityHigh: Int
-  prmDisplayIntensityLow: Int
-  prmAmbientLightSensorLimitsHigh: Int
-  prmAmbientLightSensorLimitsLow: Int
+type DeleteRobotsBySerialReturn {
+  deletedRobots: [LitterRobot4!]
+  counter: Int
+}
+
+input ToFSensorDistancesInput {
+  ToFSensorDistanceLeft: Int
+  ToFSensorDistanceMiddle: Int
+  ToFSensorDistanceRight: Int
+}
+
+enum TOFBoardTypeDec {
+  D_10505_2560
+  D_10497_2560
+  UNKNOWN
 }
 
 type UnitDiagnosticsOutput {
@@ -1055,62 +1113,5 @@ type UnitDiagnosticsOutput {
   prmDisplayIntensityLow: Int
   prmAmbientLightSensorLimitsHigh: Int
   prmAmbientLightSensorLimitsLow: Int
-}
-
-enum UnitPowerStatusEnum {
-  NONE
-  ON
-  OFF
-}
-
-enum UnitPowerTypeEnum {
-  NONE
-  AC
-  DC
-}
-
-enum USBFaultStatusEnum {
-  NONE
-  CLEAR
-  SET
-}
-
-input WeekdaysSleepWakeEnabledInput {
-  Sunday: SleepWakeEnabledInputType
-  Monday: SleepWakeEnabledInputType
-  Tuesday: SleepWakeEnabledInputType
-  Wednesday: SleepWakeEnabledInputType
-  Thursday: SleepWakeEnabledInputType
-  Friday: SleepWakeEnabledInputType
-  Saturday: SleepWakeEnabledInputType
-}
-
-type WeekdaysSleepWakeEnabledType {
-  Sunday: SleepWakeEnabledType
-  Monday: SleepWakeEnabledType
-  Tuesday: SleepWakeEnabledType
-  Wednesday: SleepWakeEnabledType
-  Thursday: SleepWakeEnabledType
-  Friday: SleepWakeEnabledType
-  Saturday: SleepWakeEnabledType
-}
-
-type WeeklyData {
-  insights: LR4InsightsOutput
-  activity(limit: Int): [ActivityOutput]
-}
-
-enum WIFIModeStatusEnum {
-  NONE
-  OFF
-  OFF_WAITING
-  OFF_CONNECTED
-  OFF_FAULT
-  HOTSPOT_WAITING
-  HOTSPOT_CONNECTED
-  HOTSPOT_FAULT
-  ROUTER_WAITING
-  ROUTER_CONNECTED
-  ROUTER_FAULT
 }
 

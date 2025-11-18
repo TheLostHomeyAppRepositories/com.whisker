@@ -1,0 +1,186 @@
+[
+  {
+    "id": "waste_drawer_threshold",
+    "type": "number",
+    "label": {
+      "en": "Waste drawer full threshold (%)",
+      "nl": "Drempel afvalbak (%)",
+      "de": "Füllstandsschwelle für Abfallbehälter (%)",
+      "fr": "Seuil de remplissage du bac à déchets (%)",
+      "it": "Soglia piena del cassetto dei rifiuti (%)",
+      "sv": "Tröskelvärde för full avfallsbehållare (%)",
+      "no": "Terskel for full avfallsbeholder (%)",
+      "es": "Umbral del cajón de desechos lleno (%)",
+      "da": "Tærskel for fuld affaldsskuffe (%)",
+      "ru": "Порог заполнения мусорного ящика (%)",
+      "pl": "Próg pełności pojemnika na odpady (%)",
+      "ko": "폐기물 서랍 가득 참 임계값 (%)"
+    },
+    "hint": {
+      "en": "Adjust this percentage to determine when the Waste Drawer Full alarm should trigger, the default is 80%",
+      "nl": "Pas dit percentage aan om te bepalen wanneer de afvalbak als vol wordt gemeld. Standaard is dit 80%.",
+      "de": "Passen Sie diesen Prozentsatz an, um festzulegen, wann die Meldung Abfallbehälter voll ausgelöst wird. Standard ist 80%.",
+      "fr": "Ajustez ce pourcentage pour déterminer quand l'alerte bac à déchets plein doit se déclencher. Par défaut : 80%.",
+      "it": "Modifica questa percentuale per decidere quando attivare l'allarme del cassetto pieno. Predefinito: 80%.",
+      "sv": "Justera denna procentsats för att avgöra när larmet för full avfallsbehållare ska utlösas. Standard är 80%.",
+      "no": "Juster denne prosenten for å angi når varsel om full avfallsbeholder skal utløses. Standard er 80%.",
+      "es": "Ajusta este porcentaje para determinar cuándo se debe activar la alarma de cajón de desechos lleno. Por defecto: 80%.",
+      "da": "Juster denne procentdel for at bestemme, hvornår alarmen for fuld affaldsskuffe skal udløses. Standard er 80%.",
+      "ru": "Настройте этот процент, чтобы определить, когда включать сигнал переполненного мусорного ящика. По умолчанию: 80%.",
+      "pl": "Dostosuj ten procent, aby określić, kiedy ma się włączyć alarm pełnego pojemnika. Domyślnie: 80%.",
+      "ko": "이 비율을 조정하여 폐기물 서랍이 가득 찼을 때 경고가 표시되도록 설정합니다. 기본값은 80%입니다."
+    },
+    "value": 80,
+    "min": 1,
+    "max": 100,
+    "step": 1,
+    "required": true
+  },
+  {
+    "id": "use_12h_format",
+    "type": "dropdown",
+    "label": {
+      "en": "Time format",
+      "nl": "Tijdnotatie",
+      "de": "Zeitformat",
+      "fr": "Format d'heure",
+      "it": "Formato orario",
+      "sv": "Tidsformat",
+      "no": "Tidsformat",
+      "es": "Formato de hora",
+      "da": "Tidsformat",
+      "ru": "Формат времени",
+      "pl": "Format czasu",
+      "ko": "시간 형식"
+    },
+    "hint": {
+      "en": "Choose the time format for displaying times in the app.",
+      "nl": "Kies de tijdnotatie voor het weergeven van tijden in de app.",
+      "de": "Wählen Sie das Zeitformat für die Anzeige von Zeiten in der App.",
+      "fr": "Choisissez le format d'heure pour afficher les heures dans l'application.",
+      "it": "Scegli il formato orario per visualizzare gli orari nell'app.",
+      "sv": "Välj tidsformat för att visa tider i appen.",
+      "no": "Velg tidsformat for å vise tider i appen.",
+      "es": "Elige el formato de hora para mostrar las horas en la aplicación.",
+      "da": "Vælg tidsformat til at vise tider i appen.",
+      "ru": "Выберите формат времени для отображения времени в приложении.",
+      "pl": "Wybierz format czasu do wyświetlania godzin w aplikacji.",
+      "ko": "앱에서 시간을 표시할 시간 형식을 선택하세요."
+    },
+    "value": "24h",
+    "values": [
+      {
+        "id": "24h",
+        "label": {
+          "en": "24-hour format",
+          "nl": "24-uurs formaat",
+          "de": "24-Stunden-Format",
+          "fr": "Format 24 heures",
+          "it": "Formato 24 ore",
+          "sv": "24-timmarsformat",
+          "no": "24-timers format",
+          "es": "Formato de 24 horas",
+          "da": "24-timers format",
+          "ru": "24-часовой формат",
+          "pl": "Format 24-godzinny",
+          "ko": "24시간 형식"
+        }
+      },
+      {
+        "id": "12h",
+        "label": {
+          "en": "12-hour format",
+          "nl": "12-uurs formaat",
+          "de": "12-Stunden-Format",
+          "fr": "Format 12 heures",
+          "it": "Formato 12 ore",
+          "sv": "12-timmarsformat",
+          "no": "12-timers format",
+          "es": "Formato de 12 horas",
+          "da": "12-timers format",
+          "ru": "12-часовой формат",
+          "pl": "Format 12-godzinny",
+          "ko": "12시간 형식"
+        }
+      }
+    ],
+    "required": true
+  },
+  {
+    "id": "device_information",
+    "type": "group",
+    "label": {
+      "en": "Device Information",
+      "nl": "Apparaatinformatie",
+      "de": "Geräteinformationen",
+      "fr": "Informations sur l'appareil",
+      "it": "Informazioni dispositivo",
+      "sv": "Enhetsinformation",
+      "no": "Enhetsinformasjon",
+      "es": "Información del dispositivo",
+      "da": "Enhedsinformation",
+      "ru": "Информация об устройстве",
+      "pl": "Informacje o urządzeniu",
+      "ko": "장치 정보"
+    },
+    "children": [
+      {
+        "id": "device_model",
+        "type": "label",
+        "label": {
+          "en": "Model",
+          "nl": "Model",
+          "de": "Modell",
+          "fr": "Modèle",
+          "it": "Modello",
+          "sv": "Modell",
+          "no": "Modell",
+          "es": "Modelo",
+          "da": "Model",
+          "ru": "Модель",
+          "pl": "Model",
+          "ko": "모델"
+        },
+        "value": "Litter-Robot 3"
+      },
+      {
+        "id": "device_serial",
+        "type": "label",
+        "label": {
+          "en": "Serial Number",
+          "nl": "Serienummer",
+          "de": "Seriennummer",
+          "fr": "Numéro de série",
+          "it": "Numero di serie",
+          "sv": "Serienummer",
+          "no": "Serienummer",
+          "es": "Número de serie",
+          "da": "Serienummer",
+          "ru": "Серийный номер",
+          "pl": "Numer seryjny",
+          "ko": "시리얼 번호"
+        },
+        "value": "Loading..."
+      },
+      {
+        "id": "device_setup_date",
+        "type": "label",
+        "label": {
+          "en": "Setup Date",
+          "nl": "Installatiedatum",
+          "de": "Einrichtungsdatum",
+          "fr": "Date d'installation",
+          "it": "Data di installazione",
+          "sv": "Installationsdatum",
+          "no": "Installasjonsdato",
+          "es": "Fecha de instalación",
+          "da": "Installationsdato",
+          "ru": "Дата установки",
+          "pl": "Data instalacji",
+          "ko": "설치 날짜"
+        },
+        "value": "Loading..."
+      }
+    ]
+  }
+]

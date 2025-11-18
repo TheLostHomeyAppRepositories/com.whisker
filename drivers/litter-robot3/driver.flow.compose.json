@@ -1,0 +1,1230 @@
+{
+  "triggers": [
+    {
+      "id": "LR3_clean_cycle_status_changed",
+      "title": {
+        "en": "The Litter-Robot cleaning status changes",
+        "nl": "De Litter-Robot reinigingsstatus verandert",
+        "de": "Der Litter-Robot Reinigungsstatus ändert sich",
+        "fr": "Le statut de nettoyage du Litter-Robot change",
+        "it": "Lo stato di pulizia del Litter-Robot cambia",
+        "sv": "Litter-Robot rengöringsstatus ändras",
+        "no": "Litter-Robot rengjøringsstatus endres",
+        "es": "El estado de limpieza del Litter-Robot cambia",
+        "da": "Litter-Robot rengøringsstatus ændres",
+        "ru": "Статус очистки Litter-Robot изменяется",
+        "pl": "Status czyszczenia Litter-Robot się zmienia",
+        "ko": "Litter-Robot 청소 상태가 변경됩니다"
+      },
+      "hint": {
+        "en": "Triggers when the cleaning status of the Litter-Robot changes.",
+        "nl": "Wordt geactiveerd wanneer de reinigingsstatus van de Litter-Robot verandert.",
+        "de": "Wird ausgelöst, wenn sich der Reinigungsstatus des Litter-Robots ändert.",
+        "fr": "Se déclenche lorsque le statut de nettoyage du Litter-Robot change.",
+        "it": "Si attiva quando cambia lo stato di pulizia del Litter-Robot.",
+        "sv": "Utlöses när Litter-Robots rengöringsstatus ändras.",
+        "no": "Utøses når Litter-Robots rengjøringsstatus endres.",
+        "es": "Se activa cuando cambia el estado de limpieza del Litter-Robot.",
+        "da": "Udløses, når Litter-Robots rengøringsstatus ændres.",
+        "ru": "Срабатывает при изменении статуса очистки Litter-Robot.",
+        "pl": "Uruchamia się, gdy zmienia się status czyszczenia Litter-Robot.",
+        "ko": "Litter-Robot의 청소 상태가 변경될 때 트리거됩니다."
+      },
+      "tokens": [
+        {
+          "name": "clean_cycle_status",
+          "type": "string",
+          "title": {
+            "en": "Cleaning status",
+            "nl": "Reinigingsstatus",
+            "de": "Reinigungsstatus",
+            "fr": "Statut de nettoyage",
+            "it": "Stato di pulizia",
+            "sv": "Rengöringsstatus",
+            "no": "Rengjøringsstatus",
+            "es": "Estado de limpieza",
+            "da": "Rengøringsstatus",
+            "ru": "Статус очистки",
+            "pl": "Status czyszczenia",
+            "ko": "청소 상태"
+          }
+        }
+      ]
+    },
+    {
+      "id": "LR3_litter_robot_status_changed",
+      "title": {
+        "en": "The Litter-Robot status changes",
+        "nl": "De Litter-Robot status verandert",
+        "de": "Der Litter-Robot Status ändert sich",
+        "fr": "Le statut du Litter-Robot change",
+        "it": "Lo stato del Litter-Robot cambia",
+        "sv": "Litter-Robot status ändras",
+        "no": "Litter-Robot status endres",
+        "es": "El estado del Litter-Robot cambia",
+        "da": "Litter-Robot status ændres",
+        "ru": "Статус Litter-Robot изменяется",
+        "pl": "Status Litter-Robot się zmienia",
+        "ko": "Litter-Robot 상태가 변경됩니다"
+      },
+      "hint": {
+        "en": "Triggers when the status of the Litter-Robot changes.",
+        "nl": "Wordt geactiveerd wanneer de status van de Litter-Robot verandert.",
+        "de": "Wird ausgelöst, wenn sich der Status des Litter-Robots ändert.",
+        "fr": "Se déclenche lorsque le statut du Litter-Robot change.",
+        "it": "Si attiva quando cambia lo stato del Litter-Robot.",
+        "sv": "Utlöses när Litter-Robots status ändras.",
+        "no": "Utøses når Litter-Robots status endres.",
+        "es": "Se activa cuando cambia el estado del Litter-Robot.",
+        "da": "Udløses, når Litter-Robots status ændres.",
+        "ru": "Срабатывает при изменении статуса Litter-Robot.",
+        "pl": "Uruchamia się, gdy zmienia się status Litter-Robot.",
+        "ko": "Litter-Robot의 상태가 변경될 때 트리거됩니다."
+      },
+      "tokens": [
+        {
+          "name": "litter_robot_status",
+          "type": "string",
+          "title": {
+            "en": "Litter-Robot status",
+            "nl": "Litter-Robot status",
+            "de": "Litter-Robot Status",
+            "fr": "Statut Litter-Robot",
+            "it": "Stato Litter-Robot",
+            "sv": "Litter-Robot status",
+            "no": "Litter-Robot status",
+            "es": "Estado Litter-Robot",
+            "da": "Litter-Robot status",
+            "ru": "Статус Litter-Robot",
+            "pl": "Status Litter-Robot",
+            "ko": "Litter-Robot 상태"
+          }
+        }
+      ]
+    },
+    {
+      "id": "LR3_alarm_cat_detected_true",
+      "highlight": true,
+      "title": {
+        "en": "A cat is detected",
+        "nl": "Er is een kat gedetecteerd",
+        "de": "Eine Katze wurde erkannt",
+        "fr": "Un chat est détecté",
+        "it": "Un gatto è stato rilevato",
+        "sv": "En katt har upptäckts",
+        "no": "En katt er oppdaget",
+        "es": "Se ha detectado un gato",
+        "da": "En kat er blevet registreret",
+        "ru": "Обнаружена кошка",
+        "pl": "Wykryto kota",
+        "ko": "고양이가 감지되었습니다"
+      },
+      "hint": {
+        "en": "Triggers when a cat is detected in the Litter-Robot.",
+        "nl": "Wordt geactiveerd wanneer een kat wordt gedetecteerd in de Litter-Robot.",
+        "de": "Wird ausgelöst, wenn eine Katze in der Litter-Robot erkannt wird.",
+        "fr": "Se déclenche lorsqu'un chat est détecté dans le Litter-Robot.",
+        "it": "Si attiva quando un gatto viene rilevato nel Litter-Robot.",
+        "sv": "Utlöses när en katt upptäcks i Litter-Robot.",
+        "no": "Utøses når en katt oppdages i Litter-Robot.",
+        "es": "Se activa cuando se detecta un gato en el Litter-Robot.",
+        "da": "Udløses, når en kat registreres i Litter-Robot.",
+        "ru": "Срабатывает при обнаружении кошки в Litter-Robot.",
+        "pl": "Wyzwalane po wykryciu kota w Litter-Robot.",
+        "ko": "Litter-Robot에서 고양이를 감지하면 트리거됩니다."
+      }
+    },
+    {
+      "id": "LR3_alarm_cat_detected_false",
+      "title": {
+        "en": "A cat is no longer detected",
+        "nl": "Er is geen kat meer gedetecteerd",
+        "de": "Keine Katze mehr erkannt",
+        "fr": "Aucun chat n'est plus détecté",
+        "it": "Non viene più rilevato alcun gatto",
+        "sv": "Ingen katt detekteras längre",
+        "no": "Ingen katt oppdages lenger",
+        "es": "Ya no se detecta un gato",
+        "da": "Der er ikke længere registreret en kat",
+        "ru": "Кошка больше не обнаруживается",
+        "pl": "Nie wykryto już kota",
+        "ko": "더 이상 고양이가 감지되지 않습니다"
+      },
+      "hint": {
+        "en": "Triggers when a cat that was previously detected is no longer detected in the Litter-Robot.",
+        "nl": "Wordt geactiveerd wanneer een eerder gedetecteerde kat niet langer wordt gedetecteerd in de Litter-Robot.",
+        "de": "Wird ausgelöst, wenn eine zuvor erkannte Katze nicht mehr im Litter-Robot erkannt wird.",
+        "fr": "Se déclenche lorsqu'un chat précédemment détecté n'est plus détecté dans le Litter-Robot.",
+        "it": "Si attiva quando un gatto precedentemente rilevato non viene più rilevato nel Litter-Robot.",
+        "sv": "Utlöses när en tidigare upptäckt katt inte längre upptäcks i Litter-Robot.",
+        "no": "Utøses når en tidligere oppdaget katt ikke lenger oppdages i Litter-Robot.",
+        "es": "Se activa cuando un gato detectado anteriormente ya no se detecta en el Litter-Robot.",
+        "da": "Udløses, når en tidligere registreret kat ikke længere registreres i Litter-Robot.",
+        "ru": "Срабатывает, когда ранее обнаруженная кошка больше не обнаруживается в Litter-Robot.",
+        "pl": "Uruchamia się, gdy wcześniej wykryty kot nie jest już wykrywany w Litter-Robot.",
+        "ko": "이전에 감지된 고양이가 더 이상 Litter-Robot에서 감지되지 않을 때 트리거됩니다."
+      }
+    },
+    {
+      "id": "LR3_alarm_waste_drawer_full_true",
+      "highlight": true,
+      "title": {
+        "en": "The waste drawer is full",
+        "nl": "De afvalbak is vol",
+        "de": "Der Abfallbehälter ist voll",
+        "fr": "Le bac à déchets est plein",
+        "it": "Il cassetto dei rifiuti è pieno",
+        "sv": "Avfallsbehållaren är full",
+        "no": "Avfallsbeholderen er full",
+        "es": "El cajón de residuos está lleno",
+        "da": "Affaldsskuffen er fuld",
+        "ru": "Контейнер для отходов заполнен",
+        "pl": "Pojemnik na odpady jest pełny",
+        "ko": "폐기물 서랍이 가득 찼습니다"
+      },
+      "hint": {
+        "en": "Triggers when the Litter-Robot detects a full waste drawer.",
+        "nl": "Wordt geactiveerd wanneer de Litter-Robot een volle afvalbak detecteert.",
+        "de": "Wird ausgelöst, wenn der Litter-Robot einen vollen Abfallbehälter erkennt.",
+        "fr": "Déclenché lorsque le Litter-Robot détecte un bac à déchets plein.",
+        "it": "Si attiva quando il Litter-Robot rileva un cassetto dei rifiuti pieno.",
+        "sv": "Utlöses när Litter-Robot upptäcker att avfallsbehållaren är full.",
+        "no": "Utøses når Litter-Robot oppdager at avfallsbeholderen er full.",
+        "es": "Se activa cuando el Litter-Robot detecta que el cajón de residuos está lleno.",
+        "da": "Udløses, når Litter-Robot registrerer, at affaldsskuffen er fuld.",
+        "ru": "Срабатывает, когда Litter-Robot обнаруживает полный контейнер для отходов.",
+        "pl": "Uruchamia się, gdy Litter-Robot wykryje pełną szufladę na odpady.",
+        "ko": "Litter-Robot가 폐기물 서랍이 가득 찼음을 감지하면 트리거됩니다."
+      }
+    },
+    {
+      "id": "LR3_alarm_waste_drawer_full_false",
+      "title": {
+        "en": "The waste drawer is no longer full",
+        "nl": "De afvalbak is niet langer vol",
+        "de": "Der Abfallbehälter ist nicht mehr voll",
+        "fr": "Le bac à déchets n'est plus plein",
+        "it": "Il cassetto dei rifiuti non è più pieno",
+        "sv": "Avfallsbehållaren är inte längre full",
+        "no": "Avfallsbeholderen er ikke lenger full",
+        "es": "El contenedor de residuos ya no está lleno",
+        "da": "Affaldsskuffen er ikke længere fuld",
+        "ru": "Контейнер для отходов больше не полон",
+        "pl": "Szuflada na odpady nie jest już pełna",
+        "ko": "폐기물 서랍이 더 이상 가득 차지 않았습니다"
+      },
+      "hint": {
+        "en": "Triggers when the Litter-Robot's waste drawer has been emptied.",
+        "nl": "Wordt geactiveerd wanneer de afvalbak van de Litter-Robot is geleegd.",
+        "de": "Wird ausgelöst, wenn der Abfallbehälter des Litter-Robots geleert wurde.",
+        "fr": "Déclenché lorsque le bac à déchets du Litter-Robot a été vidé.",
+        "it": "Si attiva quando il cassetto dei rifiuti del Litter-Robot è stato svuotato.",
+        "sv": "Utlöses när Litter-Robots avfallsbehållare har tömts.",
+        "no": "Utøses når Litter-Robots avfallsbeholder er tømt.",
+        "es": "Se activa cuando el contenedor de residuos del Litter-Robot ha sido vaciado.",
+        "da": "Udløses, når Litter-Robots affaldsbeholder er blevet tømt.",
+        "ru": "Срабатывает, когда контейнер для отходов Litter-Robot опустошен.",
+        "pl": "Uruchamia się, gdy pojemnik na odpady Litter-Robota został opróżniony.",
+        "ko": "Litter-Robot의 폐기물 통이 비워졌을 때 트리거됩니다."
+      }
+    },
+    {
+      "id": "LR3_alarm_sleep_mode_active_true",
+      "title": {
+        "en": "The Litter-Robot sleep mode becomes active",
+        "nl": "De Litter-Robot slaapmodus wordt actief",
+        "de": "Der Litter-Robot Schlafmodus wird aktiv",
+        "fr": "Le mode veille du Litter-Robot devient actif",
+        "it": "La modalità sonno del Litter-Robot diventa attiva",
+        "sv": "Litter-Robot viloläge blir aktivt",
+        "no": "Litter-Robot søvnmodus blir aktiv",
+        "es": "El modo sueño del Litter-Robot se activa",
+        "da": "Litter-Robot søvn tilstand bliver aktiv",
+        "ru": "Режим сна Litter-Robot становится активным",
+        "pl": "Tryb snu Litter-Robot staje się aktywny",
+        "ko": "Litter-Robot 수면 모드가 활성화됩니다"
+      },
+      "hint": {
+        "en": "Triggers when the Litter-Robot sleep mode becomes active.",
+        "nl": "Wordt geactiveerd wanneer de Litter-Robot slaapmodus actief wordt.",
+        "de": "Wird ausgelöst, wenn der Litter-Robot Schlafmodus aktiv wird.",
+        "fr": "Se déclenche lorsque le mode veille du Litter-Robot devient actif.",
+        "it": "Si attiva quando la modalità sonno del Litter-Robot diventa attiva.",
+        "sv": "Utlöses när Litter-Robot viloläge blir aktivt.",
+        "no": "Utøses når Litter-Robot søvnmodus blir aktiv.",
+        "es": "Se activa cuando el modo sueño del Litter-Robot se activa.",
+        "da": "Udløses, når Litter-Robot søvn tilstand bliver aktiv.",
+        "ru": "Срабатывает, когда режим сна Litter-Robot становится активным.",
+        "pl": "Uruchamia się, gdy tryb snu Litter-Robot staje się aktywny.",
+        "ko": "Litter-Robot 수면 모드가 활성화될 때 트리거됩니다."
+      }
+    },
+    {
+      "id": "LR3_alarm_sleep_mode_active_false",
+      "title": {
+        "en": "The Litter-Robot sleep mode becomes inactive",
+        "nl": "De Litter-Robot slaapmodus wordt inactief",
+        "de": "Der Litter-Robot Schlafmodus wird inaktiv",
+        "fr": "Le mode veille du Litter-Robot devient inactif",
+        "it": "La modalità sonno del Litter-Robot diventa inattiva",
+        "sv": "Litter-Robot viloläge blir inaktivt",
+        "no": "Litter-Robot søvnmodus blir inaktiv",
+        "es": "El modo sueño del Litter-Robot se desactiva",
+        "da": "Litter-Robot søvn tilstand bliver inaktiv",
+        "ru": "Режим сна Litter-Robot становится неактивным",
+        "pl": "Tryb snu Litter-Robot staje się nieaktywny",
+        "ko": "Litter-Robot 수면 모드가 비활성화됩니다"
+      },
+      "hint": {
+        "en": "Triggers when the Litter-Robot sleep mode becomes inactive.",
+        "nl": "Wordt geactiveerd wanneer de Litter-Robot slaapmodus inactief wordt.",
+        "de": "Wird ausgelöst, wenn der Litter-Robot Schlafmodus inaktiv wird.",
+        "fr": "Se déclenche lorsque le mode veille du Litter-Robot devient inactif.",
+        "it": "Si attiva quando la modalità sonno del Litter-Robot diventa inattiva.",
+        "sv": "Utlöses när Litter-Robot viloläge blir inaktivt.",
+        "no": "Utøses når Litter-Robot søvnmodus blir inaktiv.",
+        "es": "Se activa cuando el modo sueño del Litter-Robot se desactiva.",
+        "da": "Udløses, når Litter-Robot søvn til stand bliver inaktiv.",
+        "ru": "Срабатывает, когда режим сна Litter-Robot становится неактивным.",
+        "pl": "Uruchamia się, gdy tryb snu Litter-Robot staje się nieaktywny.",
+        "ko": "Litter-Robot 수면 모드가 비활성화될 때 트리거됩니다."
+      }
+    },
+    {
+      "id": "LR3_alarm_sleep_mode_scheduled_true",
+      "title": {
+        "en": "The Litter-Robot sleep mode becomes scheduled",
+        "nl": "De Litter-Robot slaapmodus wordt gepland",
+        "de": "Der Litter-Robot Schlafmodus wird geplant",
+        "fr": "Le mode veille du Litter-Robot devient programmé",
+        "it": "La modalità sonno del Litter-Robot viene programmata",
+        "sv": "Litter-Robot viloläge schemaläggs",
+        "no": "Litter-Robot søvnmodus planlegges",
+        "es": "El modo sueño del Litter-Robot se programa",
+        "da": "Litter-Robot søvn til stand planlægges",
+        "ru": "Режим сна Litter-Robot планируется",
+        "pl": "Tryb snu Litter-Robot jest planowany",
+        "ko": "Litter-Robot 수면 모드가 예약됩니다"
+      },
+      "hint": {
+        "en": "Triggers when the Litter-Robot sleep mode becomes scheduled.",
+        "nl": "Wordt geactiveerd wanneer de Litter-Robot slaapmodus wordt gepland.",
+        "de": "Wird ausgelöst, wenn der Litter-Robot Schlafmodus geplant wird.",
+        "fr": "Se déclenche lorsque le mode veille du Litter-Robot devient programmé.",
+        "it": "Si attiva quando la modalità sonno del Litter-Robot viene programmata.",
+        "sv": "Utlöses när Litter-Robot viloläge schemaläggs.",
+        "no": "Utøses når Litter-Robot søvnmodus planlegges.",
+        "es": "Se activa cuando el modo sueño del Litter-Robot se programa.",
+        "da": "Udløses, når Litter-Robot søvn til stand planlægges.",
+        "ru": "Срабатывает, когда режим сна Litter-Robot планируется.",
+        "pl": "Uruchamia się, gdy tryb snu Litter-Robot jest planowany.",
+        "ko": "Litter-Robot 수면 모드가 예약될 때 트리거됩니다."
+      }
+    },
+    {
+      "id": "LR3_alarm_sleep_mode_scheduled_false",
+      "title": {
+        "en": "The Litter-Robot sleep mode becomes unscheduled",
+        "nl": "De Litter-Robot slaapmodus wordt niet meer gepland",
+        "de": "Der Litter-Robot Schlafmodus wird nicht mehr geplant",
+        "fr": "Le mode veille du Litter-Robot devient non programmé",
+        "it": "La modalità sonno del Litter-Robot viene disprogrammata",
+        "sv": "Litter-Robot viloläge avschemaläggs",
+        "no": "Litter-Robot søvnmodus avplanlegges",
+        "es": "El modo sueño del Litter-Robot se desprograma",
+        "da": "Litter-Robot søvn til stand afplanlægges",
+        "ru": "Режим сна Litter-Robot отменяется",
+        "pl": "Tryb snu Litter-Robot jest anulowany",
+        "ko": "Litter-Robot 수면 모드 예약이 취소됩니다"
+      },
+      "hint": {
+        "en": "Triggers when the Litter-Robot sleep mode becomes unscheduled.",
+        "nl": "Wordt geactiveerd wanneer de Litter-Robot slaapmodus niet meer gepland wordt.",
+        "de": "Wird ausgelöst, wenn der Litter-Robot Schlafmodus nicht mehr geplant wird.",
+        "fr": "Se déclenche lorsque le mode veille du Litter-Robot devient non programmé.",
+        "it": "Si attiva quando la modalità sonno del Litter-Robot viene disprogrammata.",
+        "sv": "Utlöses när Litter-Robot viloläge avschemaläggs.",
+        "no": "Utøses når Litter-Robot søvnmodus avplanlegges.",
+        "es": "Se activa cuando el modo sueño del Litter-Robot se desprograma.",
+        "da": "Udløses, når Litter-Robot søvn til stand afplanlægges.",
+        "ru": "Срабатывает, когда режим сна Litter-Robot отменяется.",
+        "pl": "Uruchamia się, gdy tryb snu Litter-Robot jest anulowany.",
+        "ko": "Litter-Robot 수면 모드 예약이 취소될 때 트리거됩니다."
+      }
+    },
+    {
+      "id": "LR3_clean_cycle_multiple",
+      "highlight": true,
+      "title": {
+        "en": "Litter-Robot completed multiple clean cycles",
+        "nl": "Litter-Robot heeft meerdere schoonmaakcycli voltooid",
+        "de": "Litter-Robot hat mehrere Reinigungszyklen abgeschlossen",
+        "fr": "Le Litter-Robot a terminé plusieurs cycles de nettoyage",
+        "it": "Il Litter-Robot ha completato più cicli di pulizia",
+        "sv": "Litter-Robot har slutfört flera rengöringscykler",
+        "no": "Litter-Robot har fullført flere rengjøringssykluser",
+        "es": "El Litter-Robot ha completado varios ciclos de limpieza",
+        "da": "Litter-Robot har afsluttet flere rengøringscyklusser",
+        "ru": "Litter-Robot завершил несколько циклов очистки",
+        "pl": "Litter-Robot ukończył wiele cykli czyszczenia",
+        "ko": "Litter-Robot가 여러 청소 사이클을 완료했습니다"
+      },
+      "hint": {
+        "en": "Triggers when the Litter-Robot completes a specified number of clean cycles.",
+        "nl": "Wordt geactiveerd wanneer de Litter-Robot een bepaald aantal schoonmaakcycli heeft voltooid.",
+        "de": "Löst aus, wenn der Litter-Robot eine festgelegte Anzahl von Reinigungszyklen abgeschlossen hat.",
+        "fr": "Déclenche lorsque le Litter-Robot a terminé un nombre spécifié de cycles de nettoyage.",
+        "it": "Si attiva quando il Litter-Robot ha completato un numero specificato di cicli di pulizia.",
+        "sv": "Utlöses när Litter-Robot har slutfört ett angivet antal rengöringscykler.",
+        "no": "Utløses når Litter-Robot har fullført et angitt antall rengjøringssykluser.",
+        "es": "Se activa cuando el Litter-Robot completa un número especificado de ciclos de limpieza.",
+        "da": "Udløses, når Litter-Robot har gennemført et bestemt antal rengøringscyklusser.",
+        "ru": "Срабатывает, когда Litter-Robot завершает заданное количество циклов очистки.",
+        "pl": "Wyzwalane, gdy Litter-Robot zakończy określoną liczbę cykli czyszczenia.",
+        "ko": "Litter-Robot이 지정된 수의 청소 사이클을 완료하면 트리거됩니다."
+      },
+      "titleFormatted": {
+        "en": "When the Litter-Robot completes [[count]] clean cycles",
+        "nl": "Wanneer de Litter-Robot [[count]] schoonmaakcycli heeft voltooid",
+        "de": "Wenn der Litter-Robot [[count]] Reinigungszyklen abgeschlossen hat",
+        "fr": "Lorsque le Litter-Robot a terminé [[count]] cycles de nettoyage",
+        "it": "Quando il Litter-Robot ha completato [[count]] cicli di pulizia",
+        "sv": "När Litter-Robot har slutfört [[count]] rengöringscykler",
+        "no": "Når Litter-Robot har fullført [[count]] rengjøringssykluser",
+        "es": "Cuando el Litter-Robot haya completado [[count]] ciclos de limpieza",
+        "da": "Når Litter-Robot har afsluttet [[count]] rengøringscyklusser",
+        "ru": "Когда Litter-Robot завершит [[count]] циклов очистки",
+        "pl": "Gdy Litter-Robot ukończy [[count]] cykli czyszczenia",
+        "ko": "Litter-Robot가 [[count]]번의 청소 사이클을 완료했을 때"
+      },
+      "args": [
+        {
+          "name": "count",
+          "type": "number",
+          "title": {
+            "en": "Number of clean cycles",
+            "nl": "Aantal schoonmaakcycli",
+            "de": "Anzahl der Reinigungszyklen",
+            "fr": "Nombre de cycles de nettoyage",
+            "it": "Numero di cicli di pulizia",
+            "sv": "Antal rengöringscykler",
+            "no": "Antall rengjøringssykluser",
+            "es": "Número de ciclos de limpieza",
+            "da": "Antal rengøringscyklusser",
+            "ru": "Количество циклов очистки",
+            "pl": "Liczba cykli czyszczenia",
+            "ko": "청소 사이클 수"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "total_cycles",
+          "type": "number",
+          "title": {
+            "en": "Total completed clean cycles",
+            "nl": "Totaal voltooide schoonmaakcycli",
+            "de": "Insgesamt abgeschlossene Reinigungszyklen",
+            "fr": "Total des cycles de nettoyage terminés",
+            "it": "Totale cicli di pulizia completati",
+            "sv": "Totalt slutförda rengöringscykler",
+            "no": "Totalt fullførte rengjøringssykluser",
+            "es": "Ciclos de limpieza completados",
+            "da": "Samlet antal afsluttede rengøringscyklusser",
+            "ru": "Всего завершено циклов очистки",
+            "pl": "Łączna liczba zakończonych cykli czyszczenia",
+            "ko": "완료된 총 청소 사이클 수"
+          }
+        }
+      ]
+    },
+    {
+      "id": "LR3_alarm_connectivity_true",
+      "highlight": true,
+      "title": {
+        "en": "The Litter-Robot goes offline",
+        "nl": "De Litter-Robot gaat offline",
+        "de": "Der Litter-Robot geht offline",
+        "fr": "Le Litter-Robot se déconnecte",
+        "it": "Il Litter-Robot va offline",
+        "sv": "Litter-Robot går offline",
+        "no": "Litter-Robot går offline",
+        "es": "El Litter-Robot se desconecta",
+        "da": "Litter-Robot går offline",
+        "ru": "Litter-Robot отключается",
+        "pl": "Litter-Robot przechodzi w tryb offline",
+        "ko": "Litter-Robot이 오프라인 상태가 됩니다"
+      },
+      "hint": {
+        "en": "Triggers when the Litter-Robot goes offline.",
+        "nl": "Wordt geactiveerd wanneer de Litter-Robot offline gaat.",
+        "de": "Wird ausgelöst, wenn der Litter-Robot offline geht.",
+        "fr": "Se déclenche lorsque le Litter-Robot se déconnecte.",
+        "it": "Si attiva quando il Litter-Robot va offline.",
+        "sv": "Utlöses när Litter-Robot går offline.",
+        "no": "Utøses når Litter-Robot går offline.",
+        "es": "Se activa cuando el Litter-Robot se desconecta.",
+        "da": "Udløses, når Litter-Robot går offline.",
+        "ru": "Срабатывает, когда Litter-Robot отключается.",
+        "pl": "Uruchamia się, gdy Litter-Robot przechodzi w tryb offline.",
+        "ko": "Litter-Robot이 오프라인 상태가 될 때 트리거됩니다."
+      }
+    },
+    {
+      "id": "LR3_alarm_connectivity_false",
+      "title": {
+        "en": "The Litter-Robot comes back online",
+        "nl": "De Litter-Robot komt weer online",
+        "de": "Der Litter-Robot kommt wieder online",
+        "fr": "Le Litter-Robot se reconnecte",
+        "it": "Il Litter-Robot torna online",
+        "sv": "Litter-Robot kommer tillbaka online",
+        "no": "Litter-Robot kommer tilbake online",
+        "es": "El Litter-Robot vuelve a conectarse",
+        "da": "Litter-Robot kommer tilbage online",
+        "ru": "Litter-Robot подключается обратно",
+        "pl": "Litter-Robot wraca do trybu online",
+        "ko": "Litter-Robot이 다시 온라인 상태가 됩니다"
+      },
+      "hint": {
+        "en": "Triggers when the Litter-Robot comes back online.",
+        "nl": "Wordt geactiveerd wanneer de Litter-Robot weer online komt.",
+        "de": "Wird ausgelöst, wenn der Litter-Robot wieder online kommt.",
+        "fr": "Se déclenche lorsque le Litter-Robot se reconnecte.",
+        "it": "Si attiva quando il Litter-Robot torna online.",
+        "sv": "Utlöses när Litter-Robot kommer tillbaka online.",
+        "no": "Utøses når Litter-Robot kommer tilbake online.",
+        "es": "Se activa cuando el Litter-Robot vuelve a conectarse.",
+        "da": "Udløses, når Litter-Robot kommer tilbage online.",
+        "ru": "Срабатывает, когда Litter-Robot подключается обратно.",
+        "pl": "Uruchamia się, gdy Litter-Robot wraca do trybu online.",
+        "ko": "Litter-Robot이 다시 온라인 상태가 될 때 트리거됩니다."
+      }
+    },
+    {
+      "id": "LR3_problem_details_provided",
+      "title": {
+        "en": "A problem is detected and details are provided",
+        "nl": "Een probleem wordt gedetecteerd en details worden verstrekt",
+        "de": "Ein Problem erkannt und Details bereitgestellt werden",
+        "fr": "Lorsqu'un problème est détecté et des détails sont fournis",
+        "it": "Quando viene rilevato un problema e vengono forniti i dettagli",
+        "sv": "När ett problem upptäcks och detaljer tillhandahålls",
+        "no": "Når et problem oppdages og detaljer er gitt",
+        "es": "Cuando se detecta un problema y se proporcionan detalles",
+        "da": "Når et problem opdages, og detaljer gives",
+        "ru": "Когда обнаружена проблема и предоставлены детали",
+        "pl": "Gdy zostanie wykryty problem i podane zostaną szczegóły",
+        "ko": "문제가 감지되고 세부 정보가 제공될 때"
+      },
+      "hint": {
+        "en": "Triggers when a hardware issue is detected in the Litter-Robot and provides details about the problem(s).",
+        "nl": "Wordt geactiveerd wanneer een hardwareprobleem wordt gedetecteerd in de Litter-Robot en details over het probleem worden verstrekt.",
+        "de": "Wird ausgelöst, wenn ein Hardwareproblem im Litter-Robot erkannt wird und Details zum Problem bereitgestellt werden.",
+        "fr": "Déclenchement lorsqu'un problème matériel est détecté dans le Litter-Robot et que des détails sont fournis.",
+        "it": "Si attiva quando viene rilevato un problema hardware nel Litter-Robot e vengono forniti dettagli.",
+        "sv": "Utlöses när ett maskinvaruproblem upptäcks i Litter-Robot och detaljer tillhandahålls.",
+        "no": "Utøses når et maskinvareproblem oppdages i Litter-Robot, og detaljer gis.",
+        "es": "Se activa cuando se detecta un problema de hardware en el Litter-Robot y se proporcionan detalles.",
+        "da": "Udløses, når et hardwareproblem registreres i Litter-Robot, og detaljer gives.",
+        "ru": "Срабатывает при обнаружении аппаратной проблемы в Litter-Robot и предоставляет подробности.",
+        "pl": "Uruchamia się po wykryciu problemu sprzętowego w Litter-Robot i dostarcza szczegóły.",
+        "ko": "Litter-Robot에서 하드웨어 문제가 감지되면 트리거되며 세부 정보가 제공됩니다."
+      },
+      "tokens": [
+        {
+          "type": "string",
+          "name": "problem_description",
+          "title": {
+            "en": "Problem description",
+            "nl": "Probleembeschrijving",
+            "de": "Problembeschreibung",
+            "fr": "Description du problème",
+            "it": "Descrizione del problema",
+            "sv": "Problembeskrivning",
+            "no": "Problembeskrivelse",
+            "es": "Descripción del problema",
+            "da": "Problembeskrivelse",
+            "ru": "Описание проблемы",
+            "pl": "Opis problemu",
+            "ko": "문제 설명"
+          }
+        },
+        {
+          "type": "string",
+          "name": "problem_codes",
+          "title": {
+            "en": "Problem codes",
+            "nl": "Probleemcodes",
+            "de": "Problem-Codes",
+            "fr": "Codes d'erreur",
+            "it": "Codici problema",
+            "sv": "Problemkoder",
+            "no": "Problemkoder",
+            "es": "Códigos de problema",
+            "da": "Problemkoder",
+            "ru": "Коды проблем",
+            "pl": "Kody problemów",
+            "ko": "문제 코드"
+          }
+        },
+        {
+          "type": "number",
+          "name": "problem_count",
+          "title": {
+            "en": "Problem count",
+            "nl": "Aantal problemen",
+            "de": "Anzahl der Probleme",
+            "fr": "Nombre de problèmes",
+            "it": "Numero di problemi",
+            "sv": "Antal problem",
+            "no": "Antall problemer",
+            "es": "Cantidad de problemas",
+            "da": "Antal problemer",
+            "ru": "Количество проблем",
+            "pl": "Liczba problemów",
+            "ko": "문제 수"
+          }
+        }
+      ]
+    },
+    {
+      "id": "LR3_clean_cycle_finished",
+      "title": {
+        "en": "A cleaning cycle is finished",
+        "nl": "Een schoonmaakcyclus is voltooid",
+        "de": "Ein Reinigungszyklus ist abgeschlossen",
+        "fr": "Un cycle de nettoyage est terminé",
+        "it": "Un ciclo di pulizia è completato",
+        "sv": "En rengöringscykel är slutförd",
+        "no": "En rengjøringssyklus er fullført",
+        "es": "Un ciclo de limpieza ha terminado",
+        "da": "En rengøringscyklus er afsluttet",
+        "ru": "Цикл очистки завершен",
+        "pl": "Cykl czyszczenia został zakończony",
+        "ko": "청소 사이클이 완료되었습니다"
+      },
+      "hint": {
+        "en": "Triggers each time a cleaning cycle is finished.",
+        "nl": "Wordt geactiveerd elke keer dat een schoonmaakcyclus is voltooid.",
+        "de": "Wird jedes Mal ausgelöst, wenn ein Reinigungszyklus abgeschlossen ist.",
+        "fr": "Se déclenche à chaque fois qu'un cycle de nettoyage est terminé.",
+        "it": "Si attiva ogni volta che un ciclo di pulizia è completato.",
+        "sv": "Utlöses varje gång en rengöringscykel är slutförd.",
+        "no": "Utøses hver gang en rengjøringssyklus er fullført.",
+        "es": "Se activa cada vez que se termina un ciclo de limpieza.",
+        "da": "Udløses hver gang en rengøringscyklus er afsluttet.",
+        "ru": "Срабатывает каждый раз при завершении цикла очистки.",
+        "pl": "Uruchamia się za każdym razem, gdy cykl czyszczenia zostanie zakończony.",
+        "ko": "청소 사이클이 완료될 때마다 트리거됩니다."
+      },
+      "tokens": [
+        {
+          "name": "total_clean_cycles",
+          "type": "number",
+          "title": {
+            "en": "Total completed clean cycles",
+            "nl": "Totaal voltooide schoonmaakcycli",
+            "de": "Insgesamt abgeschlossene Reinigungszyklen",
+            "fr": "Total des cycles de nettoyage terminés",
+            "it": "Totale cicli di pulizia completati",
+            "sv": "Totalt slutförda rengöringscykler",
+            "no": "Totalt fullførte rengjøringssykluser",
+            "es": "Ciclos de limpieza completados",
+            "da": "Samlet antal afsluttede rengøringscyklusser",
+            "ru": "Всего завершено циклов очистки",
+            "pl": "Łączna liczba zakończonych cykli czyszczenia",
+            "ko": "완료된 총 청소 사이클 수"
+          }
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "LR3_set_cycle_delay",
+      "title": {
+        "en": "Set cycle delay",
+        "nl": "Stel cyclusvertraging in",
+        "de": "Zyklusverzögerung einstellen",
+        "fr": "Définir le délai du cycle",
+        "it": "Imposta ritardo ciclo",
+        "sv": "Ställ in cykelfördröjning",
+        "no": "Sett syklusforsinkelse",
+        "es": "Establecer retraso del ciclo",
+        "da": "Indstil cyklusforsinkelse",
+        "ru": "Установить задержку цикла",
+        "pl": "Ustaw opóźnienie cyklu",
+        "ko": "사이클 지연 설정"
+      },
+      "titleFormatted": {
+        "en": "Set cycle delay to [[minutes]] minutes",
+        "nl": "Stel cyclusvertraging in op [[minutes]] minuten",
+        "de": "Zyklusverzögerung auf [[minutes]] Minuten einstellen",
+        "fr": "Définir le délai du cycle à [[minutes]] minutes",
+        "it": "Imposta il ritardo del ciclo a [[minutes]] minuti",
+        "sv": "Ställ in cykelfördröjning till [[minutes]] minuter",
+        "no": "Sett syklusforsinkelse til [[minutes]] minutter",
+        "es": "Establecer retraso del ciclo en [[minutes]] minutos",
+        "da": "Indstil cyklusforsinkelse til [[minutes]] minutter",
+        "ru": "Установить задержку цикла на [[minutes]] мин",
+        "pl": "Ustaw opóźnienie cyklu na [[minutes]] min",
+        "ko": "사이클 지연을 [[minutes]]분으로 설정"
+      },
+      "hint": {
+        "en": "Adjust the LR3 clean cycle wait time.",
+        "nl": "Pas de wachttijd voor de schoonmaakcyclus van de LR3 aan.",
+        "de": "Passen Sie die Wartezeit des LR3-Reinigungszyklus an.",
+        "fr": "Ajustez le temps d'attente du cycle de nettoyage LR3.",
+        "it": "Regola il tempo di attesa del ciclo di pulizia LR3.",
+        "sv": "Justera LR3:s väntetid för rengöringscykel.",
+        "no": "Juster ventetiden for LR3s rengjøringssyklus.",
+        "es": "Ajusta el tiempo de espera del ciclo de limpieza LR3.",
+        "da": "Juster LR3's ventetid for rengøringscyklus.",
+        "ru": "Настройте время ожидания цикла очистки LR3.",
+        "pl": "Dostosuj czas oczekiwania cyklu czyszczenia LR3.",
+        "ko": "LR3 청소 사이클 대기 시간을 조정합니다."
+      },
+      "args": [
+        {
+          "name": "minutes",
+          "type": "dropdown",
+          "title": {
+            "en": "Amount",
+            "nl": "Hoeveelheid",
+            "de": "Menge",
+            "fr": "Montant",
+            "it": "Quantità",
+            "sv": "Belopp",
+            "no": "Beløp",
+            "es": "Cantidad",
+            "da": "Beløb",
+            "ru": "Количество",
+            "pl": "Ilość",
+            "ko": "수량"
+          },
+          "values": [
+            { "id": "3", "title": { "en": "3" } },
+            { "id": "7", "title": { "en": "7" } },
+            { "id": "15", "title": { "en": "15" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LR3_lock_keypad",
+      "title": {
+        "en": "Lock the keypad",
+        "nl": "Vergrendel het toetsenpaneel",
+        "de": "Tastatur sperren",
+        "fr": "Verrouiller le clavier",
+        "it": "Blocca la tastiera",
+        "sv": "Lås knappsatsen",
+        "no": "Lås tastaturet",
+        "es": "Bloquear el teclado",
+        "da": "Lås tastaturet",
+        "ru": "Заблокировать клавиатуру",
+        "pl": "Zablokuj klawiaturę",
+        "ko": "키패드 잠금"
+      },
+      "hint": {
+        "en": "Locks the keypad to prevent accidental presses.",
+        "nl": "Vergrendelt het toetsenpaneel om onbedoelde aanrakingen te voorkomen.",
+        "de": "Sperrt die Tastatur, um versehentliche Tastenbetätigungen zu vermeiden.",
+        "fr": "Verrouille le clavier pour éviter les pressions accidentelles.",
+        "it": "Blocca la tastiera per evitare pressioni accidentali.",
+        "sv": "Låser knappsatsen för att förhindra oavsiktliga tryck.",
+        "no": "Låser tastaturet for å forhindre utilsiktede trykk.",
+        "es": "Bloquea el teclado para evitar pulsaciones accidentales.",
+        "da": "Låser tastaturet for at forhindre utilsigtede tryk.",
+        "ru": "Блокирует клавиатуру, чтобы избежать случайных нажатий.",
+        "pl": "Blokuje klawiaturę, aby zapobiec przypadkowym naciśnięciom.",
+        "ko": "실수로 누르는 것을 방지하기 위해 키패드를 잠급니다."
+      }
+    },
+    {
+      "id": "LR3_unlock_keypad",
+      "title": {
+        "en": "Unlock the keypad",
+        "nl": "Ontgrendel het toetsenpaneel",
+        "de": "Tastatur entsperren",
+        "fr": "Déverrouiller le clavier",
+        "it": "Sblocca la tastiera",
+        "sv": "Lås upp knappsatsen",
+        "no": "Lås opp tastaturet",
+        "es": "Desbloquear el teclado",
+        "da": "Lås op tastaturet",
+        "ru": "Разблокировать клавиатуру",
+        "pl": "Odblokuj klawiaturę",
+        "ko": "키패드 잠금 해제"
+      },
+      "hint": {
+        "en": "Unlocks the keypad so the buttons can be used again.",
+        "nl": "Ontgrendelt het toetsenpaneel zodat de knoppen weer gebruikt kunnen worden.",
+        "de": "Entsperrt die Tastatur, damit die Tasten wieder verwendet werden können.",
+        "fr": "Déverrouille le clavier pour que les boutons puissent être utilisés à nouveau.",
+        "it": "Sblocca la tastiera in modo che i pulsanti possano essere utilizzati di nuovo.",
+        "sv": "Låser upp knappsatsen så att knapparna kan användas igen.",
+        "no": "Låser opp tastaturet slik at knappene kan brukes igjen.",
+        "es": "Desbloquea el teclado para que los botones se puedan usar nuevamente.",
+        "da": "Låser tastaturet op, så knapperne kan bruges igen.",
+        "ru": "Разблокирует клавиатуру, чтобы кнопки снова могли использоваться.",
+        "pl": "Odblokowuje klawiaturę, aby przyciski mogły być ponownie używane.",
+        "ko": "버튼을 다시 사용할 수 있도록 키패드 잠금을 해제합니다."
+      }
+    },
+    {
+      "id": "LR3_start_empty_cycle",
+      "title": {
+        "en": "Start empty cycle",
+        "nl": "Start leegmaakcyclus",
+        "de": "Leerungszyklus starten",
+        "fr": "Démarrer le cycle de vidage",
+        "it": "Avvia ciclo di svuotamento",
+        "sv": "Starta tömningscykel",
+        "no": "Start tømmesyklus",
+        "es": "Iniciar ciclo de vaciado",
+        "da": "Start tømningscyklus",
+        "ru": "Запустить цикл опорожнения",
+        "pl": "Rozpocznij cykl opróżniania",
+        "ko": "비우기 사이클 시작"
+      },
+      "hint": {
+        "en": "Starts an emptying cycle for the Litter-Robot.",
+        "nl": "Start een leegmaakcyclus voor de Litter-Robot.",
+        "de": "Startet einen Leerungszyklus für den Litter-Robot.",
+        "fr": "Démarre un cycle de vidage pour le Litter-Robot.",
+        "it": "Avvia un ciclo di svuotamento per il Litter-Robot.",
+        "sv": "Startar en tömningscykel för Litter-Robot.",
+        "no": "Starter en tømmesyklus for Litter-Robot.",
+        "es": "Inicia un ciclo de vaciado para el Litter-Robot.",
+        "da": "Starter en tømningscyklus for Litter-Robot.",
+        "ru": "Запускает цикл опорожнения для Litter-Robot.",
+        "pl": "Rozpoczyna cykl opróżniania dla Litter-Robot.",
+        "ko": "Litter-Robot의 비우기 사이클을 시작합니다."
+      }
+    },
+    {
+      "id": "LR3_reset_waste_drawer",
+      "title": {
+        "en": "Reset waste drawer",
+        "nl": "Reset afvalbak",
+        "de": "Abfallbehälter zurücksetzen",
+        "fr": "Réinitialiser le tiroir à déchets",
+        "it": "Reimposta cassetto rifiuti",
+        "sv": "Återställ avfallslådan",
+        "no": "Tilbakestill avfallsskuffen",
+        "es": "Restablecer cajón de residuos",
+        "da": "Nulstil affaldsskuffen",
+        "ru": "Сбросить ящик для отходов",
+        "pl": "Zresetuj szufladę na odpady",
+        "ko": "폐기물 서랍 재설정"
+      },
+      "hint": {
+        "en": "Resets the waste drawer status and counters.",
+        "nl": "Reset de status en tellers van de afvalbak.",
+        "de": "Setzt Status und Zähler des Abfallbehälters zurück.",
+        "fr": "Réinitialise l'état et les compteurs du tiroir à déchets.",
+        "it": "Reimposta lo stato e i contatori del cassetto rifiuti.",
+        "sv": "Återställer status och räknare för avfallslådan.",
+        "no": "Tilbakestiller status og tellere for avfallsskuffen.",
+        "es": "Restablece el estado y los contadores del cajón de residuos.",
+        "da": "Nulstiller status og tællere for affaldsskuffen.",
+        "ru": "Сбрасывает состояние и счетчики ящика для отходов.",
+        "pl": "Resetuje stan i liczniki szuflady na odpady.",
+        "ko": "폐기물 서랍 상태와 카운터를 재설정합니다."
+      }
+    },
+    {
+      "id": "LR3_turn_on_night_light",
+      "title": {
+        "en": "Turn on globe light",
+        "nl": "Zet nachtlamp aan",
+        "de": "Nachtlicht einschalten",
+        "fr": "Allumer la veilleuse",
+        "it": "Accendi luce notturna",
+        "sv": "Sätt på nattljus",
+        "no": "Slå på nattlys",
+        "es": "Encender luz nocturna",
+        "da": "Tænd natlys",
+        "ru": "Включить ночное освещение",
+        "pl": "Włącz nocne oświetlenie",
+        "ko": "야간등 켜기"
+      },
+      "hint": {
+        "en": "Turns on the globe light.",
+        "nl": "Zet de nachtlamp aan.",
+        "de": "Schaltet das Nachtlicht ein.",
+        "fr": "Allume la veilleuse.",
+        "it": "Accende la luce notturna.",
+        "sv": "Sätter på nattljuset.",
+        "no": "Slår på nattlyset.",
+        "es": "Enciende la luz nocturna.",
+        "da": "Tænder natlyset.",
+        "ru": "Включает ночное освещение.",
+        "pl": "Włącza nocne oświetlenie.",
+        "ko": "야간등을 켭니다."
+      }
+    },
+    {
+      "id": "LR3_turn_off_night_light",
+      "title": {
+        "en": "Turn off globe light",
+        "nl": "Zet nachtlamp uit",
+        "de": "Nachtlicht ausschalten",
+        "fr": "Éteindre la veilleuse",
+        "it": "Spegni luce notturna",
+        "sv": "Stäng av nattljus",
+        "no": "Slå av nattlys",
+        "es": "Apagar luz nocturna",
+        "da": "Sluk natlys",
+        "ru": "Выключить ночное освещение",
+        "pl": "Wyłącz nocne oświetlenie",
+        "ko": "야간등 끄기"
+      },
+      "hint": {
+        "en": "Turns off the globe light.",
+        "nl": "Zet de nachtlamp uit.",
+        "de": "Schaltet das Nachtlicht aus.",
+        "fr": "Éteint la veilleuse.",
+        "it": "Spegne la luce notturna.",
+        "sv": "Stänger av nattljuset.",
+        "no": "Slår av nattlyset.",
+        "es": "Apaga la luz nocturna.",
+        "da": "Slukker natlyset.",
+        "ru": "Выключает ночное освещение.",
+        "pl": "Wyłącza nocne oświetlenie.",
+        "ko": "야간등을 끕니다."
+      }
+    },
+    {
+      "id": "LR3_toggle_night_light",
+      "title": {
+        "en": "Toggle globe light",
+        "nl": "Wissel nachtlamp",
+        "de": "Nachtlicht umschalten",
+        "fr": "Basculer la veilleuse",
+        "it": "Commuta luce notturna",
+        "sv": "Växla nattljus",
+        "no": "Veksle nattlys",
+        "es": "Alternar luz nocturna",
+        "da": "Skift natlys",
+        "ru": "Переключить ночное освещение",
+        "pl": "Przełącz nocne oświetlenie",
+        "ko": "야간등 토글"
+      },
+      "hint": {
+        "en": "Toggles the globe light on or off.",
+        "nl": "Wisselt de nachtlamp aan of uit.",
+        "de": "Schaltet das Nachtlicht ein oder aus.",
+        "fr": "Bascule la veilleuse allumée ou éteinte.",
+        "it": "Commuta la luce notturna accesa o spenta.",
+        "sv": "Växlar nattljuset på eller av.",
+        "no": "Veksler nattlyset på eller av.",
+        "es": "Alterna la luz nocturna encendida o apagada.",
+        "da": "Skifter natlyset til eller fra.",
+        "ru": "Переключает ночное освещение включенным или выключенным.",
+        "pl": "Przełącza nocne oświetlenie włączone lub wyłączone.",
+        "ko": "야간등을 켜거나 끕니다."
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "id": "LR3_is_clean_cycle_status",
+      "title": {
+        "en": "The Litter-Robot cleaning status !{{is|is not}}",
+        "nl": "De Litter-Robot reinigingsstatus !{{is|is niet}}",
+        "de": "Der Litter-Robot Reinigungsstatus !{{ist|ist nicht}}",
+        "fr": "Le statut de nettoyage du Litter-Robot !{{est|n'est pas}}",
+        "it": "Lo stato di pulizia del Litter-Robot !{{è|non è}}",
+        "sv": "Litter-Robot rengöringsstatus !{{är|är inte}}",
+        "no": "Litter-Robot rengjøringsstatus !{{er|er ikke}}",
+        "es": "El estado de limpieza del Litter-Robot !{{es|no es}}",
+        "da": "Litter-Robot rengøringsstatus !{{er|er ikke}}",
+        "ru": "Статус очистки Litter-Robot !{{|не}}",
+        "pl": "Status czyszczenia Litter-Robot !{{to|nie to}}",
+        "ko": "Litter-Robot 청소 상태가 !{{|아님}}"
+      },
+      "args": [
+        {
+          "name": "status",
+          "type": "dropdown",
+          "title": {
+            "en": "Cleaning status",
+            "nl": "Reinigingsstatus",
+            "de": "Reinigungsstatus",
+            "fr": "Statut de nettoyage",
+            "it": "Stato di pulizia",
+            "sv": "Rengöringsstatus",
+            "no": "Rengjøringsstatus",
+            "es": "Estado de limpieza",
+            "da": "Rengøringsstatus",
+            "ru": "Статус очистки",
+            "pl": "Status czyszczenia",
+            "ko": "청소 상태"
+          },
+          "values": [
+            { "id": "Idle", "title": { "en": "Idle" } },
+            { "id": "Waiting to start", "title": { "en": "Waiting to start" } },
+            { "id": "Scooping", "title": { "en": "Scooping" } },
+            { "id": "Dumping", "title": { "en": "Dumping" } },
+            { "id": "Leveling", "title": { "en": "Leveling" } },
+            { "id": "Completed", "title": { "en": "Completed" } },
+            { "id": "Cleaning", "title": { "en": "Cleaning" } },
+            { "id": "Unknown Status", "title": { "en": "Unknown Status" } }
+          ]
+        }
+      ],
+      "hint": {
+        "en": "Returns true if the current Litter-Robot cleaning status matches the selected value.",
+        "nl": "Geeft true terug wanneer de huidige Litter-Robot reinigingsstatus overeenkomt met de geselecteerde waarde.",
+        "de": "Gibt true zurück, wenn der aktuelle Litter-Robot Reinigungsstatus mit dem ausgewählten Wert übereinstimmt.",
+        "fr": "Renvoie vrai si le statut de nettoyage actuel du Litter-Robot correspond à la valeur sélectionnée.",
+        "it": "Restituisce true se lo stato di pulizia corrente del Litter-Robot corrisponde al valore selezionato.",
+        "sv": "Returnerar sant om det aktuella Litter-Robot rengöringsstatusen matchar det valda värdet.",
+        "no": "Returnerer true hvis den nåværende Litter-Robot rengjøringsstatusen samsvarer med den valgte verdien.",
+        "es": "Devuelve verdadero si el estado de limpieza actual del Litter-Robot coincide con el valor seleccionado.",
+        "da": "Returnerer sandt, hvis den aktuelle Litter-Robot rengøringsstatus svarer til den valgte værdi.",
+        "ru": "Возвращает true, если текущий статус очистки Litter-Robot соответствует выбранному значению.",
+        "pl": "Zwraca true, jeśli bieżący status czyszczenia Litter-Robot odpowiada wybranej wartości.",
+        "ko": "현재 Litter-Robot 청소 상태가 선택한 값과 일치하면 true를 반환합니다."
+      },
+      "titleFormatted": {
+        "en": "The Litter-Robot cleaning status is [[status]]",
+        "nl": "De Litter-Robot reinigingsstatus is [[status]]",
+        "de": "Der Litter-Robot Reinigungsstatus ist [[status]]",
+        "fr": "Le statut de nettoyage du Litter-Robot est [[status]]",
+        "it": "Lo stato di pulizia del Litter-Robot è [[status]]",
+        "sv": "Litter-Robot rengöringsstatus är [[status]]",
+        "no": "Litter-Robot rengjøringsstatus er [[status]]",
+        "es": "El estado de limpieza del Litter-Robot es [[status]]",
+        "da": "Litter-Robot rengøringsstatus er [[status]]",
+        "ru": "Статус очистки Litter-Robot [[status]]",
+        "pl": "Status czyszczenia Litter-Robot to [[status]]",
+        "ko": "Litter-Robot 청소 상태가 [[status]]"
+      }
+    },
+    {
+      "id": "LR3_is_litter_robot_status",
+      "title": {
+        "en": "The Litter-Robot status !{{is|is not}}",
+        "nl": "De Litter-Robot status !{{is|is niet}}",
+        "de": "Der Litter-Robot Status !{{ist|ist nicht}}",
+        "fr": "Le statut du Litter-Robot !{{est|n'est pas}}",
+        "it": "Lo stato del Litter-Robot !{{è|non è}}",
+        "sv": "Litter-Robot status !{{är|är inte}}",
+        "no": "Litter-Robot status !{{er|er ikke}}",
+        "es": "El estado del Litter-Robot !{{es|no es}}",
+        "da": "Litter-Robot status !{{er|er ikke}}",
+        "ru": "Статус Litter-Robot !{{|не}}",
+        "pl": "Status Litter-Robot !{{to|nie to}}",
+        "ko": "Litter-Robot 상태가 !{{|아님}}"
+      },
+      "args": [
+        {
+          "name": "status",
+          "type": "dropdown",
+          "title": {
+            "en": "Litter-Robot status",
+            "nl": "Litter-Robot status",
+            "de": "Litter-Robot Status",
+            "fr": "Statut Litter-Robot",
+            "it": "Stato Litter-Robot",
+            "sv": "Litter-Robot status",
+            "no": "Litter-Robot status",
+            "es": "Estado Litter-Robot",
+            "da": "Litter-Robot status",
+            "ru": "Статус Litter-Robot",
+            "pl": "Status Litter-Robot",
+            "ko": "Litter-Robot 상태"
+          },
+          "values": [
+            { "id": "Ready", "title": { "en": "Ready" } },
+            { "id": "Cat detected", "title": { "en": "Cat detected" } },
+            { "id": "Cat sensor timing", "title": { "en": "Cat sensor timing" } },
+            { "id": "Cleaning cycle in progress", "title": { "en": "Cleaning cycle in progress" } },
+            { "id": "Cleaning cycle complete", "title": { "en": "Cleaning cycle complete" } },
+            { "id": "Clean cycle paused", "title": { "en": "Clean cycle paused" } },
+            { "id": "Emptying cycle", "title": { "en": "Emptying cycle" } },
+            { "id": "Drawer full", "title": { "en": "Drawer full" } },
+            { "id": "Drawer almost full - 1 cycle left", "title": { "en": "Drawer almost full - 1 cycle left" } },
+            { "id": "Drawer almost full - 2 cycles left", "title": { "en": "Drawer almost full - 2 cycles left" } },
+            { "id": "Drawer almost full - 3+ cycles left", "title": { "en": "Drawer almost full - 3+ cycles left" } },
+            { "id": "Bonnet removed", "title": { "en": "Bonnet removed" } },
+            { "id": "Off", "title": { "en": "Off" } },
+            { "id": "Offline", "title": { "en": "Offline" } },
+            { "id": "Powering up", "title": { "en": "Powering up" } },
+            { "id": "Powering down", "title": { "en": "Powering down" } },
+            { "id": "Pinch detected", "title": { "en": "Pinch detected" } },
+            { "id": "Potential pinch detected", "title": { "en": "Potential pinch detected" } },
+            { "id": "Cat sensor fault", "title": { "en": "Cat sensor fault" } },
+            { "id": "Cat sensor fault at startup", "title": { "en": "Cat sensor fault at startup" } },
+            { "id": "Cat sensor interrupted", "title": { "en": "Cat sensor interrupted" } },
+            { "id": "Drawer full at startup", "title": { "en": "Drawer full at startup" } },
+            { "id": "Pinch detect at startup", "title": { "en": "Pinch detect at startup" } },
+            { "id": "Dump + home position fault", "title": { "en": "Dump + home position fault" } },
+            { "id": "Dump position fault", "title": { "en": "Dump position fault" } },
+            { "id": "Home position fault", "title": { "en": "Home position fault" } },
+            { "id": "Over torque fault", "title": { "en": "Over torque fault" } },
+            { "id": "Unknown status", "title": { "en": "Unknown status" } }
+          ]
+        }
+      ],
+      "hint": {
+        "en": "Returns true if the current Litter-Robot status matches the selected value.",
+        "nl": "Geeft true terug wanneer de huidige Litter-Robot status overeenkomt met de geselecteerde waarde.",
+        "de": "Gibt true zurück, wenn der aktuelle Litter-Robot Status mit dem ausgewählten Wert übereinstimmt.",
+        "fr": "Renvoie vrai si le statut actuel du Litter-Robot correspond à la valeur sélectionnée.",
+        "it": "Restituisce true se lo stato corrente del Litter-Robot corrisponde al valore selezionato.",
+        "sv": "Returnerar sant om det aktuella Litter-Robot statusen matchar det valda värdet.",
+        "no": "Returnerer true hvis den nåværende Litter-Robot statusen samsvarer med den valgte verdien.",
+        "es": "Devuelve verdadero si el estado actual del Litter-Robot coincide con el valor seleccionado.",
+        "da": "Returnerer sandt, hvis den aktuelle Litter-Robot status svarer til den valgte værdi.",
+        "ru": "Возвращает true, если текущий статус Litter-Robot соответствует выбранному значению.",
+        "pl": "Zwraca true, jeśli bieżący status Litter-Robot odpowiada wybranej wartości.",
+        "ko": "현재 Litter-Robot 상태가 선택한 값과 일치하면 true를 반환합니다."
+      },
+      "titleFormatted": {
+        "en": "The Litter-Robot status is [[status]]",
+        "nl": "De Litter-Robot status is [[status]]",
+        "de": "Der Litter-Robot Status ist [[status]]",
+        "fr": "Le statut du Litter-Robot est [[status]]",
+        "it": "Lo stato del Litter-Robot è [[status]]",
+        "sv": "Litter-Robot status är [[status]]",
+        "no": "Litter-Robot status er [[status]]",
+        "es": "El estado del Litter-Robot es [[status]]",
+        "da": "Litter-Robot status er [[status]]",
+        "ru": "Статус Litter-Robot [[status]]",
+        "pl": "Status Litter-Robot to [[status]]",
+        "ko": "Litter-Robot 상태가 [[status]]"
+      }
+    },
+    {
+      "id": "LR3_is_cat_detected",
+      "title": {
+        "en": "A cat !{{is|is not}} detected",
+        "nl": "Een kat !{{wordt|wordt niet}} gedetecteerd",
+        "de": "Eine Katze !{{wird|wird nicht}} erkannt",
+        "fr": "Un chat !{{est|n'est pas}} détecté",
+        "it": "Un gatto !{{è|non è}} rilevato",
+        "sv": "En katt !{{upptäcks|upptäcks inte}}",
+        "no": "En katt !{{oppdages|oppdages ikke}}",
+        "es": "Se !{{detecta|no detecta}} un gato",
+        "da": "En kat !{{registreres|registreres ikke}}",
+        "ru": "Кошка !{{обнаружена|не обнаружена}}",
+        "pl": "Kot !{{jest|nie jest}} wykryty",
+        "ko": "고양이가 !{{감지됨|감지되지 않음}}"
+      },
+      "hint": {
+        "en": "Returns true when a cat is currently detected.",
+        "nl": "Geeft true terug wanneer een kat momenteel wordt gedetecteerd.",
+        "de": "Gibt true zurück, wenn eine Katze erkannt wird.",
+        "fr": "Renvoie vrai lorsqu'un chat est détecté.",
+        "it": "Restituisce vero quando un gatto è rilevato.",
+        "sv": "Returnerar sant när en katt upptäcks.",
+        "no": "Returnerer true når en katt oppdages.",
+        "es": "Devuelve verdadero cuando se detecta un gato.",
+        "da": "Returnerer sandt, når en kat registreres.",
+        "ru": "Возвращает true, когда обнаружена кошка.",
+        "pl": "Zwraca true, gdy wykryto kota.",
+        "ko": "고양이가 감지되면 true를 반환합니다."
+      },
+      "args": []
+    },
+    {
+      "id": "LR3_is_waste_drawer_full",
+      "title": {
+        "en": "The waste drawer !{{is|is not}} full",
+        "nl": "De afvalbak !{{is|is niet}} vol",
+        "de": "Der Abfallbehälter !{{ist|ist nicht}} voll",
+        "fr": "Le bac à déchets !{{est|n'est pas}} plein",
+        "it": "Il cassetto dei rifiuti !{{è|non è}} pieno",
+        "sv": "Avfallsbehållaren !{{är|är inte}} full",
+        "no": "Avfallsbeholderen !{{er|er ikke}} full",
+        "es": "El contenedor de residuos !{{está|no está}} lleno",
+        "da": "Affaldsskuffen !{{er|er ikke}} fuld",
+        "ru": "Контейнер для отходов !{{заполнен|не заполнен}}",
+        "pl": "Pojemnik na odpady !{{jest|nie jest}} pełny",
+        "ko": "폐기물 서랍이 !{{가득 찼습니다|가득 차지 않았습니다}}"
+      },
+      "args": [],
+      "hint": {
+        "en": "Returns true when the waste drawer is currently full.",
+        "nl": "Geeft waar terug wanneer de afvalbak momenteel vol is.",
+        "de": "Gibt wahr zurück, wenn die Abfallbox derzeit voll ist.",
+        "fr": "Retourne vrai lorsque le bac à déchets est plein.",
+        "it": "Restituisce vero quando il cassetto dei rifiuti è pieno.",
+        "sv": "Returnerar sant när avfallslådan är full.",
+        "no": "Returnerer sann når avfallsbeholderen er full.",
+        "es": "Devuelve verdadero cuando el contenedor de desechos está lleno.",
+        "da": "Returnerer sand, når affaldsskuffen er fuld.",
+        "ru": "Возвращает истину, когда мусорный контейнер заполнен.",
+        "pl": "Zwraca prawdę, gdy pojemnik na odpady jest pełny.",
+        "ko": "폐기물 서랍이 가득 찼을 때 true를 반환합니다."
+      }
+    },
+    {
+      "id": "LR3_is_sleep_mode_active",
+      "title": {
+        "en": "The Litter-Robot sleep mode !{{is|is not}} active",
+        "nl": "De Litter-Robot slaapmodus !{{is|is niet}} actief",
+        "de": "Der Litter-Robot Schlafmodus !{{ist|ist nicht}} aktiv",
+        "fr": "Le mode veille du Litter-Robot !{{est|n'est pas}} actif",
+        "it": "La modalità sonno del Litter-Robot !{{è|non è}} attiva",
+        "sv": "Litter-Robot viloläge !{{är|är inte}} aktivt",
+        "no": "Litter-Robot søvnmodus !{{er|er ikke}} aktiv",
+        "es": "El modo sueño del Litter-Robot !{{está|no está}} activo",
+        "da": "Litter-Robot søvn til stand !{{er|er ikke}} aktiv",
+        "ru": "Режим сна Litter-Robot !{{активен|не активен}}",
+        "pl": "Tryb snu Litter-Robot !{{jest|nie jest}} aktywny",
+        "ko": "Litter-Robot 수면 모드가 !{{활성|비활성}} 상태입니다"
+      },
+      "hint": {
+        "en": "Returns true if the Litter-Robot sleep mode is currently active.",
+        "nl": "Geeft true terug als de Litter-Robot slaapmodus momenteel actief is.",
+        "de": "Gibt true zurück, wenn der Litter-Robot Schlafmodus derzeit aktiv ist.",
+        "fr": "Retourne true si le mode veille du Litter-Robot est actuellement actif.",
+        "it": "Restituisce true se la modalità sonno del Litter-Robot è attualmente attiva.",
+        "sv": "Returnerar true om Litter-Robot viloläge för närvarande är aktivt.",
+        "no": "Returnerer true hvis Litter-Robot søvnmodus for øyeblikket er aktiv.",
+        "es": "Devuelve true si el modo sueño del Litter-Robot está actualmente activo.",
+        "da": "Returnerer true, hvis Litter-Robot søvn til stand i øjeblikket er aktiv.",
+        "ru": "Возвращает true, если режим сна Litter-Robot в настоящее время активен.",
+        "pl": "Zwraca prawdę, gdy tryb snu Litter-Robot jest obecnie aktywny.",
+        "ko": "Litter-Robot 수면 모드가 현재 활성 상태일 때 true를 반환합니다."
+      }
+    },
+    {
+      "id": "LR3_is_sleep_mode_scheduled",
+      "title": {
+        "en": "The Litter-Robot sleep mode !{{is|is not}} scheduled",
+        "nl": "De Litter-Robot slaapmodus !{{is|is niet}} gepland",
+        "de": "Der Litter-Robot Schlafmodus !{{ist|ist nicht}} geplant",
+        "fr": "Le mode veille du Litter-Robot !{{est|n'est pas}} programmé",
+        "it": "La modalità sonno del Litter-Robot !{{è|non è}} programmata",
+        "sv": "Litter-Robot viloläge !{{är|är inte}} schemalagt",
+        "no": "Litter-Robot søvnmodus !{{er|er ikke}} planlagt",
+        "es": "El modo sueño del Litter-Robot !{{está|no está}} programado",
+        "da": "Litter-Robot søvn til stand !{{er|er ikke}} planlagt",
+        "ru": "Режим сна Litter-Robot !{{запланирован|не запланирован}}",
+        "pl": "Tryb snu Litter-Robot !{{jest|nie jest}} zaplanowany",
+        "ko": "Litter-Robot 수면 모드가 !{{예약|예약되지 않음}} 상태입니다"
+      },
+      "hint": {
+        "en": "Returns true if the Litter-Robot sleep mode is currently scheduled.",
+        "nl": "Geeft true terug als de Litter-Robot slaapmodus momenteel gepland is.",
+        "de": "Gibt true zurück, wenn der Litter-Robot Schlafmodus derzeit geplant ist.",
+        "fr": "Retourne true si le mode veille du Litter-Robot est actuellement programmé.",
+        "it": "Restituisce true se la modalità sonno del Litter-Robot è attualmente programmata.",
+        "sv": "Returnerar true om Litter-Robot viloläge för närvarande är schemalagt.",
+        "no": "Returnerer true hvis Litter-Robot søvnmodus for øyeblikket er planlagt.",
+        "es": "Devuelve true si el modo sueño del Litter-Robot está actualmente programado.",
+        "da": "Returnerer true, hvis Litter-Robot søvn til stand i øjeblikket er planlagt.",
+        "ru": "Возвращает true, если режим сна Litter-Robot в настоящее время запланирован.",
+        "pl": "Zwraca prawdę, gdy tryb snu Litter-Robot jest obecnie zaplanowany.",
+        "ko": "Litter-Robot 수면 모드가 현재 예약 상태일 때 true를 반환합니다."
+      }
+    }
+  ]
+}

@@ -18,7 +18,18 @@
   "setable": false,
   "icon": "/assets/capabilities/measure_waste_drawer_level_percentage.svg",
   "units": {
-    "en": "%"
+    "en": "%",
+    "nl": "%",
+    "de": "%",
+    "fr": "%",
+    "it": "%",
+    "sv": "%",
+    "no": "%",
+    "es": "%",
+    "da": "%",
+    "ru": "%",
+    "pl": "%",
+    "ko": "%"
   },
   "uiComponent": "sensor",
   "insights": true

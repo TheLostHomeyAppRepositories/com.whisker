@@ -1,0 +1,36 @@
+{
+  "title": {
+    "en": "Clean cycles since empty",
+    "nl": "Reinigingscycli sinds legen",
+    "de": "Reinigungszyklen seit Leerung",
+    "fr": "Cycles de nettoyage depuis vidage",
+    "it": "Cicli di pulizia dallo svuotamento",
+    "sv": "Rengöringscykler sedan tömning",
+    "no": "Rengjøringscykler siden tømming",
+    "es": "Ciclos de limpieza desde vaciado",
+    "da": "Rengøringscykler siden tømning",
+    "ru": "Циклы очистки с момента опорожнения",
+    "pl": "Cykle czyszczenia od opróżnienia",
+    "ko": "비우기 이후 청소 주기"
+  },
+  "type": "number",
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/capabilities/measure_clean_cycles_since_empty.svg",
+  "units": {
+    "en": "cycles",
+    "nl": "cycli",
+    "de": "Zyklen",
+    "fr": "cycles",
+    "it": "cicli",
+    "sv": "cykler",
+    "no": "sykluser",
+    "es": "ciclos",
+    "da": "cykler",
+    "ru": "циклы",
+    "pl": "cykle",
+    "ko": "주기"
+  },
+  "uiComponent": "sensor",
+  "insights": true
+}

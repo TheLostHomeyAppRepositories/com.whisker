@@ -73,5 +73,8 @@
   },
   "1.5.4": {
     "en": "Fixed unhandled rejection errors"
+  },
+  "2.0.0": {
+    "en": "Added support for the Litter-Robot 3, added new Power On/Off and Globe Brightness capabilities to the Litter-Robot 4, cleaned up code and improved performance."
   }
 }

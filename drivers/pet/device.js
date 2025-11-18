@@ -1,8 +1,6 @@
-'use strict';
-
 const Homey = require('homey');
 const PetData = require('../../lib/petdata');
-const { colorize, LOG_COLORS } = require('../../lib/utils');
+const { colorize, LOG_COLORS, handleCapabilityError } = require('../../lib/utils');
 
 module.exports = class PetDevice extends Homey.Device {
 
@@ -40,7 +38,7 @@ module.exports = class PetDevice extends Homey.Device {
     const initialCapabilities = {
       // Measurement capabilities
       measure_weight: null,
-      
+
       // Label capabilities
       label_gender: 'Loading...',
       label_food: 'Loading...',
@@ -48,47 +46,49 @@ module.exports = class PetDevice extends Homey.Device {
       label_birthday: 'Loading...',
       label_breed: 'Loading...',
       label_age: 'Loading...',
-      
+
       // Alarm capabilities
-      alarm_health_concern: false
+      alarm_health_concern: false,
     };
 
     for (const [capability, value] of Object.entries(initialCapabilities)) {
-      try {
-        await this.setCapabilityValue(capability, value);
-      } catch (err) {
-        this.error(`[Capability] ${colorize(LOG_COLORS.ERROR, `Failed to initialize capability ${capability}:`)}`, err);
-      }
+      this.setCapabilityValue(capability, value).catch((err) => {
+        handleCapabilityError(err, capability, 'initialize', this);
+      });
     }
 
     this.log(colorize(LOG_COLORS.INFO, 'Capabilities initialized successfully'));
   }
 
   /**
-   * Registers the device with DataManager for centralized data management.
-   * Establishes the callback for receiving real-time pet data updates.
+   * Registers the device with DataManager for centralized pet polling.
+   * Establishes the callback for receiving pet data updates from polling.
    * @private
    */
   async _registerWithDataManager() {
     try {
-      const dataManager = this.homey.app.dataManager;
+      const { dataManager } = this.homey.app;
       if (dataManager) {
-        this.log(colorize(LOG_COLORS.INFO, 'Registering with DataManager'));
-        
-        await dataManager.registerDevice(this.getId(), {
-          type: 'pet',
-          data: {
-            petId: this.petId,
-            name: this.petData?.name || 'Unknown Pet'
-          },
-          onDataUpdate: (data, source) => {
-            this.log(colorize(LOG_COLORS.INFO, `Received data update from ${source} for pet ${this.petId}`));
-            
-            if (data) {
+        this.log(colorize(LOG_COLORS.INFO, 'Registering with DataManager for pet polling'));
+
+        dataManager.registerPetDevice(this.getId(), this.petId, (data, source) => {
+          this.log(colorize(LOG_COLORS.INFO, `Received data update from ${source} for pet ${this.petId}`));
+
+          if (data) {
+            if (this.petData) {
+              const mergedPetData = { ...this.petData.pet, ...data };
+              try {
+                this.petData.updatePetData(mergedPetData);
+              } catch (err) {
+                this.error(colorize(LOG_COLORS.WARNING, 'Failed to update petData, creating new instance:'), err);
+                this.petData = new PetData({ pet: data });
+              }
+            } else {
               this.petData = new PetData({ pet: data });
-              this._updateCapabilities(this.petData);
-              this.log(colorize(LOG_COLORS.SUCCESS, `Pet data updated successfully for ${this.petData.name}`));
             }
+
+            this._updateCapabilities(this.petData);
+            this.log(colorize(LOG_COLORS.SUCCESS, `Pet data updated successfully for ${this.petData.pet?.name || 'Unknown Pet'}`));
           }
         });
 
@@ -118,7 +118,7 @@ module.exports = class PetDevice extends Homey.Device {
       ['label_birthday', petData.birthdayFormatted],
       ['label_breed', petData.breedLabel],
       ['label_age', petData.ageLabel],
-      ['alarm_health_concern', petData.hasHealthConcerns]
+      ['alarm_health_concern', petData.hasHealthConcerns],
     ];
 
     const changes = new Set();
@@ -127,19 +127,19 @@ module.exports = class PetDevice extends Homey.Device {
       if (newValue === undefined || newValue === null) continue;
 
       const oldValue = this.getCapabilityValue(capability);
-      
+
       if (oldValue === 'Loading...') {
         this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `Initializing capability [${capability}]: ${newValue}`)}`);
-        this.setCapabilityValue(capability, newValue).catch(err => {
-          this.error(`[Capability] ${colorize(LOG_COLORS.ERROR, `Failed to initialize capability ${capability}:`)}`, err);
+        this.setCapabilityValue(capability, newValue).catch((err) => {
+          handleCapabilityError(err, capability, 'initialize', this);
         });
         continue;
       }
 
       if (newValue !== oldValue) {
         this.log(`[Capability] ${colorize(LOG_COLORS.CAPABILITY, `Capability [${capability}] changed: ${oldValue} → ${newValue}`)}`);
-        this.setCapabilityValue(capability, newValue).catch(err => {
-          this.error(`[Capability] ${colorize(LOG_COLORS.ERROR, `Failed to update capability ${capability}:`)}`, err);
+        this.setCapabilityValue(capability, newValue).catch((err) => {
+          handleCapabilityError(err, capability, 'update', this);
         });
         changes.add(capability);
       }
@@ -166,12 +166,10 @@ module.exports = class PetDevice extends Homey.Device {
         this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Triggering [health_concern_detected] (${concerns})`)}`);
         this.homey.flow.getDeviceTriggerCard('health_concern_detected')
           .trigger(this, { concerns })
-          .catch(err => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger health_concern_detected:'), err));
+          .catch((err) => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger health_concern_detected:'), err));
       }
     }
   }
-
-
 
   /**
    * Performs cleanup when the device is deleted.
@@ -179,11 +177,11 @@ module.exports = class PetDevice extends Homey.Device {
    */
   onDeleted() {
     this.log(colorize(LOG_COLORS.WARNING, 'Device deleted, performing cleanup'));
-    
+
     try {
-      const dataManager = this.homey.app.dataManager;
+      const { dataManager } = this.homey.app;
       if (dataManager) {
-        dataManager.unregisterDevice(this.getId());
+        dataManager.unregisterPetDevice(this.getId());
         this.log(colorize(LOG_COLORS.SUCCESS, 'Successfully unregistered from DataManager'));
       } else {
         this.log(colorize(LOG_COLORS.WARNING, 'DataManager not available during cleanup'));
@@ -192,4 +190,4 @@ module.exports = class PetDevice extends Homey.Device {
       this.error(colorize(LOG_COLORS.ERROR, 'Failed to unregister from DataManager:'), err);
     }
   }
-}
+};

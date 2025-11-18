@@ -1,0 +1,22 @@
+{
+  "extends": ["athom"],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "settings": {
+    "node": {
+      "version": ">=18.0.0"
+    }
+  },
+  "rules": {
+    "node/no-unsupported-features/es-syntax": "off",
+    "node/no-unsupported-features/node-builtins": "off",
+    "camelcase": "off"
+  }
+}
+

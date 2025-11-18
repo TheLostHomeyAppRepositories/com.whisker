@@ -18,7 +18,18 @@
   "setable": false,
   "icon": "/assets/capabilities/measure_scoops_saved_count.svg",
   "units": {
-    "en": "scoops"
+    "en": "scoops",
+    "nl": "scheppen",
+    "de": "Schaufeln",
+    "fr": "pelles",
+    "it": "palette",
+    "sv": "skopor",
+    "no": "øser",
+    "es": "palas",
+    "da": "øser",
+    "ru": "совки",
+    "pl": "szufle",
+    "ko": "스쿱"
   },
   "uiComponent": "sensor",
   "insights": true,

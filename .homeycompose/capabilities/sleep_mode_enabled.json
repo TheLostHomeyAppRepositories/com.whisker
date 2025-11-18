@@ -1,0 +1,21 @@
+{
+  "title": {
+    "en": "Sleep mode",
+    "nl": "Slaapmodus",
+    "de": "Schlafmodus",
+    "fr": "Mode veille",
+    "it": "Modalità sleep",
+    "sv": "Viloläge",
+    "no": "Søvnmodus",
+    "es": "Modo suspensión",
+    "da": "Søvnmodus",
+    "ru": "Режим сна",
+    "pl": "Tryb uśpienia",
+    "ko": "절전 모드"
+  },
+  "type": "boolean",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "button",
+  "icon": "/assets/capabilities/sleep_mode_enabled.svg"
+}

@@ -18,7 +18,18 @@
   "setable": false,
   "icon": "/assets/capabilities/measure_odometer_clean_cycles.svg",
   "units": {
-    "en": "cycles"
+    "en": "cycles",
+    "nl": "cycli",
+    "de": "Zyklen",
+    "fr": "cycles",
+    "it": "cicli",
+    "sv": "cykler",
+    "no": "sykluser",
+    "es": "ciclos",
+    "da": "cykler",
+    "ru": "циклы",
+    "pl": "cykle",
+    "ko": "주기"
   },
   "uiComponent": "sensor",
   "insights": true

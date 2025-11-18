@@ -1,0 +1,21 @@
+{
+  "title": {
+    "en": "Globe light",
+    "nl": "Nachtlamp",
+    "de": "Nachtlicht",
+    "fr": "Veilleuse",
+    "it": "Luci notturne",
+    "sv": "Nattljus",
+    "no": "Nattlys",
+    "es": "Luz nocturna",
+    "da": "Nattebelysning",
+    "ru": "Ночной свет",
+    "pl": "Światło nocne",
+    "ko": "야간 조명"
+  },
+  "type": "boolean",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "button",
+  "icon": "/assets/capabilities/night_light_enabled.svg"
+}

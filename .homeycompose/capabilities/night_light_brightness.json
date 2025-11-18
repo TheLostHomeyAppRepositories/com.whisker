@@ -1,17 +1,17 @@
 {
   "title": {
-    "en": "Panel light brightness",
-    "nl": "Paneel helderheid",
-    "de": "Panel-Helligkeit",
-    "fr": "Luminosité du panneau",
-    "it": "Luminosità pannello",
-    "sv": "Panel ljusstyrka",
-    "no": "Panel lysstyrke",
-    "es": "Brillo del panel",
-    "da": "Panel lysstyrke",
-    "ru": "Яркость панели",
-    "pl": "Jasność panelu",
-    "ko": "패널 밝기"
+    "en": "Globe light brightness",
+    "nl": "Nachtlamp helderheid",
+    "de": "Nachtlicht-Helligkeit",
+    "fr": "Luminosité veilleuse",
+    "it": "Luminosità luce notturna",
+    "sv": "Nattlamp ljusstyrka",
+    "no": "Nattlys lysstyrke",
+    "es": "Brillo luz nocturna",
+    "da": "Natlys lysstyrke",
+    "ru": "Яркость ночного света",
+    "pl": "Jasność światła nocnego",
+    "ko": "야간 조명 밝기"
   },
   "type": "enum",
   "uiComponent": "picker",
@@ -71,3 +71,4 @@
     }
   ]
 }
+

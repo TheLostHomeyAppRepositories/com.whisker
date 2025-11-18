@@ -1,14 +1,6 @@
 {
   "name": {
-    "en": "Litter-Robot 4"
-  },
-  "icon": [
-    "/drivers/litter-robot4/assets/icon.svg"
-  ], 
-  "images": {
-    "xlarge": "/drivers/litter-robot4/assets/images/xlarge.png",
-    "large": "/drivers/litter-robot4/assets/images/large.png",
-    "small": "/drivers/litter-robot4/assets/images/small.png"
+    "en": "Litter-Robot 3"
   },
   "class": "other",
   "capabilities": [
@@ -17,29 +9,23 @@
     "litter_robot_status",
     "alarm_cat_detected",
     "alarm_waste_drawer_full",
-    "measure_litter_level_percentage",
     "measure_waste_drawer_level_percentage",
+    "measure_clean_cycles_since_empty",
     "measure_odometer_clean_cycles",
     "measure_scoops_saved_count",
+    "cycle_delay",
     "alarm_sleep_mode_active",
     "alarm_sleep_mode_scheduled",
     "sleep_mode_start_time",
     "sleep_mode_end_time",
-    "measure_weight",
-    "alarm_problem",
-    "clean_cycle_wait_time",
-    "panel_brightness",
-    "night_light_brightness",
-    "key_pad_lock_out",
-    "start_clean_cycle",
-    "start_empty_cycle",
-    "short_reset_press",
-    "night_light_mode",
     "alarm_connectivity",
     "last_seen",
-    "alarm_litter_hopper_empty",
-    "litter_hopper_status",
-    "litter_hopper_enabled"
+    "alarm_problem",
+    "key_pad_lock_out",
+    "sleep_mode_enabled",
+    "night_light_enabled",
+    "start_clean_cycle",
+    "reset_waste_drawer"
   ],
   "capabilitiesOptions": {
     "alarm_problem": {
@@ -73,31 +59,20 @@
         "ru": "Проблема с подключением",
         "ko": "연결 문제"
       }
-    },
-    "measure_weight": {
-      "title": {
-        "en": "Last measured weight",
-        "nl": "Laatst gemeten gewicht",
-        "da": "Sidst målte vægt",
-        "de": "Zuletzt gemessenes Gewicht",
-        "es": "Último peso medido",
-        "fr": "Dernier poids mesuré",
-        "it": "Ultimo peso misurato",
-        "no": "Sist målte vekt",
-        "sv": "Senast uppmätt vikt",
-        "pl": "Ostatnia zmierzona waga",
-        "ru": "Последний измеренный вес",
-        "ko": "마지막 측정 무게"
-      }
     }
   },
-  "connectivity": [
-    "cloud"
-  ],
   "platforms": [
     "local",
     "cloud"
   ],
+  "connectivity": [
+    "cloud"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
+  },
   "pair": [
     {
       "id": "login",

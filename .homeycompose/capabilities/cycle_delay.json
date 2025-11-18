@@ -1,0 +1,74 @@
+{
+  "title": {
+    "en": "Cycle delay",
+    "nl": "Cyclusvertraging",
+    "de": "Zyklusverzögerung",
+    "fr": "Délai du cycle",
+    "it": "Ritardo ciclo",
+    "sv": "Cykelfördröjning",
+    "no": "Syklusforsinkelse",
+    "es": "Retraso del ciclo",
+    "da": "Cyklusforsinkelse",
+    "ru": "Задержка цикла",
+    "pl": "Opóźnienie cyklu",
+    "ko": "사이클 지연"
+  },
+  "type": "enum",
+  "uiComponent": "picker",
+  "getable": true,
+  "setable": true,
+  "values": [
+    {
+      "id": "3",
+      "title": {
+        "en": "3 minutes",
+        "nl": "3 minuten",
+        "de": "3 Minuten",
+        "fr": "3 minutes",
+        "it": "3 minuti",
+        "sv": "3 minuter",
+        "no": "3 minutter",
+        "es": "3 minutos",
+        "da": "3 minutter",
+        "ru": "3 минуты",
+        "pl": "3 minuty",
+        "ko": "3분"
+      }
+    },
+    {
+      "id": "7",
+      "title": {
+        "en": "7 minutes",
+        "nl": "7 minuten",
+        "de": "7 Minuten",
+        "fr": "7 minutes",
+        "it": "7 minuti",
+        "sv": "7 minuter",
+        "no": "7 minutter",
+        "es": "7 minutos",
+        "da": "7 minutter",
+        "ru": "7 минут",
+        "pl": "7 minut",
+        "ko": "7분"
+      }
+    },
+    {
+      "id": "15",
+      "title": {
+        "en": "15 minutes",
+        "nl": "15 minuten",
+        "de": "15 Minuten",
+        "fr": "15 minutes",
+        "it": "15 minuti",
+        "sv": "15 minuter",
+        "no": "15 minutter",
+        "es": "15 minutos",
+        "da": "15 minutter",
+        "ru": "15 минут",
+        "pl": "15 minut",
+        "ko": "15분"
+      }
+    }
+  ]
+}
+
