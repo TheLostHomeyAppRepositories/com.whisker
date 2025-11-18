@@ -1,7 +1,7 @@
 const Homey = require('homey');
 const LitterRobot4Data = require('../../lib/litterrobot4data');
-const { colorize, LOG_COLORS, handleCapabilityError } = require('../../lib/utils');
-const { createCatVisitNotification } = require('../../lib/notifications');
+const { colorize, LOG_COLORS } = require('../../lib/utils');
+const { createCatVisitNotification, handleCapabilityError } = require('../../lib/notifications');
 const { EVENTS } = require('../../lib/event');
 
 /**

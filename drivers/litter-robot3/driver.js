@@ -1,5 +1,6 @@
 const Homey = require('homey');
-const { colorize, LOG_COLORS, handleCapabilityError } = require('../../lib/utils');
+const { colorize, LOG_COLORS } = require('../../lib/utils');
+const { handleCapabilityError } = require('../../lib/notifications');
 const LitterRobot3Data = require('../../lib/litterrobot3data');
 
 /**

@@ -52,7 +52,7 @@ class WhiskerApp extends Homey.App {
         }
 
         this._dataManager = new DataManager(this._session, this.homey, () => this.onUninit(), this._eventEmitter);
-        await this._registerDevices();
+        await this._reinitializeDevices();
         this.log(colorize(LOG_COLORS.SUCCESS, 'Session restored successfully from stored tokens'));
       } else {
         this.log(colorize(LOG_COLORS.WARNING, 'No valid stored session found, user will need to authenticate'));
@@ -87,7 +87,7 @@ class WhiskerApp extends Homey.App {
 
       await this._session.login();
       this._dataManager = new DataManager(this._session, this.homey, () => this.onUninit(), this._eventEmitter);
-      await this._registerDevices();
+      await this._reinitializeDevices();
       this.log(colorize(LOG_COLORS.SUCCESS, 'Session initialized successfully'));
       return this._session;
     } catch (error) {
@@ -97,11 +97,12 @@ class WhiskerApp extends Homey.App {
   }
 
   /**
-   * Re-registers all existing devices with the new data manager instance.
-   * Pet devices register for polling, robot devices will set up WebSocket in Phase 3.
+   * Re-initializes all existing devices after session re-authentication or app startup.
+   * Pet devices register with DataManager for centralized polling, while LR3 and LR4
+   * devices set up their own WebSocket connections independently.
    */
-  async _registerDevices() {
-    this.log(colorize(LOG_COLORS.INFO, 'Re-registering devices with DataManager...'));
+  async _reinitializeDevices() {
+    this.log(colorize(LOG_COLORS.INFO, 'Re-initializing devices after session change...'));
 
     try {
       const drivers = await this.homey.drivers.getDrivers();
@@ -111,20 +112,23 @@ class WhiskerApp extends Homey.App {
 
         for (const device of driverDevices) {
           try {
-            this.log(colorize(LOG_COLORS.INFO, `Re-registering device ${device.getName()}...`));
+            this.log(colorize(LOG_COLORS.INFO, `Re-initializing device ${device.getName()}...`));
             if (typeof device._registerWithDataManager === 'function') {
               await device._registerWithDataManager();
-              this.log(colorize(LOG_COLORS.SUCCESS, `Device ${device.getName()} re-registered successfully`));
+              this.log(colorize(LOG_COLORS.SUCCESS, `Device ${device.getName()} re-initialized successfully`));
+            } else if (typeof device._setupWebSocket === 'function') {
+              await device._setupWebSocket();
+              this.log(colorize(LOG_COLORS.SUCCESS, `Device ${device.getName()} re-initialized successfully`));
             }
           } catch (error) {
-            this.error(colorize(LOG_COLORS.ERROR, `Failed to re-register device ${device.getName()}:`), error);
+            this.error(colorize(LOG_COLORS.ERROR, `Failed to re-initialize device ${device.getName()}:`), error);
           }
         }
       }
 
-      this.log(colorize(LOG_COLORS.SUCCESS, 'Device re-registration completed successfully'));
+      this.log(colorize(LOG_COLORS.SUCCESS, 'Device re-initialization completed successfully'));
     } catch (error) {
-      this.error(colorize(LOG_COLORS.ERROR, 'Error during device re-registration:'), error);
+      this.error(colorize(LOG_COLORS.ERROR, 'Error during device re-initialization:'), error);
     }
   }
 

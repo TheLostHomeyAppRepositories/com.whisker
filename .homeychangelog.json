@@ -76,5 +76,11 @@
   },
   "2.0.0": {
     "en": "Added support for the Litter-Robot 3, added new Power On/Off and Globe Brightness capabilities to the Litter-Robot 4, cleaned up code and improved performance."
+  },
+  "2.0.1": {
+    "en": "Fixed circular dependency issue that prevented timeline notifications from being created"
+  },
+  "2.0.2": {
+    "en": "Fixed repair flow for all devices"
   }
 }

@@ -1,6 +1,7 @@
 const Homey = require('homey');
 const PetData = require('../../lib/petdata');
-const { colorize, LOG_COLORS, handleCapabilityError } = require('../../lib/utils');
+const { colorize, LOG_COLORS } = require('../../lib/utils');
+const { handleCapabilityError } = require('../../lib/notifications');
 
 module.exports = class PetDevice extends Homey.Device {
 
