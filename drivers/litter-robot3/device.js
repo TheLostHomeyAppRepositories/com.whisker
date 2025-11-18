@@ -522,36 +522,6 @@ module.exports = class LitterRobot3Device extends Homey.Device {
       }
     }
 
-    if (changes.has('alarm_sleep_mode_scheduled')) {
-      const sleepScheduled = this.getCapabilityValue('alarm_sleep_mode_scheduled');
-      if (sleepScheduled) {
-        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, 'Triggering [LR3_alarm_sleep_mode_scheduled_true]')}`);
-        this.homey.flow.getDeviceTriggerCard('LR3_alarm_sleep_mode_scheduled_true')
-          .trigger(this)
-          .catch((err) => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger LR3_alarm_sleep_mode_scheduled_true:'), err));
-      } else {
-        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, 'Triggering [LR3_alarm_sleep_mode_scheduled_false]')}`);
-        this.homey.flow.getDeviceTriggerCard('LR3_alarm_sleep_mode_scheduled_false')
-          .trigger(this)
-          .catch((err) => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger LR3_alarm_sleep_mode_scheduled_false:'), err));
-      }
-    }
-
-    if (changes.has('alarm_connectivity')) {
-      const connectivityAlarm = this.getCapabilityValue('alarm_connectivity');
-      if (connectivityAlarm) {
-        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, 'Triggering [LR3_alarm_connectivity_true]')}`);
-        this.homey.flow.getDeviceTriggerCard('LR3_alarm_connectivity_true')
-          .trigger(this)
-          .catch((err) => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger LR3_alarm_connectivity_true:'), err));
-      } else {
-        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, 'Triggering [LR3_alarm_connectivity_false]')}`);
-        this.homey.flow.getDeviceTriggerCard('LR3_alarm_connectivity_false')
-          .trigger(this)
-          .catch((err) => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger LR3_alarm_connectivity_false:'), err));
-      }
-    }
-
     if (changes.has('alarm_problem')) {
       const { hasProblems } = robotData;
       if (hasProblems) {

@@ -671,6 +671,21 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       }
     }
 
+    if (changes.has('alarm_litter_hopper_empty')) {
+      const hopperEmpty = this.getCapabilityValue('alarm_litter_hopper_empty');
+      if (hopperEmpty) {
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, 'Triggering [litter_hopper_empty]')}`);
+        this.homey.flow.getDeviceTriggerCard('litter_hopper_empty')
+          .trigger(this)
+          .catch((err) => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger litter_hopper_empty:'), err));
+      } else {
+        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, 'Triggering [litter_hopper_not_empty]')}`);
+        this.homey.flow.getDeviceTriggerCard('litter_hopper_not_empty')
+          .trigger(this)
+          .catch((err) => this.error(colorize(LOG_COLORS.ERROR, 'Failed to trigger litter_hopper_not_empty:'), err));
+      }
+    }
+
     if (changes.has('alarm_problem')) {
       const { hasProblems } = robotData;
       if (hasProblems) {

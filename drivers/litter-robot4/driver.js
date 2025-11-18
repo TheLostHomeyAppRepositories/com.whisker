@@ -207,9 +207,6 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
         await device.triggerCapabilityListener('night_light_brightness', args.brightness);
       });
 
-    this.homey.flow.getDeviceTriggerCard('litter_hopper_empty');
-    this.homey.flow.getDeviceTriggerCard('litter_hopper_not_empty');
-
     this.homey.flow.getDeviceTriggerCard('clean_cycle_multiple')
       .registerRunListener(async (args, state) => {
         const { device } = args;
@@ -230,8 +227,6 @@ module.exports = class LitterRobotDriver extends Homey.Driver {
 
         return shouldTrigger;
       });
-
-    this.homey.flow.getDeviceTriggerCard('problem_details_provided');
 
     this.log(colorize(LOG_COLORS.SUCCESS, 'LitterRobotDriver initialization completed successfully'));
   }

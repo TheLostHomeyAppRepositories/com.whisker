@@ -82,5 +82,8 @@
   },
   "2.0.2": {
     "en": "Fixed repair flow for all devices"
+  },
+  "2.0.3": {
+    "en": "Removed duplicate Flow cards and added missing triggers"
   }
 }

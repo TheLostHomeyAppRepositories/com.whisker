@@ -231,7 +231,7 @@
     {
       "id": "LR3_alarm_sleep_mode_active_true",
       "title": {
-        "en": "The Litter-Robot sleep mode becomes active",
+        "en": "Sleep mode is activated",
         "nl": "De Litter-Robot slaapmodus wordt actief",
         "de": "Der Litter-Robot Schlafmodus wird aktiv",
         "fr": "Le mode veille du Litter-Robot devient actif",
@@ -245,7 +245,7 @@
         "ko": "Litter-Robot 수면 모드가 활성화됩니다"
       },
       "hint": {
-        "en": "Triggers when the Litter-Robot sleep mode becomes active.",
+        "en": "Triggers when the Litter-Robot enters sleep mode.",
         "nl": "Wordt geactiveerd wanneer de Litter-Robot slaapmodus actief wordt.",
         "de": "Wird ausgelöst, wenn der Litter-Robot Schlafmodus aktiv wird.",
         "fr": "Se déclenche lorsque le mode veille du Litter-Robot devient actif.",
@@ -262,7 +262,7 @@
     {
       "id": "LR3_alarm_sleep_mode_active_false",
       "title": {
-        "en": "The Litter-Robot sleep mode becomes inactive",
+        "en": "Sleep mode is deactivated",
         "nl": "De Litter-Robot slaapmodus wordt inactief",
         "de": "Der Litter-Robot Schlafmodus wird inaktiv",
         "fr": "Le mode veille du Litter-Robot devient inactif",
@@ -276,7 +276,7 @@
         "ko": "Litter-Robot 수면 모드가 비활성화됩니다"
       },
       "hint": {
-        "en": "Triggers when the Litter-Robot sleep mode becomes inactive.",
+        "en": "Triggers when the Litter-Robot exits sleep mode.",
         "nl": "Wordt geactiveerd wanneer de Litter-Robot slaapmodus inactief wordt.",
         "de": "Wird ausgelöst, wenn der Litter-Robot Schlafmodus inaktiv wird.",
         "fr": "Se déclenche lorsque le mode veille du Litter-Robot devient inactif.",
@@ -288,68 +288,6 @@
         "ru": "Срабатывает, когда режим сна Litter-Robot становится неактивным.",
         "pl": "Uruchamia się, gdy tryb snu Litter-Robot staje się nieaktywny.",
         "ko": "Litter-Robot 수면 모드가 비활성화될 때 트리거됩니다."
-      }
-    },
-    {
-      "id": "LR3_alarm_sleep_mode_scheduled_true",
-      "title": {
-        "en": "The Litter-Robot sleep mode becomes scheduled",
-        "nl": "De Litter-Robot slaapmodus wordt gepland",
-        "de": "Der Litter-Robot Schlafmodus wird geplant",
-        "fr": "Le mode veille du Litter-Robot devient programmé",
-        "it": "La modalità sonno del Litter-Robot viene programmata",
-        "sv": "Litter-Robot viloläge schemaläggs",
-        "no": "Litter-Robot søvnmodus planlegges",
-        "es": "El modo sueño del Litter-Robot se programa",
-        "da": "Litter-Robot søvn til stand planlægges",
-        "ru": "Режим сна Litter-Robot планируется",
-        "pl": "Tryb snu Litter-Robot jest planowany",
-        "ko": "Litter-Robot 수면 모드가 예약됩니다"
-      },
-      "hint": {
-        "en": "Triggers when the Litter-Robot sleep mode becomes scheduled.",
-        "nl": "Wordt geactiveerd wanneer de Litter-Robot slaapmodus wordt gepland.",
-        "de": "Wird ausgelöst, wenn der Litter-Robot Schlafmodus geplant wird.",
-        "fr": "Se déclenche lorsque le mode veille du Litter-Robot devient programmé.",
-        "it": "Si attiva quando la modalità sonno del Litter-Robot viene programmata.",
-        "sv": "Utlöses när Litter-Robot viloläge schemaläggs.",
-        "no": "Utøses når Litter-Robot søvnmodus planlegges.",
-        "es": "Se activa cuando el modo sueño del Litter-Robot se programa.",
-        "da": "Udløses, når Litter-Robot søvn til stand planlægges.",
-        "ru": "Срабатывает, когда режим сна Litter-Robot планируется.",
-        "pl": "Uruchamia się, gdy tryb snu Litter-Robot jest planowany.",
-        "ko": "Litter-Robot 수면 모드가 예약될 때 트리거됩니다."
-      }
-    },
-    {
-      "id": "LR3_alarm_sleep_mode_scheduled_false",
-      "title": {
-        "en": "The Litter-Robot sleep mode becomes unscheduled",
-        "nl": "De Litter-Robot slaapmodus wordt niet meer gepland",
-        "de": "Der Litter-Robot Schlafmodus wird nicht mehr geplant",
-        "fr": "Le mode veille du Litter-Robot devient non programmé",
-        "it": "La modalità sonno del Litter-Robot viene disprogrammata",
-        "sv": "Litter-Robot viloläge avschemaläggs",
-        "no": "Litter-Robot søvnmodus avplanlegges",
-        "es": "El modo sueño del Litter-Robot se desprograma",
-        "da": "Litter-Robot søvn til stand afplanlægges",
-        "ru": "Режим сна Litter-Robot отменяется",
-        "pl": "Tryb snu Litter-Robot jest anulowany",
-        "ko": "Litter-Robot 수면 모드 예약이 취소됩니다"
-      },
-      "hint": {
-        "en": "Triggers when the Litter-Robot sleep mode becomes unscheduled.",
-        "nl": "Wordt geactiveerd wanneer de Litter-Robot slaapmodus niet meer gepland wordt.",
-        "de": "Wird ausgelöst, wenn der Litter-Robot Schlafmodus nicht mehr geplant wird.",
-        "fr": "Se déclenche lorsque le mode veille du Litter-Robot devient non programmé.",
-        "it": "Si attiva quando la modalità sonno del Litter-Robot viene disprogrammata.",
-        "sv": "Utlöses när Litter-Robot viloläge avschemaläggs.",
-        "no": "Utøses når Litter-Robot søvnmodus avplanlegges.",
-        "es": "Se activa cuando el modo sueño del Litter-Robot se desprograma.",
-        "da": "Udløses, når Litter-Robot søvn til stand afplanlægges.",
-        "ru": "Срабатывает, когда режим сна Litter-Robot отменяется.",
-        "pl": "Uruchamia się, gdy tryb snu Litter-Robot jest anulowany.",
-        "ko": "Litter-Robot 수면 모드 예약이 취소될 때 트리거됩니다."
       }
     },
     {
@@ -437,69 +375,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "LR3_alarm_connectivity_true",
-      "highlight": true,
-      "title": {
-        "en": "The Litter-Robot goes offline",
-        "nl": "De Litter-Robot gaat offline",
-        "de": "Der Litter-Robot geht offline",
-        "fr": "Le Litter-Robot se déconnecte",
-        "it": "Il Litter-Robot va offline",
-        "sv": "Litter-Robot går offline",
-        "no": "Litter-Robot går offline",
-        "es": "El Litter-Robot se desconecta",
-        "da": "Litter-Robot går offline",
-        "ru": "Litter-Robot отключается",
-        "pl": "Litter-Robot przechodzi w tryb offline",
-        "ko": "Litter-Robot이 오프라인 상태가 됩니다"
-      },
-      "hint": {
-        "en": "Triggers when the Litter-Robot goes offline.",
-        "nl": "Wordt geactiveerd wanneer de Litter-Robot offline gaat.",
-        "de": "Wird ausgelöst, wenn der Litter-Robot offline geht.",
-        "fr": "Se déclenche lorsque le Litter-Robot se déconnecte.",
-        "it": "Si attiva quando il Litter-Robot va offline.",
-        "sv": "Utlöses när Litter-Robot går offline.",
-        "no": "Utøses når Litter-Robot går offline.",
-        "es": "Se activa cuando el Litter-Robot se desconecta.",
-        "da": "Udløses, når Litter-Robot går offline.",
-        "ru": "Срабатывает, когда Litter-Robot отключается.",
-        "pl": "Uruchamia się, gdy Litter-Robot przechodzi w tryb offline.",
-        "ko": "Litter-Robot이 오프라인 상태가 될 때 트리거됩니다."
-      }
-    },
-    {
-      "id": "LR3_alarm_connectivity_false",
-      "title": {
-        "en": "The Litter-Robot comes back online",
-        "nl": "De Litter-Robot komt weer online",
-        "de": "Der Litter-Robot kommt wieder online",
-        "fr": "Le Litter-Robot se reconnecte",
-        "it": "Il Litter-Robot torna online",
-        "sv": "Litter-Robot kommer tillbaka online",
-        "no": "Litter-Robot kommer tilbake online",
-        "es": "El Litter-Robot vuelve a conectarse",
-        "da": "Litter-Robot kommer tilbage online",
-        "ru": "Litter-Robot подключается обратно",
-        "pl": "Litter-Robot wraca do trybu online",
-        "ko": "Litter-Robot이 다시 온라인 상태가 됩니다"
-      },
-      "hint": {
-        "en": "Triggers when the Litter-Robot comes back online.",
-        "nl": "Wordt geactiveerd wanneer de Litter-Robot weer online komt.",
-        "de": "Wird ausgelöst, wenn der Litter-Robot wieder online kommt.",
-        "fr": "Se déclenche lorsque le Litter-Robot se reconnecte.",
-        "it": "Si attiva quando il Litter-Robot torna online.",
-        "sv": "Utlöses när Litter-Robot kommer tillbaka online.",
-        "no": "Utøses når Litter-Robot kommer tilbake online.",
-        "es": "Se activa cuando el Litter-Robot vuelve a conectarse.",
-        "da": "Udløses, når Litter-Robot kommer tilbage online.",
-        "ru": "Срабатывает, когда Litter-Robot подключается обратно.",
-        "pl": "Uruchamia się, gdy Litter-Robot wraca do trybu online.",
-        "ko": "Litter-Robot이 다시 온라인 상태가 될 때 트리거됩니다."
-      }
     },
     {
       "id": "LR3_problem_details_provided",
@@ -774,6 +649,37 @@
       }
     },
     {
+      "id": "LR3_start_clean_cycle",
+      "title": {
+        "en": "Start cleaning cycle",
+        "nl": "Start schoonmaakcyclus",
+        "de": "Reinigungszyklus starten",
+        "fr": "Démarrer le cycle de nettoyage",
+        "it": "Avvia ciclo di pulizia",
+        "sv": "Starta rengöringscykel",
+        "no": "Start rengjøringssyklus",
+        "es": "Iniciar ciclo de limpieza",
+        "da": "Start rengøringscyklus",
+        "ru": "Запустить цикл очистки",
+        "pl": "Rozpocznij cykl czyszczenia",
+        "ko": "청소 사이클 시작"
+      },
+      "hint": {
+        "en": "Starts a cleaning cycle for the Litter-Robot.",
+        "nl": "Start een schoonmaakcyclus voor de Litter-Robot.",
+        "de": "Startet einen Reinigungszyklus für den Litter-Robot.",
+        "fr": "Démarre un cycle de nettoyage pour le Litter-Robot.",
+        "it": "Avvia un ciclo di pulizia per il Litter-Robot.",
+        "sv": "Startar en rengöringscykel för Litter-Robot.",
+        "no": "Starter en rengjøringssyklus for Litter-Robot.",
+        "es": "Inicia un ciclo de limpieza para el Litter-Robot.",
+        "da": "Starter en rengøringscyklus for Litter-Robot.",
+        "ru": "Запускает цикл очистки для Litter-Robot.",
+        "pl": "Rozpoczyna cykl czyszczenia dla Litter-Robot.",
+        "ko": "Litter-Robot의 청소 사이클을 시작합니다."
+      }
+    },
+    {
       "id": "LR3_start_empty_cycle",
       "title": {
         "en": "Start empty cycle",
@@ -967,11 +873,11 @@
           "values": [
             { "id": "Idle", "title": { "en": "Idle" } },
             { "id": "Waiting to start", "title": { "en": "Waiting to start" } },
-            { "id": "Scooping", "title": { "en": "Scooping" } },
-            { "id": "Dumping", "title": { "en": "Dumping" } },
-            { "id": "Leveling", "title": { "en": "Leveling" } },
-            { "id": "Completed", "title": { "en": "Completed" } },
             { "id": "Cleaning", "title": { "en": "Cleaning" } },
+            { "id": "Cleaning complete", "title": { "en": "Cleaning complete" } },
+            { "id": "Emptying", "title": { "en": "Emptying" } },
+            { "id": "Paused", "title": { "en": "Paused" } },
+            { "id": "Fault", "title": { "en": "Fault" } },
             { "id": "Unknown Status", "title": { "en": "Unknown Status" } }
           ]
         }
@@ -1048,9 +954,7 @@
             { "id": "Clean cycle paused", "title": { "en": "Clean cycle paused" } },
             { "id": "Emptying cycle", "title": { "en": "Emptying cycle" } },
             { "id": "Drawer full", "title": { "en": "Drawer full" } },
-            { "id": "Drawer almost full - 1 cycle left", "title": { "en": "Drawer almost full - 1 cycle left" } },
-            { "id": "Drawer almost full - 2 cycles left", "title": { "en": "Drawer almost full - 2 cycles left" } },
-            { "id": "Drawer almost full - 3+ cycles left", "title": { "en": "Drawer almost full - 3+ cycles left" } },
+            { "id": "Drawer almost full", "title": { "en": "Drawer almost full" } },
             { "id": "Bonnet removed", "title": { "en": "Bonnet removed" } },
             { "id": "Off", "title": { "en": "Off" } },
             { "id": "Offline", "title": { "en": "Offline" } },
@@ -1167,63 +1071,63 @@
     {
       "id": "LR3_is_sleep_mode_active",
       "title": {
-        "en": "The Litter-Robot sleep mode !{{is|is not}} active",
-        "nl": "De Litter-Robot slaapmodus !{{is|is niet}} actief",
-        "de": "Der Litter-Robot Schlafmodus !{{ist|ist nicht}} aktiv",
-        "fr": "Le mode veille du Litter-Robot !{{est|n'est pas}} actif",
-        "it": "La modalità sonno del Litter-Robot !{{è|non è}} attiva",
-        "sv": "Litter-Robot viloläge !{{är|är inte}} aktivt",
-        "no": "Litter-Robot søvnmodus !{{er|er ikke}} aktiv",
-        "es": "El modo sueño del Litter-Robot !{{está|no está}} activo",
-        "da": "Litter-Robot søvn til stand !{{er|er ikke}} aktiv",
-        "ru": "Режим сна Litter-Robot !{{активен|не активен}}",
-        "pl": "Tryb snu Litter-Robot !{{jest|nie jest}} aktywny",
-        "ko": "Litter-Robot 수면 모드가 !{{활성|비활성}} 상태입니다"
+        "en": "Sleep mode !{{is|is not}} currently active",
+        "nl": "De slaapstand !{{is|is niet}} momenteel actief",
+        "de": "Der Schlafmodus !{{ist|ist nicht}} derzeit aktiv",
+        "fr": "Le mode veille !{{est|n'est pas}} actuellement actif",
+        "it": "La modalità sleep !{{è|non è}} attiva",
+        "sv": "Viloläget !{{är|är inte}} aktivt",
+        "no": "Søvnmodus !{{er|er ikke}} aktiv",
+        "es": "El modo de suspensión !{{está|no está}} activo",
+        "da": "Dvaletilstand !{{er|er ikke}} aktiv",
+        "ru": "Режим сна !{{активен|не активен}}",
+        "pl": "Tryb uśpienia !{{jest|nie jest}} aktywny",
+        "ko": "수면 모드가 !{{활성화됨|비활성화됨}}"
       },
       "hint": {
-        "en": "Returns true if the Litter-Robot sleep mode is currently active.",
-        "nl": "Geeft true terug als de Litter-Robot slaapmodus momenteel actief is.",
-        "de": "Gibt true zurück, wenn der Litter-Robot Schlafmodus derzeit aktiv ist.",
-        "fr": "Retourne true si le mode veille du Litter-Robot est actuellement actif.",
-        "it": "Restituisce true se la modalità sonno del Litter-Robot è attualmente attiva.",
-        "sv": "Returnerar true om Litter-Robot viloläge för närvarande är aktivt.",
-        "no": "Returnerer true hvis Litter-Robot søvnmodus for øyeblikket er aktiv.",
-        "es": "Devuelve true si el modo sueño del Litter-Robot está actualmente activo.",
-        "da": "Returnerer true, hvis Litter-Robot søvn til stand i øjeblikket er aktiv.",
-        "ru": "Возвращает true, если режим сна Litter-Robot в настоящее время активен.",
-        "pl": "Zwraca prawdę, gdy tryb snu Litter-Robot jest obecnie aktywny.",
-        "ko": "Litter-Robot 수면 모드가 현재 활성 상태일 때 true를 반환합니다."
+        "en": "Returns true when the Litter-Robot is currently sleeping.",
+        "nl": "Geeft true terug wanneer de Litter-Robot momenteel slaapt.",
+        "de": "Gibt true zurück, wenn der Litter-Robot schläft.",
+        "fr": "Renvoie vrai lorsque le Litter-Robot dort.",
+        "it": "Restituisce vero quando il Litter-Robot è in modalità sonno.",
+        "sv": "Returnerar sant när Litter-Robot sover.",
+        "no": "Returnerer true når Litter-Robot sover.",
+        "es": "Devuelve verdadero cuando el Litter-Robot está durmiendo.",
+        "da": "Returnerer sandt, når Litter-Robot sover.",
+        "ru": "Возвращает true, когда Litter-Robot спит.",
+        "pl": "Zwraca true, gdy Litter-Robot śpi.",
+        "ko": "Litter-Robot가 수면 모드일 때 true를 반환합니다."
       }
     },
     {
       "id": "LR3_is_sleep_mode_scheduled",
       "title": {
-        "en": "The Litter-Robot sleep mode !{{is|is not}} scheduled",
-        "nl": "De Litter-Robot slaapmodus !{{is|is niet}} gepland",
-        "de": "Der Litter-Robot Schlafmodus !{{ist|ist nicht}} geplant",
-        "fr": "Le mode veille du Litter-Robot !{{est|n'est pas}} programmé",
-        "it": "La modalità sonno del Litter-Robot !{{è|non è}} programmata",
-        "sv": "Litter-Robot viloläge !{{är|är inte}} schemalagt",
-        "no": "Litter-Robot søvnmodus !{{er|er ikke}} planlagt",
-        "es": "El modo sueño del Litter-Robot !{{está|no está}} programado",
-        "da": "Litter-Robot søvn til stand !{{er|er ikke}} planlagt",
-        "ru": "Режим сна Litter-Robot !{{запланирован|не запланирован}}",
-        "pl": "Tryb snu Litter-Robot !{{jest|nie jest}} zaplanowany",
-        "ko": "Litter-Robot 수면 모드가 !{{예약|예약되지 않음}} 상태입니다"
+        "en": "Sleep mode !{{is|is not}} scheduled for today",
+        "nl": "Slaapstand !{{is|is niet}} gepland voor vandaag",
+        "de": "Schlafmodus !{{ist|ist nicht}} für heute geplant",
+        "fr": "Le mode veille !{{est|n'est pas}} programmé pour aujourd'hui",
+        "it": "La modalità sleep !{{è|non è}} programmata per oggi",
+        "sv": "Viloläge !{{är|är inte}} schemalagt för idag",
+        "no": "Hvilemodus !{{er|er ikke}} planlagt for i dag",
+        "es": "El modo de suspensión !{{está|no está}} programado para hoy",
+        "da": "Dvaletilstand !{{er|er ikke}} planlagt for i dag",
+        "ru": "Режим сна !{{запланирован|не запланирован}} на сегодня",
+        "pl": "Tryb uśpienia !{{jest|nie jest}} zaplanowany na dzisiaj",
+        "ko": "수면 모드가 !{{오늘로 예약됨|오늘로 예약되지 않음}}"
       },
       "hint": {
-        "en": "Returns true if the Litter-Robot sleep mode is currently scheduled.",
-        "nl": "Geeft true terug als de Litter-Robot slaapmodus momenteel gepland is.",
-        "de": "Gibt true zurück, wenn der Litter-Robot Schlafmodus derzeit geplant ist.",
-        "fr": "Retourne true si le mode veille du Litter-Robot est actuellement programmé.",
-        "it": "Restituisce true se la modalità sonno del Litter-Robot è attualmente programmata.",
-        "sv": "Returnerar true om Litter-Robot viloläge för närvarande är schemalagt.",
-        "no": "Returnerer true hvis Litter-Robot søvnmodus for øyeblikket er planlagt.",
-        "es": "Devuelve true si el modo sueño del Litter-Robot está actualmente programado.",
-        "da": "Returnerer true, hvis Litter-Robot søvn til stand i øjeblikket er planlagt.",
-        "ru": "Возвращает true, если режим сна Litter-Robot в настоящее время запланирован.",
-        "pl": "Zwraca prawdę, gdy tryb snu Litter-Robot jest obecnie zaplanowany.",
-        "ko": "Litter-Robot 수면 모드가 현재 예약 상태일 때 true를 반환합니다."
+        "en": "Returns true when sleep mode is scheduled for today.",
+        "nl": "Geeft true terug wanneer slaapstand vandaag is ingepland.",
+        "de": "Gibt true zurück, wenn der Schlafmodus für heute geplant ist.",
+        "fr": "Renvoie true lorsque le mode veille est programmé pour aujourd'hui.",
+        "it": "Restituisce true quando la modalità sleep è programmata per oggi.",
+        "sv": "Returnerar true när viloläge är schemalagt för idag.",
+        "no": "Returnerer true når hvilemodus er planlagt for i dag.",
+        "es": "Devuelve true cuando el modo de suspensión está programado para hoy.",
+        "da": "Returnerer true, når dvaletilstand er planlagt for i dag.",
+        "ru": "Возвращает true, если режим сна запланирован на сегодня.",
+        "pl": "Zwraca true, gdy tryb uśpienia jest zaplanowany na dzisiaj.",
+        "ko": "수면 모드가 오늘로 예약되어 있으면 true를 반환합니다."
       }
     }
   ]

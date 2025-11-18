@@ -1443,7 +1443,8 @@
             { "id": "Scooping", "title": { "en": "Scooping" } },
             { "id": "Dumping", "title": { "en": "Dumping" } },
             { "id": "Leveling", "title": { "en": "Leveling" } },
-            { "id": "Completed", "title": { "en": "Completed" } }
+            { "id": "Completed", "title": { "en": "Completed" } },
+            { "id": "Unknown Status", "title": { "en": "Unknown Status" } }
           ]
         }
       ],
