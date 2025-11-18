@@ -169,7 +169,6 @@ Bring automation and insights to your Whisker devices with Homey Flows and devic
 
 **Litter-Robot 3:**
 - Start a clean cycle
-- Start an empty cycle
 - Lock or unlock the keypad
 - Turn on/off/toggle globe light
 - Set cycle delay (3/7/15 minutes)

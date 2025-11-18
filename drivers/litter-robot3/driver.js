@@ -123,24 +123,6 @@ module.exports = class LitterRobot3Driver extends Homey.Driver {
         await device.triggerCapabilityListener('start_clean_cycle', true);
       });
 
-    this.homey.flow.getActionCard('LR3_start_empty_cycle')
-      .registerRunListener(async (args) => {
-        const { device } = args;
-        if (!device) {
-          throw new Error('Device not found');
-        }
-        this.log(`[Flow] ${colorize(LOG_COLORS.FLOW, `Action [start_empty_cycle] executed for device: ${device.getName()}`)}`);
-        if (!device.robot) await device._fetchRobotData();
-        const { robotId } = device.getData();
-        await this.homey.app.apiSession.sendCommand(
-          device.robot.litterRobotSerial,
-          LitterRobot3Data.Commands.CLEAN,
-          null,
-          'litter_robot_3',
-          robotId,
-        );
-      });
-
     this.homey.flow.getActionCard('LR3_turn_on_night_light')
       .registerRunListener(async (args) => {
         const { device } = args;

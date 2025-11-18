@@ -85,5 +85,8 @@
   },
   "2.0.3": {
     "en": "Removed duplicate Flow cards and added missing triggers"
+  },
+  "2.0.4": {
+    "en": "Fixed Flow card titles and arguments"
   }
 }
