@@ -88,5 +88,8 @@
   },
   "2.0.4": {
     "en": "Fixed Flow card titles and arguments"
+  },
+  "2.0.5": {
+    "en": "Added testing contributors and bug report link, tweaked status code derivation logic for Litter-Robot 4"
   }
 }
