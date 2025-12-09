@@ -79,8 +79,7 @@ module.exports = class PetDriver extends Homey.Driver {
         pets = await apiSession.getPets();
         this.log(colorize(LOG_COLORS.SUCCESS, `Found ${pets.length} pet(s) for account`));
       } catch (err) {
-        this.error(colorize(LOG_COLORS.ERROR, `Login or fetching pets failed: ${err.message}`));
-        throw new Error(`Login failed: ${err.message}`);
+        throw new Error(err.message);
       }
       return true;
     });
@@ -104,8 +103,9 @@ module.exports = class PetDriver extends Homey.Driver {
 
   /**
    * Handle device repair flow for pet information devices.
-   * Refreshes authentication credentials and validates that the pet still exists in the account.
-   * Uses centralized session management to ensure secure re-authentication.
+   * Validates credentials and verifies that the pet still exists in the account
+   * before destroying the existing session. Uses centralized session management
+   * to ensure secure re-authentication.
    * @param {object} session Homey pairing session
    * @param {object} device Homey device instance
    */
@@ -119,19 +119,21 @@ module.exports = class PetDriver extends Homey.Driver {
       }
       this.log(colorize(LOG_COLORS.INFO, `Repair login with username: ${username}`));
       try {
-        await this.homey.app.signOut();
-        const apiSession = await this.homey.app.initializeSession(username, password);
-        const pets = await apiSession.getPets();
+        const tempSession = await this.homey.app.validateCredentials(username, password);
+        
+        const pets = await tempSession.getPets();
         const pet = pets.find((p) => String(p.petId) === String(id));
         if (!pet) {
           throw new Error(`Pet with ID ${id} not found`);
         }
 
+        await this.homey.app.signOut();
+        const apiSession = await this.homey.app.initializeSession(username, password);
+        
         device.petData = new PetData({ pet });
         this.log(colorize(LOG_COLORS.SUCCESS, 'Re-authentication successful'));
       } catch (err) {
-        this.error(colorize(LOG_COLORS.ERROR, `Repair login failed: ${err.message}`));
-        throw new Error(`Repair login failed: ${err.message}`);
+        throw new Error(err.message);
       }
       return true;
     });

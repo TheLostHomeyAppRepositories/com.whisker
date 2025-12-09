@@ -41,13 +41,19 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       }
 
     } catch (err) {
+      if (err.message && err.message.includes('No API session available')) {
+        this.log(colorize(LOG_COLORS.WARNING, 'Device initialization deferred - no session available'));
+        if (this.setUnavailable) {
+          this.setUnavailable(err.message);
+          this.log(colorize(LOG_COLORS.INFO, 'Device marked as unavailable until authentication'));
+        }
+        return;
+      }
       this.error(colorize(LOG_COLORS.ERROR, 'Failed to initialize device:'), err);
-
       if (this.setUnavailable) {
         this.setUnavailable(err.message);
         this.log(colorize(LOG_COLORS.ERROR, 'Device marked as unavailable due to initialization failure'));
       }
-
       throw err;
     }
   }
@@ -214,8 +220,8 @@ module.exports = class LitterRobotDevice extends Homey.Device {
   async _fetchRobotData() {
     try {
       const { session } = this.homey.app;
-      if (!session) {
-        throw new Error('No session available. Please repair device.');
+      if (!session || !session.isSessionValid()) {
+        throw new Error('No API session available. Please repair device.');
       }
 
       const robots = await session.getRobots();
@@ -237,7 +243,11 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       await this._updateDeviceSettings(this.robot);
 
     } catch (err) {
-      this.error(colorize(LOG_COLORS.ERROR, 'Failed to fetch robot data:'), err);
+      if (err.message && err.message.includes('No API session available')) {
+        this.log(colorize(LOG_COLORS.WARNING, 'Session not available, device will be unavailable until repaired'));
+      } else {
+        this.error(colorize(LOG_COLORS.ERROR, 'Failed to fetch robot data:'), err);
+      }
       throw err;
     }
   }
@@ -279,7 +289,7 @@ module.exports = class LitterRobotDevice extends Homey.Device {
   async _setupWebSocket() {
     try {
       const { session } = this.homey.app;
-      if (!session) {
+      if (!session || !session.isSessionValid()) {
         this.log(colorize(LOG_COLORS.WARNING, 'Session not available, WebSocket setup deferred'));
         return;
       }
@@ -311,6 +321,11 @@ module.exports = class LitterRobotDevice extends Homey.Device {
       };
 
       this.log(colorize(LOG_COLORS.SUCCESS, 'WebSocket connection established'));
+
+      if (this.setAvailable) {
+        this.setAvailable();
+        this.log(colorize(LOG_COLORS.SUCCESS, 'Device marked as available'));
+      }
 
       this.homey.setTimeout(() => {
         this._requestInitialState();

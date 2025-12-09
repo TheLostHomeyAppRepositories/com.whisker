@@ -21,6 +21,16 @@ module.exports = class PetDevice extends Homey.Device {
       }
 
       await this._initializeCapabilities();
+
+      const { session, dataManager } = this.homey.app;
+      if (!session || !session.isSessionValid() || !dataManager) {
+        this.log(colorize(LOG_COLORS.WARNING, 'Session or DataManager not available, device will be unavailable until authenticated'));
+        if (this.setUnavailable) {
+          this.setUnavailable('No API session available. Please repair device.');
+        }
+        return;
+      }
+
       await this._registerWithDataManager();
 
       this.log(colorize(LOG_COLORS.SUCCESS, 'Device initialization completed successfully'));
@@ -94,6 +104,11 @@ module.exports = class PetDevice extends Homey.Device {
         });
 
         this.log(colorize(LOG_COLORS.SUCCESS, 'Successfully registered with DataManager'));
+
+        if (this.setAvailable) {
+          this.setAvailable();
+          this.log(colorize(LOG_COLORS.SUCCESS, 'Device marked as available'));
+        }
       } else {
         this.log(colorize(LOG_COLORS.WARNING, 'DataManager not available during registration'));
       }

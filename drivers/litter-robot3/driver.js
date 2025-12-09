@@ -1,7 +1,6 @@
 const Homey = require('homey');
 const { colorize, LOG_COLORS } = require('../../lib/utils');
 const { handleCapabilityError } = require('../../lib/notifications');
-const LitterRobot3Data = require('../../lib/litterrobot3data');
 
 /**
  * Litter-Robot 3 driver that manages device pairing, repair, and flow card
@@ -222,8 +221,7 @@ module.exports = class LitterRobot3Driver extends Homey.Driver {
         robots = robotsData.lr3;
         this.log(colorize(LOG_COLORS.SUCCESS, `Found ${robots.length} LR3 robot(s) for account`));
       } catch (err) {
-        this.error(colorize(LOG_COLORS.ERROR, `Login or fetching robots failed: ${err.message}`));
-        throw new Error(`Login failed: ${err.message}`);
+        throw new Error(err.message);
       }
       return true;
     });
@@ -256,8 +254,8 @@ module.exports = class LitterRobot3Driver extends Homey.Driver {
 
   /**
    * Handles device repair flow by re-authenticating user credentials and
-   * re-establishing connection to the specific robot. Signs out existing session
-   * first to ensure clean authentication state.
+   * re-establishing connection to the specific robot. Validates credentials
+   * and device access before destroying the existing session.
    * @param {Object} session - Homey repair session object
    * @param {Object} device - Device instance being repaired
    */
@@ -271,19 +269,21 @@ module.exports = class LitterRobot3Driver extends Homey.Driver {
       }
       this.log(colorize(LOG_COLORS.INFO, `Repair login with username: ${username}`));
       try {
-        await this.homey.app.signOut();
-        const apiSession = await this.homey.app.initializeSession(username, password);
-        const robotsData = await apiSession.getRobots();
+        const tempSession = await this.homey.app.validateCredentials(username, password);
+        
+        const robotsData = await tempSession.getRobots();
         const robot = robotsData.lr3.find((r) => String(r.litterRobotSerial) === String(id));
         if (!robot) {
           throw new Error(`LR3 Robot with serial ${id} not found`);
         }
 
-        device.robot = robot;
+        await this.homey.app.signOut();
+        await this.homey.app.initializeSession(username, password);
+        
+        await device._fetchRobotData();
         this.log(colorize(LOG_COLORS.SUCCESS, 'Re-authentication successful'));
       } catch (err) {
-        this.error(colorize(LOG_COLORS.ERROR, `Repair login failed: ${err.message}`));
-        throw new Error(`Repair login failed: ${err.message}`);
+        throw new Error(err.message);
       }
       return true;
     });

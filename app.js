@@ -3,6 +3,7 @@ const Session = require('./lib/session');
 const DataManager = require('./lib/datamanager');
 const { colorize, LOG_COLORS } = require('./lib/utils');
 const { EventEmitter } = require('./lib/event');
+const { WhiskerLoginException } = require('./lib/exceptions');
 
 /**
  * Main application class for the Whisker Homey app.
@@ -64,6 +65,41 @@ class WhiskerApp extends Homey.App {
   }
 
   /**
+   * Validates credentials by creating a temporary session and testing authentication.
+   * Does not modify app state, allowing safe validation before committing to new credentials.
+   * @param {string} username - Username for authentication
+   * @param {string} password - Password for authentication
+   * @returns {Promise<Session>} Temporary session instance if validation succeeds
+   * @throws {WhiskerLoginException} If authentication fails
+   */
+  async validateCredentials(username, password) {
+    this.log(colorize(LOG_COLORS.INFO, 'Validating credentials...'));
+
+    const tempSession = new Session({
+      username,
+      password,
+      homey: this.homey,
+      eventEmitter: this._eventEmitter,
+      onTokensRefreshed: () => {
+        // Do nothing - this is a temporary session for validation only
+      },
+    });
+
+    try {
+      await tempSession.login();
+      this.log(colorize(LOG_COLORS.SUCCESS, 'Credentials validated successfully'));
+      return tempSession;
+    } catch (error) {
+      if (error instanceof WhiskerLoginException) {
+        this.log(colorize(LOG_COLORS.WARNING, `Credential validation failed: ${error.message}`));
+      } else {
+        this.error(colorize(LOG_COLORS.ERROR, 'Failed to validate credentials:'), error);
+      }
+      throw error;
+    }
+  }
+
+  /**
    * Initializes a new API session using user credentials.
    * Creates the data manager and re-registers all devices to ensure
    * they have access to the new session and can communicate properly.
@@ -76,22 +112,28 @@ class WhiskerApp extends Homey.App {
 
     this.log(colorize(LOG_COLORS.INFO, 'Initializing session with credentials...'));
 
-    try {
-      this._session = new Session({
-        username,
-        password,
-        homey: this.homey,
-        eventEmitter: this._eventEmitter,
-        onTokensRefreshed: (tokens) => this.homey.settings.set('cognito_tokens', tokens),
-      });
+    const session = new Session({
+      username,
+      password,
+      homey: this.homey,
+      eventEmitter: this._eventEmitter,
+      onTokensRefreshed: (tokens) => this.homey.settings.set('cognito_tokens', tokens),
+    });
 
-      await this._session.login();
+    try {
+      await session.login();
+
+      this._session = session;
       this._dataManager = new DataManager(this._session, this.homey, () => this.onUninit(), this._eventEmitter);
       await this._reinitializeDevices();
       this.log(colorize(LOG_COLORS.SUCCESS, 'Session initialized successfully'));
       return this._session;
     } catch (error) {
-      this.error(colorize(LOG_COLORS.ERROR, 'Failed to initialize session:'), error);
+      if (error instanceof WhiskerLoginException) {
+        this.log(colorize(LOG_COLORS.WARNING, `Authentication failed: ${error.message}`));
+      } else {
+        this.error(colorize(LOG_COLORS.ERROR, 'Failed to initialize session:'), error);
+      }
       throw error;
     }
   }
@@ -159,6 +201,7 @@ class WhiskerApp extends Homey.App {
         this._session.signOut();
         this._session.closeAllWebSockets();
       }
+      this._session = null;
       if (this._dataManager) {
         this._dataManager.destroyDataManager();
         this._dataManager = null;
