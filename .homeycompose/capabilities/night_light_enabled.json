@@ -41,6 +41,7 @@
     "pl": "Światło nocne wyłączone",
     "ko": "야간 조명 꺼짐"
   },
+  "insights": true,
   "type": "boolean",
   "getable": true,
   "setable": true,

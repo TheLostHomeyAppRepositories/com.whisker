@@ -27,6 +27,7 @@
     "pl": "Robot został zresetowany",
     "ko": "로봇이 재설정됨"
   },
+  "insights": true,
   "type": "boolean",
   "getable": false,
   "setable": true,

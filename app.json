@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.whisker",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -4488,6 +4488,7 @@
         "pl": "Nie wykryto kota",
         "ko": "고양이 미감지"
       },
+      "insights": true,
       "getable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/alarm_cat_detected.svg"
@@ -4536,6 +4537,7 @@
         "pl": "Problem zdrowotny usunięty",
         "ko": "건강 문제 해소됨"
       },
+      "insights": true,
       "getable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/alarm_health_concern.svg"
@@ -4584,6 +4586,7 @@
         "pl": "LitterHopper uzupełniony",
         "ko": "LitterHopper 보충됨"
       },
+      "insights": true,
       "getable": true,
       "setable": false,
       "uiComponent": "sensor",
@@ -4633,6 +4636,7 @@
         "pl": "Tryb snu dezaktywowany",
         "ko": "수면 모드 비활성화됨"
       },
+      "insights": true,
       "getable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/alarm_sleep_mode_active.svg"
@@ -4681,6 +4685,7 @@
         "pl": "Harmonogram trybu snu wyczyszczony",
         "ko": "수면 모드 예약 해제됨"
       },
+      "insights": true,
       "getable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/alarm_sleep_mode_scheduled.svg"
@@ -4729,6 +4734,7 @@
         "pl": "Szuflada na odpady opróżniona",
         "ko": "폐기물 서랍 비움"
       },
+      "insights": true,
       "getable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/alarm_waste_drawer_full.svg"
@@ -5387,6 +5393,7 @@
         "pl": "Klawiatura odblokowana",
         "ko": "키패드 잠금 해제"
       },
+      "insights": true,
       "type": "boolean",
       "getable": true,
       "setable": true,
@@ -5776,6 +5783,7 @@
         "pl": "LitterHopper wyłączony",
         "ko": "LitterHopper 비활성화됨"
       },
+      "insights": true,
       "type": "boolean",
       "getable": true,
       "setable": true,
@@ -6822,6 +6830,7 @@
         "pl": "Światło nocne wyłączone",
         "ko": "야간 조명 꺼짐"
       },
+      "insights": true,
       "type": "boolean",
       "getable": true,
       "setable": true,
@@ -7003,6 +7012,7 @@
         "pl": "Wskaźnik pojemnika na odpady zresetowany",
         "ko": "폐기물 서랍 게이지 초기화됨"
       },
+      "insights": true,
       "type": "boolean",
       "getable": false,
       "setable": true,
@@ -7038,6 +7048,7 @@
         "pl": "Robot został zresetowany",
         "ko": "로봇이 재설정됨"
       },
+      "insights": true,
       "type": "boolean",
       "getable": false,
       "setable": true,
@@ -7087,6 +7098,7 @@
         "pl": "Tryb uśpienia wyłączony",
         "ko": "절전 모드 비활성화됨"
       },
+      "insights": true,
       "type": "boolean",
       "getable": true,
       "setable": true,
@@ -7164,6 +7176,7 @@
         "pl": "Cykl czyszczenia uruchomiony",
         "ko": "청소 주기 시작됨"
       },
+      "insights": true,
       "type": "boolean",
       "getable": false,
       "setable": true,
@@ -7199,6 +7212,7 @@
         "pl": "Cykl opróżniania uruchomiony",
         "ko": "비우기 주기 시작됨"
       },
+      "insights": true,
       "type": "boolean",
       "getable": false,
       "setable": true,

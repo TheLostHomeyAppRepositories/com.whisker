@@ -27,6 +27,7 @@
     "pl": "Cykl czyszczenia uruchomiony",
     "ko": "청소 주기 시작됨"
   },
+  "insights": true,
   "type": "boolean",
   "getable": false,
   "setable": true,

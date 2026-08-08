@@ -41,6 +41,7 @@
     "pl": "Klawiatura odblokowana",
     "ko": "키패드 잠금 해제"
   },
+  "insights": true,
   "type": "boolean",
   "getable": true,
   "setable": true,

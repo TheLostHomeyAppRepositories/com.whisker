@@ -27,6 +27,7 @@
     "pl": "Cykl opróżniania uruchomiony",
     "ko": "비우기 주기 시작됨"
   },
+  "insights": true,
   "type": "boolean",
   "getable": false,
   "setable": true,

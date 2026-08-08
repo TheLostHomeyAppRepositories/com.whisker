@@ -42,6 +42,7 @@
     "pl": "Nie wykryto kota",
     "ko": "고양이 미감지"
   },
+  "insights": true,
   "getable": true,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/alarm_cat_detected.svg"

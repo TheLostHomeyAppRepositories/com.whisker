@@ -42,6 +42,7 @@
     "pl": "Szuflada na odpady opróżniona",
     "ko": "폐기물 서랍 비움"
   },
+  "insights": true,
   "getable": true,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/alarm_waste_drawer_full.svg"

@@ -27,6 +27,7 @@
     "pl": "Wskaźnik pojemnika na odpady zresetowany",
     "ko": "폐기물 서랍 게이지 초기화됨"
   },
+  "insights": true,
   "type": "boolean",
   "getable": false,
   "setable": true,

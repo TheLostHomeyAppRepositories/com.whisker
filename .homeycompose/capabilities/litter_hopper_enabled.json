@@ -41,6 +41,7 @@
     "pl": "LitterHopper wyłączony",
     "ko": "LitterHopper 비활성화됨"
   },
+  "insights": true,
   "type": "boolean",
   "getable": true,
   "setable": true,

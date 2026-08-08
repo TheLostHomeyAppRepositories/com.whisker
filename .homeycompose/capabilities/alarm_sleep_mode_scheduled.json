@@ -42,6 +42,7 @@
     "pl": "Harmonogram trybu snu wyczyszczony",
     "ko": "수면 모드 예약 해제됨"
   },
+  "insights": true,
   "getable": true,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/alarm_sleep_mode_scheduled.svg"

@@ -42,6 +42,7 @@
     "pl": "Tryb snu dezaktywowany",
     "ko": "수면 모드 비활성화됨"
   },
+  "insights": true,
   "getable": true,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/alarm_sleep_mode_active.svg"

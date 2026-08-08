@@ -112,5 +112,8 @@
   },
   "3.0.4": {
     "en": "Added clearer Timeline titles for capability changes"
+  },
+  "3.0.5": {
+    "en": "Enabled Insights logging for more capabilities"
   }
 }
