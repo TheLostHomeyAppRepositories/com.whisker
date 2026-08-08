@@ -106,5 +106,8 @@
   },
   "3.0.2": {
     "en": "Mark devices as unavailable when the Whisker cloud cannot be reached"
+  },
+  "3.0.3": {
+    "en": "Fixed app crashes when updating device availability or settings"
   }
 }
