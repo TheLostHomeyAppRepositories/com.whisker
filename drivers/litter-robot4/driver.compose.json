@@ -50,6 +50,36 @@
     "last_seen"
   ],
   "capabilitiesOptions": {
+    "onoff": {
+      "insightsTitleTrue": {
+        "en": "Turned on",
+        "nl": "Aangezet",
+        "da": "Tændt",
+        "de": "Eingeschaltet",
+        "es": "Encendido",
+        "fr": "Activé",
+        "it": "Attivato",
+        "no": "Aktivert",
+        "sv": "Aktiverad",
+        "pl": "Włączone",
+        "ru": "Включено",
+        "ko": "전원 켜짐"
+      },
+      "insightsTitleFalse": {
+        "en": "Turned off",
+        "nl": "Uitgezet",
+        "da": "Slukket",
+        "de": "Ausgeschaltet",
+        "es": "Apagado",
+        "fr": "Désactivé",
+        "it": "Disattivato",
+        "no": "Deaktivert",
+        "sv": "Inaktiverad",
+        "pl": "Wyłączone",
+        "ru": "Выключено",
+        "ko": "전원 꺼짐"
+      }
+    },
     "alarm_problem": {
       "title": {
         "en": "Fault detected",
@@ -64,6 +94,34 @@
         "pl": "Wykryto błąd",
         "ru": "Обнаружена неисправность",
         "ko": "오류 감지됨"
+      },
+      "insightsTitleTrue": {
+        "en": "Fault detected",
+        "nl": "Fout gedetecteerd",
+        "da": "Fejl opdaget",
+        "de": "Fehler erkannt",
+        "es": "Fallo detectado",
+        "fr": "Défaut détecté",
+        "it": "Guasto rilevato",
+        "no": "Feil oppdaget",
+        "sv": "Fel upptäckt",
+        "pl": "Wykryto błąd",
+        "ru": "Обнаружена неисправность",
+        "ko": "오류 감지됨"
+      },
+      "insightsTitleFalse": {
+        "en": "Fault cleared",
+        "nl": "Fout opgelost",
+        "da": "Fejl ryddet",
+        "de": "Fehler behoben",
+        "es": "Fallo resuelto",
+        "fr": "Défaut résolu",
+        "it": "Guasto risolto",
+        "no": "Feil løst",
+        "sv": "Fel åtgärdat",
+        "pl": "Błąd usunięty",
+        "ru": "Неисправность устранена",
+        "ko": "오류 해소됨"
       }
     },
     "alarm_connectivity": {
@@ -80,6 +138,34 @@
         "pl": "Problem z połączeniem",
         "ru": "Проблема с подключением",
         "ko": "연결 문제"
+      },
+      "insightsTitleTrue": {
+        "en": "Connection lost",
+        "nl": "Verbinding verbroken",
+        "da": "Forbindelse mistet",
+        "de": "Verbindung verloren",
+        "es": "Conexión perdida",
+        "fr": "Connexion perdue",
+        "it": "Connessione persa",
+        "no": "Tilkobling mistet",
+        "sv": "Anslutning förlorad",
+        "pl": "Utracono połączenie",
+        "ru": "Соединение потеряно",
+        "ko": "연결 끊김"
+      },
+      "insightsTitleFalse": {
+        "en": "Connection restored",
+        "nl": "Verbinding hersteld",
+        "da": "Forbindelse genoprettet",
+        "de": "Verbindung wiederhergestellt",
+        "es": "Conexión restaurada",
+        "fr": "Connexion rétablie",
+        "it": "Connessione ripristinata",
+        "no": "Tilkobling gjenopprettet",
+        "sv": "Anslutning återställd",
+        "pl": "Połączenie przywrócone",
+        "ru": "Соединение восстановлено",
+        "ko": "연결 복구됨"
       }
     },
     "measure_weight": {

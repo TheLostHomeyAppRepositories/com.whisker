@@ -14,6 +14,34 @@
     "pl": "Szuflada na odpady pełny",
     "ko": "폐기물 서랍 가득참"
   },
+  "insightsTitleTrue": {
+    "en": "Waste drawer full",
+    "nl": "Afvallade vol",
+    "de": "Abfallschublade voll",
+    "fr": "Tiroir à déchets plein",
+    "it": "Vaschetta dei rifiuti piena",
+    "sv": "Avfallslåda full",
+    "no": "Avfallsskuffe full",
+    "es": "Cajón de residuos lleno",
+    "da": "Affaldsskuffe fuld",
+    "ru": "Контейнер для отходов полный",
+    "pl": "Szuflada na odpady pełna",
+    "ko": "폐기물 서랍 가득참"
+  },
+  "insightsTitleFalse": {
+    "en": "Waste drawer emptied",
+    "nl": "Afvallade geleegd",
+    "de": "Abfallschublade geleert",
+    "fr": "Tiroir à déchets vidé",
+    "it": "Vaschetta dei rifiuti svuotata",
+    "sv": "Avfallslåda tömd",
+    "no": "Avfallsskuffe tømt",
+    "es": "Cajón de residuos vaciado",
+    "da": "Affaldsskuffe tømt",
+    "ru": "Контейнер для отходов опустошён",
+    "pl": "Szuflada na odpady opróżniona",
+    "ko": "폐기물 서랍 비움"
+  },
   "getable": true,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/alarm_waste_drawer_full.svg"

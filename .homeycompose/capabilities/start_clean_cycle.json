@@ -13,6 +13,20 @@
     "pl": "Uruchom cykl czyszczenia",
     "ko": "청소 주기 시작"
   },
+  "insightsTitleTrue": {
+    "en": "Clean cycle started",
+    "nl": "Reinigingscyclus gestart",
+    "de": "Reinigungszyklus gestartet",
+    "fr": "Cycle de nettoyage démarré",
+    "it": "Ciclo di pulizia avviato",
+    "sv": "Rengöringscykel startad",
+    "no": "Rengjøringscyklus startet",
+    "es": "Ciclo de limpieza iniciado",
+    "da": "Rengøringscyklus startet",
+    "ru": "Цикл очистки запущен",
+    "pl": "Cykl czyszczenia uruchomiony",
+    "ko": "청소 주기 시작됨"
+  },
   "type": "boolean",
   "getable": false,
   "setable": true,

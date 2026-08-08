@@ -13,6 +13,20 @@
     "pl": "Krótkie naciśnięcie reset",
     "ko": "짧은 재설정 누름"
   },
+  "insightsTitleTrue": {
+    "en": "Robot was reset",
+    "nl": "Robot is gereset",
+    "de": "Robot wurde zurückgesetzt",
+    "fr": "Robot a été réinitialisé",
+    "it": "Robot è stato ripristinato",
+    "sv": "Robot återställdes",
+    "no": "Robot ble tilbakestilt",
+    "es": "Robot se ha reiniciado",
+    "da": "Robot blev nulstillet",
+    "ru": "Робот был сброшен",
+    "pl": "Robot został zresetowany",
+    "ko": "로봇이 재설정됨"
+  },
   "type": "boolean",
   "getable": false,
   "setable": true,

@@ -13,6 +13,20 @@
     "pl": "Uruchom cykl opróżniania",
     "ko": "비우기 주기 시작"
   },
+  "insightsTitleTrue": {
+    "en": "Empty cycle started",
+    "nl": "Leegmaakcyclus gestart",
+    "de": "Entleerungszyklus gestartet",
+    "fr": "Cycle de vidage démarré",
+    "it": "Ciclo di svuotamento avviato",
+    "sv": "Tömningscykel startad",
+    "no": "Tømmecyklus startet",
+    "es": "Ciclo de vaciado iniciado",
+    "da": "Tømmecyklus startet",
+    "ru": "Цикл опорожнения запущен",
+    "pl": "Cykl opróżniania uruchomiony",
+    "ko": "비우기 주기 시작됨"
+  },
   "type": "boolean",
   "getable": false,
   "setable": true,

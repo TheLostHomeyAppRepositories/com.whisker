@@ -14,6 +14,34 @@
     "pl": "Tryb snu zaplanowany",
     "ko": "수면 모드 예약됨"
   },
+  "insightsTitleTrue": {
+    "en": "Sleep mode scheduled",
+    "nl": "Slaapmodus gepland",
+    "de": "Schlafmodus geplant",
+    "fr": "Mode veille programmé",
+    "it": "Modalità sonno programmata",
+    "sv": "Viloläge schemalagt",
+    "no": "Søvnmodus planlagt",
+    "es": "Modo sueño programado",
+    "da": "Søvnmodus planlagt",
+    "ru": "Режим сна запланирован",
+    "pl": "Tryb snu zaplanowany",
+    "ko": "수면 모드 예약됨"
+  },
+  "insightsTitleFalse": {
+    "en": "Sleep mode schedule cleared",
+    "nl": "Slaapmodusplanning gewist",
+    "de": "Schlafmodus-Zeitplan gelöscht",
+    "fr": "Programmation mode veille effacée",
+    "it": "Programmazione modalità sonno cancellata",
+    "sv": "Vilolägesschema rensat",
+    "no": "Søvnmodusplan fjernet",
+    "es": "Programación de modo sueño eliminada",
+    "da": "Søvnmodusplan ryddet",
+    "ru": "Расписание режима сна очищено",
+    "pl": "Harmonogram trybu snu wyczyszczony",
+    "ko": "수면 모드 예약 해제됨"
+  },
   "getable": true,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/alarm_sleep_mode_scheduled.svg"

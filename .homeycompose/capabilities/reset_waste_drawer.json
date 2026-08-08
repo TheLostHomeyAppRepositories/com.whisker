@@ -13,10 +13,23 @@
     "pl": "Zresetuj wskaźnik pojemnika na odpady",
     "ko": "폐기물 서랍 게이지 초기화"
   },
+  "insightsTitleTrue": {
+    "en": "Waste drawer gauge reset",
+    "nl": "Afvallade meter gereset",
+    "de": "Abfallschublade-Anzeige zurückgesetzt",
+    "fr": "Jauge du tiroir à déchets réinitialisée",
+    "it": "Indicatore vaschetta dei rifiuti reimpostato",
+    "sv": "Avfallsbehållarens mätare återställd",
+    "no": "Avfallsskuff-måler tilbakestilt",
+    "es": "Indicador de cajón de desechos restablecido",
+    "da": "Affaldsskuffe-måler nulstillet",
+    "ru": "Индикатор контейнера сброшен",
+    "pl": "Wskaźnik pojemnika na odpady zresetowany",
+    "ko": "폐기물 서랍 게이지 초기화됨"
+  },
   "type": "boolean",
   "getable": false,
   "setable": true,
   "uiComponent": "button",
   "icon": "/assets/capabilities/reset_waste_drawer.svg"
 }
-

@@ -13,9 +13,37 @@
     "pl": "LitterHopper włączony",
     "ko": "LitterHopper 활성화됨"
   },
+  "insightsTitleTrue": {
+    "en": "LitterHopper enabled",
+    "nl": "LitterHopper ingeschakeld",
+    "de": "LitterHopper aktiviert",
+    "fr": "LitterHopper activé",
+    "it": "LitterHopper abilitato",
+    "sv": "LitterHopper aktiverad",
+    "no": "LitterHopper aktivert",
+    "es": "LitterHopper habilitado",
+    "da": "LitterHopper aktiveret",
+    "ru": "LitterHopper включен",
+    "pl": "LitterHopper włączony",
+    "ko": "LitterHopper 활성화됨"
+  },
+  "insightsTitleFalse": {
+    "en": "LitterHopper disabled",
+    "nl": "LitterHopper uitgeschakeld",
+    "de": "LitterHopper deaktiviert",
+    "fr": "LitterHopper désactivé",
+    "it": "LitterHopper disabilitato",
+    "sv": "LitterHopper inaktiverad",
+    "no": "LitterHopper deaktivert",
+    "es": "LitterHopper deshabilitado",
+    "da": "LitterHopper deaktiveret",
+    "ru": "LitterHopper отключен",
+    "pl": "LitterHopper wyłączony",
+    "ko": "LitterHopper 비활성화됨"
+  },
   "type": "boolean",
   "getable": true,
   "setable": true,
   "uiComponent": "button",
   "icon": "/assets/capabilities/litter_hopper_enabled.svg"
-} 
+}

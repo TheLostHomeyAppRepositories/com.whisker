@@ -1,5 +1,3 @@
-
-
 {
   "type": "boolean",
   "title": {
@@ -15,6 +13,34 @@
     "ru": "Обнаружена проблема со здоровьем",
     "pl": "Wykryto problem zdrowotny",
     "ko": "건강 문제 감지"
+  },
+  "insightsTitleTrue": {
+    "en": "Health concern detected",
+    "nl": "Gezondheidsprobleem gedetecteerd",
+    "de": "Gesundheitsproblem erkannt",
+    "fr": "Problème de santé détecté",
+    "it": "Problema di salute rilevato",
+    "sv": "Hälsoproblem upptäckt",
+    "no": "Helseproblem oppdaget",
+    "es": "Problema de salud detectado",
+    "da": "Sundhedsproblem registreret",
+    "ru": "Обнаружена проблема со здоровьем",
+    "pl": "Wykryto problem zdrowotny",
+    "ko": "건강 문제 감지됨"
+  },
+  "insightsTitleFalse": {
+    "en": "Health concern cleared",
+    "nl": "Gezondheidsprobleem opgelost",
+    "de": "Gesundheitsproblem behoben",
+    "fr": "Problème de santé résolu",
+    "it": "Problema di salute risolto",
+    "sv": "Hälsoproblem åtgärdat",
+    "no": "Helseproblem løst",
+    "es": "Problema de salud resuelto",
+    "da": "Sundhedsproblem ryddet",
+    "ru": "Проблема со здоровьем устранена",
+    "pl": "Problem zdrowotny usunięty",
+    "ko": "건강 문제 해소됨"
   },
   "getable": true,
   "uiComponent": "sensor",

@@ -109,5 +109,8 @@
   },
   "3.0.3": {
     "en": "Fixed app crashes when updating device availability or settings"
+  },
+  "3.0.4": {
+    "en": "Added clearer Timeline titles for capability changes"
   }
 }

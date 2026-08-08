@@ -14,6 +14,34 @@
     "pl": "Tryb snu aktywny",
     "ko": "수면 모드 활성"
   },
+  "insightsTitleTrue": {
+    "en": "Sleep mode activated",
+    "nl": "Slaapmodus geactiveerd",
+    "de": "Schlafmodus aktiviert",
+    "fr": "Mode veille activé",
+    "it": "Modalità sonno attivata",
+    "sv": "Viloläge aktiverat",
+    "no": "Søvnmodus aktivert",
+    "es": "Modo sueño activado",
+    "da": "Søvnmodus aktiveret",
+    "ru": "Режим сна активирован",
+    "pl": "Tryb snu aktywowany",
+    "ko": "수면 모드 활성화됨"
+  },
+  "insightsTitleFalse": {
+    "en": "Sleep mode deactivated",
+    "nl": "Slaapmodus gedeactiveerd",
+    "de": "Schlafmodus deaktiviert",
+    "fr": "Mode veille désactivé",
+    "it": "Modalità sonno disattivata",
+    "sv": "Viloläge inaktiverat",
+    "no": "Søvnmodus deaktivert",
+    "es": "Modo sueño desactivado",
+    "da": "Søvnmodus deaktiveret",
+    "ru": "Режим сна деактивирован",
+    "pl": "Tryb snu dezaktywowany",
+    "ko": "수면 모드 비활성화됨"
+  },
   "getable": true,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/alarm_sleep_mode_active.svg"

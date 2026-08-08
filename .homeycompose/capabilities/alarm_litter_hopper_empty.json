@@ -14,8 +14,36 @@
     "pl": "LitterHopper pusty",
     "ko": "LitterHopper 비어 있음"
   },
+  "insightsTitleTrue": {
+    "en": "LitterHopper empty",
+    "nl": "LitterHopper leeg",
+    "de": "LitterHopper leer",
+    "fr": "LitterHopper vide",
+    "it": "LitterHopper vuoto",
+    "sv": "LitterHopper tom",
+    "no": "LitterHopper tom",
+    "es": "LitterHopper vacío",
+    "da": "LitterHopper tom",
+    "ru": "LitterHopper пуст",
+    "pl": "LitterHopper pusty",
+    "ko": "LitterHopper 비어 있음"
+  },
+  "insightsTitleFalse": {
+    "en": "LitterHopper refilled",
+    "nl": "LitterHopper bijgevuld",
+    "de": "LitterHopper nachgefüllt",
+    "fr": "LitterHopper rempli",
+    "it": "LitterHopper riempito",
+    "sv": "LitterHopper påfylld",
+    "no": "LitterHopper etterfylt",
+    "es": "LitterHopper rellenado",
+    "da": "LitterHopper genopfyldt",
+    "ru": "LitterHopper наполнен",
+    "pl": "LitterHopper uzupełniony",
+    "ko": "LitterHopper 보충됨"
+  },
   "getable": true,
   "setable": false,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/alarm_litter_hopper_empty.svg"
-} 
+}

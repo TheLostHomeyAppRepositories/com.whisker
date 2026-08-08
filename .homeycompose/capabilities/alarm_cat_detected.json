@@ -14,6 +14,34 @@
     "pl": "Kot wykryty",
     "ko": "고양이 감지됨"
   },
+  "insightsTitleTrue": {
+    "en": "Cat detected",
+    "nl": "Kat gedetecteerd",
+    "de": "Katze erkannt",
+    "fr": "Chat détecté",
+    "it": "Gatto rilevato",
+    "sv": "Katt upptäckt",
+    "no": "Katt oppdaget",
+    "es": "Gato detectado",
+    "da": "Kat registreret",
+    "ru": "Кошка обнаружена",
+    "pl": "Kot wykryty",
+    "ko": "고양이 감지됨"
+  },
+  "insightsTitleFalse": {
+    "en": "No cat detected",
+    "nl": "Geen kat gedetecteerd",
+    "de": "Keine Katze erkannt",
+    "fr": "Aucun chat détecté",
+    "it": "Nessun gatto rilevato",
+    "sv": "Ingen katt upptäckt",
+    "no": "Ingen katt oppdaget",
+    "es": "Ningún gato detectado",
+    "da": "Ingen kat registreret",
+    "ru": "Кошка не обнаружена",
+    "pl": "Nie wykryto kota",
+    "ko": "고양이 미감지"
+  },
   "getable": true,
   "uiComponent": "sensor",
   "icon": "/assets/capabilities/alarm_cat_detected.svg"

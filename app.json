@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.whisker",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -3037,6 +3037,36 @@
         "reset_waste_drawer"
       ],
       "capabilitiesOptions": {
+        "onoff": {
+          "insightsTitleTrue": {
+            "en": "Turned on",
+            "nl": "Aangezet",
+            "da": "Tændt",
+            "de": "Eingeschaltet",
+            "es": "Encendido",
+            "fr": "Activé",
+            "it": "Attivato",
+            "no": "Aktivert",
+            "sv": "Aktiverad",
+            "pl": "Włączone",
+            "ru": "Включено",
+            "ko": "전원 켜짐"
+          },
+          "insightsTitleFalse": {
+            "en": "Turned off",
+            "nl": "Uitgezet",
+            "da": "Slukket",
+            "de": "Ausgeschaltet",
+            "es": "Apagado",
+            "fr": "Désactivé",
+            "it": "Disattivato",
+            "no": "Deaktivert",
+            "sv": "Inaktiverad",
+            "pl": "Wyłączone",
+            "ru": "Выключено",
+            "ko": "전원 꺼짐"
+          }
+        },
         "alarm_problem": {
           "title": {
             "en": "Fault detected",
@@ -3051,6 +3081,34 @@
             "pl": "Wykryto błąd",
             "ru": "Обнаружена неисправность",
             "ko": "오류 감지됨"
+          },
+          "insightsTitleTrue": {
+            "en": "Fault detected",
+            "nl": "Fout gedetecteerd",
+            "da": "Fejl opdaget",
+            "de": "Fehler erkannt",
+            "es": "Fallo detectado",
+            "fr": "Défaut détecté",
+            "it": "Guasto rilevato",
+            "no": "Feil oppdaget",
+            "sv": "Fel upptäckt",
+            "pl": "Wykryto błąd",
+            "ru": "Обнаружена неисправность",
+            "ko": "오류 감지됨"
+          },
+          "insightsTitleFalse": {
+            "en": "Fault cleared",
+            "nl": "Fout opgelost",
+            "da": "Fejl ryddet",
+            "de": "Fehler behoben",
+            "es": "Fallo resuelto",
+            "fr": "Défaut résolu",
+            "it": "Guasto risolto",
+            "no": "Feil løst",
+            "sv": "Fel åtgärdat",
+            "pl": "Błąd usunięty",
+            "ru": "Неисправность устранена",
+            "ko": "오류 해소됨"
           }
         },
         "alarm_connectivity": {
@@ -3067,6 +3125,34 @@
             "pl": "Problem z połączeniem",
             "ru": "Проблема с подключением",
             "ko": "연결 문제"
+          },
+          "insightsTitleTrue": {
+            "en": "Connection lost",
+            "nl": "Verbinding verbroken",
+            "da": "Forbindelse mistet",
+            "de": "Verbindung verloren",
+            "es": "Conexión perdida",
+            "fr": "Connexion perdue",
+            "it": "Connessione persa",
+            "no": "Tilkobling mistet",
+            "sv": "Anslutning förlorad",
+            "pl": "Utracono połączenie",
+            "ru": "Соединение потеряно",
+            "ko": "연결 끊김"
+          },
+          "insightsTitleFalse": {
+            "en": "Connection restored",
+            "nl": "Verbinding hersteld",
+            "da": "Forbindelse genoprettet",
+            "de": "Verbindung wiederhergestellt",
+            "es": "Conexión restaurada",
+            "fr": "Connexion rétablie",
+            "it": "Connessione ripristinata",
+            "no": "Tilkobling gjenopprettet",
+            "sv": "Anslutning återställd",
+            "pl": "Połączenie przywrócone",
+            "ru": "Соединение восстановлено",
+            "ko": "연결 복구됨"
           }
         }
       },
@@ -3490,6 +3576,36 @@
         "last_seen"
       ],
       "capabilitiesOptions": {
+        "onoff": {
+          "insightsTitleTrue": {
+            "en": "Turned on",
+            "nl": "Aangezet",
+            "da": "Tændt",
+            "de": "Eingeschaltet",
+            "es": "Encendido",
+            "fr": "Activé",
+            "it": "Attivato",
+            "no": "Aktivert",
+            "sv": "Aktiverad",
+            "pl": "Włączone",
+            "ru": "Включено",
+            "ko": "전원 켜짐"
+          },
+          "insightsTitleFalse": {
+            "en": "Turned off",
+            "nl": "Uitgezet",
+            "da": "Slukket",
+            "de": "Ausgeschaltet",
+            "es": "Apagado",
+            "fr": "Désactivé",
+            "it": "Disattivato",
+            "no": "Deaktivert",
+            "sv": "Inaktiverad",
+            "pl": "Wyłączone",
+            "ru": "Выключено",
+            "ko": "전원 꺼짐"
+          }
+        },
         "alarm_problem": {
           "title": {
             "en": "Fault detected",
@@ -3504,6 +3620,34 @@
             "pl": "Wykryto błąd",
             "ru": "Обнаружена неисправность",
             "ko": "오류 감지됨"
+          },
+          "insightsTitleTrue": {
+            "en": "Fault detected",
+            "nl": "Fout gedetecteerd",
+            "da": "Fejl opdaget",
+            "de": "Fehler erkannt",
+            "es": "Fallo detectado",
+            "fr": "Défaut détecté",
+            "it": "Guasto rilevato",
+            "no": "Feil oppdaget",
+            "sv": "Fel upptäckt",
+            "pl": "Wykryto błąd",
+            "ru": "Обнаружена неисправность",
+            "ko": "오류 감지됨"
+          },
+          "insightsTitleFalse": {
+            "en": "Fault cleared",
+            "nl": "Fout opgelost",
+            "da": "Fejl ryddet",
+            "de": "Fehler behoben",
+            "es": "Fallo resuelto",
+            "fr": "Défaut résolu",
+            "it": "Guasto risolto",
+            "no": "Feil løst",
+            "sv": "Fel åtgärdat",
+            "pl": "Błąd usunięty",
+            "ru": "Неисправность устранена",
+            "ko": "오류 해소됨"
           }
         },
         "alarm_connectivity": {
@@ -3520,6 +3664,34 @@
             "pl": "Problem z połączeniem",
             "ru": "Проблема с подключением",
             "ko": "연결 문제"
+          },
+          "insightsTitleTrue": {
+            "en": "Connection lost",
+            "nl": "Verbinding verbroken",
+            "da": "Forbindelse mistet",
+            "de": "Verbindung verloren",
+            "es": "Conexión perdida",
+            "fr": "Connexion perdue",
+            "it": "Connessione persa",
+            "no": "Tilkobling mistet",
+            "sv": "Anslutning förlorad",
+            "pl": "Utracono połączenie",
+            "ru": "Соединение потеряно",
+            "ko": "연결 끊김"
+          },
+          "insightsTitleFalse": {
+            "en": "Connection restored",
+            "nl": "Verbinding hersteld",
+            "da": "Forbindelse genoprettet",
+            "de": "Verbindung wiederhergestellt",
+            "es": "Conexión restaurada",
+            "fr": "Connexion rétablie",
+            "it": "Connessione ripristinata",
+            "no": "Tilkobling gjenopprettet",
+            "sv": "Anslutning återställd",
+            "pl": "Połączenie przywrócone",
+            "ru": "Соединение восстановлено",
+            "ko": "연결 복구됨"
           }
         },
         "measure_weight": {
@@ -4288,6 +4460,34 @@
         "pl": "Kot wykryty",
         "ko": "고양이 감지됨"
       },
+      "insightsTitleTrue": {
+        "en": "Cat detected",
+        "nl": "Kat gedetecteerd",
+        "de": "Katze erkannt",
+        "fr": "Chat détecté",
+        "it": "Gatto rilevato",
+        "sv": "Katt upptäckt",
+        "no": "Katt oppdaget",
+        "es": "Gato detectado",
+        "da": "Kat registreret",
+        "ru": "Кошка обнаружена",
+        "pl": "Kot wykryty",
+        "ko": "고양이 감지됨"
+      },
+      "insightsTitleFalse": {
+        "en": "No cat detected",
+        "nl": "Geen kat gedetecteerd",
+        "de": "Keine Katze erkannt",
+        "fr": "Aucun chat détecté",
+        "it": "Nessun gatto rilevato",
+        "sv": "Ingen katt upptäckt",
+        "no": "Ingen katt oppdaget",
+        "es": "Ningún gato detectado",
+        "da": "Ingen kat registreret",
+        "ru": "Кошка не обнаружена",
+        "pl": "Nie wykryto kota",
+        "ko": "고양이 미감지"
+      },
       "getable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/alarm_cat_detected.svg"
@@ -4308,6 +4508,34 @@
         "pl": "Wykryto problem zdrowotny",
         "ko": "건강 문제 감지"
       },
+      "insightsTitleTrue": {
+        "en": "Health concern detected",
+        "nl": "Gezondheidsprobleem gedetecteerd",
+        "de": "Gesundheitsproblem erkannt",
+        "fr": "Problème de santé détecté",
+        "it": "Problema di salute rilevato",
+        "sv": "Hälsoproblem upptäckt",
+        "no": "Helseproblem oppdaget",
+        "es": "Problema de salud detectado",
+        "da": "Sundhedsproblem registreret",
+        "ru": "Обнаружена проблема со здоровьем",
+        "pl": "Wykryto problem zdrowotny",
+        "ko": "건강 문제 감지됨"
+      },
+      "insightsTitleFalse": {
+        "en": "Health concern cleared",
+        "nl": "Gezondheidsprobleem opgelost",
+        "de": "Gesundheitsproblem behoben",
+        "fr": "Problème de santé résolu",
+        "it": "Problema di salute risolto",
+        "sv": "Hälsoproblem åtgärdat",
+        "no": "Helseproblem løst",
+        "es": "Problema de salud resuelto",
+        "da": "Sundhedsproblem ryddet",
+        "ru": "Проблема со здоровьем устранена",
+        "pl": "Problem zdrowotny usunięty",
+        "ko": "건강 문제 해소됨"
+      },
       "getable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/alarm_health_concern.svg"
@@ -4327,6 +4555,34 @@
         "ru": "LitterHopper пуст",
         "pl": "LitterHopper pusty",
         "ko": "LitterHopper 비어 있음"
+      },
+      "insightsTitleTrue": {
+        "en": "LitterHopper empty",
+        "nl": "LitterHopper leeg",
+        "de": "LitterHopper leer",
+        "fr": "LitterHopper vide",
+        "it": "LitterHopper vuoto",
+        "sv": "LitterHopper tom",
+        "no": "LitterHopper tom",
+        "es": "LitterHopper vacío",
+        "da": "LitterHopper tom",
+        "ru": "LitterHopper пуст",
+        "pl": "LitterHopper pusty",
+        "ko": "LitterHopper 비어 있음"
+      },
+      "insightsTitleFalse": {
+        "en": "LitterHopper refilled",
+        "nl": "LitterHopper bijgevuld",
+        "de": "LitterHopper nachgefüllt",
+        "fr": "LitterHopper rempli",
+        "it": "LitterHopper riempito",
+        "sv": "LitterHopper påfylld",
+        "no": "LitterHopper etterfylt",
+        "es": "LitterHopper rellenado",
+        "da": "LitterHopper genopfyldt",
+        "ru": "LitterHopper наполнен",
+        "pl": "LitterHopper uzupełniony",
+        "ko": "LitterHopper 보충됨"
       },
       "getable": true,
       "setable": false,
@@ -4349,6 +4605,34 @@
         "pl": "Tryb snu aktywny",
         "ko": "수면 모드 활성"
       },
+      "insightsTitleTrue": {
+        "en": "Sleep mode activated",
+        "nl": "Slaapmodus geactiveerd",
+        "de": "Schlafmodus aktiviert",
+        "fr": "Mode veille activé",
+        "it": "Modalità sonno attivata",
+        "sv": "Viloläge aktiverat",
+        "no": "Søvnmodus aktivert",
+        "es": "Modo sueño activado",
+        "da": "Søvnmodus aktiveret",
+        "ru": "Режим сна активирован",
+        "pl": "Tryb snu aktywowany",
+        "ko": "수면 모드 활성화됨"
+      },
+      "insightsTitleFalse": {
+        "en": "Sleep mode deactivated",
+        "nl": "Slaapmodus gedeactiveerd",
+        "de": "Schlafmodus deaktiviert",
+        "fr": "Mode veille désactivé",
+        "it": "Modalità sonno disattivata",
+        "sv": "Viloläge inaktiverat",
+        "no": "Søvnmodus deaktivert",
+        "es": "Modo sueño desactivado",
+        "da": "Søvnmodus deaktiveret",
+        "ru": "Режим сна деактивирован",
+        "pl": "Tryb snu dezaktywowany",
+        "ko": "수면 모드 비활성화됨"
+      },
       "getable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/alarm_sleep_mode_active.svg"
@@ -4369,6 +4653,34 @@
         "pl": "Tryb snu zaplanowany",
         "ko": "수면 모드 예약됨"
       },
+      "insightsTitleTrue": {
+        "en": "Sleep mode scheduled",
+        "nl": "Slaapmodus gepland",
+        "de": "Schlafmodus geplant",
+        "fr": "Mode veille programmé",
+        "it": "Modalità sonno programmata",
+        "sv": "Viloläge schemalagt",
+        "no": "Søvnmodus planlagt",
+        "es": "Modo sueño programado",
+        "da": "Søvnmodus planlagt",
+        "ru": "Режим сна запланирован",
+        "pl": "Tryb snu zaplanowany",
+        "ko": "수면 모드 예약됨"
+      },
+      "insightsTitleFalse": {
+        "en": "Sleep mode schedule cleared",
+        "nl": "Slaapmodusplanning gewist",
+        "de": "Schlafmodus-Zeitplan gelöscht",
+        "fr": "Programmation mode veille effacée",
+        "it": "Programmazione modalità sonno cancellata",
+        "sv": "Vilolägesschema rensat",
+        "no": "Søvnmodusplan fjernet",
+        "es": "Programación de modo sueño eliminada",
+        "da": "Søvnmodusplan ryddet",
+        "ru": "Расписание режима сна очищено",
+        "pl": "Harmonogram trybu snu wyczyszczony",
+        "ko": "수면 모드 예약 해제됨"
+      },
       "getable": true,
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/alarm_sleep_mode_scheduled.svg"
@@ -4388,6 +4700,34 @@
         "ru": "Контейнер для отходов полный",
         "pl": "Szuflada na odpady pełny",
         "ko": "폐기물 서랍 가득참"
+      },
+      "insightsTitleTrue": {
+        "en": "Waste drawer full",
+        "nl": "Afvallade vol",
+        "de": "Abfallschublade voll",
+        "fr": "Tiroir à déchets plein",
+        "it": "Vaschetta dei rifiuti piena",
+        "sv": "Avfallslåda full",
+        "no": "Avfallsskuffe full",
+        "es": "Cajón de residuos lleno",
+        "da": "Affaldsskuffe fuld",
+        "ru": "Контейнер для отходов полный",
+        "pl": "Szuflada na odpady pełna",
+        "ko": "폐기물 서랍 가득참"
+      },
+      "insightsTitleFalse": {
+        "en": "Waste drawer emptied",
+        "nl": "Afvallade geleegd",
+        "de": "Abfallschublade geleert",
+        "fr": "Tiroir à déchets vidé",
+        "it": "Vaschetta dei rifiuti svuotata",
+        "sv": "Avfallslåda tömd",
+        "no": "Avfallsskuffe tømt",
+        "es": "Cajón de residuos vaciado",
+        "da": "Affaldsskuffe tømt",
+        "ru": "Контейнер для отходов опустошён",
+        "pl": "Szuflada na odpady opróżniona",
+        "ko": "폐기물 서랍 비움"
       },
       "getable": true,
       "uiComponent": "sensor",
@@ -5019,6 +5359,34 @@
         "pl": "Blokada klawiatury",
         "ko": "키패드 잠금"
       },
+      "insightsTitleTrue": {
+        "en": "Keypad locked",
+        "nl": "Bedieningspaneel vergrendeld",
+        "de": "Bedienfeld verriegelt",
+        "fr": "Panneau de contrôle verrouillé",
+        "it": "Pannello di controllo bloccato",
+        "sv": "Knappsats låst",
+        "no": "Kontrollpanel låst",
+        "es": "Panel de control bloqueado",
+        "da": "Kontrolpanel låst",
+        "ru": "Клавиатура заблокирована",
+        "pl": "Klawiatura zablokowana",
+        "ko": "키패드 잠김"
+      },
+      "insightsTitleFalse": {
+        "en": "Keypad unlocked",
+        "nl": "Bedieningspaneel ontgrendeld",
+        "de": "Bedienfeld entriegelt",
+        "fr": "Panneau de contrôle déverrouillé",
+        "it": "Pannello di controllo sbloccato",
+        "sv": "Knappsats olåst",
+        "no": "Kontrollpanel ulåst",
+        "es": "Panel de control desbloqueado",
+        "da": "Kontrolpanel ulåst",
+        "ru": "Клавиатура разблокирована",
+        "pl": "Klawiatura odblokowana",
+        "ko": "키패드 잠금 해제"
+      },
       "type": "boolean",
       "getable": true,
       "setable": true,
@@ -5379,6 +5747,34 @@
         "ru": "LitterHopper включен",
         "pl": "LitterHopper włączony",
         "ko": "LitterHopper 활성화됨"
+      },
+      "insightsTitleTrue": {
+        "en": "LitterHopper enabled",
+        "nl": "LitterHopper ingeschakeld",
+        "de": "LitterHopper aktiviert",
+        "fr": "LitterHopper activé",
+        "it": "LitterHopper abilitato",
+        "sv": "LitterHopper aktiverad",
+        "no": "LitterHopper aktivert",
+        "es": "LitterHopper habilitado",
+        "da": "LitterHopper aktiveret",
+        "ru": "LitterHopper включен",
+        "pl": "LitterHopper włączony",
+        "ko": "LitterHopper 활성화됨"
+      },
+      "insightsTitleFalse": {
+        "en": "LitterHopper disabled",
+        "nl": "LitterHopper uitgeschakeld",
+        "de": "LitterHopper deaktiviert",
+        "fr": "LitterHopper désactivé",
+        "it": "LitterHopper disabilitato",
+        "sv": "LitterHopper inaktiverad",
+        "no": "LitterHopper deaktivert",
+        "es": "LitterHopper deshabilitado",
+        "da": "LitterHopper deaktiveret",
+        "ru": "LitterHopper отключен",
+        "pl": "LitterHopper wyłączony",
+        "ko": "LitterHopper 비활성화됨"
       },
       "type": "boolean",
       "getable": true,
@@ -6398,6 +6794,34 @@
         "pl": "Światło nocne",
         "ko": "야간 조명"
       },
+      "insightsTitleTrue": {
+        "en": "Globe light turned on",
+        "nl": "Nachtlamp aangezet",
+        "de": "Nachtlicht eingeschaltet",
+        "fr": "Veilleuse activée",
+        "it": "Luci notturne attivate",
+        "sv": "Nattljus aktiverat",
+        "no": "Nattlys aktivert",
+        "es": "Luz nocturna encendida",
+        "da": "Nattebelysning tændt",
+        "ru": "Ночной свет включен",
+        "pl": "Światło nocne włączone",
+        "ko": "야간 조명 켜짐"
+      },
+      "insightsTitleFalse": {
+        "en": "Globe light turned off",
+        "nl": "Nachtlamp uitgezet",
+        "de": "Nachtlicht ausgeschaltet",
+        "fr": "Veilleuse désactivée",
+        "it": "Luci notturne disattivate",
+        "sv": "Nattljus inaktiverat",
+        "no": "Nattlys deaktivert",
+        "es": "Luz nocturna apagada",
+        "da": "Nattebelysning slukket",
+        "ru": "Ночной свет выключен",
+        "pl": "Światło nocne wyłączone",
+        "ko": "야간 조명 꺼짐"
+      },
       "type": "boolean",
       "getable": true,
       "setable": true,
@@ -6565,6 +6989,20 @@
         "pl": "Zresetuj wskaźnik pojemnika na odpady",
         "ko": "폐기물 서랍 게이지 초기화"
       },
+      "insightsTitleTrue": {
+        "en": "Waste drawer gauge reset",
+        "nl": "Afvallade meter gereset",
+        "de": "Abfallschublade-Anzeige zurückgesetzt",
+        "fr": "Jauge du tiroir à déchets réinitialisée",
+        "it": "Indicatore vaschetta dei rifiuti reimpostato",
+        "sv": "Avfallsbehållarens mätare återställd",
+        "no": "Avfallsskuff-måler tilbakestilt",
+        "es": "Indicador de cajón de desechos restablecido",
+        "da": "Affaldsskuffe-måler nulstillet",
+        "ru": "Индикатор контейнера сброшен",
+        "pl": "Wskaźnik pojemnika na odpady zresetowany",
+        "ko": "폐기물 서랍 게이지 초기화됨"
+      },
       "type": "boolean",
       "getable": false,
       "setable": true,
@@ -6586,6 +7024,20 @@
         "pl": "Krótkie naciśnięcie reset",
         "ko": "짧은 재설정 누름"
       },
+      "insightsTitleTrue": {
+        "en": "Robot was reset",
+        "nl": "Robot is gereset",
+        "de": "Robot wurde zurückgesetzt",
+        "fr": "Robot a été réinitialisé",
+        "it": "Robot è stato ripristinato",
+        "sv": "Robot återställdes",
+        "no": "Robot ble tilbakestilt",
+        "es": "Robot se ha reiniciado",
+        "da": "Robot blev nulstillet",
+        "ru": "Робот был сброшен",
+        "pl": "Robot został zresetowany",
+        "ko": "로봇이 재설정됨"
+      },
       "type": "boolean",
       "getable": false,
       "setable": true,
@@ -6606,6 +7058,34 @@
         "ru": "Режим сна",
         "pl": "Tryb uśpienia",
         "ko": "절전 모드"
+      },
+      "insightsTitleTrue": {
+        "en": "Sleep mode enabled",
+        "nl": "Slaapmodus ingeschakeld",
+        "de": "Schlafmodus aktiviert",
+        "fr": "Mode veille activé",
+        "it": "Modalità sleep abilitata",
+        "sv": "Viloläge aktiverat",
+        "no": "Søvnmodus aktivert",
+        "es": "Modo suspensión habilitado",
+        "da": "Søvnmodus aktiveret",
+        "ru": "Режим сна включен",
+        "pl": "Tryb uśpienia włączony",
+        "ko": "절전 모드 활성화됨"
+      },
+      "insightsTitleFalse": {
+        "en": "Sleep mode disabled",
+        "nl": "Slaapmodus uitgeschakeld",
+        "de": "Schlafmodus deaktiviert",
+        "fr": "Mode veille désactivé",
+        "it": "Modalità sleep disabilitata",
+        "sv": "Viloläge inaktiverat",
+        "no": "Søvnmodus deaktivert",
+        "es": "Modo suspensión deshabilitado",
+        "da": "Søvnmodus deaktiveret",
+        "ru": "Режим сна отключен",
+        "pl": "Tryb uśpienia wyłączony",
+        "ko": "절전 모드 비활성화됨"
       },
       "type": "boolean",
       "getable": true,
@@ -6670,6 +7150,20 @@
         "pl": "Uruchom cykl czyszczenia",
         "ko": "청소 주기 시작"
       },
+      "insightsTitleTrue": {
+        "en": "Clean cycle started",
+        "nl": "Reinigingscyclus gestart",
+        "de": "Reinigungszyklus gestartet",
+        "fr": "Cycle de nettoyage démarré",
+        "it": "Ciclo di pulizia avviato",
+        "sv": "Rengöringscykel startad",
+        "no": "Rengjøringscyklus startet",
+        "es": "Ciclo de limpieza iniciado",
+        "da": "Rengøringscyklus startet",
+        "ru": "Цикл очистки запущен",
+        "pl": "Cykl czyszczenia uruchomiony",
+        "ko": "청소 주기 시작됨"
+      },
       "type": "boolean",
       "getable": false,
       "setable": true,
@@ -6690,6 +7184,20 @@
         "ru": "Запустить цикл опорожнения",
         "pl": "Uruchom cykl opróżniania",
         "ko": "비우기 주기 시작"
+      },
+      "insightsTitleTrue": {
+        "en": "Empty cycle started",
+        "nl": "Leegmaakcyclus gestart",
+        "de": "Entleerungszyklus gestartet",
+        "fr": "Cycle de vidage démarré",
+        "it": "Ciclo di svuotamento avviato",
+        "sv": "Tömningscykel startad",
+        "no": "Tømmecyklus startet",
+        "es": "Ciclo de vaciado iniciado",
+        "da": "Tømmecyklus startet",
+        "ru": "Цикл опорожнения запущен",
+        "pl": "Cykl opróżniania uruchomiony",
+        "ko": "비우기 주기 시작됨"
       },
       "type": "boolean",
       "getable": false,
