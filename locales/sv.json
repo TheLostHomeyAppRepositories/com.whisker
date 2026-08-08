@@ -8,7 +8,8 @@
     "invalid_panel_brightness": "Ogiltigt värde för kontrollpanelens ljusstyrka",
     "invalid_night_light_brightness": "Ogiltigt värde för nattljusets ljusstyrka",
     "invalid_night_light_mode": "Ogiltigt nattljusläge",
-    "robot_not_found": "Robot med serienummer __serial__ hittades inte"
+    "robot_not_found": "Robot med serienummer __serial__ hittades inte",
+    "network_unreachable": "Kan inte nå Whisker-molnet. Kontrollera nätverket eller DNS-inställningarna."
   },
   "pairing": {
     "credentials_required": "Användarnamn och lösenord krävs för parkoppling",

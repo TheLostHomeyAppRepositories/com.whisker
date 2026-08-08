@@ -8,7 +8,8 @@
     "invalid_panel_brightness": "Valore luminosità pannello di controllo non valido",
     "invalid_night_light_brightness": "Valore luminosità luce notturna non valido",
     "invalid_night_light_mode": "Modalità luce notturna non valida",
-    "robot_not_found": "Robot con numero di serie __serial__ non trovato"
+    "robot_not_found": "Robot con numero di serie __serial__ non trovato",
+    "network_unreachable": "Impossibile raggiungere il cloud Whisker. Controlla la rete o le impostazioni DNS."
   },
   "pairing": {
     "credentials_required": "Nome utente e password sono obbligatori per l'associazione",

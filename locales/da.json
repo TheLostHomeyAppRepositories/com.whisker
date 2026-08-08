@@ -8,7 +8,8 @@
     "invalid_panel_brightness": "Ugyldig værdi for panellysstyrke",
     "invalid_night_light_brightness": "Ugyldig værdi for natlysets lysstyrke",
     "invalid_night_light_mode": "Ugyldig natlystilstand",
-    "robot_not_found": "Robot med serienummer __serial__ ikke fundet"
+    "robot_not_found": "Robot med serienummer __serial__ ikke fundet",
+    "network_unreachable": "Kan ikke nå Whisker-skyen. Tjek dit netværk eller DNS-indstillinger."
   },
   "pairing": {
     "credentials_required": "Brugernavn og adgangskode kræves til parring",

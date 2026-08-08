@@ -103,5 +103,8 @@
   },
   "3.0.1": {
     "en": "Fixed a bug which prevented some Flow cards from triggering"
+  },
+  "3.0.2": {
+    "en": "Mark devices as unavailable when the Whisker cloud cannot be reached"
   }
 }

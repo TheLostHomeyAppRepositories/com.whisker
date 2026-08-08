@@ -8,7 +8,8 @@
     "invalid_panel_brightness": "Nieprawidłowa wartość jasności panelu",
     "invalid_night_light_brightness": "Nieprawidłowa wartość jasności światła nocnego",
     "invalid_night_light_mode": "Nieprawidłowy tryb światła nocnego",
-    "robot_not_found": "Nie znaleziono robota o numerze seryjnym __serial__"
+    "robot_not_found": "Nie znaleziono robota o numerze seryjnym __serial__",
+    "network_unreachable": "Nie można połączyć się z chmurą Whisker. Sprawdź ustawienia sieci lub DNS."
   },
   "pairing": {
     "credentials_required": "Nazwa użytkownika i hasło są wymagane do parowania",

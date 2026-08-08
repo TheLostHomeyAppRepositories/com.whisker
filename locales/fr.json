@@ -8,7 +8,8 @@
     "invalid_panel_brightness": "Valeur de luminosité du panneau de contrôle invalide",
     "invalid_night_light_brightness": "Valeur de luminosité de la veilleuse invalide",
     "invalid_night_light_mode": "Mode de veilleuse invalide",
-    "robot_not_found": "Robot avec le numéro de série __serial__ introuvable"
+    "robot_not_found": "Robot avec le numéro de série __serial__ introuvable",
+    "network_unreachable": "Impossible d'atteindre le cloud Whisker. Vérifiez votre réseau ou vos paramètres DNS."
   },
   "pairing": {
     "credentials_required": "Le nom d'utilisateur et le mot de passe sont requis pour l'appairage",

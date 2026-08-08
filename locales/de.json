@@ -8,7 +8,8 @@
     "invalid_panel_brightness": "Ungültiger Wert für Bedienfeldhelligkeit",
     "invalid_night_light_brightness": "Ungültiger Wert für Nachtlichthelligkeit",
     "invalid_night_light_mode": "Ungültiger Nachtlichtmodus",
-    "robot_not_found": "Roboter mit Seriennummer __serial__ nicht gefunden"
+    "robot_not_found": "Roboter mit Seriennummer __serial__ nicht gefunden",
+    "network_unreachable": "Whisker-Cloud nicht erreichbar. Überprüfe dein Netzwerk oder deine DNS-Einstellungen."
   },
   "pairing": {
     "credentials_required": "Benutzername und Passwort sind für die Kopplung erforderlich",

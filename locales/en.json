@@ -8,7 +8,8 @@
     "invalid_panel_brightness": "Invalid panel brightness value",
     "invalid_night_light_brightness": "Invalid night light brightness value",
     "invalid_night_light_mode": "Invalid night light mode value",
-    "robot_not_found": "Robot with serial __serial__ not found"
+    "robot_not_found": "Robot with serial __serial__ not found",
+    "network_unreachable": "Cannot reach Whisker cloud. Check your network or DNS settings."
   },
   "pairing": {
     "credentials_required": "Username and password are required for pairing",

@@ -8,7 +8,8 @@
     "invalid_panel_brightness": "Ongeldige helderheid van het bedieningspaneel",
     "invalid_night_light_brightness": "Ongeldige helderheid van het nachtlampje",
     "invalid_night_light_mode": "Ongeldige modus van het nachtlampje",
-    "robot_not_found": "Robot met serienummer __serial__ niet gevonden"
+    "robot_not_found": "Robot met serienummer __serial__ niet gevonden",
+    "network_unreachable": "Kan de Whisker Cloud niet bereiken. Controleer je netwerk of DNS-instellingen."
   },
   "pairing": {
     "credentials_required": "Gebruikersnaam en wachtwoord zijn verplicht voor koppelen",

@@ -8,7 +8,8 @@
     "invalid_panel_brightness": "Неверное значение яркости панели",
     "invalid_night_light_brightness": "Неверное значение яркости ночного света",
     "invalid_night_light_mode": "Неверный режим ночного света",
-    "robot_not_found": "Робот с серийным номером __serial__ не найден"
+    "robot_not_found": "Робот с серийным номером __serial__ не найден",
+    "network_unreachable": "Не удаётся подключиться к облаку Whisker. Проверьте сеть или настройки DNS."
   },
   "pairing": {
     "credentials_required": "Для сопряжения требуются имя пользователя и пароль",

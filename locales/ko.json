@@ -8,7 +8,8 @@
     "invalid_panel_brightness": "잘못된 패널 밝기 값",
     "invalid_night_light_brightness": "잘못된 야간등 밝기 값",
     "invalid_night_light_mode": "잘못된 야간등 모드 값",
-    "robot_not_found": "일련번호 __serial__인 로봇을 찾을 수 없습니다"
+    "robot_not_found": "일련번호 __serial__인 로봇을 찾을 수 없습니다",
+    "network_unreachable": "Whisker 클라우드에 연결할 수 없습니다. 네트워크 또는 DNS 설정을 확인하세요."
   },
   "pairing": {
     "credentials_required": "페어링에는 사용자 이름과 비밀번호가 필요합니다",
